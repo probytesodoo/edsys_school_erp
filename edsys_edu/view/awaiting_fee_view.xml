@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--================== aWaiting Fee Kanban View ========================= -->
+        <record model="ir.ui.view" id="awaiting_fee_kanban_view">
+            <field name="name">waiting.fee.kanban.view</field>
+            <field name="model">registration</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name" />
+                    <field name="middle_name" />
+                    <field name="last_name" />
+                    <field name="course_id" />
+                    <field name="batch_id" />
+                    <field name="email" />
+                    <field name="image" />
+<!--                    <field name="registration_id"/>-->
+                    <!--<field name="application_number"/>-->
+                    <field name="gender"/>
+                    <!--<field name="has_image"/>-->
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click  o_kanban_two_column_tags">
+                                <a type="open">
+                                         <img t-att-src="kanban_image('registration', 'image', record.id.value)" class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                </a>
+                                <div class="oe_kanban_details">
+                                    <h4 class="oe_partner_heading"><a type="open"><field name="name"/>&amp;nbsp;<field name="middle_name" />&amp;nbsp;<field name="last_name" /></a></h4>
+                                    <ul>
+<!--                                        <li t-if="record.registration_id.raw_value"><field name="registration_id"/></li>-->
+                                        <li t-if="record.course_id.raw_value"><field name="course_id"/></li>
+                                        <li t-if="record.batch_id.raw_value"><field name="batch_id"/></li>
+                                        <li t-if="record.gender.raw_value"><field name="gender"/></li>
+                                        <li t-if="record.email.raw_value"><a t-attf-href="mailto:#{record.email.raw_value}"><field name="email"/></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- ===================== Waiting Fee search view ========================= -->
+    	<record id="view_waiting_fee_search" model="ir.ui.view">
+            <field name="name">waiting_fee.serch.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Registration">
+                    <field name="name" />
+                    <field name="middle_name" />
+                    <field name="last_name" />
+                    <field name="enquiry_no"/>
+                    <!--<field name="application_number" />-->
+                    <field name="admission_date" />
+                    <field name="application_date" />
+                    <field name="birth_date" />
+                    <field name="course_id" />
+                    <field name="batch_id" />
+                    <field name="batch_shift"/>
+		    <field name="first_acd_year_of_child" />
+                    <!--<field name="standard_id" />-->
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Last Name" domain="[]"
+                                context="{'group_by':'last_name'}" />
+                        <!--<filter string="Application Number" domain="[]"-->
+                                <!--context="{'group_by':'application_number'}" />-->
+                        <filter string="Admission Date" domain="[]"
+                                context="{'group_by':'admission_date'}" />
+                        <filter string="Application Date" domain="[]"
+                                context="{'group_by':'application_date'}" />
+                        <filter string="Class" domain="[]" context="{'group_by':'course_id'}" />
+                        <filter string="Academic Year" domain="[]" context="{'group_by':'batch_id'}" />
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}" />
+                        <filter string="Fee Status" domain="[]" context="{'group_by':'fee_status'}" />
+                        <filter string="Batch Shift" domain="[]" context="{'group_by':'batch_shift'}"/>
+			<filter string="First Academic Year Of Child" domain="[]" context="{'group_by':'first_acd_year_of_child'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ================== Waiting Fee tree view ========================== -->
+        <record id="view_waiting_fee_tree_view" model="ir.ui.view">
+            <field name="name">waiting.fee.tree.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Admission" colors="red:fee_status == 'academy_fee_unpaid';
+                    blue:fee_status == 'academy_fee_pay';#FFA500:fee_status == 'academy_fee_partial_pay'">
+                    <field name="enquiry_no"/>
+                    <field name="name"/>
+                    <field name="middle_name"/>
+                    <field name="last_name" />
+                    <field name="batch_id" />
+                    <field name="state"/>
+                    <field name="fee_structure_confirm"/>
+                    <field name="confirm_fee_date"/>
+                    <field name="fee_status"/>
+                    <field name="batch_shift" readonly="1"/>
+                </tree>
+            </field>
+	</record>
+
+        <!--=============== Waiting Fee form view==================-->
+        <record id="view_waiting_fee_form_view" model="ir.ui.view">
+            <field name="name">waiting.fee.form.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Registration">
+                    <header>
+                        <!--<button name='waitting_fee_to_waitting_list' string="Waiting List" attrs="{'invisible':['|',('state','=','ministry_approval'),'|',('state','=','waiting_list'),('state','=','rejected')]}" type="object" state="awaiting_fee" class="oe_highlight" />-->
+                        <button name="mannual_fee_wizard" state="awaiting_fee" string="Pay Manually" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('fee_status','=','academy_fee_pay'),'|',('state','=','rejected')]}"
+                                   groups="edsys_edu.group_fee_payment_manual" />
+                        <button name="online_academic_fee_payment" state="awaiting_fee" string="Online Payment" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('fee_status','=','academy_fee_pay'),'|',('state','=','rejected')]}"
+                                groups="edsys_edu.group_fee_payment_manual" invisible="1"/>
+                        <button name="send_payfort_acd_pay_link" context="{'flag':True}" state="awaiting_fee" string="Send PayFort Payment Link"
+                                attrs="{'invisible': ['|',('fee_status','=','academy_fee_pay'),'|',('state','=','rejected')]}"
+                                type="object" class="oe_highlight"
+                                groups="edsys_edu.group_registration_manager,edsys_edu_fee.group_fees_management_manager"/>
+                        <button name='confirm_payment' string="Confirm" type="object" state="awaiting_fee"
+                                attrs="{'invisible': ['|',('fee_status','in',['academy_fee_unpaid','academy_fee_partial_pay']),'|',('state','in',['done','rejected'])]}"
+                                class="oe_highlight" groups="edsys_edu.group_registration_manager"/>
+                        <button name="%(edsys_edu.action_reject_reason_wiz_view)d" String="Reject"  type="action"
+                                attrs="{'invisible': ['|',('state','=','rejected')]}"
+                                class="oe_highlight" groups="edsys_edu.group_registration_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="awaiting_fee" statusbar_colors='{"r":"red"}' />
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_left oe_avatar" readonly="1"/>
+                        <h1>
+                            <field name="enquiry_no" class="oe_inline" readonly="1"/>
+                        </h1>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="title" placeholder="Title" readonly="1"/>
+                            </h1>
+                            <h1>
+                                <field name="name" placeholder="First Name" readonly="1"/>
+                                <field name="middle_name" placeholder="Middle Name" readonly="1"/>
+                                <field name="last_name" placeholder="Last Name" readonly="1"/>
+                            </h1>
+                            <field  context="{'active_id':student_id}" name="student_id" readonly="1"/>
+                        </div>
+                        <div class="oe_right">
+                            <group>
+                                <field name="fee_status" readonly="1"/>
+                                <field name="acd_pay_link" readonly="1"/>
+                                <field name="acd_pay_id" readonly="1"/>
+                                <field name="acd_trx_date" readonly="1"/>
+                                <field name="add_form_filled" readonly="1"/>
+                                <field name="add_form_link" readonly="1"/>
+                                <field name="batch_shift" readonly="1"/>
+                            </group>
+                            <button name="reminder_for_additional_form"
+                                    String="Reminder for Additional Form"
+                                    attrs="{'invisible': [('add_form_filled','=',True)]}"
+                                    type="object"/>
+                        </div>
+                        <notebook colspan="4">
+                            <page string="Personal Detail" name="personal_detail">
+                                <group>
+                                    <field name="email" placeholder="student@email.com"
+                                            readonly="1"/>
+                                </group>
+                                <group col="6" colspan="4">
+                                    <!--<field name="application_number" />-->
+                                    <field name="application_date" attrs="{'readonly':[('user_id','!=',1)]}"/>
+                                    <field name="user_id" invisible="1"/>
+                                    <field name="entrance_exam_date" attrs="{'readonly':[('user_id','!=',1)]}"/>
+                                    <field name="dubai_exam_date_formate"  invisible="1"/>
+                                    <field name="admission_date"
+                                           required='1'
+                                           attrs="{'readonly':[('fee_structure_confirm','=',True)]}"
+                                            />
+				                    <field name="first_acd_year_of_child" />
+                                    <field name="batch_id" readonly="1"/>
+                                    <field name="course_id" readonly="1"/>
+                                    <!--<field name="standard_id" />-->
+                                    <field name="gender" readonly="1"/>
+                                    <field name="emirati" readonly="1"/>
+                                    <field name="arab" readonly="1"/>
+                                    <field name="nationality_id" readonly="1"/>
+                                    <field name="religion_id" readonly="1"/>
+                                    <field name="birth_date" readonly="1"/>
+                                    <field name="birth_country" readonly="1"/>
+                                    <field name="birth_place" readonly="1"/>
+                                    <field name="emirates_id" readonly="1"/>
+                                    <field name="lang_id" string='Mother Tongue'
+                                           widget="selection"
+                                            readonly="1"/>
+                                    <field name="other_lang_id"
+                                           string='Optional Language'
+                                           widget="selection"
+                                           readonly="1"/>
+                                </group>
+                                <separator string="Passport Detail"/>
+                                <group col="4" colspan="4">
+                                    <field name="passport_no" readonly="1"/>
+                                    <field name="place_of_issue" readonly="1"/>
+                                    <field name="passport_issue_date" readonly="1"/>
+                                    <field name="passport_expiry_date" readonly="1"/>
+                                </group>
+                                <separator string="Visa Detail"/>
+                                <group col="6" colspan="6">
+                                    <field name="visa_no" readonly="1"/>
+                                    <field name="visa_issue_date" readonly="1"/>
+                                    <field name="visa_expiry_date" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="Siblings">
+                                    <field name="sibling_ids" readonly="1">
+                                        <!--<tree editable="bottom">
+                                            <field name="sibling_name" readonly="1"/>
+                                            <field name="sibling_grade" />
+                                        </tree>-->
+                                    </field>
+                                    <group>
+                                        <field name="about_us" readonly="1"/>
+                                        <field name="about_us_other"
+                                               attrs="{'invisible': [('about_us','!=','other')]}"
+                                               readonly="1"/>
+                                        <field name="sibling_info" />
+                                        <field name="remarks" readonly="1"/>
+                                    </group>
+                            </page>
+                            <page string="Address" name="address">
+                                <label for="street" string="Address" />
+                                <div>
+                                    <field name="street" placeholder="Street" readonly="1"/>
+                                    <field name="street2" readonly="1"/>
+                                    <div class="address_format">
+                                        <field name="city" placeholder="City"
+                                               style="width: 40%%" readonly="1"/>
+                                        <field name="state_id" options='{"no_open": True}'
+                                               placeholder="State" style="width: 24%%"
+                                               readonly="1"/>
+                                        <field name="zip" readonly="1" placeholder="ZIP" style="width: 34%%" />
+                                    </div>
+                                    <field name="country_id" readonly="1"
+                                           placeholder="Country" options='{"no_open": True}' />
+                                    <field name="phone" placeholder="Phone" readonly="1"/>
+                                    <field name="mobile" placeholder="Mobile" readonly="1"/>
+                                </div>
+                                <group col="4" colspan="4">
+                                    <field name="family_business" readonly="1"/>
+                                    <field name="family_income" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="School History" name="school_history">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="prev_institute" string='School Name' readonly="1"/>
+                                        <field name="prev_academic_city" string="Place" readonly="1"/>
+                                        <field name="last_attendance" readonly="1"/>
+                                        <field name="curriculum" string="Curriculum" readonly="1"/>
+                                        <field name="prev_grade" readonly="1"/>
+                                        <field name="prev_academic_year" readonly="1"/>
+                                        <field name="t_c_number" readonly="1"/>
+                                        <field name="tranfer_reason" readonly="1"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Medical">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="blood_group" readonly="1"/>
+                                        <field name="s_height" readonly="1"/>
+                                        <field name="s_width" readonly="1"/>
+                                        <field name="child_allergic" readonly="1"/>
+                                        <field name="w_allergic" attrs="{'invisible': [('child_allergic','=',False)]}"
+                                               readonly="1"/>
+                                        <field name="w_reaction" attrs="{'invisible': [('child_allergic','=',False)]}"
+                                               readonly="1"/>
+                                        <field name="w_treatment" attrs="{'invisible': [('child_allergic','=',False)]}"
+                                               readonly="1"/>
+                                        <field name="under_medication"
+                                               readonly="1" />
+                                        <field name="w_medication_mention" attrs="{'invisible': [('under_medication','=',False)]}"
+                                               readonly="1"/>
+                                        <field name="w_treatment_mention" attrs="{'invisible': [('under_medication','=',False)]}"
+                                               readonly="1"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Parents Detail" name="parent_detail">
+                                    <div class="oe_list_content">
+                                        <group col="6" colspan="4">
+                                            <field name="parent_name" required="1" readonly="1"/>
+                                            <field name="parent_profession" string='Father Profession' readonly="1"/>
+                                            <field name='isd_code' placeholder="ISD" readonly="1"/>
+                                            <field name="parent_contact" string="Father Contact" readonly="1"/>
+                                            <field name="parent_email" string='Father Email' required="1" widget="email" readonly="1"/>
+                                            <field name="parent_office_contact" string="Office Tel. No" readonly="1"/>
+                                        </group>
+                                        <group col="6" colspan="4">
+                                            <field name="mother_name" readonly="1"/>
+                                            <field name="mother_profession" readonly="1"/>
+                                            <field name="mother_contact" readonly="1"/>
+                                            <field name="mother_office_contact" readonly="1"/>
+                                            <field name="mother_email" readonly="1"/>
+                                            <field name="emergency_contact" readonly="1"/>
+                                        </group>
+                                        <!--<group><field name="parent_residential_address"/></group>-->
+                                    </div>
+                            </page>
+                            <page string="Transportation Detail" name="transportation_detail">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="transport_type" readonly="1"/>
+                                        <field name="bus_no" readonly="1"/>
+                                        <field name="pick_up" readonly="1"/>
+                                        <field name="droup_off_pick" readonly="1"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Fees Structure">
+                                <group>
+                                    <group>
+                                        <field name="discount_on_fee"
+                                               widget="selection"
+                                               groups='edsys_edu.group_fee_confirm'/>
+                                    </group>
+                                    <group>
+                                        <div class="oe_right">
+                                            <button name="confirm_fee_structure" string="Confirm" type="object"
+                                                    class="oe_highlight"  attrs="{'invisible':[('fee_structure_done','!=',False)]}" groups='edsys_edu.group_fee_confirm'/>
+                                            <button name="reverse_fee_structure" string="Reverse" type="object"
+                                                    class="oe_highlight" attrs="{'invisible':['|',('fee_structure_done','!=',True),('fee_structure_confirm','!=',False)]}" groups='edsys_edu.group_fee_confirm'/>
+                                            <button name="confirm_done_fee_structure" string="Done" type="object"
+                                                    class="oe_highlight" attrs="{'invisible':['|',('fee_structure_done','!=',True),('fee_structure_confirm','!=',False)]}" groups='edsys_edu.group_fee_confirm'/>
+                                            <!--<button name="change_month_id" string="Month Change" type="object" class="oe_highlight"/>-->
+                                        </div>
+                                    </group>
+                                    <field name="fee_structure_confirm" invisible="1"/>
+                                    <field name="fee_structure_done" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="remaining_form_link" string="Link for additional data fill up" widget="url"
+                                       readonly="1" attrs="{'invisible':[('fee_structure_confirm','=',False)]}"/>
+                                    <field name="confirm_fee_date" readonly="1"
+                                           attrs="{'invisible':[('fee_structure_confirm','=',False)]}"/>
+                                </group>
+
+                                <separator string="Student Fee" />
+                                <field name="student_fee_line"
+                                       context="{'student_id':student_id}"
+                                       attrs="{'readonly':[('fee_structure_confirm','=',True)]}">
+                                    <tree editable="bottom">
+                                        <field name="sequence" string="Priority" />
+                                        <field name="name"/>
+                                        <field name="amount"/>
+                                        <field name="discount"/>
+                                        <field name="discount_amount" readonly="1"/>
+                                        <field name="type"/>
+                                        <field name="fee_pay_type"/>
+                                        <field name="stud_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                                 <group class="oe_subtotal_footer oe_right">
+                                        <field name="total_fee_amount" string="Total Amount" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                 </group>
+                                <group class="oe_inline"></group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_awiting_fee_form_inherit_registra" model="ir.ui.view">
+            <field name="name">view.awaiting.fee.inherit.registra</field>
+            <field name="model">registration</field>
+            <field name="inherit_id" ref="view_waiting_fee_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('edsys_edu.group_registration_manager') ])]" />
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="batch_shift" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_waiting_fee_form_view_inherit" model="ir.ui.view">
+            <field name="name">view.waiting.fee.form.view.inherit</field>
+            <field name="model">registration</field>
+            <field name="inherit_id" ref="view_waiting_fee_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_erp_manager') ])]" />
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="birth_date" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- ============Wating Fee Action View ==================== -->
+        <record model="ir.actions.act_window" id="act_waiting_fee_view1">
+            <field name="name">Awaiting Fee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">registration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_state":'awaiting_fee'}</field>
+            <field name="domain">[('state','=','awaiting_fee')]</field>
+             <field name="search_view_id" ref="view_waiting_fee_search"/>
+        </record>
+
+        <record id="action_waiting_fee_kanban_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="awaiting_fee_kanban_view"/>
+            <field name="act_window_id" ref="act_waiting_fee_view1"/>
+        </record>
+
+        <record id="action_waiting_fee_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_waiting_fee_tree_view"/>
+            <field name="act_window_id" ref="act_waiting_fee_view1"/>
+        </record>
+
+        <record id="action_waiting_fee_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_waiting_fee_form_view"/>
+            <field name="act_window_id" ref="act_waiting_fee_view1"/>
+        </record>
+
+    </data>
+</odoo>

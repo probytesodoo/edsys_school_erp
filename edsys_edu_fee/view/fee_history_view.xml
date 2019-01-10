@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <!--&lt;!&ndash; ================== Fee History tree view ========================== &ndash;&gt;-->
+        <!--<record id="fee_history_tree_view" model="ir.ui.view">-->
+            <!--<field name="name">fee.history.tree.view</field>-->
+            <!--<field name="model">fee.history</field>-->
+            <!--<field name="priority" eval="8" />-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Fee History">-->
+                    <!--<field name="code" />-->
+                    <!--<field name="name" />-->
+                    <!--<field name="course_id"/>-->
+                    <!--<field name="academic_year_id"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+	    <!--</record>-->
+
+        <!--&lt;!&ndash; ================== Fee History form view ========================== &ndash;&gt;-->
+        <!--<record id="fee_history_form_view" model="ir.ui.view">-->
+            <!--<field name="name">fee.history.form.view</field>-->
+            <!--<field name="model">fee.history</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Fee History">-->
+                    <!--<sheet>-->
+                        <!--<group>-->
+                            <!--<group>-->
+                                <!--<field name="code" readonly="1"/>-->
+                                <!--<field name="course_id" readonly="1"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="name" readonly="1"/>-->
+                                 <!--<field name="academic_year_id" readonly="1"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                        <!--<notebook>-->
+                            <!--<page String="History Detail">-->
+                                <!--<separator string="History Detail"/>-->
+                                <!--<field name="fe_history_line" readonly="1">-->
+                                    <!--<tree string="fee history line">-->
+                                        <!--<field name="sequence"/>-->
+                                        <!--<field name="name"/>-->
+                                        <!--<field name="old_amount"/>-->
+                                        <!--<field name="new_amount"/>-->
+                                        <!--<field name="date"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                        <!--</notebook>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+	    <!--</record>-->
+
+        <!--&lt;!&ndash; ============ Fee History Action View ==================== &ndash;&gt;-->
+        <!--<record model="ir.actions.act_window" id="act_fee_history_view">-->
+            <!--<field name="name">Fee History</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">fee.history</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template1_promote_fee_structure" model="mail.template">
+            <field name="name">Promoted Student Fee Structure</field>
+            <field name="subject">Fee Structure</field>
+            <field name="model_id" ref="model_promote_student_line"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.student_id.name or ''},</p>
+                <p> Approved Fee structure: Our approved fee structure for the full year and the frequency of installments is as below. </p>
+                <p> Please note that we will send you a separate invoice for payment required to reserve admission separately:</p>
+                    <table border="1">
+                        <tbody>
+                            <tr width="30%">
+                                <th>Fees</th>
+                                <th>Amount</th>
+                                <th>Discount</th>
+                                <th>Discount Amount</th>
+                                <th>Fee Payment Type</th>
+                            </tr>
+                            % for row in object.fees_structure_lines:
+                                <tr width="30%">
+                                    <td> ${row.name.name or ''}</td>
+                                    <td style="text-align: center;">${row.amount or ''}</td>
+                                    <td style="text-align: center;">${row.discount or '0.0'}</td>
+                                    <td style="text-align: center;">${row.discount_amount or '0.0'}</td>
+                                    <td>
+                                        % if row.fee_pay_type.name == 'year':
+                                            Once in the year
+                                        % endif
+                                        % if row.fee_pay_type.name == 'month':
+                                            Monthly
+                                        % endif
+                                        % if row.fee_pay_type.name == 'one':
+                                            Once at the time of admission
+                                        % endif
+                                        % if row.fee_pay_type.name == 'quater':
+                                            Quarterly
+                                        % endif
+                                        % if row.fee_pay_type.name == 'alt_month':
+                                            Alternate Month
+                                        % endif
+                                        % if row.fee_pay_type.name == 'half_year':
+                                            Half Year
+                                        % endif
+                                        % if row.fee_pay_type.name == 'term':
+                                            Term
+                                        % endif
+                                    </td>
+                                </tr>
+                            %endfor
+                        <tbody>
+                    </table>
+                <p>
+               
+                </div>
+            ]]>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

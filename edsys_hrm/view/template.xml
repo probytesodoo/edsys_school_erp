@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+
+        <template id="employement_form_box_new" inherit_id="website.assets_frontend" name="Employement Form Box">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/edsys_hrm/static/src/js/website_employement.js"></script>
+                <!-- <script type="text/javascript" src="/edsys_hrm/static/src/js/datetimepicker_css.js"></script> -->
+                <link rel='stylesheet' href='/edsys_hrm/static/src/css/website_employement.css'/>
+            </xpath>
+        </template>
+        
+
+    </data>
+</odoo>

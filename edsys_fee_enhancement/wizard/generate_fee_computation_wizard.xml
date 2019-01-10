@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="generate_fee_computation_wizard_form_view" model="ir.ui.view">
+            <field name="name">generate.fee.computation.wizard.view</field>
+            <field name="model">generate.fee.computation.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generate Fee computation Lines">
+                    <h3><label string="Are you sure want to generate fee computation lines?"/></h3>
+                    <footer>
+                        <button name="generate_fee_computation_button" string="Generate Fee computation Lines" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_generate_fee_computation_wizard"
+            name="Generate Fee computation Lines"
+            res_model="generate.fee.computation.wizard"
+            src_model="res.partner"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"
+            />
+
+    </data>
+</odoo>

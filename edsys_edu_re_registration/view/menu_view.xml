@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <!--  =============== Re-Registration Menu ================================ -->
+        <menuitem id="re_registration_main_menu" name='Re-Registration'
+                  action="re_registration_student_waiting_action" web_icon="edsys_edu_re_registration,static/description/re_registration.png"/>
+        
+        <!-- ================ Re-Registration Send Request ======================== -->
+        <menuitem id="request_re_registration_sub_menu" name='Request for Re-Registration'
+                  parent='re_registration_main_menu' sequence='1'/>
+        <menuitem id="re_registration_send" name='Send Request' parent='request_re_registration_sub_menu'
+                  action='action_re_registration_wiz_view' sequence='1'/>
+        
+        <!-- ================ Re-Registration Waitting Responce =================== -->
+        <menuitem id="waiting_re_registration_sub_menu" name='Re-Registration'
+                  parent='re_registration_main_menu' sequence='2'/>
+        <menuitem id="awaiting_response_sub_menu" name='Awaiting Response'
+                  parent='waiting_re_registration_sub_menu' sequence='1'/>
+        <menuitem id="re_registration_student_waiting_menu" name='Re-Registration Students'
+                  parent='awaiting_response_sub_menu' action="re_registration_student_waiting_action"
+                  sequence='1'/>
+        <menuitem id="re_registration_parent_waiting_menu" name='Re-Registration Parents'
+                  parent='awaiting_response_sub_menu' action='re_registration_parent_waiting_action'
+                  sequence='2'/>
+
+        <!-- ================ Awaiting Re-Registration Fee ======================== -->
+        <menuitem id="awaiting_fee_sub_menu" name="Parent's Awaiting Fee"
+                  parent='waiting_re_registration_sub_menu' sequence='2'/>
+        <menuitem id="awaiting_re_registration_fee_parent_menu" name="Awaiting Re-registration Fee"
+          parent='awaiting_fee_sub_menu' action='awaiting_re_registration_fee_parent_act_view'
+          sequence='1'/>
+
+        <!-- ================ Re-Registration Confirm Fee ======================== -->
+        <menuitem id="re_registration_confirm_menu" name='Confirm Re-Registration'
+          parent='waiting_re_registration_sub_menu' action='awaiting_re_registration_confirm_act_view'
+          sequence='3'/>
+
+		<menuitem id="tc_expected_menu" name='TC Expected Parents'
+          parent='waiting_re_registration_sub_menu' action='tc_expected_act_view'
+          sequence='3'/>
+          
+        <menuitem id="re_registration_student_tc_expected_menu" name='TC Expected'
+                  parent='waiting_re_registration_sub_menu' action='re_registration_student_tc_expected_action'
+                  sequence='8'/>
+
+        <!-- <menuitem id="re_registration_fee_collection_menu" name='Re-Registration Fee Voucher' parent='edsys_edu_fee.fee_payment_sub_menu'
+                  action='action_re_registration_fee_account_voucher' sequence='6'/>  -->
+       
+
+    </data>
+</odoo>

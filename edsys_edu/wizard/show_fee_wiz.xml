@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <record id="show_fee_wiz_view" model="ir.ui.view">
+            <field name="name">show_fee.wiz.view</field>
+            <field name="model">show.fee.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Show Fee Wizard">
+                 
+                    <group>
+                       
+                        <h3>
+                        <label string="You are going to pay your Registration Fee" attrs="{'invisible':[('label_change','=',True)]}"/>
+                        <label string="You are going to pay your Academic Fee" attrs="{'invisible':[('label_change','=',False)]}"/>
+
+                        <field name="total_fee" required='1' attrs="{'readonly':[('label_change','=',False)]}"/> </h3>
+                         </group>
+                         <group>
+                             <group>
+                                  <field name="journal_id" required='1' 
+                                       domain="[('type','in',['bank', 'cash']),('online_payment','=',False)]" widget="selection"/>
+                               
+                                <field name="cheque" invisible="1"/>
+                                <field name="bank_name" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                                <field name="cheque_start_date" string="Cheque Date" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                                <field name="cheque_expiry_date"  attrs="{'invisible':[('cheque','!=',True)]}"/>
+                                <field name="party_name" attrs="{'invisible':[('cheque','!=',True)]}"/>
+                                <field name="chk_num" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                                
+                            </group>          
+                            <group>
+                            <field name="label_change" invisible="1"/>
+                            </group>
+                         </group>
+                   
+                    <footer>
+                        <button name="submit_fee" string="Submit" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_show_fee_wizard_view"
+            name=" Show Fee Wizard"
+            res_model="show.fee.wiz"
+            src_model="registration"
+            target="new"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+        <!--<record model="ir.ui.view" id="view_move_form_inherit">-->
+			<!--<field name="name">Account Move</field>-->
+			<!--<field name="model">account.move</field>-->
+			<!--<field name="inherit_id" ref="account.view_move_form" />-->
+			<!--<field name="arch" type="xml">-->
+				<!--<xpath expr="//form/group/group/field[@name='journal_id']" position="after">-->
+                    <!--<field name="cheque_pay"/>-->
+                    <!--<field name="cheque_date" string="Cheque Date"-->
+                           <!--attrs="{'invisible':[('cheque_pay','!=',True)]}"/>-->
+                    <!--<field name="cheque_expiry_date" attrs="{'invisible':[('cheque_pay','!=',True)]}"/>-->
+                    <!--<field name="bank_name"/>-->
+				<!--</xpath>-->
+
+            <!--</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ===================== Next Year Advance Fee search view ========================= -->
+        <record id="next_year_advance_fee_form_view_fee_enhancement" model="ir.ui.view">
+            <field name="name">next.year.advance.fee.form.view</field>
+            <field name="model">next.year.advance.fee</field>
+            <field name="inherit_id" ref="edsys_edu_fee.next_year_advance_fee_form_view" />
+            <field name="arch" type="xml">
+	           	<xpath expr="//field[@name='partner_id']" position="after">
+	           		<field name="is_reconciled" invisible="1" />
+        		</xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

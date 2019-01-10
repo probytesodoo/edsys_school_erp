@@ -1,0 +1,132 @@
+<odoo>
+    <data>
+
+        <!-- =============== trensfer certificate withdrawn Form View ================= -->
+        <record id="trensfer_certificate_withdrawn_form_view" model="ir.ui.view">
+            <field name="name">trensfer.certificate.withdrawn.view</field>
+            <field name="model">trensfer.certificate</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Certificate Process Completed">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="tc_complete"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="code" readonly="1"/></h1>
+                        <group col="4">
+                                <field name="name" readonly="1"/>
+                                <field name="reg_no" string="Registration Number" readonly="1"/>
+                                <field name="batch_id" readonly="1"/>
+                                <field name="course_id" readonly="1"/>
+                                <field name="student_section_id" readonly="1"/>
+                                <field name="last_date_for_accounting" readonly="1"/>
+                        </group>
+                        <separator string="Payment Detail"/>
+                        <group>
+                            <group>
+                                <field name="credit"/>
+                                <field name="advance_total_recivable" string="Advance Receivable"/>
+                                <field name="re_reg_total_recivable" string="Re-Registration Advance Receivable"/>
+                            </group>
+                            <group>
+                                <field name="cal_total_due" invisible="1"/>
+                                <field name="parent_credit" string="Parent Total Receivable"/>
+                                <field name="parent_advance_total_recivable" string="Parent Advance Receivable"/>
+                                <field name="parent_re_reg_total_recivable" string="Parent Re-Reg Advance Receivable"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Payment Detail" readonly="1">
+                                <separator string="Transfer Certificate Fee"/>
+                                <field name="tc_fee_stucture" nolabel="1" colspan="4" readonly="1">
+                                   <tree string='Fees Lines' editable='bottom'>
+                                       <field name="sequence" string="Priority" required="1"/>
+                                       <field name="name" domain="[('fees','=',True)]"/>
+                                       <field name="type" required="1"/>
+                                       <field name="tc_type" string="TC Type" required="1"/>
+                                       <field name="amount"/>
+                                   </tree>
+                               </field>
+                                <group>
+                                    <group>
+                                        <separator string="Actual Receivable"/>
+                                        <newline/>
+                                        <field name="actual_receivables_invoice" nolabel="1" readonly="1">
+                                            <tree>
+                                                <field name="number"/>
+                                                <field name="date_invoice"/>
+                                                <field name="state"/>
+                                                <field name="amount_total"/>
+                                                <field name="residual"/>
+                                            </tree>
+                                        </field>
+                                        <newline/>
+                                    </group>
+                                    <group>
+                                        <separator string="Actual Paid"/>
+                                        <newline/>
+                                        <field name="actual_paid_invoice" nolabel="1" readonly="1">
+                                            <tree>
+                                                <field name="number"/>
+                                                <field name="date_invoice"/>
+                                                <field name="state"/>
+                                                <field name="amount_total"/>
+                                                <field name="residual"/>
+                                            </tree>
+                                        </field>
+                                        <newline/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <group class="oe_subtotal_footer oe_right">
+                                            <group>
+                                                <field name="total_receivables_amount" string="Total" widget="monetary" class="oe_subtotal_footer_separator"/>
+                                            </group>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group class="oe_subtotal_footer oe_right">
+                                            <group>
+                                                <field name="total_paid_amount" string="Total" widget="monetary" class="oe_subtotal_footer_separator"/>
+                                            </group>
+                                        </group>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- =============== trensfer certificate final fee awaited Action View ================= -->
+        <record model="ir.actions.act_window" id="trensfer_certificate_withdrawn_action_view">
+            <field name="name">Transfer Certificate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">trensfer.certificate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','tc_complete')]</field>
+            <field name="search_view_id" ref="trensfer_certificate_fee_balance_review_search_view"/>
+        </record>
+
+        <record id="act_tree_trensfer_certificate_withdrawn" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="trensfer_certificate_ministry_approval_tree_view"/>
+            <field name="act_window_id" ref="trensfer_certificate_withdrawn_action_view"/>
+        </record>
+
+        <record id="act_form_trensfer_certificate_withdrawn" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="trensfer_certificate_withdrawn_form_view"/>
+            <field name="act_window_id" ref="trensfer_certificate_withdrawn_action_view"/>
+        </record>
+
+    </data>
+</odoo>

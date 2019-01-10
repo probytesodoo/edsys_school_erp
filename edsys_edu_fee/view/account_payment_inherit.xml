@@ -1,0 +1,108 @@
+<odoo>
+    <data>
+      
+
+        <record model="ir.ui.view" id="view_account_payment_form_inherit">
+			<field name="name">account.payment.form.inherit</field>
+			<field name="model">account.payment</field>
+			<field name="inherit_id" ref="account.view_account_payment_form" />
+			<field name="arch" type="xml">
+				 
+				
+				<xpath expr='//group[2]' position="inside">
+					 <field name="is_parent" invisible="1"/>
+                     <field name="student_class" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                     <field name="student_section" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                	 <field name="parent_email" attrs="{'invisible' : [('is_parent','=',False)]}"/>
+                	 <field name="parent_mobile" attrs="{'invisible' : [('is_parent','=',False)]}"/>
+                </xpath>
+                
+                <xpath expr='//group[1]'  position="attributes">
+                      <attribute name='domain'>[('is_parent','=',is_parent),('customer','=',True)]</attribute>
+                 </xpath> 
+                
+            </field>
+        </record>
+        
+        
+        <record id="action_view_account_payment_form_inherit" model="ir.actions.act_window">
+            <field name="name">Student Fee Collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+           <!-- <field name="domain">[('is_parent','=',0),('journal_id.type', 'in', ['bank',
+                'cash']),('type','=','receipt'),('payfort_type','=',0)]
+            </field> -->
+           <!--  <field name="context">{"default_is_parent":0,"type":'receipt','send_receipt':True}</field>  -->
+            <!--<field name="search_view_id" ref="view_student_res_partner_search_inherit"/>-->
+        </record>
+
+        
+
+         <record id="action_student_fee_payment_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.view_account_payment_form"/>
+            <field name="act_window_id" ref="action_view_account_payment_form_inherit"/>
+        </record> 
+        
+         <!-- <menuitem id="fee_payment_menu" name="Student Fee Collection" 
+            parent="fee_payment_sub_menu_new" action="action_view_account_payment_form_inherit" sequence='1'/>  -->
+
+       
+       <!-- Parent Fee Payment Action View -->
+       <record id="action_view_parent_payment_form_inherit" model="ir.actions.act_window">
+            <field name="name">Parent Fee Collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="domain">[('is_parent','=',1),('journal_id.type', 'in', ['bank', 'cash']),('type','=','receipt')]</field>
+            <field name="context">{"default_is_parent":1,"type":'receipt'}</field> -->
+            <!--<field name="search_view_id" ref="view_student_res_partner_search_inherit"/>-->
+        </record>
+
+       <!--  <record id="action_parent_fee_payment_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_voucher.view_voucher_tree"/>
+            <field name="act_window_id" ref="act_parent_fee_payment"/>
+        </record> -->
+
+        <record id="action_parent_fee_payment_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.view_account_payment_form"/>
+            <field name="act_window_id" ref="action_view_parent_payment_form_inherit"/>
+        </record>
+        
+       <!--  <menuitem id="parent_fee_payment_menu_inherit" name="Parent Fee Collection" parent="fee_payment_sub_menu_new" action="action_view_parent_payment_form_inherit" sequence='2'/> -->
+       
+	<!-- account payment form  view inherit  by komal -->
+	 <!-- <record model="ir.ui.view" id="view_account_payment_invoice_form_inherit">
+			<field name="name">account.payment.invoice.form</field>
+			<field name="model">account.payment</field>
+			<field name="inherit_id" ref="account.view_account_payment_invoice_form" /> 
+			<field name="inherit_id" ref="account_voucher.view_sale_receipt_form" />
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                	 <field name="partner_id"/>
+                    <field name="jounral_id_store"/>
+                     <field name="bank_name" attrs="{'invisible':[('jounral_id_store','!=','bank')]}"/>
+                     <field name="cheque" attrs="{'invisible':[('jounral_id_store','!=','bank')]}"/>
+                     <field name="cheque_start_date" string="Cheque Date"
+                            attrs="{'invisible':[('cheque','!=',True)],
+                                         'required' : [('cheque','=',True)]}" />
+                     <field name="cheque_expiry_date"
+                            attrs="{'invisible':[('cheque','!=',True)],
+                                         'required' : [('cheque','=',True)]}"/>
+                    <field name="payfort_type" invisible="1"/>
+                    <field name="payfort_link_order_id" attrs="{'invisible':[('payfort_type','!=',True)]}"/> 
+				</xpath>
+            </field>
+        </record> 
+ -->
+        
+    </data>
+</odoo>

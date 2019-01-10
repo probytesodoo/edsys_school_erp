@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        
+        <!-- Extend Probation -->
+		<record id="extend_probation_view" model="ir.ui.view">
+            <field name="name">Extend Probation</field>
+            <field name="model">extend.probation.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Extend Probation">
+                	<group>
+                    	<field name="extend_probation_days" />
+                    </group>
+                    <footer>
+                        <button name="extend_probation_button" string="Extend Probation Period" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        
+        <act_window
+            id="action_extend_probation_view"
+            name="Extend Probation"
+            res_model="extend.probation.wizard"
+            src_model="hr.employee"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"
+            />
+            
+        
+        <!-- Complete Probation 
+		<record id="complete_probation_view" model="ir.ui.view">
+            <field name="name">Complete Probation</field>
+            <field name="model">employee.wizard</field>
+            <field name="arch" type="xml">
+                <form string="complete Probation">
+                	<group>
+                    	<field name="employee_id" />
+                    	<field name="probation_completion_date" />
+                    	<field name="confirmation_date" />
+                    </group>
+                    <footer>
+                        <button name="complete_probation_button" string="Complete Probation" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        <record id="action_complete_probation_view" model="ir.actions.act_window">
+            <field name="name">Complete Probation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="complete_probation_view"/>
+            <field name="target">new</field>
+        </record>
+            -->
+    </data>
+</odoo>

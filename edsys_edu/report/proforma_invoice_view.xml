@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+	
+	
+<report 
+        string="Proforma Invoice" 
+        id="action_proforma_invoice_registration" 
+        model="registration" 
+        report_type="qweb-pdf"
+        name="edsys_edu.report_invoice_proforma_registration"
+        file="edsys_edu.report_invoice_proforma_registration"
+    	/>
+    	
+    	
+<template id="report_invoice_proforma_registration"> 
+   <t t-call="edsys_edu_fee.custom_receipt_external_layout_payment_receipt"/>
+    		<t t-foreach="docs" t-as="o">
+    		
+    			 <div class="page">
+			            <div class="row mt32 mb32">
+			                <div class="col-xs-4">
+			                    <strong>Name:  <span t-field="o.student_id"/></strong>
+			                </div>
+			                <br/><br/>
+			                <div class="col-xs-4">
+			                    <strong>Academic Year:  <span t-field="o.batch_id.name"/></strong>
+			                </div>
+			                <div class="col-xs-4">
+			                    <strong>Class:  <span t-field="o.course_id.name"/></strong>
+			                </div>
+			                <br/>
+			                <div class="col-xs-4">
+							    <strong>Admission Date:  <span t-field="o.admission_date"/></strong>
+							</div>
+							<br/>
+			            </div>
+			            <div align="left"><h3>Proforma Invoice</h3></div><br/>
+			            
+			            <div class="row mt32 mb32">
+
+							<div class="col-xs-4" align="left">
+							    <strong>Proforma Invoice Date:  <span t-esc="time.strftime('%Y-%m-%d')"/></strong>
+							</div>
+						
+							<br/>
+						</div>
+			            
+		                <table class="table table-bordered" width="100%" height="100%" style="border: 1px solid #000000;font-size:13px">
+		                    <thead>
+		                        <tr style="border: 1px solid black;">
+		                        	<th style="border: 1px solid black;"><strong>SI.No.</strong></th>
+		                            <th  height="10%" width="50%" class="text-left" style="border: 1px solid black;"><strong>Discription</strong></th>
+		                            <th height="10%"  width="20%" class="text-right" style="border: 1px solid black;"><strong>Amount</strong></th>
+		                            <th height="10%"  width="30%" class="text-right" style="border: 1px solid black;"><strong>Discount(%)</strong></th>
+		                            <th height="10%"  width="30%" class="text-right" style="border: 1px solid black;"><strong>Discount Amount</strong></th>
+		                            <th height="10%"  width="30%" class="text-right" style="border: 1px solid black;"><strong>Total Amount</strong></th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                    		<t t-set="foo" t-value="0"/>
+		                            <tr t-foreach="o.student_fee_line" t-as="line" style="border: 1px solid black;">
+		                            	<t t-set="foo" t-value="foo+1"/>
+		                                <td style="border: 1px solid black;">
+			                               <t t-esc="foo"/>
+			                            </td>
+		                                <td height="10%" width="40%" class="text-left" style="border: 1px solid black;">
+		                                   <span  t-field="line.name.name"/> 
+		                                </td>
+		                                
+		                                <td height="100%" width="20%" class="text-right" style="border: 1px solid black;">
+		                                    <span t-field="line.amount"/>
+		                                </td>
+		                                
+		                                <td height="100%" width="30%" class="text-right" style="border: 1px solid black;">
+		                                    <span t-field="line.discount"/>
+		                                </td>
+		                                
+		                                <td height="100%" width="30%" class="text-right" style="border: 1px solid black;">
+		                                    <span t-field="line.discount_amount"/>
+		                                </td>
+		                                <td height="100%" width="30%" class="text-right" style="border: 1px solid black;">
+		                                    <span t-esc="line.amount - line.discount_amount"/>
+		                                </td>
+		                                
+		                            </tr>
+		                    </tbody>
+		                </table>
+		                <div class="row">
+			                <div class="col-xs-4 pull-right">
+			                    <table class="table table-condensed">
+			                        <tr class="border-black">
+			                            <td><strong>Total</strong></td>
+			                            <td class="text-right">
+			                                 <span t-field="o.total_fee_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+			                            </td>
+			                        </tr>
+			                    </table>
+			                </div>
+				            </div>
+			            <div class="oe_structure"/>
+			   </div>
+    </t>
+</template>
+<!-- End of registration -->    
+	
+<!-- Code For Res Partner -->    	
+<report 
+     string="Proforma Invoice" 
+     id="action_performa_invoice_new" 
+     model="res.partner" 
+     report_type="qweb-pdf"
+     name="edsys_edu.report_invoice_proforma"
+     file="edsys_edu.report_invoice_proforma"
+ 	/> 
+    	
+<template id="report_invoice_proforma"> 
+	<t t-call="edsys_edu_fee.custom_receipt_external_layout_payment_receipt"/>
+    		<t t-foreach="docs" t-as="o">
+    		
+    			 <div class="page">
+    			 		<!-- <div>
+					    	<div style='height:100px;background-color:#87CEEB;'></div>
+					    </div> -->
+			            <div class="row mt32 mb32">
+			            	
+			                <div class="col-xs-4">
+			                    <strong>Name:  <span t-field="o.display_name"/></strong>
+			                </div>
+			                <br/><br/>
+			                <div class="col-xs-4">
+			                    <strong>Academic Year:  <span t-field="o.batch_id.name"/></strong>
+			                </div>
+			                <div class="col-xs-4">
+			                    <strong>Class:  <span t-field="o.course_id.name"/></strong>
+			                </div>
+			                <br/><br/>
+			                <div class="col-xs-4">
+							    <strong>Admission Date:  <span t-field="o.admission_date"/></strong>
+							</div>
+							<br/>
+							
+			            </div>
+			            <div align="left"><h3>Proforma Invoice</h3></div><br/>
+			            
+			            <div class="row mt32 mb32">
+
+							<div class="col-xs-4" align="left">
+							    <strong>Proforma Invoice Date:  <span t-esc="time.strftime('%Y-%m-%d')"/></strong>
+							</div>
+						
+							<br/>
+						</div>
+			            
+			            <div align="left"><h3>Proforma Invoice</h3></div><br/>
+			            
+		                <table class="table table-bordered" width="100%" height="100%" style="border: 1px solid #000000;font-size:13px">
+		                    <thead>
+		                        <tr style="border: 1px solid black;">
+		                        	<th style="border: 1px solid black;"><strong>SI.No.</strong></th>
+		                            <th  height="10%" width="50%" class="text-left" style="border: 1px solid black;"><strong>Discription</strong></th>
+		                            <th height="10%"  width="20%" class="text-right" style="border: 1px solid black;"><strong>Amount</strong></th>
+		                            <th height="10%"  width="30%" class="text-right" style="border: 1px solid black;"><strong>Discount(%)</strong></th>
+		                            <th height="10%"  width="30%" class="text-right" style="border: 1px solid black;"><strong>Discount Amount</strong></th>
+		                            <th height="10%"  width="30%" class="text-right" style="border: 1px solid black;"><strong>Total Amount</strong></th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                    		<t t-set="foo" t-value="0"/>
+		                            <tr t-foreach="o.student_fee_line" t-as="line" style="border: 1px solid black;">
+		                            	<t t-set="foo" t-value="foo+1"/>
+		                                <td style="border: 1px solid black;">
+			                               <t t-esc="foo"/>
+			                            </td>
+		                                <td height="10%" width="40%" class="text-left" style="border: 1px solid black;">
+		                                   <span  t-field="line.name.name"/> 
+		                                </td>
+		                                
+		                                <td height="100%" width="20%" class="text-right" style="border: 1px solid black;">
+		                                    <span t-field="line.amount"/>
+		                                </td>
+		                                
+		                                <td height="100%" width="30%" class="text-right" style="border: 1px solid black;">
+		                                    <span t-field="line.discount"/>
+		                                </td>
+		                                
+		                                <td height="100%" width="30%" class="text-right" style="border: 1px solid black;">
+		                                    <span t-field="line.discount_amount"/>
+		                                </td>
+		                                <td height="100%" width="30%" class="text-right" style="border: 1px solid black;">
+		                                    <span t-esc="line.amount - line.discount_amount"/>
+		                                </td>
+		                                
+		                            </tr>
+		                    </tbody>
+		                </table>
+		                <div class="row">
+			                <div class="col-xs-4 pull-right">
+			                    <table class="table table-condensed">
+			                        <tr class="border-black">
+			                            <td><strong>Total</strong></td>
+			                            <td class="text-right">
+			                                 <span t-field="o.total_fee_amount_student" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+			                            </td>
+			                        </tr>
+			                    </table>
+			                </div>
+				            </div>
+			            <div class="oe_structure"/>
+	        	</div>
+	</t>
+</template>
+<!-- End of Res Partner -->    	
+    	
+    	
+    	
+
+</data>
+</odoo>
+    
+

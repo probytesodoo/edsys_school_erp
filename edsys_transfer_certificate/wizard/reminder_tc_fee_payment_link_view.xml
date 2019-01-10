@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+
+        <!-- =========== Send Reminder for TC Fee Payment Link to Parents ================= -->
+        <record id="send_reminder_tc_fee_payment_view" model="ir.ui.view">
+            <field name="name">send.reminder.tc.fee.payment.view</field>
+            <field name="model">send.reminder.tc.fee.payment.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Resend Request for TC Fee Payment Link">
+                    <p class="oe_grey">
+                        Are you sure you want to Resend Transfer Certificate Fee Payment Link.
+                    </p>
+                    <footer>
+                        <button string="Resend Payment Link" name="resend_tc_fee_payment_link" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <!--===== displaying in to more button for tc form reminder ====== -->
+        <act_window
+            id="action_reminder_tc_fee_payment_link"
+            name="Resend TC Fee Payment Link"
+            res_model="send.reminder.tc.fee.payment.wiz"
+            src_model="trensfer.certificate"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+    </data>
+</odoo>

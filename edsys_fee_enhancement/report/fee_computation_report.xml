@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<report 
+		string="Fee Computation Report" 
+		id="action_fee_computation_report"
+		model="res.partner" 
+		report_type="qweb-pdf"
+		name="edsys_fee_enhancement.report_fee_computation_report" 
+		file="Fee Computation Report"  />
+		
+	    <!-- rename the file names of the standard rfq report -->
+        <record id="edsys_fee_enhancement.action_fee_computation_report" model="ir.actions.report.xml">
+            <field name="attachment">'fee_computation_report.pdf'</field>
+        </record>    
+
+		<template id="report_fee_computation_report">
+			<t t-call="edsys_edu_fee.custom_receipt_external_layout_payment_receipt" />
+			<div class="page">
+				<div class="oe_structure" />
+				<div>
+					<center>
+						<h3>Customer Invoice Report</h3>
+			 	</center>
+				</div>
+				<br />
+				<t t-foreach="docs" t-as="o">
+					<!-- parent report -->
+					<t t-if="o.is_parent">
+
+						<t t-foreach="o.chield1_ids" t-as="child">
+							<div class="row mt32 mb32">
+
+								<div class="row zero_min_height">
+									<div class="col-xs-12">
+										<div style="border-bottom: 1px solid black;"></div>
+									</div>
+								</div>
+
+								<table width="100%" height="100%">
+									<tbody>
+										<tr>
+											<td class="text-left">
+												<strong>
+													Student Id:
+													<span t-field="child.student_id" />
+												</strong>
+											</td>
+
+											<td class="text-right">
+												<strong>
+													Parent Code:
+													<span t-field="child.parents1_id" />
+												</strong>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<table width="100%" height="100%">
+									<tbody>
+										<tr>
+											<td class="text-left">
+												<strong>
+													Student Name:
+													<span t-field="child.name" />
+												</strong>
+											</td>
+
+											<td class="text-right">
+												<strong>
+													Parent Name:
+													<span t-field="child.parents1_id.name" />
+												</strong>
+											</td>
+
+										</tr>
+									</tbody>
+								</table>
+
+								<table width="100%" height="100%">
+									<tbody>
+										<tr>
+											<td class="text-left">
+												<strong>
+													Grade:
+													<span t-field="child.class_id" />
+												</strong>
+											</td>
+
+											<td class="text-right">
+												<strong>
+													Date:
+													<span t-field="child.admission_date" />
+												</strong>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<table width="100%" height="100%">
+									<tbody>
+										<tr>
+											<td class="text-left">
+												<strong>
+													Section:
+													<span t-field="child.student_section_id" />
+												</strong>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<br />
+								<div class="row zero_min_height">
+									<div class="col-xs-12">
+										<div style="border-bottom: 1px solid black;"></div>
+									</div>
+								</div>
+								<br />
+							</div>
+
+							<table class="table table-bordered" width="100%" height="100%"
+								style="border: 2px solid #000000;font-size:13px">
+								<thead>
+									<tr style="border: 1px solid black;">
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Date</strong>
+										</th>
+										
+										
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Month/Term</strong>
+										</th>
+										<th height="10%" width="30%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Invoice Lines</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Amount</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Discount Name</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Disc %</strong>
+										</th>
+										<th height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<strong>Discount </strong>
+										</th>
+										<th height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<strong>Calculated Amount</strong>
+										</th>
+										<th height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<strong>Invoice Amount</strong>
+										</th>
+										<th height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<strong>Status</strong>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-set="foo" t-value="0" />
+
+									<tr t-foreach="child[0].get_fee_computation_line(child[0])"
+										t-as="computed_fee_line" style="border: 1px solid black;">
+										<tr t-foreach="computed_fee_line" t-as="fee_computation_line"
+											style="border: 1px solid black;">
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[9]" t-options='{"format": "yyyy/mm/dd"}' />
+											</td>
+											<td height="10%" width="10%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[10]" />
+											</td>
+											<td height="100%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][0]" />
+											</td>
+											  <td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][1]" />
+												0
+											</td>
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][2]" />
+											</td>
+											<td height="100%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][3]" />
+												0
+											</td>
+											<td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][4]" />
+												0
+											</td>
+											<td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][5]" />
+												0
+											</td>
+											<td height="100%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-if="fee_computation_line[12]">
+													<t t-esc="fee_computation_line[12]" />
+												</t>
+											</td>
+											<td height="100%" width="20%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[13]" />
+											</td>
+										</tr>
+									</tr>
+
+								</tbody>
+							</table>
+							<table class="table table-bordered" width="100%" height="100%"
+								style="border: 2px solid #000000;font-size:13px">
+								<tbody>
+									<tr>
+
+										<td width="80%" class="text-center" style="border: 1px solid black;">
+											<strong>
+												<span> Total </span>
+											</strong>
+										</td>
+										<td width="20%" class="text-right" style="border: 1px solid black;">
+											<t t-esc="child[0].total_invoice_amount" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<p style="page-break-before:always;">
+							</p>
+						</t>
+					</t>
+
+					<!-- student report -->
+
+					<t t-if="o.is_student">
+						<div class="row zero_min_height">
+							<div class="col-xs-12">
+								<div style="border-bottom: 1px solid black;"></div>
+							</div>
+						</div>
+						<table width="100%" height="100%">
+							<tbody>
+								<tr>
+									<td class="text-left">
+										<strong>
+											Student Id:
+											<span t-field="o.student_id" />
+										</strong>
+									</td>
+
+									<td class="text-right">
+										<strong>
+											Parent Code:
+											<span t-field="o.parents1_id" />
+										</strong>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+						<table width="100%" height="100%">
+							<tbody>
+								<tr>
+									<td class="text-left">
+										<strong>
+											Student Name:
+											<span t-field="o.name" />
+										</strong>
+									</td>
+
+									<td class="text-right">
+										<strong>
+											Parent Name:
+											<span t-field="o.parents1_id.name" />
+										</strong>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+
+						<table width="100%" height="100%">
+							<tbody>
+								<tr>
+									<td class="text-left">
+										<strong>
+											Grade:
+											<span t-field="o.class_id" />
+										</strong>
+									</td>
+
+									<td class="text-right">
+										<strong>
+											Date:
+											<span t-field="o.admission_date" />
+										</strong>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+
+						<table width="100%" height="100%">
+							<tbody>
+								<tr>
+									<td class="text-left">
+										<strong>
+											Section:
+											<span t-field="o.student_section_id" />
+										</strong>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<br />
+						<div class="row zero_min_height">
+							<div class="col-xs-12">
+								<div style="border-bottom: 1px solid black;"></div>
+							</div>
+						</div>
+						<br />
+
+
+
+						<table class="table table-bordered" width="100%" height="100%"
+							style="border: 2px solid #000000;font-size:13px">
+							<thead>
+								<tr style="border: 1px solid black;">
+									<th height="10%" width="10%" class="text-center"
+										style="border: 1px solid black;">
+										<strong>Date</strong>
+									</th>
+									<th height="10%" width="10%" class="text-center"
+										style="border: 1px solid black;">
+										<strong>Month/Term</strong>
+									</th>
+									<th height="10%" width="30%" class="text-center"
+										style="border: 1px solid black;">
+										<strong>Invoice Lines</strong>
+									</th>
+									<th height="10%" width="10%" class="text-center"
+										style="border: 1px solid black;">
+										<strong>Amount</strong>
+									</th>
+									<th height="10%" width="10%" class="text-center"
+										style="border: 1px solid black;">
+										<strong>Discount Name</strong>
+									</th>
+									<th height="10%" width="10%" class="text-center"
+										style="border: 1px solid black;">
+										<strong>Disc %</strong>
+									</th>
+									<th height="10%" width="10%" class="text-right"
+										style="border: 1px solid black;">
+										<strong>Discount </strong>
+									</th>
+									<th height="10%" width="10%" class="text-right"
+										style="border: 1px solid black;">
+										<strong>Calculated Amount</strong>
+									</th>
+									<th height="10%" width="10%" class="text-right"
+										style="border: 1px solid black;">
+										<strong>Invoice Amount</strong>
+									</th>
+									<th height="10%" width="10%" class="text-right"
+										style="border: 1px solid black;">
+										<strong> Status</strong>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-set="foo" t-value="0" />
+								<tr t-foreach="o.get_fee_computation_line(o)" t-as="computed_fee_line"
+									style="border: 1px solid black;">
+									<tr t-foreach="computed_fee_line" t-as="fee_computation_line"
+										style="border: 1px solid black;">
+										<td height="10%" width="20%" class="text-left"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[9]" t-options='{"format": "yyyy/mm/dd"}' />
+										</td>
+										<td height="10%" width="10%" class="text-left"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[10]" />
+										</td>
+										<td height="100%" width="20%" class="text-left"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[11][0]" />
+										</td>
+										<td height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[11][1]" />
+											0
+										</td>
+										<td height="10%" width="20%" class="text-left"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[11][2]" />
+										</td>
+										<td height="100%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[11][3]" />
+											0
+										</td>
+										<td height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[11][4]" />
+											0
+										</td>
+										<td height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[11][5]" />
+											0
+										</td>
+										<td height="100%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<t t-if="fee_computation_line[12]">
+												<t t-esc="fee_computation_line[12]" />
+											</t>
+										</td>
+										<td height="100%" width="20%" class="text-right"
+											style="border: 1px solid black;">
+											<t t-esc="fee_computation_line[13]" />
+										</td>
+									</tr>
+								</tr>
+
+							</tbody>
+						</table>
+						<table class="table table-bordered" width="100%" height="100%"
+							style="border: 2px solid #000000;font-size:13px">
+							<tbody>
+								<tr>
+
+									<td width="80%" class="text-center" style="border: 1px solid black;">
+										<strong>
+											<span> Total </span>
+										</strong>
+									</td>
+									<td width="20%" class="text-right" style="border: 1px solid black;">
+										<t t-esc="o.total_invoice_amount" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</t>
+				</t>
+				<div class="oe_structure" />
+
+			</div>
+
+		</template>
+		<!-- end of res partner -->
+
+
+
+
+	</data>
+</odoo>
+    

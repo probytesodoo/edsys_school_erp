@@ -1,0 +1,30 @@
+<openerp>
+    <data>
+        <record id="send_re_reg_fee_form_view" model="ir.ui.view">
+            <field name="name">send.re.reg.fee.receipt.wizard.view</field>
+            <field name="model">send.re.reg.fee.receipt.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Send Re-Registration Fee ">
+                    <h3><label string="Are you sure to send re-registration fee?"/></h3>
+                    <footer>
+                        <button name="send_re_reg_fee_button" string="Send Re-Registration Fee" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_send_re_reg_fee_wizard_view"
+            name="Send Re-Registration Fee Receipt"
+            res_model="send.re.reg.fee.receipt.wizard"
+            src_model="re.reg.waiting.responce.parents"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"
+            />
+
+    </data>
+</openerp>

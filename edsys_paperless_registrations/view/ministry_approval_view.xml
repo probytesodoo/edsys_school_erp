@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- =============== Inherited Ministry Approval form==================
+        <record id="view_ministry_approval_form_paper_less" model="ir.ui.view">
+            <field name="name">view.ministry.approval.form.paper.less</field>
+            <field name="model">registration</field>
+            <field name="inherit_id" ref="edsys_edu.view_ministry_approval_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="/form/sheet/div/group[1]" position="inside">
+                     <field name="health_form_signed" required="1" string="Health Form Signed"/>
+                 </xpath>
+            </field>
+        </record>-->
+    </data>
+</openerp>

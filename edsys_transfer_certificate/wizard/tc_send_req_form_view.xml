@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <!-- ============= send Tc form wizard view ============== -->
+        <record id="send_tc_request_wizard" model="ir.ui.view">
+            <field name="name">send.tc.request.wizard</field>
+            <field name="model">tc.form.request.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Send Request Transfer Certificate">
+                    <group>
+                        <separator string="Student"/>
+                    </group>
+                    <group>
+                        <field name="student_ids" required='1' nolabel='1' domain="[('is_parent','=',False),
+                        ('is_student','=',True),('re_reg_next_academic_year','=','no')]">
+                            <tree>
+                                <field name="old_id"/>
+                                <field name="student_id"/>
+                                <field name="name"/>
+                                <field name="reg_no"/>
+                                <field name="batch_id"/>
+                                <field name="course_id"/>
+                                <field name="student_section_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="send_tc_form_request" Confirm = "Are you sure to send a TC Request?" string="Send TC Form" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="send_tc_request_wiz_action_view" model="ir.actions.act_window">
+            <field name="name">Send Transfer Certificate Form</field>
+            <field name="res_model">tc.form.request.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

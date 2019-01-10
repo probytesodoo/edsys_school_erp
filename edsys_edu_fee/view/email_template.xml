@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+		<record id="email_template_send_student_report_by_email" model="mail.template">
+            <field name="name">Student Report - Send by Email</field>
+            <field name="subject">Student Report</field>
+            <field name="model_id" ref="model_student_payment_report_wiz"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.action_student_payment_report"/>
+            <field name="report_name">Student Report</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.student_id.name},</p>
+                    <p></p>
+                    <p>Please find the report.</p>
+                   
+                </div>
+            ]]></field>
+        </record>
+        
+        <record id="email_template_send_parent_report_by_email" model="mail.template">
+            <field name="name">Parents Report - Send by Email</field>
+            <field name="subject">Parents Report</field>
+            <field name="model_id" ref="model_parent_payment_report_wiz"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.action_parent_payment_report"/>
+            <field name="report_name">Parents Report</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.parent_id.name},</p>
+                    <p></p>
+                    <p>Please find the report.</p>
+                  
+                </div>
+            ]]></field>
+        </record>
+        
+        <!--Student Fee Collection - Send Receipt - Student-->
+        <record id="email_template_send_receipt" model="mail.template">
+            <field name="name">Receipt - Send by Email</field>
+            <field name="subject">Payment Receipt</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.action_student_payment_receipt"/>
+            <field name="report_name">Academic_fee_receipt</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_id.parents1_id.name},</p>
+                    <p></p>
+                    <p>Please find the receipt herewith attached for the payment made.</p>
+                   
+                </div>
+            ]]></field>
+        </record>
+
+        <!--Student Fee Collection - Send Receipt - Parent-->
+        <record id="email_template_send_receipt_parent" model="mail.template">
+            <field name="name">Receipt - by Email</field>
+            <field name="subject">Payment Receipt</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.action_student_payment_receipt"/>
+            <field name="report_name">Academic_fee_receipt</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_id.name},</p>
+                    <p></p>
+                    <p>Please find the receipt herewith attached for the payment made.</p>
+                   
+                </div>
+            ]]></field>
+        </record>
+
+         <!--Monthly Fee Calculation-->
+        <record id="email_template_monthly_fee_calculation" model="mail.template">
+            <field name="name">Monthly Fee Calculation - by Email</field>
+            <field name="subject">Academic Fee Payment Link</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.student_invoice_duplicate"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_id.parents1_id.name},</p>
+                    <p>Please find attached invoice for fee payment for ${object.partner_id.name}
+                     in Grade ${object.partner_id.class_id.name} and section ${object.partner_id.student_section_id.name or " "} for the current period.
+                     You can pay this fees online via the fee payment link appended at the end of this email or
+                     visit the school fee counter to pay via cash or cheque.
+                     Online payments via PayFort includes convenience fees charged by
+                     the online service provider (PayFort) and the link will display
+                     the total value payable. Once paid by you, the receipt for the
+                     payment will be emailed to you as confirmation.</p>
+                    <p>Please note that this invoice does not include unpaid amount from previous invoices.
+                     We will send you a separate reminder for any previously unpaid invoices.
+                    
+                     if you need any clarifications.</p>
+                   
+
+            ]]></field>
+        </record>
+
+            <!--Fee collection - Resend Payfort Link-->
+        <record id="email_template_academic_fee_payment_reminder" model="mail.template">
+            <field name="name">Academic Payment Reminder - Send by Email</field>
+            <field name="subject">Academic Fee Payment Reminder</field>
+            <field name="model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_id.name},</p>
+                    <p>This is gentle reminder for payments of all due fees for your child(ren).
+                    The details of invoices are in the table appended below in this email.</p>
+                    <p>You can pay this fees online via the fee payment link provided in the email or visit the school
+                     fee counter to pay via cash or cheque. Online payments via PayFort includes convenience
+                     fees charged by the online service provider (PayFort) and the link will display
+                     the total value payable. Once paid by you,
+                     the receipt for the payment will be emailed to you as confirmation.</p>
+                   
+                   
+                </div>
+            ]]></field>
+        </record>
+
+                <!--Payment link reminder - Resend Payfort Link-->
+        <record id="email_template_resend_academic_fee_payment_link" model="mail.template">
+            <field name="name">Resend Academic Payment Link - Send by Email</field>
+            <field name="subject">Resend Academic Fee Payment Link</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_id.parents1_id.name},</p>
+                    <p>This is gentle reminder for payments of all due fees for your child(ren).
+                    The details of invoices are in the table appended below in this email.</p>
+                    <p>You can pay this fees online via the fee payment link provided in the email or visit the school
+                     fee counter to pay via cash or cheque. Online payments via PayFort includes convenience
+                     fees charged by the online service provider (PayFort) and the link will display
+                     the total value payable. Once paid by you,
+                     the receipt for the payment will be emailed to you as confirmation.</p><br/>
+                    
+                   
+                </div>
+            ]]></field>
+        </record>
+
+    </data>
+</odoo>

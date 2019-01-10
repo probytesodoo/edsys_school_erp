@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <!-- Load Required css and js for paper less form -->
+        <template id="reg_form_box" inherit_id="website.assets_frontend" name="Registration Form Box">
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                        src="/edsys_paperless_registrations/static/src/js/website_paper_less_js.js"></script>
+                <script type="text/javascript" src="/website_student_enquiry/static/src/js/website_enquiry.js"></script>
+                <link rel='stylesheet' href='/edsys_paperless_registrations/static/src/css/website_paper_less_css.css'/>
+                <link rel='stylesheet' href='/website_student_enquiry/static/src/css/website_enquiry.css'/>
+                <script type="text/javascript" src="/edsys_edu_re_registration/static/src/js/webform_re_reg_request.js"></script>
+                <script type="text/javascript"
+                        src="/edsys_paperless_registrations/static/src/js/paper_less_odoo.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

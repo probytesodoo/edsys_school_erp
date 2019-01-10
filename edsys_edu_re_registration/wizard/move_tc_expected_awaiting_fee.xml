@@ -1,0 +1,32 @@
+<openerp>
+    <data>
+        
+        <!--===== Move single or multiple students to Awaiting Fee state ====== -->
+        <record id="move_to_awaiting_fee" model="ir.ui.view">
+            <field name="name">move.to.awaiting.fee</field>
+            <field name="model">move.tc.to.awaiting.fee</field>
+            <field name="arch" type="xml">
+                <form string="Move to Awaiting Re-registration Fee">
+                    <h3><label string="Are you sure to move these students to Awaiting fee state?"/></h3>
+                    <footer>
+                        <button name="move_to_awaiting_fee" string="Awaiting Fee" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <!-- ====== Display in Re-registration waiting Student view ====== -->
+        <act_window
+            id="action_move_to_awaiting_fee"
+            name=" Move to Awaiting Re-registration fee "
+            res_model="move.tc.to.awaiting.fee"
+            src_model="re.reg.waiting.responce.student"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+        
+    </data>
+</openerp>

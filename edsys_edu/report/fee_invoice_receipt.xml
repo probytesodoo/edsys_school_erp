@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <report 
+        string="Fee Invoice Receipt" 
+        id="action_fee_invoice_receipt" 
+        model="account.invoice" 
+        report_type="qweb-pdf"
+        name="edsys_edu.report_fee_invoice_receipt"
+        file="edsys_edu.report_fee_invoice_receipt"
+        attachment_use="True"
+        attachment="(object.state in ('open','paid')) and
+        ('FEE'+(object.number or '').replace('/','')+'.pdf')" 
+    />
+
+<template id="custom_receipt_external_layout_header">
+    <div class="header">
+        <div class="row">
+            <div class="col-xs-3">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+            </div>
+            <!--<div class="col-xs-9 text-right" style="margin-top:50px;" t-field="company.rml_header1"/>-->
+        </div>
+        <div class="row zero_min_height">
+            <div class="col-xs-12">
+                <div style="border-bottom: 1px solid black;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>
+                <div t-field="company.partner_id" 
+                    t-field-options='{"widget": "contact", "fields": ["address","name"], "no_marker": true}'
+                    /></strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>Email: </strong>  
+                    <span t-field="company.email"/>
+                <strong>Website: </strong> 
+                    <span t-field="company.website"/> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>Phone:   </strong><span t-field="company.phone"/>
+                <strong>Fax:  </strong> <span t-field="company.fax"/>
+                
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template id="custom_receipt_external_layout_footer">
+    <div class="footer">
+        <div class="text-center" style="border-top: 1px solid black;">
+
+            <t t-if="company.custom_footer">
+                <span t-raw="company.rml_footer"/>
+            </t>
+
+            <ul class="list-inline">
+                <li>Page:</li>
+                <li><span class="page"/></li>
+                <li>/</li>
+                <li><span class="topage"/></li>
+            </ul>
+        </div>
+    </div>      
+</template>
+    
+
+<template id="custom_receipt_external_layout">
+    <!-- Multicompany -->
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+
+    <t t-call="edsys_edu.custom_receipt_external_layout_header" />
+    <t t-raw="0" />
+    <t t-call="edsys_edu.custom_receipt_external_layout_footer" />
+</template>    
+    
+        
+<template id="report_fee_invoice_receipt">
+    <t t-foreach="docs" t-as="o">
+    <t t-call="edsys_edu_fee.custom_receipt_external_layout_payment_receipt">
+        <div class="page">
+            <dssiv class="oe_structure"/>
+            <div class="row mt32 mb32">
+            	<div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <table width="100%" height="100%">
+                    <tbody>
+                    	<tr>
+                            <td class="text-left">
+				            		<strong>Date:  <span t-field="o.date_invoice"/></strong>
+                            </td>
+                            
+                            <td class="text-right">
+				            		<strong>Receipt No:  <span t-field="o.number"/></strong>
+                            </td>
+                            
+                        </tr>
+                     </tbody>
+                </table>
+		        
+               	<div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <br/>
+		        <table width="100%" height="100%">
+                    <tbody>
+                        <tr>
+                           <td class="text-left">
+                               <strong>Class:  <span t-field="o.partner_id.class_id.name"/></strong>
+                            </td>
+                            
+                            <td class="text-right">
+                              	<strong>Academic Year:  <span t-field="o.partner_id.year_id.name"/></strong>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                           <td class="text-left">
+                               <t t-if="o.partner_id.is_student==True">
+				                     <strong>Name:  <span t-field="o.partner_id.name"/> </strong>
+				                </t>
+                            </td>
+                            
+                            <td class="text-right">
+                            
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+		        
+                <br/>
+                <div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+            	<br/>
+           </div>
+                <table class="table table-bordered" width="100%" height="100%" style="border: 2px solid #000000;font-size:13px">
+                    <thead>
+                        <tr style="border: 1px solid black;">
+                            <th height="10%" width="10%" style="border: 1px solid black;"><strong>SI.No.</strong></th>
+                            <th  height="10%" width="60%" class="text-center" style="border: 1px solid black;"><strong>Description</strong></th>
+                            <th height="10%"  width="30%" class="text-right" style="border: 1px solid black;"><strong>Amount</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="foo" t-value="0"/>
+                            <tr t-foreach="o.invoice_line_ids" t-as="line" style="border: 1px solid black;">
+                                <t t-set="foo" t-value="foo+1"/>
+                                <td   height="10%" width="10%" style="border: 1px solid black;">
+                                   <t t-esc="foo"/>
+                                </td >
+                                <td height="10%" width="60%" class="text-center" style="border: 1px solid black;">
+                                   <span  t-field="line.product_id.name"/> 
+                                </td>
+                                <td height="100%" width="30%" class="text-right" style="border: 1px solid black;">
+                                    <span t-field="line.price_subtotal"/>
+                                </td>
+                            </tr>
+                     <tr style="border: 1px solid black;">
+                        <td class="text-left" style="border: 1px solid black;">
+                            <strong>Total</strong>
+                         </td>
+                         <td class="text-left" style="border: 1px solid black;"><strong>AED: <span t-esc="o.amount_to_text(o.amount_total)"/> </strong></td>
+                         <td class="text-right" style="border: 1px solid black;">
+                             <strong><span t-field="o.amount_total"/></strong>
+                         </td> 
+                     </tr>
+                     
+                     
+                     <t t-set="foo" t-value="o.residual"/>
+                     <t t-if="foo != 0">
+                        <tr style="border: 1px solid black;">
+                        <td class="text-left" style="border: 1px solid black;">
+                            <strong>Balance</strong>
+                         </td>
+                         <td class="text-left" style="border: 1px solid black;"><strong>AED: <span t-esc="o.amount_to_text(o.residual)"/> </strong></td>
+                         <td class="text-right" style="border: 1px solid black;">
+                             <strong><span t-field="o.residual"/></strong>
+                         </td> 
+                        </tr>
+                     </t>
+
+                    </tbody>
+                </table>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-12" style="text-align:center">
+                        <strong class="text-right">This is a computer generated invoice and does not require signature.</strong>
+                    </div>
+                </div>
+            	<div class="oe_structure"/>
+        </div>
+    </t>
+    </t>
+</template>
+
+</data>
+</odoo>
+    

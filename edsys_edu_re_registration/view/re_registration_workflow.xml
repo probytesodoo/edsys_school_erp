@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- == Re-Registration Work flow == -->
+        <record id="re_registration_workflow" model="workflow">
+            <field name="name">Re Registration Workflow</field>
+            <field name="osv">re.reg.waiting.responce.parents</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!-- == Re-Registration Awaiting Response Activity == -->
+        <record id="act_re_reg_awaiting_response_wkf" model="workflow.activity">
+            <field name="wkf_id" ref="re_registration_workflow"/>
+            <field name="flow_start">True</field>
+            <field name="name">Act Awaiting Responce Wkf</field>
+            <field name="action">write({'state':'awaiting_response'})</field>
+            <field name="kind">function</field>
+        </record>
+
+        <!-- == Re-Registration Awaiting Fee Activity == -->
+        <record id="act_re_reg_awaiting_fee_wkf" model="workflow.activity">
+            <field name="wkf_id" ref="re_registration_workflow"/>
+            <!--<field name="flow_stop">True</field>-->
+            <field name="name">Act Awaiting Fee Wkf</field>
+            <field name="action">come_to_awaiting_fee(),</field>
+            <field name="kind">function</field>
+        </record>
+
+        <!-- == Re-Registration Confirm Activity == -->
+        <record id="act_re_reg_confirmed_wkf" model="workflow.activity">
+            <field name="wkf_id" ref="re_registration_workflow"/>
+            <field name="name">Act Confirmed Wkf</field>
+            <field name="action">come_to_confirm(),</field>
+            <field name="kind">function</field>
+        </record>
+
+        <!--&lt;!&ndash; == Re-Registration Tc Expected Activity == &ndash;&gt;-->
+        <!--<record id="act_re_reg_tc_excepted_wkf" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="re_registration_workflow"/>-->
+            <!--<field name="name">Act Tc Excepted Wkf</field>-->
+            <!--<field name="action">write({'state':'tc_expected'})</field>-->
+            <!--<field name="kind">function</field>-->
+        <!--</record>-->
+
+        <!-- == Transition from Awaiting Response to Awaiting Fee == -->
+        <record model="workflow.transition" id="transition_res_to_fee">
+            <field name="act_from" ref="act_re_reg_awaiting_response_wkf" />
+            <field name="act_to" ref="act_re_reg_awaiting_fee_wkf" />
+            <field name="signal">request_fee</field>
+        </record>
+
+        <!-- == Transition from Awaiting Fee to Confirm == -->
+        <record model="workflow.transition" id="transition_fee_to_conf">
+            <field name="act_from" ref="act_re_reg_awaiting_fee_wkf" />
+            <field name="act_to" ref="act_re_reg_confirmed_wkf" />
+            <field name="signal">get_fee_confirm</field>
+        </record>
+
+        <!-- == Transition from Awaiting Response to Confirm == -->
+        <record model="workflow.transition" id="transition_res_to_conf">
+            <field name="act_from" ref="act_re_reg_awaiting_response_wkf" />
+            <field name="act_to" ref="act_re_reg_confirmed_wkf" />
+            <field name="signal">direct_confirm</field>
+        </record>
+
+
+
+    </data>
+</openerp>

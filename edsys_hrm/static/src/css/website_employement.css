@@ -1,0 +1,130 @@
+.portlet.box.blue {
+    border-width: 0px 1px 1px;
+        border-top-width: 0px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+    border-style: none solid solid;
+        border-top-style: none;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-left-style: solid;
+    border-color: -moz-use-text-color #7CACFA #7CACFA;
+        border-top-color: -moz-use-text-color;
+        border-right-color: #7CACFA;
+        border-bottom-color: #7CACFA;
+        border-left-color: #7CACFA;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+        border-image-source: none;
+        border-image-slice: 100% 100% 100% 100%;
+        border-image-width: 1 1 1 1;
+        border-image-outset: 0 0 0 0;
+        border-image-repeat: stretch stretch;
+}
+.portlet {
+    margin-top: 0px;
+    margin-bottom: 25px;
+    padding: 0px;
+    border-radius: 4px;
+}
+.portlet.box {
+    padding: 0px !important;
+}
+.portlet-body {
+    background-color: #FFF;
+    padding: 10px;
+}
+.portlet.blue {
+    background-color: #4B8DF8;
+}
+.portlet-title {
+    background-color: #4B8DF8;
+}
+.form {
+    padding: 0px !important;
+}
+.form-body {
+    padding: 10px;
+}
+a.collapse {
+    display: none;
+    visibility: hidden;
+}
+a.expand {
+    background-image: url("../img/portlet-expand-icon.png");
+    width: 14px;
+    visibility: visible;
+}
+.caption {
+    float: left;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 300;
+    padding: 10px 0px;
+}
+.tools {
+    float: right;
+    display: inline-block;
+    padding: 12px 0px 8px;
+}
+.tools > a.collapse {
+    background-image: url("../img/portlet-collapse-icon.png");
+    width: 14px;
+    visibility: visible;
+}
+.portlet > .portlet-body {
+    clear: both;
+    border-radius: 0px 0px 4px 4px;
+}
+.form .form-body {
+    padding: 10px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+* {
+    box-sizing: border-box;
+}
+.radio {
+    display: inline-block;
+    padding-right: 20px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.radiolable {
+    font-weight: 400;
+    padding-right: 20px;
+}
+.radio1 {
+margin-bottom: 0px;
+}
+.blue.btn {
+    color: #FFF;
+    background-color: #4B8DF8;
+}
+.btn-circle {
+    border-radius: 8px !important;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.btn {
+    border-width: 0px;
+    padding: 7px 14px;
+    font-size: 14px;
+    outline: medium none !important;
+    background-image: none !important;
+    filter: none;
+    box-shadow: none;
+    text-shadow: none;
+}

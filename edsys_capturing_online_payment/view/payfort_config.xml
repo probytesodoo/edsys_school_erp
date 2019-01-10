@@ -1,0 +1,39 @@
+<openerp>
+    <data>
+
+        <!-- ========= inherit Payfort Config From View ========= -->
+        <record id="payfort_config_form_inherit_chpturing" model="ir.ui.view">
+            <field name="name">payfort.config.form.inherit.chpturing</field>
+            <field name="model">payfort.config</field>
+            <field name="inherit_id" ref="edsys_edu.payfort_config_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="/form/sheet/group[2]/group[1]/field[@name='charge']" position="after">
+                     <field name="bank_service_charge"/>
+                 </xpath>
+                <xpath expr="/form/sheet/group[2]" position="after">
+                    <notebook>
+                        <page string="Payfort History">
+                            <field name="payfort_history_ids" readonly="1">
+                                <tree default_order="change_date desc">
+                                    <field name="change_date"/>
+                                    <field name="name"/>
+                                    <!-- <field name="access_code"/> -->
+                                    <field name="charge"/>
+                                    <field name="transaction_charg_amount"/>
+                                    <field name="bank_service_charge"/>
+                                    <field name="payfort_type"/>
+                                    <field name="payfort_url"/>
+                                    <!-- <field name="merchant_identifier"/> -->
+                                    <field name="journal_id"/>
+                                    <field name="user"/>
+                                    <field name="payfort_config_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                 </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

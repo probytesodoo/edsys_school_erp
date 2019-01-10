@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                string="Employee Attendnace Report"
+                id="action_employee_Attendance_report"
+                model="hr.employee"
+                report_type="qweb-pdf"
+                name="edsys_biometric.report_employee_attendance"
+                file="edsys_biometric.report_employee_attendance"
+                />
+
+        <template id="custom_receipt_external_layout_header_edsys">
+		    <div class="header">
+		        <div class="row">
+		            <div class="col-xs-3">
+		                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+		            </div>
+		            <!--<div class="col-xs-9 text-right" style="margin-top:50px;" t-field="company.rml_header1"/>-->
+		        </div>
+		        <div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <div class="row">
+		            <div class="col-xs-12">
+		                <strong>
+		                <div t-field="company.partner_id" 
+		                    t-field-options='{"widget": "contact", "fields": ["address","name"], "no_marker": true}'
+		                    /></strong>
+		            </div>
+		        </div>
+		        <div class="row">
+		            <div class="col-xs-12">
+		                <strong>Email: </strong>  
+		                    <span t-field="company.email"/>
+		                <strong>Website: </strong> 
+		                    <span t-field="company.website"/> 
+		            </div>
+		        </div>
+		        <div class="row">
+		            <div class="col-xs-12">
+		                <strong>Phone:   </strong><span t-field="company.phone"/>
+		                <strong>Fax:  </strong> <span t-field="company.fax"/>
+		                
+		            </div>
+		        </div>
+		    </div>
+		</template>
+		
+		
+		<template id="custom_receipt_external_layout_footer_edsys">
+		    <div class="footer">
+		        <div class="text-center" style="border-top: 1px solid black;">
+		
+		            <t t-if="company.custom_footer">
+		                <span t-raw="company.rml_footer"/>
+		            </t>
+		
+		            <ul class="list-inline">
+		                <li>Page:</li>
+		                <li><span class="page"/></li>
+		                <li>/</li>
+		                <li><span class="topage"/></li>
+		            </ul>
+		        </div>
+		    </div>      
+		</template>
+		    
+		
+		<template id="custom_receipt_external_layout_edsys">
+		    <!-- Multicompany -->
+		    <t t-if="o and 'company_id' in o">
+		        <t t-set="company" t-value="o.company_id"></t>
+		    </t>
+		    <t t-if="not o or not 'company_id' in o">
+		        <t t-set="company" t-value="res_company"></t>
+		    </t>
+		
+		    <t t-call="edsys_biometric.custom_receipt_external_layout_header_edsys" />
+		    <t t-raw="0" />
+		    <t t-call="edsys_biometric.custom_receipt_external_layout_footer_edsys" />
+		</template>    
+		    
+		        
+		<template id="report_employee_attendance">
+		    <t t-foreach="docs" t-as="o">
+		    <t t-call="edsys_biometric.custom_receipt_external_layout_edsys">
+		        <div class="page">
+		            <dssiv class="oe_structure"/>
+		            <div class="row mt32 mb32">
+		                <div><center><h1>Employee Attendnace Report</h1></center></div><br/><br/><br/>
+		                <div class="col-xs-4">
+		                    <strong>Employee Name:  <span t-field="o.name"/></strong>
+		                </div>
+		                <div class="col-xs-4">
+		                    <strong>Employee Code:  <span t-field="o.employee_code"/></strong>
+		                </div>
+		            </div>
+		            
+		                <table class="table table-bordered" width="100%" height="100%" style="border: 2px solid #000000;font-size:13px; border-bottom-style: 1px solid black;">
+		                    <thead>
+		                        <tr style="border: 1px solid black;">
+		                            <th height="10%" width="20%" style="border: 1px solid black;"><strong>SR.No.</strong></th>
+		                            <th  height="10%" width="20%" class="text-center" style="border: 1px solid black;"><strong>Date</strong></th>
+		                            <th height="10%"  width="20%" class="text-right" style="border: 1px solid black;"><strong>Action</strong></th>
+		                            <th height="10%"  width="20%" class="text-right" style="border: 1px solid black;"><strong>Attendance Tag</strong></th>
+		                            <th height="10%"  width="20%" class="text-right" style="border: 1px solid black;"><strong>Attendance State</strong></th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        <t t-set="attendance_id" t-value="0"/>
+		                            <tr t-foreach="o.attendance_ids" t-as="line" style="border: 1px solid black;">
+		                            	<t t-if="o.attendance_report_from_date &lt;= line.name and o.attendance_report_to_date &gt;= line.name"> 
+			                                <t t-set="attendance_id" t-value="attendance_id+1"/>
+			                                <td   height="10%" width="20%" style="border: 1px solid black;">
+			                                   <t t-esc="attendance_id"/>
+			                                </td >
+			                                <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+			                                   <span  t-field="line.name"/> 
+			                                </td>
+			                                <td height="100%" width="20%" class="text-right" style="border: 1px solid black;">
+			                                    <span t-field="line.action"/>
+			                                </td>
+			                                <td height="100%" width="20%" class="text-right" style="border: 1px solid black;">
+			                                    <span t-field="line.attendance_tag"/>
+			                                </td>
+			                                <td height="100%" width="20%" class="text-right" style="border: 1px solid black;">
+			                                    <span t-field="line.attendance_state"/>
+			                                </td>
+			                              </t>
+		                            </tr>
+		
+		                    </tbody>
+		                </table>
+		                <div class="row mt32 mb32">
+		                    <div class="col-xs-12" style="text-align:center">
+		                        <strong class="text-right">This is a computer generated attendance and does not require signature.</strong>
+		                    </div>
+		                </div>
+		            <div class="oe_structure"/>
+		        </div>
+		    </t>
+		    </t>
+		</template>
+    </data>
+</odoo>

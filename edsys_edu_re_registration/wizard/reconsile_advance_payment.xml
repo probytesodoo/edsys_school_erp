@@ -1,0 +1,34 @@
+<openerp>
+    <data>
+
+        <!-- =========== Reconsile Advance Payement ================= -->
+        <record id="re_reg_reconsile_advance_payment_wiz" model="ir.ui.view">
+            <field name="name">re.reg.reconsile.advance.payment.wiz</field>
+            <field name="model">re.reg.reconsile.advance.payment.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Re-Registration Advance Payment Reconcile">
+                    <p class="oe_grey">
+                        Are you sure you want to Reconcile Advance Payment to Re-Registration Fee.
+                    </p>
+                    <footer>
+                        <button string="Reconcile" name="reconsile_re_reg_advance" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <!--===== displaying in to re-registration waiting parent view ====== -->
+        <act_window
+            id="action_reconsile_re_reg_advance"
+            name="Reconcile With Advance Payment"
+            res_model="re.reg.reconsile.advance.payment.wiz"
+            src_model="re.reg.waiting.responce.student"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</openerp>

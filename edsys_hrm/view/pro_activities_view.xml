@@ -1,0 +1,561 @@
+<?xml version="1.0"?>
+<odoo>
+
+	    <record model="ir.ui.view" id="view_pro_activities_form">
+		<field name="name">PRO Activities</field>
+		<field name="model">hr.employee</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		    <form string="PRO Activities" version="7.0">
+		    	<header>
+		    		<field name="pro_activities" invisible="1"/>
+		    		<button string="Submit" name="submit_pro_activities_form" type="object" attrs="{'invisible': [('pro_activities', '!=', True)]}"/>
+		    	</header>
+			    <sheet>
+			    		<group string="Employee Details">
+			    				<group>
+			    					<field name="current_user" invisible="True"/>
+									<field name="employee_code" readonly="1"/>
+									<field name="employee_name" readonly="1"/>
+									<field name="work_email" readonly="1"/>
+									<field name="email_id" readonly="1"/>
+								</group>
+								<group>
+									<field name="job_id" readonly="1"/>
+									<field name="joining_date" readonly="1"/>
+									<field name="country_id" readonly="1"/>
+									<field name="employment_form_filled" invisible="1"/>
+								</group>
+						</group>
+						<group>
+								<group name="passport_details" string="Passport Details">
+												<field name="passport_number" readonly="1"/>
+												<field name="passport_issue_date" readonly="1"/>
+												<field name="passport_expiry_date" readonly="1"/>
+								</group>
+						</group>
+						<notebook>	
+						<page string="PRO Details">
+							<group>
+									<group>
+										<field name="khda_noc"/>
+										<field name="khda_noc_submitted" attrs="{'required': [('khda_noc', '=', 'yes')]}"/>
+										<field name="labour_noc"/>
+										<field name="labour_noc_submitted" attrs="{'required': [('labour_noc', '=', 'yes')]}"/>
+										<field name="remark"/>
+									</group>
+									<group></group>	
+							</group>
+							<group name="pro_visa_details" string="PRO Visa Details">
+									<group>
+										<field name="pro_visa_details_status"  required="0" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_remark" attrs="{'invisible': [('pro_visa_details_status', '!=','cancelled')],'required': [('pro_visa_details_status', '=','cancelled')]}"/>
+										<field name="pro_visa_type"   options="{'no_create_edit': True}"  attrs="{'required' : [('pro_visa_details_status', '=',  'completed' )],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_number"   attrs="{'required' : [('pro_visa_details_status', '=',  'completed' )],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_issue_date"  attrs="{'required' : [('pro_visa_details_status', '=',  'completed' )],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_expiry_date"  attrs="{'required' : [('pro_visa_details_status', '=',  'completed' )],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_uid" required="0"  attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_sponsor_name"  attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))] }"/>
+										<field name="pro_relation_with_emp" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_sponsor_visa_number" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_sponsor_visa_start_date" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_sponsor_visa_expiry_date" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_attachment"  filename="pro_visa_file_name" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_file_name" attrs="{'required' : [('pro_visa_details_status', '=',  'completed' )],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+									</group>
+									<group></group>
+							</group>
+							<group>
+							
+									<group name="labour_card_details" string="Labour Card Details">
+											<field name="pro_labour_card_status" required="0"  attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+											<field name="pro_labour_card_remark" attrs="{'invisible': [('pro_labour_card_status', '!=','cancelled')],'required': [('pro_labour_card_status', '=','cancelled')]}"/>
+											<field name="pro_labour_card_no"  attrs="{'required' : [('pro_labour_card_status', '=', 'completed')],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+											<field name="pro_labour_card_start_date" attrs="{'required' : [('pro_labour_card_status', '=', 'completed')],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+											<field name="pro_permit_expiry_date"  attrs="{'required' : [('pro_labour_card_status', '=', 'completed')],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+											<field name="pro_labour_card_attachment" filename="pro_labour_card_file_name"  attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+											<field name="pro_labour_card_file_name" attrs="{'required' : [('pro_labour_card_status', '=', 'completed')],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+									</group>							
+									<group></group>	
+							</group>
+							<group>
+								<group name="emirates_card_details" string="Emirates ID Details">
+												<field name="pro_emirates_id_status" required="0" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+												<field name="pro_emirates_remark" attrs="{'invisible': [('pro_emirates_id_status', '!=','cancelled')],'required': [('pro_emirates_id_status', '=','cancelled')]}"/>
+												<field name="pro_emirates_card_no" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': [('pro_emirates_id_status', '=', 'completed')]}" />
+												<field name="pro_emirates_start_date" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': [('pro_emirates_id_status', '=', 'completed')]}" />
+												<field name="pro_emirates_expiry_date"  attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': [('pro_emirates_id_status', '=', 'completed')]}" />
+												<field name="pro_emirates_card_attachment" filename="pro_emirates_card_file_name" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+												<field name="pro_emirates_card_file_name" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': [('pro_emirates_id_status', '=', 'completed')]}" />
+								</group>
+								<group></group>
+							</group>
+				    </page>
+				    <page string="History Details">
+				    	<div>
+						    	<group name="pro_visa_details" string="Visa Details">
+										<field name="visa_details_id" nolabel="1" readonly="1">
+											<tree >
+			                         				<field name="visa_type"  options="{'no_create_edit': True}" />
+			                         				<field name="visa_number"/>
+			                         				<field name="visa_issue_date" string="Visa Issue Date"/>
+			                         				<field name="visa_expiry_date" string="Visa Expiry Date"/>
+			                         				<field name="relation_with_emp" />
+			                         				<field name="sponsor_name" />
+			                         				<field name="sponsor_visa_number" />
+			                         				<field name="visa_attachment" />
+								       				<field name="visa_flag" />
+			                         			</tree>
+										</field>
+								</group>
+						</div>
+						<div>
+								<group name="labour_card_details" string="Labour Card Details">
+											<field name="labour_card_details_id" nolabel="1" readonly="1">
+												<tree >
+			                         				<field name="permit_card_no"/>
+			                         				<field name="permit_expiry_date" string="Expiry Date"/>
+			                         				<field name="labour_card_attachment" />
+                         							<field name="labour_flag" />
+			                         			</tree>
+											</field>
+								</group>
+								
+				    	</div>
+				    	<div>
+				    			<group name="emirates_card_details" string="Emirates Card Details">
+												<field name="emiratres_id_details_id" nolabel="1" readonly="1">
+													<tree >
+				                         				<field name="emirates_card_no"/>
+			                         					<field name="emirates_expiry_date" string="Expiry Date"/>
+			                         					<field name="emirates_id_attachment" />
+                         								<field name="emirates_flag" />
+				                         			</tree>
+												</field>
+								</group>
+				    	</div>
+				    </page> 
+				    <!-- <page string="Attachment" required="1">
+				    		<group string="PRO Document">
+                         		<field name="pro_attchment_ids" nolabel="1">
+									<tree editable="bottom">
+				                         <field name="pro_file_name"/> 
+				                         <field name="pro_file" filename="pro_file_name"/>
+				                         <field name="pro_date" />
+				                         <field name="employee_id" invisible="1"/>
+			                      </tree>
+                         		</field>
+                         	</group>
+				    </page>  -->
+				   </notebook>
+				</sheet>
+			</form>
+		</field>
+	   </record>
+	   
+	   
+	   
+	    <record model="ir.ui.view" id="view_pro_activities_tree">
+			<field name="name">PRO Activities</field>
+			<field name="model">hr.employee</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="pro_activities">
+				    <field name="employee_code"/>
+					<field name="employee_name"/>
+					<field name="joining_date" string="Expected Date Of Joining" />	
+					<field name='visa_required' />
+					<field name='remark' />
+					<field name="active_employee" string="Employment Status"/>
+			    </tree>
+			</field>
+		</record>
+		
+		
+		<record id="view_new_pro_filter" model="ir.ui.view">
+            <field name="name">New Pro</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="Remark">
+                	<field name="employee_code"/>
+					<field name="employee_name" string="Employee Name"/>
+                    <field name="remark"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Remark" icon="terp-personal" domain="[]" context="{'group_by':'remark'}"/>
+                    </group>
+                </search>
+             </field>
+         </record>
+         
+		
+        <record model="ir.actions.act_window" id="action_pro_activities_form">
+            <field name="name">PRO Activities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_new_pro_filter"/>
+             <field name="domain">[('pro_activities','=','True')]</field>
+        </record>
+
+        <record id="action_pro_activities_tree_view" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_pro_activities_tree"/>
+            <field name="act_window_id" ref="action_pro_activities_form"/>
+        </record>
+
+        <record id="action_pro_activities_form_view" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_pro_activities_form"/>
+            <field name="act_window_id" ref="action_pro_activities_form"/>
+        </record>
+        
+        <menuitem id="main_pro_activities_menu" name='PRO Activities' parent='hr.menu_hr_root' groups="base.group_erp_manager,group_pro_user_rb,group_hr_user_rb,group_admin_user_rb" sequence="2"/> 
+		<menuitem id="sub_menu_activities_menu" name='New Employee PRO Activities' parent='main_pro_activities_menu' action="action_pro_activities_form" groups="base.group_erp_manager,group_hr_user_rb,group_pro_user_rb,group_admin_user_rb" sequence="1"/> 
+		
+	   <!--  ************************Visa Renewal*************************** -->
+	   
+	   <record id="view_visa_filter" model="ir.ui.view">
+            <field name="name">Visa Details</field>
+            <field name="model">visa.details</field>
+            <field name="arch" type="xml">
+                <search string="Visa Details">
+                	<field name="employee_code"/>
+					<field name="employee_id" string="Employee Name"/>
+                    <field name="visa_remark"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Remark" icon="terp-personal" domain="[]" context="{'group_by':'visa_remark'}"/>
+                        <filter string="Visa Type" domain="[]" context="{'group_by':'visa_type'}"/>
+                    </group>
+                </search>
+             </field>
+         </record>
+         
+	   
+	   
+	   
+	   <record model="ir.ui.view" id="view_renewal_view_form">
+		<field name="name">Visa Renewal Form</field>
+		<field name="model">visa.details</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		    <form string="Visa Renewal Form"  version="7.0" >
+		    	<header>
+		    		
+		    		<button string="Confirm" name="confirm_visa_details" type="object" attrs="{'invisible': [('confirm', '=', True )]}"/>
+		    		<button string="Renew Visa" name="renew_visa" type="object" attrs="{'invisible': [('confirm', '=', False ),('renew_done', '=', False )]}"/>
+		    	</header>
+			    <sheet>
+			    	<group string="Visa Renewal">
+			    		<field name="renew_done" invisible="1"/>
+			    		<field name="confirm" invisible="1"/>
+			    		<field name="visa_state" invisible="1"/>
+			    		<field name="employee_id"  required="1"  />
+			    		<field name="employee_code" readonly="1"/>
+			    		<field name="visa_details_status"   required="1"/>
+						<field name="visa_remark" attrs="{'invisible': [('visa_details_status', '!=','cancelled')],'required': [('visa_details_status', '=','cancelled')]}"/>
+					    <field name="visa_type"  options="{'no_create_edit': True}" attrs="{ 'required': [('visa_details_status', '=', 'completed')] }" />
+					    <field name="visa_uid"  required="0"/>
+					    <field name="visa_number" attrs="{ 'required': [('visa_details_status', '=', 'completed')] }" />
+					    <field name="visa_issue_date" attrs="{ 'required': [('visa_details_status', '=', 'completed')] }" />
+				     	<field name="visa_expiry_date" attrs="{ 'required': [('visa_details_status', '=', 'completed')] }" />
+				      	
+				      	<field name="relation_with_emp" />
+				      	<field name="sponsor_name" />
+				       	<field name="sponsor_address" />
+				       	<field name="sponsor_visa_number" />
+				       	<field name="sponsor_visa_start_date" />
+				       	<field name="sponsor_visa_expiry_date" />
+				       	<field name="visa_attachment" filename="visa_file_name" /> 
+				       	<field name="visa_file_name" attrs="{ 'required': [('visa_details_status', '=', 'completed')] }" />
+				    </group>
+				</sheet>
+			</form>
+		</field>
+	   </record>
+	   
+	    <record model="ir.ui.view" id="view_renewal_form_tree">
+			<field name="name">Visa Renewal Tree</field>
+			<field name="model">visa.details</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="Visa Renewal Tree" default_order="visa_expiry_date" colors="red:visa_state == 'danger';orange:visa_state == 'yellow'"  version="7.0" >
+			    	<field name="visa_state" invisible="1"/>
+			    	<field name="employee_code" />
+			    	<field name="employee_id"/>
+				    <field name="visa_type"/>
+				    <field name="visa_issue_date"/>
+				    <field name="visa_expiry_date"/>
+				    <field name="remaining_days"/>
+				    <field name="visa_remark"/>
+			    </tree>
+			</field>
+		</record>
+		
+        <record model="ir.actions.act_window" id="action_visa_renewal_form">
+            <field name="name">Visa Renewal Form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">visa.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_renewal_form_tree"/>
+            <field name="search_view_id" ref="view_visa_filter"/>
+            <field name="domain">[('flag_cancelled','=',False),('employee_code','!=',False), ('renew_done', '=', False )]</field>
+        </record>
+        
+        <menuitem id="main_visa_renewal_menu" name='Visa Renewal' parent='main_pro_activities_menu'  action="action_visa_renewal_form" sequence="2"/> 
+		
+		<!--  ************************Labour Card Renewal*************************** -->
+		<record model="ir.ui.view" id="view_labour_card_renewal_form">
+		<field name="name">Labour Card Renewal Form</field>
+		<field name="model">labour.card.details</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		    <form string="Labour Card Renewal Form"   version="7.0">
+		    	<header>
+		    		<button string="Confirm" name="confirm_labour_card_details" type="object" attrs="{'invisible': [('confirm', '=', True)]}"/>
+		    		<button string="Renew Labour Card" name="renew_labour" type="object" attrs="{'invisible': [('confirm', '=', False ),('renew_done', '=', False )]}"/>
+		    	</header>
+			    <sheet>
+			    	<group string="Labour Card Renewal">
+				    	<field name="renew_done" invisible="1"/>
+			    		<field name="confirm" invisible="1"/>
+			    		<field name="labour_state" invisible="1"/>
+			    		<field name="employee_id" required="1"  />
+			    		<field name="employee_code"  readonly="1"/>
+			    		<field name="labour_card_status"   required="1"/>
+						<field name="labour_remark" attrs="{'invisible': [('labour_card_status', '!=','cancelled')],'required': [('labour_card_status', '=','cancelled')]}"/>
+			    		<field name="permit_card_no" attrs="{  'required': [('labour_card_status', '=', 'completed')]}" />
+			    		<field name="permit_issue_date" attrs="{  'required': [('labour_card_status', '=', 'completed')]}" />
+						<field name="permit_expiry_date" attrs="{  'required': [('labour_card_status', '=', 'completed')]}" />
+						<field name="labour_card_attachment" filename="labour_card_file_name"   />
+						<field name="labour_card_file_name" attrs="{  'required': [('labour_card_status', '=', 'completed')]}"/>
+			    	</group>
+				</sheet>
+			</form>
+		</field>
+	   </record>
+	   
+	    <record model="ir.ui.view" id="view_labour_card_renewal_tree">
+			<field name="name">Labour Card Renewal Tree</field>
+			<field name="model">labour.card.details</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="Labour Card Renewal Tree" default_order="permit_expiry_date" colors="red:labour_state == 'danger';orange:labour_state == 'yellow'"   version="7.0">
+			    	<field name="labour_state" invisible="1"/>
+			    	<field name="employee_code"/>
+			    	<field name="employee_id"/>
+				    <field name="permit_card_no"/>
+				    <field name="permit_issue_date" />
+					<field name="permit_expiry_date" />
+					 <field name="remaining_days"/>
+					<field name="labour_remark" />
+					 
+					 
+			    </tree>
+			</field>
+		</record>
+		
+		<record id="view_labour_card_filter" model="ir.ui.view">
+            <field name="name">Labour Card</field>
+            <field name="model">labour.card.details</field>
+            <field name="arch" type="xml">
+                <search string="Labour Card Details">
+                    <field name="labour_remark"/>
+                    <field name="employee_code"/>
+					<field name="employee_id" string="Employee Name"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Remark" icon="terp-personal" domain="[]" context="{'group_by':'labour_remark'}"/>
+                    </group>
+                </search>
+             </field>
+         </record>
+		
+        <record model="ir.actions.act_window" id="action_labour_card_renewal_form">
+            <field name="name">Labour Card Renewal action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">labour.card.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_labour_card_renewal_tree"/>
+            <field name="search_view_id" ref="view_labour_card_filter"/>
+            <field name="domain">[('flag_cancelled','=',False),('employee_code','!=',False), ('renew_done', '=', False )]</field>
+        </record>
+        
+        <menuitem id="main_labour_card_renewal_menu" name='Labour Card Renewal' parent='main_pro_activities_menu'  action="action_labour_card_renewal_form" sequence="3"/> 
+		
+		<!--  ************************Emirates ID Renewal*************************** -->
+		<record model="ir.ui.view" id="view_emirates_id_renewal_form">
+		<field name="name">Emirates Id Renewal Form</field>
+		<field name="model">emirates.id.details</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		    <form string="Emirates Id Renewal Form"   version="7.0" >
+		    	<header>
+		    		<button string="Confirm" name="confirm_emirates_id_details" type="object" attrs="{'invisible': [('confirm', '=', True)]}"/>
+		    		<button string="Renew Emirates ID" name="renew_emirates" type="object" attrs="{'invisible': [('confirm', '=', False ),('renew_done', '=', False )]}"/>
+		    	</header>
+			    <sheet>
+			    		<group string="Emirates ID Renewal">
+			    			<field name="renew_done" invisible="1"/>
+			    			<field name="confirm" invisible="1"/>
+			    			 <field name="emirates_state" invisible="1"/>
+			    			 <field name="employee_id"  required="1"  />
+			    			 <field name="employee_code" readonly="1"/>
+			    			 <field name="emirates_id_status"   required="1"/>
+							  <field name="emirates_remark" attrs="{'invisible': [('emirates_id_status', '!=','cancelled')],'required': [('emirates_id_status', '=','cancelled')]}"/>
+				    		 <field name="emirates_card_no"  attrs="{ 'required': [('emirates_id_status', '=', 'completed')]}"/>
+				    		 <field name="emirates_start_date" attrs="{ 'required': [('emirates_id_status', '=', 'completed')]}"/>
+							 <field name="emirates_expiry_date" attrs="{ 'required': [('emirates_id_status', '=', 'completed')]}"  />
+							 <field name="emirates_id_attachment" filename="emirates_card_file_name"   />
+							<field name="emirates_card_file_name" attrs="{  'required': [('emirates_id_status', '=', 'completed')]}"/>
+							 
+				    	</group>
+				</sheet>
+			</form>
+		</field>
+	   </record>
+	   
+	    <record model="ir.ui.view" id="view_emirates_id_renewal_tree">
+			<field name="name">Emirates Id Renewal Tree</field>
+			<field name="model">emirates.id.details</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="Emirates Id Renewal Tree" default_order="emirates_expiry_date" colors="red:emirates_state == 'danger';orange:emirates_state == 'yellow'"   version="7.0" >
+			        <field name="emirates_state" invisible="1"/>
+			    	<field name="employee_code"/>
+			    	<field name="employee_id"/>
+				    <field name="emirates_card_no"/>
+					<field name="emirates_expiry_date"/>	
+					 <field name="remaining_days"/>
+					 <field name="emirates_remark"/>
+			    </tree>
+			</field>
+		</record>
+		
+		<record id="view_emirates_filter" model="ir.ui.view">
+            <field name="name">Emirates</field>
+            <field name="model">emirates.id.details</field>
+            <field name="arch" type="xml">
+                <search string="Emirates Details">
+                    <field name="emirates_remark"/>
+                    <field name="employee_code"/>
+					<field name="employee_id" string="Employee Name"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Remark" icon="terp-personal" domain="[]" context="{'group_by':'emirates_remark'}"/>
+                    </group>
+                </search>
+             </field>
+         </record>
+		
+        <record model="ir.actions.act_window" id="action_emirates_id_renewal_form">
+            <field name="name">Emirates Id Renewal action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">emirates.id.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_emirates_id_renewal_tree"/>
+            <field name="search_view_id" ref="view_emirates_filter"/>
+            <field name="domain">[('flag_cancelled','=',False),('employee_code','!=',False), ('renew_done', '=', False )]</field>
+        </record>
+        
+        <menuitem id="main_emirates_id_renewal_menu" name='Emirates Id Renewal' parent='main_pro_activities_menu'  action="action_emirates_id_renewal_form" sequence="4"/> 
+		
+		 <!--  ************************Visa Types*************************** -->
+		<record model="ir.ui.view" id="view_visa_type_form">
+		<field name="name">Visa Type Form</field>
+		<field name="model">visa.type</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		    <form string="Visa Type" >
+			    <sheet>
+			    		<group string="Visa Type">
+			    			<field name="name"/>
+			    			<field name="visible_to_pro"/>
+				    	</group>
+				</sheet>
+			</form>
+		</field>
+	   </record>
+	   
+	    <record model="ir.ui.view" id="view_visa_type_tree">
+			<field name="name">Visa Type Tree</field>
+			<field name="model">visa.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="Visa Type" >
+			    	<field name="name"/>
+			    	<field name="visible_to_pro"/>
+			    </tree>
+			</field>
+		</record>
+		
+        <record model="ir.actions.act_window" id="action_visa_type">
+            <field name="name">Visa Type Action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">visa.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_visa_type_tree"/>
+        </record>
+        
+        <menuitem id="visa_type_menu" name='Visa Type' parent='hr.menu_human_resources_configuration'  action="action_visa_type" sequence="3"/> 
+		
+		
+		
+		<!--  *************************************** New Menu for Cancellation ******************************** --> 
+        <record model="ir.actions.act_window" id="action_visa_cancellation">
+            <field name="name">Visa Cancellation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">visa.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+			<field name="search_view_id" ref="view_visa_filter"/>
+            <field name="domain">[('flag_cancelled','=',True)]</field>
+        </record>
+        
+        <menuitem id="main_cancelled_visa" name='Cancelled Visas' parent='main_pro_activities_menu'  action="action_visa_cancellation" sequence="5"/>
+        
+        
+        <record model="ir.actions.act_window" id="action_labour_card_cancellation">
+            <field name="name">Labour Card Cancellation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">labour.card.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_labour_card_renewal_tree"/>
+             <field name="search_view_id" ref="view_labour_card_filter"/>
+            <field name="domain">[('flag_cancelled','=',True)]</field>
+        </record>
+        
+        <menuitem id="main_cancelled_labour_card_new" name='Cancelled Labour Cards' parent='main_pro_activities_menu'  action="action_labour_card_cancellation" sequence="6"/>
+        
+         
+        <record model="ir.actions.act_window" id="action_emirates_id_cancellation">
+            <field name="name">Emirates Id Cancellation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">emirates.id.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_emirates_filter"/>
+            <field name="domain">[('flag_cancelled','=',True)]</field>
+        </record> 
+        
+        <menuitem id="main_cancelled_emirates_id" name='Cancelled Emirates Ids' parent='main_pro_activities_menu'  action="action_emirates_id_cancellation" sequence="7"/>
+         
+        <!--  *************************************** New Menu for Cancellation ******************************** -->  
+        
+        
+		 
+		 
+
+</odoo>
+

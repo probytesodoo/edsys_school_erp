@@ -1,0 +1,32 @@
+<openerp>
+    <data>
+
+        <!-- Payfort Payment After Payment Done Error Templet -->
+        <template id="payfort_payment_error_templet" name="Enquiry">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>
+                                Sorry !
+                            </h1>
+                            <br/>
+                            <h3>
+                                <p>Your Payment should be done but system could not update with trangaction details.</p>
+                                <p>Please Contact School.</p>
+                            </h3>
+                            <br/>
+                            <h4>
+                                <p>Error Message : <i><b><span t-esc="err_msg"/></b></i></p>
+                                <p>Your Order id : <i><b><span t-esc="order_id"/></b></i></p>
+                                <p>Payment id = <i><b><span t-esc="payment_id"/></b></i></p>
+                            </h4>
+                            <br/><br/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>

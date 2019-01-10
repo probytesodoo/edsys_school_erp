@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <!-- ================== Strike-off History tree view ========================== -->
+        <record id="view_strike_off_history_tree_view" model="ir.ui.view">
+            <field name="name">view.strike.off.history.tree.view</field>
+            <field name="model">strike.off.history</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Strike off History Tree">
+                    <field name="student_id"/>
+                    <field name="last_strike_off_date"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- =====================strike-off History search view ========================= -->
+        <record id="view_strike_off_history_search" model="ir.ui.view">
+            <field name="name">strike.off.history.serch.view</field>
+            <field name="model">strike.off.history</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Strike off History search view">
+                    <field name="student_id"/>
+                    <field name="last_strike_off_date"/>
+                    <filter string="Last Strike-off date" name="last_strike_off_date" domain="[]" context="{'group_by':'last_strike_off_date'}"/>
+                </search>
+            </field>
+        </record>
+        
+        <!-- =============== Strike-off History form view==================-->
+        <record id="view_strike_off_history_form" model="ir.ui.view">
+            <field name="name">view.strike.off.history.form</field>
+            <field name="model">strike.off.history</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Strike off History Form View">
+                    <sheet>
+                        <group>
+                            <field name="student_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="last_strike_off_date" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Strike-off History">
+                                <field name="strike_history_line_ids" readonly="1">
+                                    <tree string="Students">
+                                        <field name="strike_off_date"/>
+                                        <field name="activate_date"/>
+                                        <field name="remark"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record> 
+        
+        <!-- ============== Strike-off History Action View ============== -->
+        <record id="act_strike_off_history_view" model="ir.actions.act_window">
+            <field name="name">Strike off History</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">strike.off.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+           
+    </data>
+</openerp>

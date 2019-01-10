@@ -1,0 +1,25 @@
+
+<odoo>
+    <data>
+        <record id="clear_cheque_wiz_view_edsys" model="ir.ui.view">
+            <field name="name">Clear Cheque</field>
+            <field name="model">clear.cheque.wiz</field>
+            <field name="inherit_id" ref="pdc_detail.clear_cheque_wiz_view"/>
+            <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+                <form string="Clear Cheque">
+                    <group>
+                    	<field name="clear_cheque_date_wizard" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="clear_cheque" string=" Cleared" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+               </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

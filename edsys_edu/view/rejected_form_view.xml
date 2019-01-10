@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    <!-- ===================== Rejected search view ========================= -->
+    	<record id="view_rjected_search" model="ir.ui.view">
+            <field name="name">rjected.serch.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Registration">
+                    <field name="name" />
+                    <field name="middle_name" />
+                    <field name="last_name" />
+                    <field name="enquiry_no"/>
+                    <field name="admission_date" />
+                    <field name="application_date" />
+                    <field name="birth_date" />
+                    <field name="course_id" />
+                    <field name="batch_id" />
+                    <!--<field name="category_id" />-->
+                    <field name="batch_shift"/>
+                    <!--<field name="standard_id" />-->
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Last Name" domain="[]"
+                                context="{'group_by':'last_name'}" />
+                        <!--<filter string="Application Number" domain="[]"-->
+                                <!--context="{'group_by':'application_number'}" />-->
+                        <filter string="Admission Date" domain="[]"
+                                context="{'group_by':'admission_date'}" />
+                        <filter string="Application Date" domain="[]"
+                                context="{'group_by':'application_date'}" />
+                        <filter string="Class" domain="[]" context="{'group_by':'course_id'}" />
+                        <filter string="Academic Year" domain="[]" context="{'group_by':'batch_id'}" />
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}" />
+                        <!--<filter string="Category" domain="[]"-->
+                                <!--context="{'group_by':'category_id'}" />-->
+                        <filter string="Batch Shift" domain="[]" context="{'group_by':'batch_shift'}"/>
+                            <!--<filter string="Standard" domain="[]"-->
+                                    <!--context="{'group_by':'standard_id'}" />-->
+                    </group>
+                </search>
+            </field>
+	</record>
+      
+        <!-- ================== rjected tree view ========================== -->
+        <record id="view_rjected_tree" model="ir.ui.view">
+            <field name="name">Rejected Tree</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Admission">
+                    <field name="enquiry_no" />
+                    <field name="name" />
+                    <field name="middle_name"/>
+                    <field name="last_name" />
+                    <field name="course_id" />
+                    <field name="state"/>
+                    <field name="batch_shift"/>
+                </tree>
+            </field>
+	</record>
+        <!--=============== rjected form view==================-->
+        <record id="view_rejected_form_view" model="ir.ui.view">
+            <field name="name">Rejected Form</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Rejected">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="rejected"
+                               statusbar_colors='{"r":"red"}'/>
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_left oe_avatar" />
+                        <h1>
+                            <field name="enquiry_no" class="oe_inline" readonly="1"
+                                   attrs="{'invisible':[('state','=','reg_fee_pay')]}"/>
+<!--                            <field name="registration_id" class="oe_inline" readonly="1"
+                                   attrs="{'invisible':[('state','!=','reg_fee_pay')]}"/>-->
+                        </h1>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="title" placeholder="Title"/>
+                            </h1>
+                            <h1>
+                                <field name="name" placeholder="First Name"/>
+                                <field name="middle_name" placeholder="Middle Name"/>
+                                <field name="last_name" placeholder="Last Name"/>
+                            </h1>
+                        </div>
+                        <group colspane="4" col="4">
+                            <field name="state_dropdown" statusbar_visible="rejected"/>\
+                            <field name="state_hide"/>
+                            <field name="batch_shift" readonly="1"/>
+                            <field name="state_hide_ids" invisible="1">
+                                <tree string='Previous states History'>
+                                    <field name="reg_id"/>
+                                    <field name="state_name" readonly="1"/>
+                                </tree>
+                            </field>
+                            <field name="reject_reason"/>
+                            <button name="state_sent" string="Move" type="object"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Personal Detail">
+                                <group>
+                                    <field name="email" placeholder="student@email.com"/>
+                                </group>
+                                <group col="6" colspan="4">
+                                    <!--<field name="application_number"/>-->
+                                    <field name="application_date" attrs="{'readonly':[('user_id','!=',1)]}"/>
+                                    <field name="user_id" invisible="1"/>
+                                    <field name="admission_date"/>
+                                    <field name="batch_id" readonly="1"/>
+                                    <field name="course_id" readonly="1"/>
+                                    <!--<field name="standard_id" required="1"/>-->
+                                    <!--<field name="category_id"/>-->
+                                    <field name="gender"/>
+                                    <field name="emirati"/>
+                                    <field name="arab"/>
+                                    <field name="nationality_id"/>
+                                    <field name="religion_id"/>
+                                    <field name="birth_date" readonly="1"/>
+                                    <field name="birth_place"/>
+                                    <field name="birth_country"/>
+                                    <field name="emirates_id"/>
+                                    <field name="lang_id" string='Mother Tongue' widget="selection"/>
+                                    <field name="other_lang_id" string='Optional Language' widget="selection" domain="[('is_optional','=',True)]"/>
+                                </group>
+                                <separator string="Passport Detail"/>
+                                <group col="4" colspan="4">
+                                    <field name="passport_no"/>
+                                    <field name="place_of_issue"/>
+                                    <field name="passport_issue_date"/>
+                                    <field name="passport_expiry_date"/>
+                                </group>
+                                <separator string="Visa Detail"/>
+                                <group col="6" colspan="6">
+                                    <field name="visa_no"/>
+                                    <field name="visa_issue_date"/>
+                                    <field name="visa_expiry_date"/>
+                                </group>
+                            </page>
+                            <page string="Siblings">
+                                <field name="sibling_ids">
+                                    <!--<tree editable="bottom">
+                                        <field name="sibling_name" />
+                                        <field name="sibling_grade" />
+                                    </tree>-->
+                                </field>
+                                <group>
+                                    <field name="about_us" />
+                                    <field name="about_us_other" attrs="{'invisible': [('about_us','!=','other')]}" />
+                                    <field name="sibling_info" />
+                                    <field name="remarks" />
+                                </group>
+                            </page>
+                           
+                            <page string="Address">
+                                <label for="street" string="Address"/>
+                                <div>
+                                    <field name="street" placeholder="Street..."/>
+                                    <field name="street2"/>
+                                    <div class="address_format">
+                                        <field name="city" placeholder="City" style="width: 40%%"/>
+                                        <field name="state_id" options='{"no_open": True}'
+                                               placeholder="State" style="width: 24%%"/>
+                                        <field name="zip" placeholder="ZIP" style="width: 34%%"/>
+                                    </div>
+                                    <field name="country_id" placeholder="Country" options='{"no_open": True}'/>
+                                    <field name="phone" placeholder="Phone"/>
+                                    <field name="mobile" placeholder="Mobile"/>
+                                </div>
+                                <group col="4" colspan="4">
+                                    <field name="religion_id"/>
+                                    <field name="family_business"/>
+                                    <field name="family_income"/>
+                                </group>
+                            </page>
+                            <page string="School History">
+                                <div class="oe_list_content">
+                                    <group col="4" colspregistrationan="4">
+                                        <field name="prev_institute" string='School Name'/>
+                                        <field name="prev_academic_city" string="Place"/>
+                                        <field name="prev_academic_country"/>
+                                        <field name="last_attendance"/>
+                                        <field name="curriculum" string="Curriculum"/>
+                                        <field name="prev_grade"/>
+                                        <field name="prev_academic_year"/>
+                                        <field name="t_c_number"/>
+                                        <field name="tranfer_reason"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Medical">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="blood_group"/>
+                                        <field name="s_height"/>
+                                        <field name="s_width"/>
+                                        <field name="child_allergic"/>
+                                        <field name="w_allergic" attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="w_reaction" attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="w_treatment"
+                                               attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="under_medication"/>
+                                        <field name="w_medication_mention"
+                                               attrs="{'invisible': [('under_medication','=',False)]}"/>
+                                        <field name="w_treatment_mention"
+                                               attrs="{'invisible': [('under_medication','=',False)]}"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Parents Detail">
+                                <div class="oe_list_content">
+                                    <group col="6" colspan="4">
+                                        <field name="parent_name" required="1"/>
+                                        <field name="parent_profession" string='Father Profession'/>
+                                        <field name="parent_contact" string="Father Contact"/>
+                                        <field name="parent_email" string='Father Email' required="1" widget="email"/>
+                                        <field name="parent_office_contact" string="Office Tel. No"/>
+                                    </group>    
+                                    <group col="6" colspan="4">    
+                                        <field name="mother_name"/>
+                                        <field name="mother_profession"/>
+                                        <field name="mother_contact"/>
+                                        <field name="mother_email"/>
+                                        <field name="emergency_contact"/>
+                                    </group>
+                                    <!--<group><field name="parent_residential_address"/></group>-->
+                                </div>
+                            </page>
+                            <page string="Transportation Detail">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="transport_type"/>
+                                        <field name="bus_no"/>
+                                        <field name="pick_up"/>
+                                        <field name="droup_off_pick"/>
+                                    </group>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_rejected_form_view_inherit" model="ir.ui.view">
+            <field name="name">view.rejected.form.view.inherit</field>
+            <field name="model">registration</field>
+            <field name="inherit_id" ref="view_rejected_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_erp_manager') ])]" />
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="batch_id" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="course_id" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="birth_date" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_rejected_form_view_inherit_registra" model="ir.ui.view">
+            <field name="name">view.rejected.form.view.inherit.registra</field>
+            <field name="model">registration</field>
+            <field name="inherit_id" ref="view_rejected_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('edsys_edu.group_registration_manager') ])]" />
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="batch_shift" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- ============ Rjected Action View ==================== -->
+        <record model="ir.actions.act_window" id="act_rjected_view">
+            <field name="name">Reject</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">registration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_state":'rejected'}</field>
+            <field name="domain">[('state','=','rejected')]</field>
+             <field name="search_view_id" ref="view_rjected_search"/>
+        </record>
+
+        <record id="action_reject_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_rjected_tree"/>
+            <field name="act_window_id" ref="act_rjected_view"/>
+        </record>
+
+        <record id="action_reject_form_view2" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_rejected_form_view"/>
+            <field name="act_window_id" ref="act_rjected_view"/>
+        </record>
+
+    </data>
+</odoo>

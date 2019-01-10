@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--=============== Awaiting Fee form view inherit==================-->
+        <record id="view_confirm_fees_form_inherit_fee_enhancement" model="ir.ui.view">
+            <field name="name">promote.student.line.form.view</field>
+            <field name="model">promote.student.line</field>
+            <field name="inherit_id" ref="edsys_promotion.view_confirm_fees_form" />
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='discount_category']" position="after">
+                    <field name="discount_applicable_date" />
+                </xpath>
+                
+                <xpath expr="//notebook" position="inside">
+                	<page string="Fee Computation" >
+                    	<field name="fee_computation_ids" >
+                    		<tree>
+                    			<field name="month_id" />
+			                   	<field name="fee_date" />
+			                   	<!-- <field name="fee_computation_line_ids" /> -->
+			                   	<field name="total_calculated_amount" />
+			                   	<field name="total_discount_amount" />
+			                   	<field name="invoice_amount" />
+			                   	<field name="discount_category_id" />
+			                   	<field name="status" />
+                    		</tree>
+                    	</field>
+                    </page>
+               </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

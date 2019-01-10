@@ -1,0 +1,144 @@
+<openerp>
+    <data>
+        <template id="student_verification_templet" name="Enquiry">
+
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Thank you!</h1>
+                            <br/>
+                                <h3>
+                                    <p>Your Information Successfully updated.</p>
+                                    <!--<p>Your Enquiry Number is : <i><b><span t-esc="enquiry_no"/></b></i></p>-->
+                                </h3>
+                                <p t-if="error_message">
+                                    <span t-esc="error_message"/>
+                                </p>
+                            <br/><br/>
+                                <p>we will get back to you soon.</p>
+                        </div>
+                        <section data-snippet-id="cta" class="oe_dark">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt16 mb16">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <!-- templet for expired link -->
+
+        <template id="student_link_expired_templet" name="Link">
+
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Sorry!</h1>
+                            <br/>
+                                <h3>
+                                    <p>You Can not use this link. This Link is Expired.</p>
+                                    <p></p>
+                                    <!--<p>Your Enquiry Number is : <i><b><span t-esc="enquiry_no"/></b></i></p>-->
+                                </h3>
+                            <br/><br/>
+                                <p>we will get back to you soon.</p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+            <!--<t t-call="website.layout">-->
+                <!--<t t-set="additional_title">Apply Registration</t>-->
+                    <!--<div id="wrap">-->
+                        <!--<div class="container">-->
+                            <!--<div class="row">-->
+                                <!--<section id="forms">-->
+                                    <!--&lt;!&ndash; TODO Multilingual form action support ? &ndash;&gt;-->
+                                    <!--<div class="col-md-12">-->
+                                        <!--<p class="text-center"></p>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-12" style="background-color:#888; color:#FFFFFF; padding:20px; font-size:36px; margin-bottom:20px;">-->
+                                        <!--Student Verification-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-12" id="msg"></div>-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-1">-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-10">-->
+                                            <!--<div class="portlet box blue">-->
+                                                <!--<div class="portlet-title">-->
+                                                    <!--<div class="caption">-->
+                                                        <!--<i class="fa fa-gift"></i> Student Verification-->
+                                                    <!--</div>-->
+                                                    <!--<div class="tools">-->
+                                                        <!--<a title="" data-original-title="" href="" class="collapse">-->
+                                                        <!--</a>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="portlet-body form">-->
+                                                    <!--<form role="form" method="post" action="/student/information" id="myform">-->
+                                                        <!--<div class="form-body">-->
+                                                            <!-- Email -->
+                                                            <!--<div class="row">-->
+                                                                <!--<div class="col-md-12">-->
+                                                                    <!--<div class="form-group">-->
+                                                                        <!--<label class="control-label col-md-4">Email:<span style="color:#FF0000">*</span></label>-->
+                                                                        <!--<div class="col-md-6">-->
+                                                                            <!--<input class="form-control" name="email" id="s_em" data-options="required:true,validType:'email'" type="text"/>-->
+                                                                            <!--<span id="s_msgem"></span>-->
+                                                                            <!--<t t-if="msg_again">-->
+                                                                                <!--<span style="color:#FF0000" t-esc="msg_again"/>-->
+                                                                            <!--</t>-->
+                                                                            <!--<span class="help-block"></span>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                            <!--&lt;!&ndash; Re Enter Email: &ndash;&gt;-->
+                                                            <!--<div class="row">-->
+                                                                <!--<div class="col-md-12">-->
+                                                                    <!--<div class="form-group">-->
+                                                                        <!--<label class="control-label col-md-4">Re Enter Email:<span style="color:#FF0000">*</span></label>-->
+                                                                        <!--<div class="col-md-6">-->
+                                                                            <!--<input class="form-control" name="reemail" id="s_reem" required="true" type="text"/>-->
+                                                                            <!--<span id="s_msgrem"></span>-->
+                                                                            <!--<span class="help-block"></span>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                            <!-- submit button -->
+                                                            <!--<div class="row">-->
+                                                                <!--<div class="col-md-12" style="margin-top:1%; margin-bottom:1%;">-->
+                                                                    <!--<div class="form-group">-->
+                                                                        <!--<label class="control-label col-md-4"></label>-->
+                                                                        <!--<div class="col-md-1"></div>-->
+                                                                        <!--<div class="col-md-5">-->
+                                                                            <!--<input class="btn btn-circle blue btn-block" id="btnsubmitinfo" style="width:50%;" value="Submit" name="submit" type="submit"/>-->
+                                                                            <!--<span class="help-block"></span>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                    <!--</form>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</section>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</t>-->
+
+    </data>
+</openerp>

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ================== Batch tree view ========================== -->
+        <record id="view_batch_tree_view" model="ir.ui.view">
+            <field name="name">view.batch.tree.view</field>
+            <field name="model">batch</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Batch">
+                    <field name="code" />
+                    <field name="name" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="advance_payment_reconcile_date"/>
+                    <field name="current_academic"/>
+                </tree>
+            </field>
+	</record>
+
+        <!--=============== Batch form view==================-->
+        <record id="view_barch_form_view" model="ir.ui.view">
+            <field name="name">view.barch.form.view</field>
+            <field name="model">batch</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Batch">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="code" />
+                            <field name="name" />
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="effective_date" required="1"/>
+                            <field name="advance_payment_reconcile_date" required="1"/>
+                            <field name="current_academic" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Course">
+                                <separator string="Classes"/>
+                                <field name="course_ids" >
+                                    <tree string="classes Tree">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="evaluation_type"/>
+                                        <field name="min_age"/>
+                                        <field name="max_age"/>
+                                        <!--<field name="effective_date"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Month/Year">
+                                <field name="month_ids">
+                                    <tree string="Month" editable="bottom" delete="false" create="false" colors="blue:leave_month == True">
+                                        <field name="code" readonly="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="year" readonly="1"/>
+                                        <field name="leave_month"/>
+                                        <field name="alt_month"/>
+                                        <field name="quater_month" string="Half Year"/>
+                                        <!--<field name="generate_month"/>-->
+                                        <field name="qtr_month" string="Quater Month"/>
+                                        <button name="make_it_leave_month" string="Set as Leave" type="object" class="oe_highlight" attrs="{'invisible':[('leave_month','=',True)]}"/>
+                                        <button type="object" name="make_it_unleave_month" string="Set as Regular" attrs="{'invisible':[('leave_month','=',False)]}" class="oe_highlight"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Acadamic Terms">
+                                 <field name="term_ids" readonly="0">
+                                    <tree string="Terms" editable="bottom">
+                                        <field name="seq" required="1"/>
+                                        <field name="name" required="1"/>
+                                        <field name="start_date" required="1"/>
+                                        <field name="end_date" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ============ Batch Action View ==================== -->
+        <record model="ir.actions.act_window" id="act_batch_view">
+            <field name="name">Batch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">batch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- ================== Course tree view ========================== -->
+        <record id="view_course_tree_view" model="ir.ui.view">
+            <field name="name">view.course.tree.view</field>
+            <field name="model">course</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Course">
+                    <field name="code" />
+                    <field name="name" />
+                    <!--<field name="section" />-->
+                    <field name="evaluation_type" />
+                    <field name="min_age"/>
+                    <field name="max_age"/>
+                    <!--<field name="effective_date"/>-->
+                </tree>
+            </field>
+	</record>
+
+        <!--=============== Course form view==================-->
+        <record id="view_course_form_view" model="ir.ui.view">
+            <field name="name">view.course.form.view</field>
+            <field name="model">course</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="course">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="code" />
+                            <field name="name" />
+                            <field name="evaluation_type" />
+                            <field name="min_age" required="1"/>
+                            <field name="max_age" required="1"/>
+                           <!--<field name="effective_date" required="1"/>-->
+                        </group>
+                        <notebook>
+                            <page string="Section">
+                                <separator string="Section"/>
+                                <field name="section"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ============ Course Action View ==================== -->
+        <record model="ir.actions.act_window" id="act_course_view">
+            <field name="name">Course</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">course</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- ================== Category tree view ========================== -->
+        <!--<record id="view_category_tree_view" model="ir.ui.view">-->
+            <!--<field name="name">view.category.tree.view</field>-->
+            <!--<field name="model">category</field>-->
+            <!--<field name="priority" eval="8" />-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Category">-->
+                    <!--<field name="code" />-->
+                    <!--<field name="name" />-->
+                <!--</tree>-->
+            <!--</field>-->
+	    <!--</record>-->
+
+        <!--=============== Category form view==================-->
+        <!--<record id="view_category_form_view" model="ir.ui.view">-->
+            <!--<field name="name">view.category.form.view</field>-->
+            <!--<field name="model">category</field>-->
+            <!--<field name="priority" eval="8" />-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Category">-->
+                    <!--<sheet>-->
+                        <!--<group col="4" colspan="4">-->
+                            <!--<field name="code" />-->
+                            <!--<field name="name" />-->
+                        <!--</group>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!-- ============ Category Action View ==================== -->
+        <!--<record model="ir.actions.act_window" id="act_category_view">-->
+            <!--<field name="name">Category</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">category</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
+
+        <!-- ================== Religion tree view ========================== -->
+        <record id="view_religion_tree_view" model="ir.ui.view">
+            <field name="name">view.religion.tree.view</field>
+            <field name="model">religion</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Religion">
+                    <field name="code" />
+                    <field name="name" />
+                </tree>
+            </field>
+	    </record>
+
+        <!--=============== Religion form view==================-->
+        <record id="view_religion_form_view" model="ir.ui.view">
+            <field name="name">view.religion.form.view</field>
+            <field name="model">religion</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Religion">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="code" />
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ============ Religion Action View ==================== -->
+        <record model="ir.actions.act_window" id="act_religion_view">
+            <field name="name">Religion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">religion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- ================== Section tree view ========================== -->
+        <record id="view_section_tree_view" model="ir.ui.view">
+            <field name="name">view.section.tree.view</field>
+            <field name="model">section</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Section">
+                    <field name="code" />
+                    <field name="name" />
+                </tree>
+            </field>
+	    </record>
+
+        <!--=============== Section form view==================-->
+        <record id="view_section_form_view" model="ir.ui.view">
+            <field name="name">view.section.form.view</field>
+            <field name="model">section</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Section">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="code" />
+                            <field name="name" />
+                        </group>
+                        <notebook invisible="1">
+                            <page string="Course">
+                                <field name="course_id"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ============ Section Action View ==================== -->
+        <record model="ir.actions.act_window" id="act_section_view">
+            <field name="name">Section</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">section</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- ================== Standard tree view ========================== -->
+        <!--<record id="view_standard_tree_view" model="ir.ui.view">-->
+            <!--<field name="name">view.standard.tree.view</field>-->
+            <!--<field name="model">standard</field>-->
+            <!--<field name="priority" eval="8" />-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Standard">-->
+                    <!--<field name="code" />-->
+                    <!--<field name="name" />-->
+                    <!--<field name="course_id" />-->
+                    <!--<field name="sequence" />-->
+                    <!--<field name="division_ids" />-->
+                <!--</tree>-->
+            <!--</field>-->
+	    <!--</record>-->
+
+        <!--=============== Standard form view==================-->
+        <!--<record id="view_standard_form_view" model="ir.ui.view">-->
+            <!--<field name="name">view.standard.form.view</field>-->
+            <!--<field name="model">standard</field>-->
+            <!--<field name="priority" eval="8" />-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Standard">-->
+                    <!--<sheet>-->
+                        <!--<group col="4" colspan="4">-->
+                            <!--<field name="code" />-->
+                            <!--<field name="name" />-->
+                            <!--<field name="course_id" />-->
+                            <!--<field name="sequence" />-->
+                        <!--</group>-->
+                        <!--<separator string="Section"/>-->
+                        <!--<field name="division_ids" />-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!-- ============ Standard Action View ==================== -->
+        <!--<record model="ir.actions.act_window" id="act_standard_view">-->
+            <!--<field name="name">Standard</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">standard</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
+
+        <!-- ================== Fee Month tree view ========================== -->
+        <record id="fee_month_tree_view" model="ir.ui.view">
+            <field name="name">fee.month.tree.view</field>
+            <field name="model">fee.month</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Section">
+                    <field name="code" />
+                    <field name="name" />
+                    <field name="year"/>
+                </tree>
+            </field>
+	    </record>
+
+        <!--=============== Fee Month form view==================-->
+        <record id="fee_month_form_view" model="ir.ui.view">
+            <field name="name">fee.month.form.view</field>
+            <field name="model">fee.month</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Fee Month">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="code" />
+                            <field name="name" />
+                            <field name="year"/>
+                            <field name="qtr_month"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ============ Fee Month Action View ==================== -->
+        <record model="ir.actions.act_window" id="act_fee_month_view">
+            <field name="name">Month of Fee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fee.month</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

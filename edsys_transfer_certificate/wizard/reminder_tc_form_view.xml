@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+
+        <!-- =========== Send Reminder for TC Form To parent ================= -->
+        <record id="send_reminder_tc_form_view" model="ir.ui.view">
+            <field name="name">send.reminder.tc.form.view</field>
+            <field name="model">send.reminder.tc.form.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Resend Request for TC">
+                    <p class="oe_grey">
+                        Are you sure you want to Resend Transfer Certificate Form Link?
+                    </p>
+                    <footer>
+                        <button string="Resend Link" name="resend_tc_form_link" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <!--===== displaying in to more button for tc form reminder ====== -->
+        <act_window
+            id="action_reminder_tc_form_link"
+            name="Resend TC Form Link"
+            res_model="send.reminder.tc.form.wiz"
+            src_model="trensfer.certificate"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+    </data>
+</odoo>

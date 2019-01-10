@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <report 
+        string="Fees Payment Receipt" 
+        id="action_fees_payment_receipt" 
+        model="account.payment" 
+        report_type="qweb-pdf"
+        name="edsys_edu_fee.report_fee_payment_receipt"
+        file="edsys_edu_fee.report_fee_payment_receipt"
+	attachment_use="True"
+        attachment="(object.state in ('posted')) and
+	        ('Receipt'+(object.name or '').replace('/','')+'.pdf')"
+         />
+         
+     <report
+	        id="student_invoice_duplicate"
+	        model="account.invoice"
+	        string="Invoices Attachment"
+	        report_type="qweb-pdf"
+	        name="edsys_edu.report_invoice_attachment"
+	        file="edsys_edu.report_invoice_attachment"
+	        attachment_use="True"
+	        attachment="(object.state in ('open','paid')) and
+	        ('INV'+(object.number or '').replace('/','')+'.pdf')"
+	    />
+    
+<template id="report_fee_payment_receipt">
+    <t t-foreach="docs" t-as="o">
+    <t t-call="edsys_edu_fee.custom_receipt_external_layout_payment_receipt">
+        <div class="page">
+            <dssiv class="oe_structure"/>
+            <div class="row mt32 mb32">
+            	<div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <table width="100%" height="100%">
+                    <tbody>
+                    	<tr>
+                           <!--  <td class="text-left">
+				            		<strong>Date:  <span t-field="o.date"/> </strong>
+                            </td>
+                             -->
+                            <td class="text-right">
+				            		<strong>Receipt No:  <span t-field="o.name"/> </strong>
+                            </td>
+                            
+                        </tr>
+                     </tbody>
+                </table>
+		        
+               	<div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <br/>
+		        <table width="100%" height="100%">
+                    <tbody>
+                        <tr>
+                           <td class="text-left">
+                               <strong>Name:  <span t-field="o.partner_id.name"/>  <span t-field="o.partner_id.middle_name"/> <span t-field="o.partner_id.last_name"/> </strong>
+                            </td>
+                            
+                            <td class="text-right">
+                              	<strong>Payment Method:  <span t-field="o.journal_id.name"/> </strong>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                           <td class="text-left">
+                               <t t-if="o.partner_id.is_student==True">
+				                    <strong>Student ID:  <span t-esc="o.partner_id.student_id"/></strong>
+				                </t>
+                            </td>
+                            
+                            <td class="text-right">
+                              	<!-- <t t-if="o.chk_num">
+					                    <strong>Cheque No:  <span t-field="o.chk_num"/></strong>
+				                </t> -->
+				                <!-- <t t-if="o.payfort_payment_id">
+					                    <strong>Payment ID:  <span t-field="o.payfort_payment_id"/></strong>
+				                </t> -->
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td class="text-left">
+			                    <t t-if="o.partner_id.is_parent==True">                   
+			                    <strong>Class:  <span t-esc="o.students_class(o)"/></strong>
+			                    </t> 
+			                    <t t-if="o.partner_id.is_student==True">                   
+			                    <strong>Class/Section:  <span t-esc="o.partner_id.class_id.name"/><strong><span>/</span><span t-field="o.partner_id.student_section_id.name"/></strong></strong>
+			                    </t> 
+                        	</td>
+                        	<td class="text-right">
+                        		<!-- <t t-if="o.chk_num">
+					                    <strong>Cheque Date:  <span t-field="o.cheque_start_date"/></strong>
+					            </t> -->
+				                  <!--  <t t-if="o.payfort_payment_id">
+					                    <strong>Payment  Date:  <span t-field="o.date"/></strong>
+					            </t> -->
+                        	</td>
+                        </tr>
+                    	
+                    	<tr>
+                    		<td class="text-left">
+                    			<t t-if="o.partner_id.is_student==True">
+				                        <strong>Academic Year:  <span t-field="o.partner_id.year_id.name"/></strong>
+				                </t>
+				                <t t-if="o.partner_id.is_parent==True">
+				                        <strong>Academic Year:  <span t-esc="o.academic_years(o.partner_id)"/></strong>
+				                </t>
+                    		
+                    		</td>
+                    		<td class="text-right">
+                    			<t t-if="o.bank_name">
+					                    <strong>Bank Name:  <span t-field="o.bank_name"/></strong>
+				                </t>
+                    		
+                    		</td>
+                    	</tr>
+                    	
+                    	<tr>
+                    		<td class="text-left">
+                    			<t t-if="o.partner_id.is_parent==True">
+				                    <strong>Child's Name:  <span t-esc="o.childs_name(o)"/></strong>
+				                </t>
+                    		</td>
+                    		<td class="text-right">
+                    			<!--  <t t-if="o.invoice_id">
+					                    <strong>Invoice Number:  <span t-field="o.invoice_id.name"/></strong>
+				                </t> -->
+                    		</td>
+                    		
+                    	</tr>
+                    	
+                    	<tr>
+                    		<td class="text-left">
+                    			<t t-if="o.partner_id.is_parent==True">
+				                    <strong>Student ID:  <span t-esc="o.student_ids(o)"/></strong>
+				                </t>
+                    		</td>
+                    		<td>
+                    		
+                    		</td>
+                    	</tr>
+                    	
+                    </tbody>
+                    
+                </table>
+		        
+                <br/>
+                <div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <br/>
+            </div>
+            
+            <t t-if="o.state=='posted'">
+            	<table class="table table-bordered" width="100%" height="100%" style="border: 2px solid #000000;font-size:13px">
+                    <thead>
+                        <tr style="border: 1px solid black;">
+                            <th height="10%" width="10%" style="border: 1px solid black;"><strong>SI.No.</strong></th>
+                           <!--  <th height="10%" width="15%" class="text-left" style="border: 1px solid black;"><strong>Invoice Number</strong></th> -->
+                            <th  height="10%" width="50%" class="text-left" style="border: 1px solid black;"><strong>Description</strong></th>
+                            <!--<th height="10%"  width="15%" class="text-right" style="border: 1px solid black;"><strong>Amount</strong></th>-->
+                            <th height="10%"  width="15%" class="text-right" style="border: 1px solid black;"><strong>Amount</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    			<t t-set="foo" t-value="0"/>
+                    			<tr>
+	                        		<t t-set="foo" t-value="foo+1"/>
+	                        		<td   height="10%" width="10%" class="text-center" style="border: 1px solid black;">
+			                                   <t t-esc="foo"/>
+	                                </td >
+	                        		<td height="10%" width="15%" class="text-left" style="border: 1px solid black;">
+			                                  Fee 
+	                                </td>
+	                                <td height="10%" width="15%" class="text-right" style="border: 1px solid black;">
+			                                   <span t-field="o.amount"/>
+	                                </td>
+                                </tr>
+                                
+                                
+                                <!-- <tr t-foreach="o.get_invoice_line(o)" t-as="invoice_line" style="border: 1px solid black;">
+                                	<t t-esc="invoice_lines"/>
+                                	<tr t-foreach="invoice_lines" t-as="invoice_line" style="border: 1px solid black;">
+		                                <t t-set="foo" t-value="foo+1"/>
+		                                <td   height="10%" width="10%" class="text-center" style="border: 1px solid black;">
+		                                   <t t-esc="foo"/>
+		                                </td >
+		                                <td height="10%" width="15%" class="text-left" style="border: 1px solid black;">
+		                                   <t  t-esc="invoice_line[0]"/> 
+		                                </td>
+		                                <td height="10%" width="50%" class="text-left" style="border: 1px solid black;">
+		                                   <t  t-esc="invoice_line[1]"/> 
+		                                </td>
+		                                <td height="100%" width="15%" class="text-right" style="border: 1px solid black;">
+		                                    <t t-esc="invoice_line[2]"/>
+		                                </td> 
+		                                <td height="100%" width="15%" class="text-right" style="border: 1px solid black;">
+		                                    <t t-esc="invoice_line[3]"/>0
+		                                </td>
+	                             </tr> -->
+								<!-- <t t-if="o.writeoff_amount > 0">  
+			                        <tr>
+			                            <td   height="10%" width="10%" class="text-center" style="border: 1px solid black;">
+                                		</td >
+			                            <td class="text-left" style="border: 1px solid black;">
+			                              	<strong><span> Fee received in advance </span></strong>
+			                            </td>
+			                            <td class="text-right"  style="border: 1px solid black;">
+			                                <strong><span t-field="o.writeoff_amount"/></strong>
+			                            </td>
+			                        </tr>
+		                        </t> -->
+			                    <tr>
+		                            <td   height="10%" width="10%" class="text-center" style="border: 1px solid black;">
+                                	</td >
+		                            <td class="text-left" style="border: 1px solid black;">
+		                              	<strong><span> Total </span></strong>
+		                            </td>
+		                            <td class="text-right"  style="border: 1px solid black;">
+		                                <strong><span t-field="o.amount"/></strong>
+		                            </td>
+		                        </tr>
+
+                    </tbody>
+                </table>
+            
+				<div class="row mt32 mb32">
+	                <div class="col-xs-12" style="text-align:center">
+	                    <p>This is a computer generated invoice and does not require signature. Online, cheque and bank transfer payment subject to realisation.</p>
+	                </div>
+	            </div> 
+            </t>  
+        </div>
+    </t>
+    </t>
+</template>
+
+</data>
+</odoo>
+    
+
+
+
+

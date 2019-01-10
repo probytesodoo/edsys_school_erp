@@ -1,0 +1,1396 @@
+<odoo>
+    <data>
+        <template id="website_epmloyement_application_form" name="Enquiry">
+            <t t-call="website.layout">
+            <script type="text/javascript" src="/edsys_hrm/static/src/js/datetimepicker_css.js"></script>
+            <script type="text/javascript" src="/edsys_hrm/static/src/js/moment.min.js"></script>
+            	 <script type="text/javascript" src="/edsys_hrm/static/src/js/moment-with-locales.min.js"></script>
+             <script type="text/javascript" src="/edsys_hrm/static/src/js/website_employement.js"></script>
+                <t t-set="additional_title">Employment Application Form</t>
+                    <div id="wrap">
+                        <div class="container oe_website_employee">
+                            <div class="row">
+                                <section id="forms">
+                                    <!-- TODO Multilingual form action support ? -->
+                                    
+                                    <div class="col-md-12">
+                                        <p class="text-center"></p>
+                                    </div>
+                                        <div class="col-md-12" style="background-color:#888; color:#FFFFFF; padding:20px; font-size:36px; margin-bottom:20px;">
+                                            Hello <t t-esc="hr_emp_rec.name"/>!
+                                        </div>
+                                        <div class="col-md-12" id="msg"></div>
+                                        <div class="row">
+                                            <div class="col-md-1">
+		                                    </div>
+                                            <div class="col-md-10">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                       <h2> <i class="fa fa-gift"></i>Employment Application Information</h2>
+                                                    </div>
+                                                    <div class="tools">
+                                                        <a title="" data-original-title="" href="" class="collapse">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                    <form role="form" method="post" action="/otherinformation/thankyou" id="myform" enctype="multipart/form-data">
+                                                        <!-- <input type="text" id="email_id" name="email_id" t-att-value="hr_emp_rec.email_id" style="display : none;"/> -->
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Employee Name <span style="color:#FF0000">*</span> :  </label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control " t-att-readonly="hr_emp_rec.name != False" t-att-value="hr_emp_rec.name" name="name" placeholder=" First Name" style="width: 115px;" type="text" required="1"/>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input class="form-control " t-att-readonly="hr_emp_rec.middle_name != False" t-att-value="hr_emp_rec.middle_name" placeholder=" Middle Name" name="middle_name" style="width: 175px;" type="text" />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <input class="form-control" t-att-readonly="hr_emp_rec.last_name != False" t-att-value="hr_emp_rec.last_name" placeholder=" Last Name" name="last_name" style="width: 115px;" type="text" />
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Employee Contact Number -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Contact Number 1 <span style="color:#FF0000">*</span> :   </label>
+                                                                        <div class="col-md-6">
+                                                                        	<div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                        		<input class="form-control" t-att-value="hr_emp_rec.isd_contact_number1" placeholder="0091" name="isd_contact_number1" id="isd_contact_number1" type="text" required="1"/>
+                                                                        	</div>
+                                                                        	<div class="col-md-6" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<input class="form-control"  t-att-value="hr_emp_rec.contact_number1" name="contact_number1" id="contact_number1" type="text" required="1"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Emergency contact number <span style="color:#FF0000">*</span> :  </label>
+                                                                        <div class="col-md-6">
+	                                                                        <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+	                                                                        	<input class="form-control"  t-att-value="hr_emp_rec.isd_contact_number2" placeholder="0091" name="isd_contact_number2" id="isd_contact_number2" type="text" required="1"/>
+	                                                                        </div>
+	                                                                        <div class="col-md-6" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<input class="form-control"  t-att-value="hr_emp_rec.contact_number2" name="contact_number2" id="contact_number2" type="text" required="1"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Home country contact number <span style="color:#FF0000">*</span> :  </label>
+                                                                        <div class="col-md-6">
+                                                                        	<div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                        		<input class="form-control" t-att-value="hr_emp_rec.isd_contact_number3" placeholder="0091" name="isd_contact_number3" id="isd_contact_number3" type="text" required="1"/>
+                                                                        	</div>
+                                                                        	<div class="col-md-6" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<input class="form-control"  t-att-value="hr_emp_rec.contact_number3" name="contact_number3" id="contact_number3" type="text" required="1"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+	                                                            <div t-if="hr_emp_rec.active_employee" class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4"> Work Email ID <span style="color:#FF0000">*</span> :   </label>
+	                                                                       <div class="col-md-6">
+	                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.work_email != False" t-att-value="hr_emp_rec.work_email" name="work_email" type="text" required="1"/>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+                                                            <!-- Academic year -->
+                                                            <div  class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Personal Email ID <span style="color:#FF0000">*</span> :   </label>
+                                                                       <div class="col-md-6">
+                                                                            <input class="form-control"   t-att-value="hr_emp_rec.email_id" id="email_id" name="email_id" type="text" required="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Date Of Birth <span style="color:#FF0000">*</span>:    </label>
+                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+                                                                            <input style="width: 40%; float: left; margin-right: 1mm;"  class="form-control oe_input_icon oe_datepicker_trigger" t-att-readonly="hr_emp_rec.birthday != False" t-att-value="hr_emp_rec.birthday" name="birthday" id="birthday" type="text" required="1"/>
+                                                                            <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" t-att-hidden="hr_emp_rec.birthday != False" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('birthday')" />
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Nationality <span style="color:#FF0000">*</span>:    </label>
+                                                                        <div class="col-md-6">
+                                                                            <select t-att-disabled="hr_emp_rec.country_id.id != False" id="nationality" name="nationality" class="form-control" required="1">
+													                          <option t-att-disabled="hr_emp_rec.country_id.id != False" value="">Nationality...</option>
+													                          <t t-foreach="countries or []" t-as="country">
+													                              <option t-att-value="country.id" t-att-disabled="hr_emp_rec.country_id.id != False" t-att-selected="country.id == hr_emp_rec.country_id.id"><t t-esc="country.name"/></option>
+													                          </t>
+													                      </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                           <div class="caption">
+		                                                       <h4>Applicant Passport Details</h4>
+		                                                   </div>
+		                                                   <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Passport Number <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <input t-att-readonly="hr_emp_rec.passport_number != False" class="form-control" t-att-value="hr_emp_rec.passport_number" name="passport_number" type="text" required="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Date Of Issue <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+                                                                            <input readonly="1" style="width: 40%; float: left; margin-right: 1mm;" class="form-control oe_datepicker_container hasDatepicker" placeholder="dd/mm/yyyy" t-att-value="hr_emp_rec.passport_issue_date" id="passport_issue_date" name="passport_issue_date" type="text" required="1"/>
+                                                                            <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" t-att-hidden="hr_emp_rec.passport_issue_date != False" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('passport_issue_date')" />
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Date OF Expiry <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+                                                                            <input readonly="1"  style="width: 40%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker"  placeholder="dd/mm/yyyy" t-att-value="hr_emp_rec.passport_expiry_date" id="passport_expiry_date" name="passport_expiry_date" type="text" required="1"/>
+                                                                            <img style="margin-top: 0.5em;cursor:pointer;"  class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('passport_expiry_date')" t-att-hidden="hr_emp_rec.passport_expiry_date != False" />
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+															 <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Place Of Issue <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.passport_issue_place != False" t-att-value="hr_emp_rec.passport_issue_place" name="passport_issue_place" type="text" required="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Do you have valid UAE Visa? <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input t-att-disabled="hr_emp_rec.uae_visa == 'yes'"  id="uae_visa"  name="uae_visa" t-att-checked="hr_emp_rec.uae_visa == 'yes'" value="yes" type="radio" required="1"/>Yes
+                                                                            	<input t-att-disabled="hr_emp_rec.uae_visa == 'yes'"  id="uae_visa" name="uae_visa" t-att-checked="hr_emp_rec.uae_visa == 'no'" value="no" type="radio" />No
+                                                                    		</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <!-- Start Visa Details-->
+                                                            <div  t-att-hidden="hr_emp_rec.uae_visa != 'yes' "  id="visa_details" name="visa_details">
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Visa Type  <span style="color:#FF0000">*</span>:  </label>
+	                                                                         <div class="col-md-6">
+	                                                                            <select t-att-disabled="hr_emp_rec.visa_details_id.visa_number != False" name="visa_type" id="visa_type" class="form-control" required="1" >
+														                          <t t-foreach="visa_type_ids or []" t-as="visa_type_id">
+														                              <option t-att-disabled="hr_emp_rec.visa_details_id.visa_number != False"   t-att-value="visa_type_id.id" t-att-selected="visa_type_id.id == hr_emp_rec.visa_details_id.id"><t t-esc="visa_type_id.name"/></option>
+														                          </t>
+														                      </select>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                    
+	                                                                </div>
+	                                                            </div>
+	                                                            <div class="row" >
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Visa Number <span style="color:#FF0000">*</span> :   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control"  t-att-readonly="hr_emp_rec.visa_details_id.visa_number != False" t-att-value="hr_emp_rec.visa_details_id.visa_number" name="visa_number" id="visa_number" type="text" t-att-required="hr_emp_rec.uae_visa == 'yes'" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Issue Date <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+	                                                                            <input readonly="1"  style="width: 40%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker" placeholder="dd/mm/yyyy" t-att-value="hr_emp_rec.visa_details_id.visa_issue_date" id="visa_issue_date" name="visa_issue_date" type="text" t-att-required="hr_emp_rec.uae_visa == 'yes'"/>
+	                                                                            <img style="margin-top: 0.5em;cursor:pointer;"  class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('visa_issue_date')" t-att-hidden="hr_emp_rec.visa_details_id.visa_issue_date != False" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Expiry Date <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+	                                                                            <input  readonly="1" style="width: 40%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker" placeholder="dd/mm/yyyy" t-att-value="hr_emp_rec.visa_details_id.visa_expiry_date" id="visa_expiry_date" name="visa_expiry_date" type="text" t-att-required="hr_emp_rec.uae_visa == 'yes'"/>
+	                                                                            <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('visa_expiry_date')" t-att-hidden="hr_emp_rec.visa_details_id.visa_expiry_date != False" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Sponsors Name <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.visa_details_id.sponsor_name != False" t-att-value="hr_emp_rec.visa_details_id.sponsor_name" name="sponsor_name" id="sponsor_name" type="text" t-att-required="hr_emp_rec.uae_visa == 'yes'"/>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Sponsors Address <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.visa_details_id.sponsor_address != False" t-att-value="hr_emp_rec.visa_details_id.sponsor_address" name="sponsor_address" id="sponsor_address" type="text" t-att-required="hr_emp_rec.uae_visa == 'yes'"/>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            
+                                                            </div>
+                                                            <!-- End Visa Details-->
+                                                            
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Do you have a valid Labour Card/ Work Permit? <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input t-att-disabled="hr_emp_rec.labour_card_exist == 'yes'" name="labour_card_exist"  t-att-checked="hr_emp_rec.labour_card_exist == 'yes'" id="labour_card_exist" value="yes" type="radio" required="1"/>Yes
+                                                                           		<input t-att-disabled="hr_emp_rec.labour_card_exist == 'yes'" name="labour_card_exist"  t-att-checked="hr_emp_rec.labour_card_exist == 'no'" id="labour_card_exist"  value="no" type="radio" />No
+                                                                   			</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>  
+                                                            
+                                                            <!-- Start Labour card -->
+                                                            <div  t-att-hidden="hr_emp_rec.labour_card_exist != 'yes' " id="labour_card_details" name="labour_card_details">
+                                                            	<div class="row">
+	                                                            	<div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Labour / Permit card No. <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.labour_card_details_id.permit_card_no"  t-att-value="hr_emp_rec.labour_card_details_id.permit_card_no" name="permit_card_no" id="permit_card_no" type="text" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+                                                                </div>
+                                                                <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Expiry date of labour card <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+	                                                                            <input  readonly="1" style="width: 40%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker"  t-att-value="hr_emp_rec.labour_card_details_id.permit_expiry_date" name="permit_expiry_date" id="permit_expiry_date" type="text" />
+	                                                                            <img style="margin-top: 0.5em;cursor:pointer;"  class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('permit_expiry_date')" t-att-hidden="hr_emp_rec.labour_card_details_id.permit_expiry_date != False" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                         </div>
+                                                            <!-- End Labour card -->
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Have you completed 2 years with your current employer? (Applicable only for those working in the UAE) <span style="color:#FF0000">*</span> :  </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input  t-att-disabled="hr_emp_rec.current_employer == 'yes'"  name="current_employer" t-att-checked="hr_emp_rec.current_employer == 'yes'"  value="yes" type="radio" required="1"/>Yes
+                                                                            	<input t-att-disabled="hr_emp_rec.current_employer == 'yes'" name="current_employer" t-att-checked="hr_emp_rec.current_employer == 'no'"  value="no" type="radio" />No
+                                                                    		</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                          <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Do you have a valid Emirates ID Card? <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input t-att-disabled="hr_emp_rec.emirates_id_exist == 'yes'" name="emirates_id_exist" id="emirates_id_exist" t-att-checked="hr_emp_rec.emirates_id_exist == 'yes'" value="yes" type="radio" required="1"/>Yes
+																				<input t-att-disabled="hr_emp_rec.emirates_id_exist == 'yes'" name="emirates_id_exist" id="emirates_id_exist" t-att-checked="hr_emp_rec.emirates_id_exist == 'no'" value="no" type="radio" />No
+																			</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> 
+                                                            
+                                                            <!-- Start Emirates ID card -->
+                                                            
+															<div  t-att-hidden="hr_emp_rec.emirates_id_exist != 'yes' " id="emirates_id_card_details" name="emirates_id_card_details">
+                                                                <div class="row">
+	                                                            	<div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Emirates card No. <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.emiratres_id_details_id.emirates_card_no"  t-att-value="hr_emp_rec.emiratres_id_details_id.emirates_card_no" name="emirates_card_no" type="text" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                            	</div>
+                                                            	</div>
+                                                            	 <div class="row">
+	                                                            	<div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4"> Expiry Date of Emirates ID <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+	                                                                            <input  readonly="1" style="width: 40%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker"  t-att-value="hr_emp_rec.emiratres_id_details_id.emirates_expiry_date" id="emirates_expiry_date" name="emirates_expiry_date" type="text" />
+	                                                                            <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('emirates_expiry_date')" t-att-hidden="hr_emp_rec.emiratres_id_details_id.emirates_expiry_date != False" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+                                                            	</div>
+                                                            </div>	
+                                                            <!-- End Emirates ID card -->
+                                                            
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Position applied for (Designation) <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.designation != False" t-att-value="hr_emp_rec.designation" name="designation" type="text" required="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Mention Grade and Level (if applicable): </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.grade != False"  t-att-value="hr_emp_rec.grade" name="grade" type="text" />
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Relevant Qualification and corresponding University / Institute (Please mention only the qualifications most pertinent to the position you are applying for) <span style="color:#FF0000">*</span>:   </label>
+                                                                        
+                                                                        <t t-foreach='hr_emp_rec.employee_qualification_id' t-as='employee_qualification_id'>
+                                                                        	 <label class="control-label col-md-4"> </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+	                                                                            	<select disabled="1" class="form-control select2" name="degree" id="degree" style="width: 110px;" >
+		                                                                                <option t-att-selected="employee_qualification_id.degree == False" value="">-Degree-</option>
+		                                                                                <option t-att-selected="employee_qualification_id.degree == 'graduation'" value="graduation">Graduation</option>
+		                                                                                <option t-att-selected="employee_qualification_id.degree == 'post_graduation'" value="post_graduation">Post Graduation</option>
+	                                                                            	</select>
+	                                                                            </div>
+	                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+	                                                                                <input class="form-control " readonly="1"  t-att-value="employee_qualification_id.university_name" placeholder=" University Name" name="university_name" style="width: 175px;" type="text" />
+	                                                                            </div>
+	                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+	                                                                                <input class="form-control" readonly="1"  t-att-value="employee_qualification_id.year" placeholder=" percentage" name="percentage" style="width: 115px;" type="text" />
+	                                                                            </div>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+                                                                        </t>
+                                                                        
+                                                                        <label class="control-label col-md-4"> </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<select  t-att-required="employee_qualification_id == False"  class="form-control select2" name="degree1" id="degree1" style="width: 110px;" >
+	                                                                                <option value="">-Degree-</option>
+	                                                                                <option value="graduation">Graduation</option>
+	                                                                                <option value="post_graduation">Post Graduation</option>
+                                                                            	</select>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input t-att-required="employee_qualification_id == False" class="form-control" placeholder=" University Name" name="university_name1" style="width: 175px;" type="text" />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <input class="form-control" t-att-required="employee_qualification_id == False"  placeholder=" year" name="year1" id="year1" style="width: 115px;" type="text" />
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                        <label class="control-label col-md-4"> </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<select class="form-control select2" name="degree2" id="degree2" style="width: 110px;" >
+	                                                                                <option value="">-Degree-</option>
+	                                                                                <option value="graduation">Graduation</option>
+	                                                                                <option value="post_graduation">Post Graduation</option>
+                                                                            	</select>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input class="form-control" placeholder=" University Name" name="university_name2" style="width: 175px;" type="text" />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <input class="form-control" placeholder=" year" name="year2" id="year2" style="width: 115px;" type="text" />
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                        <label class="control-label col-md-4"> </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<select class="form-control select2" name="degree3" id="degree3" style="width: 110px;" >
+	                                                                                <option value="">-Degree-</option>
+	                                                                                <option value="graduation">Graduation</option>
+	                                                                                <option value="post_graduation">Post Graduation</option>
+                                                                            	</select>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input class="form-control" placeholder=" University Name" name="university_name3" style="width: 175px;" type="text" />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <input class="form-control" placeholder=" year" name="year3" id="year3" style="width: 115px;" type="text" />
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                        
+                                                                        <label class="control-label col-md-4"> </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<select class="form-control select2" name="degree4" id="degree4" style="width: 110px;" >
+	                                                                                <option value="">-Degree-</option>
+	                                                                                <option value="graduation">Graduation</option>
+	                                                                                <option value="post_graduation">Post Graduation</option>
+                                                                            	</select>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input class="form-control" placeholder=" University Name" name="university_name4" style="width: 175px;" type="text" />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <input class="form-control" placeholder=" year" name="year4" id="year4" style="width: 115px;" type="text" />
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Is your highest degree certificate attested? <span style="color:#FF0000">*</span> : </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input t-att-disabled="hr_emp_rec.is_highest_degree_certificate_attached == 'yes'"   name="is_highest_degree_certificate_attached" id="is_highest_degree_certificate_attached" t-att-checked="hr_emp_rec.is_highest_degree_certificate_attached == 'yes'" value="yes"  type="radio" required="1"/>Yes
+                                                                            	<input t-att-disabled="hr_emp_rec.is_highest_degree_certificate_attached == 'yes'"   name="is_highest_degree_certificate_attached" id="is_highest_degree_certificate_attached" t-att-checked="hr_emp_rec.is_highest_degree_certificate_attached == 'no'"  value="no" type="radio"/>No
+                                                                    		</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Relevant work experience (in year) <span style="color:#FF0000">*</span> :  </label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control" t-att-readonly="hr_emp_rec.work_experience != False"   t-att-value="hr_emp_rec.work_experience" placeholder="" name="work_experience" type="text" required="1"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Current Location (Country) <span style="color:#FF0000">*</span>:    </label>
+                                                                        
+                                                                        <div class="col-md-6">
+                                                                            <select t-att-disabled="hr_emp_rec.current_location.id != False" name="current_location" class="form-control" required="1">
+													                          <option t-att-disabled="hr_emp_rec.current_location.id != False"   value="">Country...</option>
+													                          <t t-foreach="countries or []" t-as="country">
+													                              <option t-att-disabled="hr_emp_rec.current_location.id != False"   t-att-value="country.id" t-att-selected="country.id == hr_emp_rec.current_location.id"><t t-esc="country.name"/></option>
+													                          </t>
+													                      </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Current Salary (per month) :   </label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control" t-att-readonly="hr_emp_rec.current_salary != False"   t-att-value="hr_emp_rec.current_salary" placeholder=" salary" name="current_salary" type="text"/>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                            	
+                                                                            	<select t-att-disabled="hr_emp_rec.currency.id != False" name="currency" class="form-control" >
+															                          <option t-att-disabled="hr_emp_rec.currency.id != False"   value="">Currency...</option>
+															                          <t t-foreach="currencies or []" t-as="cur">
+															                              <option t-att-disabled="hr_emp_rec.currency.id != False"   t-att-value="cur.id" t-att-selected="cur.id == hr_emp_rec.currency.id"><t t-esc="cur.name"/></option>
+															                          	</t>
+															                      </select>
+                                                                                
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Notice Period <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <!-- <input t-att-readonly="hr_emp_rec.notice_period != False"   class="form-control" t-att-value="hr_emp_rec.notice_period" name="notice_period" type="text" required="1"/> -->
+                                                                            <select class="form-control select2" name="notice_period" id="notice_period" t-att-disabled="hr_emp_rec.notice_period != False" required="1">
+	                                                                                <option t-att-selected="hr_emp_rec.notice_period == 'immediate'"  value="immediate">Immediate</option>
+	                                                                                <option t-att-selected="hr_emp_rec.notice_period == 'one_months'"  value="one_months">1 Month</option>
+	                                                                                <option t-att-selected="hr_emp_rec.notice_period == 'two_months'"  value="two_months">2 Months</option>
+	                                                                                <option t-att-selected="hr_emp_rec.notice_period == 'three_months'"  value="three_months">3 Months</option>
+	                                                                            </select>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Are you working for a freezone / Government / Semi-Government / Hospitality / Banking Service Provider? <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input t-att-disabled="hr_emp_rec.working_with_other_org == 'yes' " name="working_with_other_org" id="working_with_other_org" t-att-checked="hr_emp_rec.working_with_other_org == 'yes'"  value="yes" type="radio" required="1"/>Yes
+                                                                            	<input t-att-disabled="hr_emp_rec.working_with_other_org == 'yes' " name="working_with_other_org" id="working_with_other_org" t-att-checked="hr_emp_rec.working_with_other_org == 'no'" value="no" type="radio" />No
+                                                                    		</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> City of Birth <span style="color:#FF0000">*</span>: </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.birth_city != False"   t-att-value="hr_emp_rec.birth_city" name="birth_city" type="text" required="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Country of Birth <span style="color:#FF0000">*</span>: </label>
+                                                                        <div class="col-md-6">
+                                                                            <select t-att-disabled="hr_emp_rec.birth_country.id != False" id="birth_country" name="birth_country" class="form-control" required="1">
+													                          <option t-att-disabled="hr_emp_rec.birth_country.id != False"  value="">Country...</option>
+													                          <t t-foreach="countries or []" t-as="country">
+													                              <option t-att-disabled="hr_emp_rec.birth_country.id != False"  t-att-value="country.id" t-att-selected="country.id == hr_emp_rec.birth_country.id"><t t-esc="country.name"/></option>
+													                          </t>
+													                      </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                            	<h4> Current Address</h4>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> House/Flat No <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <input id="current_street" class="form-control"    t-att-value="hr_emp_rec.current_street" name="current_street" type="text" required="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Street <span style="color:#FF0000">*</span>: </label>
+                                                                        <div class="col-md-6">
+                                                                            <input id="current_street2" class="form-control"  t-att-value="hr_emp_rec.current_street2" name="current_street2" type="text" required="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Nearest Landmark <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <input id="current_nearest_landmark" class="form-control"  t-att-value="hr_emp_rec.current_nearest_landmark" name="current_nearest_landmark" type="text" required="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Country <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <select  id="current_country_id" name="current_country_id" class="form-control" required="1">
+													                          <option  value="">Country...</option>
+													                          <t t-foreach="countries or []" t-as="country">
+													                              <option  t-att-value="country.id" t-att-selected="country.id == hr_emp_rec.current_country_id.id"><t t-esc="country.name"/></option>
+													                          </t>
+													                      </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Address <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control"  t-att-value="hr_emp_rec.current_city" name="current_city" id="current_city"  placeholder="city" style="width: 115px;"  type="text" required="1"/>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <select   id="current_state_id" name="current_state_id" class="form-control" >
+														                          <option    value="">select...</option>
+														                          <t t-foreach="states or []" t-as="state">
+														                              <option    t-att-value="state.id"  t-att-data-country_id="state.country_id.id" t-att-selected="state.id == hr_emp_rec.current_state_id.id"><t t-esc="state.name"/></option>
+														                          </t>
+														                      </select>
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <input class="form-control"  t-att-value="hr_emp_rec.current_zip" placeholder="zip" name="current_zip" id="current_zip" style="width: 115px;" type="text"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Is Permanent address same as Current?? </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input   t-att-checked="hr_emp_rec.is_permanent_address_same == 'yes'"  name="is_permanent_address_same" id="is_permanent_address_same"  value="yes" type="radio" />Yes
+                                                                            	<input t-att-checked="hr_emp_rec.is_permanent_address_same == 'no'"  name="is_permanent_address_same" id="is_permanent_address_same"  value="no" type="radio" />No
+                                                                    		</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                            	<h4> Permanent Address (If different from the current address)</h4>
+                                                            </div>
+                                                            
+                                                            <div name="permanent_address" id="permanent_address">
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4"> House/Flat No <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control"  t-att-value="hr_emp_rec.permnent_street" name="permnent_street" id="permnent_street" type="text" required="1"/>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                             <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4"> Street <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control"  t-att-value="hr_emp_rec.permnent_street2" name="permnent_street2" id="permnent_street2" type="text" required="1"/>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                             <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4"> Nearest Landmark <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control"  t-att-value="hr_emp_rec.permnent_nearest_landmark" name="permnent_nearest_landmark" id="permnent_nearest_landmark" type="text" required="1"/>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                             <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4"> Country <span style="color:#FF0000">*</span> :  </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <select  name="permnent_country_id" id="permnent_country_id" class="form-control" required="1">
+														                          <option  value="">Country...</option>
+														                          <t t-foreach="countries or []" t-as="country">
+														                              <option  t-att-value="country.id" t-att-selected="country.id == hr_emp_rec.permnent_country_id.id"><t t-esc="country.name"/></option>
+														                          </t>
+														                      </select>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                        
+	                                                             <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Address <span style="color:#FF0000">*</span>: </label>
+	                                                                        <div class="col-md-6">
+	
+	                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+	                                                                                <input class="form-control"  t-att-value="hr_emp_rec.permnent_city" name="permnent_city" id="permnent_city" placeholder="city" style="width: 115px;"  type="text"/>
+	                                                                            </div>
+	                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+	                                                                                <select   name="permnent_state_id" id="permnent_state_id" class="form-control" >
+															                          <option     value="">select...</option>
+															                          <t t-foreach="states or []" t-as="state">
+															                              <option    t-att-value="state.id" t-att-data-country_id="state.country_id.id" t-att-selected="state.id == hr_emp_rec.permnent_state_id.id"><t t-esc="state.name"/></option>
+															                          </t>
+															                      </select>
+	                                                                            </div>
+	                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+	                                                                                <input class="form-control"  t-att-value="hr_emp_rec.permnent_zip" placeholder="pin" name="permnent_zip" id="permnent_zip" style="width: 115px;" type="text"/>
+	                                                                            </div>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                           
+	                                                        </div>
+	                                                        
+	                                                        
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">KHDA/MoE Approval and/ or Certificate of Equivalency exists? <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input t-att-disabled="hr_emp_rec.khda_moe_approval == 'yes'"   id="khda_moe_approval"   name="khda_moe_approval" t-att-checked="hr_emp_rec.khda_moe_approval == 'yes'"  value="yes" type="radio" required="1"/>Yes
+                                                                            	<input t-att-disabled="hr_emp_rec.khda_moe_approval == 'yes'"   id="khda_moe_approval"  name="khda_moe_approval" t-att-checked="hr_emp_rec.khda_moe_approval == 'no'"   value="no" type="radio" />No
+                                                                    		</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                         	<div  t-att-hidden="hr_emp_rec.khda_moe_approval != 'yes' " id="khda_doc" name="khda_doc">
+	                                                            <label class="control-label col-md-4"> If Yes, please provide the below details </label>
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                    	<br/>
+	                                                                        <label class="control-label col-md-4"> Name of the document  <span style="color:#FF0000">*</span> :   </label>
+	                                                                        <div class="col-md-6">
+	                                                                            <input class="form-control" t-att-required="hr_emp_rec.khda_moe_approval == 'yes'" t-att-readonly="hr_emp_rec.document_name != False"   t-att-value="hr_emp_rec.document_name" id="document_name" name="document_name" type="text"/>
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                               <br/>
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Is the document attested? :   </label>
+	                                                                        <div class="col-md-3">
+	                                                                            <div>
+	                                                                                <input name="attested_doc" t-att-disabled="hr_emp_rec.attested_doc == 'yes'" value="yes" t-att-checked="hr_emp_rec.attested_doc == 'yes' "  type="radio" />Yes
+	                                                                            	<input name="attested_doc" t-att-disabled="hr_emp_rec.attested_doc == 'yes'" value="no" t-att-checked="hr_emp_rec.attested_doc == 'no' "  type="radio" />No
+	                                                                            </div>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                           <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4"> Issue Date :   </label>
+	                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+	                                                                            <input  readonly="1" style="width: 40%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker"   placeholder="dd/mm/yyyy" t-att-value="hr_emp_rec.document_issue_date"  id="document_issue_date" name="document_issue_date" type="text" />
+	                                                                            <img style="margin-top: 0.5em;cursor:pointer;"  class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('document_issue_date')" t-att-hidden="hr_emp_rec.document_issue_date != False" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4"> Expiry Date :   </label>
+	                                                                        <div class="col-md-6" style="width: 40%; margin-bottom: 1em;" >
+	                                                                            <input  readonly="1" style="width: 40%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker"  placeholder="dd/mm/yyyy" t-att-value="hr_emp_rec.document_expiry_date"  id="document_expiry_date" name="document_expiry_date" type="text" />
+	                                                                            <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('document_expiry_date')" t-att-hidden="hr_emp_rec.document_expiry_date != False" />
+	                                                                            <span id="msgsphoto"></span>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                        </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Is there any medical condition that you are currently suffering from or have suffered from in the last 5 years? <span style="color:#FF0000">*</span> : </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <input t-att-disabled="hr_emp_rec.is_medical_condition_suffering == 'yes'"   id="is_medical_condition_suffering"  name="is_medical_condition_suffering" t-att-checked="hr_emp_rec.is_medical_condition_suffering == 'yes'" value="yes"  type="radio" required="1"/>Yes
+                                                                            	<input t-att-disabled="hr_emp_rec.is_medical_condition_suffering == 'yes'"   id="is_medical_condition_suffering"  name="is_medical_condition_suffering" t-att-checked="hr_emp_rec.is_medical_condition_suffering == 'no'"  value="no" type="radio"/>No
+                                                                    		</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <!-- Start Medical Details -->
+                                                            <div t-att-hidden="hr_emp_rec.is_medical_condition_suffering != 'yes' " name="medical_details"  id="medical_details" class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> If Yes, please specify <span style="color:#FF0000">*</span>: </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.is_medical_condition_suffering == 'yes'"  t-att-value="hr_emp_rec.medical_condition"  name="medical_condition" type="text" />
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Medical Details -->
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Marital Status <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <select t-att-disabled="hr_emp_rec.marital != False"   class="form-control select2" name="marital" id="marital" required="1">
+                                                                                <option t-att-selected="hr_emp_rec.marital == False" value="">|-- Marital Status --|</option>
+                                                                                <option t-att-selected="hr_emp_rec.marital == 'unmarried'" value="unmarried">Unmarried</option>
+                                                                                <option t-att-selected="hr_emp_rec.marital == 'married'" value="married">Married</option>
+                                                                                <option t-att-selected="hr_emp_rec.marital == 'divorced'" value="divorced">Divorced</option>
+                                                                                <option t-att-selected="hr_emp_rec.marital == 'separated'" value="separated">Separated</option>
+                                                                                <option t-att-selected="hr_emp_rec.marital == 'widowed'" value="widowed">Widowed</option>
+                                                                                <option t-att-selected="hr_emp_rec.marital == 'other'" value="other">Other</option>
+                                                                                
+                                                                                
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div name="specify_marital_status" id="specify_marital_status" t-att-hidden="hr_emp_rec.marital != 'other' " class="row" >
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Please specify (Marital Status: Other) <span style="color:#FF0000">*</span>:   </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" t-att-readonly="hr_emp_rec.marital == 'other'"   t-att-value="hr_emp_rec.please_specify"  name="please_specify" type="text" />
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                             <div>
+		                                                       <h4>Dependant Details  <span style="color:#FF0000">*</span> </h4>
+		                                                   </div>
+		                                                   
+		                                                   <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"></label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <label> Full Name</label>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:5px;margin-bottom:5px; margin-right:1px;">
+                                                                                <label> Date Of Birth</label>
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <label> Relationship with dependant</label>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+		                                                   
+		                                                   
+		                                                     <t t-foreach='hr_emp_rec.dependant_ids' t-as='dependant_id'>
+				                                                   <div class="row">
+		                                                                <div class="col-md-12">
+		                                                                    <div class="form-group">
+		                                                                        <label class="control-label col-md-4">Dependant Record  : <span style="color:#FF0000">*</span></label>
+		                                                                        <div class="col-md-6">
+		
+		                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+		                                                                                <input class="form-control" readonly="1" t-att-value="dependant_id.full_name" id="full_name_dependent"  name="full_name_dependent" placeholder="Full Name" style="width: 115px;" type="text" />
+		                                                                            </div>
+		                                                                            <div class="col-md-5" style="padding-right:5px;margin-bottom:5px; margin-right:1px;">
+		                                                                                <input class="form-control"  readonly="1" t-att-value="dependant_id.date_of_birth" id="date_of_birth_dependent"  name="date_of_birth_dependent" placeholder="Date Of Birth" style="width: 115px;" type="text" />
+		                                                                            </div>
+		                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+		                                                                                <select  disabled="1" class="form-control select2" name="relationship_dependent" id="relationship_dependent" style="width: 175px;" required="1">
+			                                                                                <option t-att-selected="dependant_id.relationship_with_dependant == False"  value=""></option>
+		                                                                                	<option t-att-selected="dependant_id.relationship_with_dependant == 'spouse'"  value="spouse">Spouse</option>
+			                                                                                <option t-att-selected="dependant_id.relationship_with_dependant == 'children'"  value="children">Children</option>
+			                                                                                <option t-att-selected="dependant_id.relationship_with_dependant == 'parents'"  value="parents">Parents</option>
+			                                                                                <option t-att-selected="dependant_id.relationship_with_dependant == 'parents_in_law'"  value="parents_in_law">Parents in law</option>
+			                                                                                <option t-att-selected="dependant_id.relationship_with_dependant == 'brother'"  value="brother">Brother</option>
+			                                                                                <option t-att-selected="dependant_id.relationship_with_dependant == 'sister'"  value="sister">Sister</option>
+			                                                                            </select>
+		                                                                            </div>
+		                                                                            <span id="msgsphoto"></span>
+		                                                                            <span class="help-block"></span>
+		                                                                        </div>
+		                                                                    </div>
+		                                                                </div>
+		                                                            </div>
+                                                            </t>
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                	
+                                                                    <div class="form-group">
+                                                                    	
+                                                                        <label class="control-label col-md-4">Dependant Record  : </label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control" t-att-required="dependant_id == False" id="full_name_dependent1"  name="full_name_dependent1" placeholder="Full Name" style="width: 115px;" type="text" />
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:5px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input  readonly="1"  t-att-required="dependant_id == False"  style="width: 88%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker"   placeholder="dd/mm/yyyy" name="date_of_birth_dependent1"  id="date_of_birth_dependent1"  type="text"/>
+                                                                                <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('date_of_birth_dependent1')"  />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <select  t-att-required="dependant_id == False"  class="form-control select2" name="relationship_dependent1" id="relationship_dependent1" style="width: 175px;" >
+	                                                                                <option value=""></option>
+                                                                                	<option value="spouse">Spouse</option>
+	                                                                                <option value="children">Children</option>
+	                                                                                <option value="parents">Parents</option>
+	                                                                                <option value="parents_in_law">Parents in law</option>
+	                                                                                <option value="brother">Brother</option>
+	                                                                                <option value="sister">Sister</option>
+	                                                                            </select>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Dependant Record  : </label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control "  name="full_name_dependent4" placeholder="Full Name" style="width: 115px;" type="text"/>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input  readonly="1" style="width: 88%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker"   placeholder="dd/mm/yyyy" name="date_of_birth_dependent4" id="date_of_birth_dependent4"  type="text"/>
+                                                                                <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('date_of_birth_dependent4')"  />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <select class="form-control select2" name="relationship_dependent4" id="relationship_dependent4" style="width: 175px;">
+	                                                                                <option value=""></option>
+                                                                                	<option value="spouse">Spouse</option>
+	                                                                                <option value="children">Children</option>
+	                                                                                <option value="parents">Parents</option>
+	                                                                                <option value="parents_in_law">Parents in law</option>
+	                                                                                <option value="brother">Brother</option>
+	                                                                                <option value="sister">Sister</option>
+	                                                                            </select>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Dependant Record  : </label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control "  name="full_name_dependent2" placeholder="Full Name" style="width: 115px;" />
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input  readonly="1" style="width: 88%; float: left; margin-right: 1mm;"   class="form-control oe_datepicker_container hasDatepicker"   placeholder="dd/mm/yyyy" name="date_of_birth_dependent2" id="date_of_birth_dependent2"  type="text"/>
+                                                                                <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('date_of_birth_dependent2')"  />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <select class="form-control select2" name="relationship_dependent2" id="relationship_dependent2" style="width: 175px;">
+	                                                                                <option value=""></option>
+                                                                                	<option value="spouse">Spouse</option>
+	                                                                                <option value="children">Children</option>
+	                                                                                <option value="parents">Parents</option>
+	                                                                                <option value="parents_in_law">Parents in law</option>
+	                                                                                <option value="brother">Brother</option>
+	                                                                                <option value="sister">Sister</option>
+	                                                                            </select>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Dependant Record  : </label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control "  name="full_name_dependent3" placeholder="Full Name" style="width: 115px;" type="text"/>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input  readonly="1" style="width: 88%; float: left; margin-right: 1mm;"  class="form-control oe_datepicker_container hasDatepicker"   placeholder="dd/mm/yyyy" name="date_of_birth_dependent3" id="date_of_birth_dependent3"  type="text" />
+                                                                                <img style="margin-top: 0.5em;cursor:pointer;" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" width="16" border="0" src="/edsys_hrm/static/description/cal.gif" onclick="javascript:NewCssCal('date_of_birth_dependent3')"  />
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <select class="form-control select2" name="relationship_dependent3" id="relationship_dependent3" style="width: 175px;">
+	                                                                                <option value=""></option>
+                                                                                	<option value="spouse">Spouse</option>
+	                                                                                <option value="children">Children</option>
+	                                                                                <option value="parents">Parents</option>
+	                                                                                <option value="parents_in_law">Parents in law</option>
+	                                                                                <option value="brother">Brother</option>
+	                                                                                <option value="sister">Sister</option>
+	                                                                            </select>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h2>Employee Documents</h2>
+                                                            <span class="help-block"></span>
+                                                            <!-- Passport Copy(Scanned copy) -->
+                                                            <div class="row"  t-att-hidden="passport_copy_ids != False">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Passport copy:  <span style="color:#FF0000">*</span> </label>
+                                                                        <div class="col-md-6">
+                                                                            <input t-att-required="passport_copy_ids == False" type="file" id="passport_copy"  class="input-file" name="passport_copy" accept="*" />
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Visa Copy(Scanned copy) -->
+                                                            <div class="row" t-att-hidden="hr_emp_rec.uae_visa != 'yes' "  name="visa_div" id="visa_div">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Visa copy :  <span style="color:#FF0000">*</span> </label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" id="visa_copy"  class="input-file" name="visa_copy" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Labour Card Copy(Scanned copy) -->
+                                                            <div class="row" t-att-hidden="hr_emp_rec.labour_card_exist != 'yes' "  name="labour_div" id="labour_div">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Labour card :  <span style="color:#FF0000">*</span> </label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file"  id="labour_card_copy" class="input-file" name="labour_card_copy" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Emirates Id Copy(Scanned copy) -->
+                                                            <div class="row" t-att-hidden="hr_emp_rec.emirates_id_exist != 'yes'" name="emirates_div" id="emirates_div">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Emirates ID :  <span style="color:#FF0000">*</span> </label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" id="emirates_id_copy" class="input-file" name="emirates_id_copy" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <!-- Relieving letter Copy(Scanned copy) -->
+                                                            <div class="row" t-att-hidden="relieving_letter_ids != False" >
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Experience letter :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file"  id="relieveing_letter_copy" class="input-file" name="relieveing_letter_copy" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" t-att-hidden="salary_certificate_ids != False " >
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Salary certificate :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" id="salary_certificate_copy" class="input-file" name="salary_certificate_copy" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Resume Copy (Scanned copy) -->
+                                                            <div class="row" t-att-hidden="resume_ids != False" >
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Resume : <span style="color:#FF0000">*</span> </label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" id="resume_copy" t-att-required="resume_ids == False" class="input-file" name="resume_copy" accept="*" />
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="row" t-att-hidden="image_medium != False " >
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Passport Size Photo : <span style="color:#FF0000">*</span> </label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" t-att-required="image_medium == False" id="passport_size_photo" class="input-file" name="passport_size_photo" accept="image/*" />
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Certificates Copy (Scanned copy) -->
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Certificates : </label>
+                                                                        
+                                                                        <label class="control-label col-md-4"> </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<select class="form-control select2" name="certificate_name1" id="certificate_name1" style="width: 110px;" >
+	                                                                                <option value="">-Degree-</option>
+	                                                                                <option value="graduation">Graduation</option>
+	                                                                                <option value="post_graduation">Post Graduation</option>
+	                                                                                <option value="other">Other</option>
+                                                                            	</select>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input type="file" id="certificates_copy1" class="input-file" name="certificates_copy1" accept="*"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                        <label class="control-label col-md-4"> </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<select class="form-control select2" name="certificate_name2" id="certificate_name2" style="width: 110px;" >
+	                                                                                <option value="">-Degree-</option>
+	                                                                                <option value="graduation">Graduation</option>
+	                                                                                <option value="post_graduation">Post Graduation</option>
+	                                                                                <option value="other">Other</option>
+                                                                            	</select>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input type="file" id="certificates_copy2" class="input-file" name="certificates_copy2" accept="*"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                        <label class="control-label col-md-4"> </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<select class="form-control select2" name="certificate_name3" id="certificate_name4" style="width: 110px;" >
+	                                                                                <option value="">-Degree-</option>
+	                                                                                <option value="graduation">Graduation</option>
+	                                                                                <option value="post_graduation">Post Graduation</option>
+	                                                                                <option value="other">Other</option>
+                                                                            	</select>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input type="file" id="certificates_copy3" class="input-file" name="certificates_copy3" accept="*"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                        
+                                                                        <label class="control-label col-md-4"> </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                            	<select class="form-control select2" name="certificate_name4" id="certificate_name4" style="width: 110px;" >
+	                                                                                <option value="">-Degree-</option>
+	                                                                                <option value="graduation">Graduation</option>
+	                                                                                <option value="post_graduation">Post Graduation</option>
+	                                                                                <option value="other">Other</option>
+                                                                            	</select>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input type="file" id="certificates_copy4" class="input-file" name="certificates_copy4" accept="*"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12" style="margin-top:1%; margin-bottom:1%;">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"></label>
+                                                                        <div class="col-md-1"></div>
+                                                                        <div class="col-md-5">
+                                                                            <input class="btn btn-circle blue btn-block" id="employement_form_submit" style="width:50%;" value="Submit" name="employement_form_submit" type="submit"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                           
+
+                                                            	                                                            
+                                                            
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+        </template>
+    </data>
+</odoo>

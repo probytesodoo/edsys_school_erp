@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                string="Parent Payment Report"
+                id="action_parent_payment_report"
+                model="parent.payment.report.wiz"
+                report_type="qweb-pdf"
+                name="edsys_edu_fee.report_parent_payment"
+                file="edsys_edu_fee.report_parent_payment"
+        />
+
+        <template id="report_parent_payment">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <!--    <t t-call="edsys_edu.custom_receipt_external_layout">-->
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <table class="table table-bordered" width="100%" height="100%"
+                                   style="border: 2px solid #000000;font-size:13px">
+                                <tbody>
+                                    <tr>
+                                        <td height="10%" width="15%">Parent Name:</td>
+                                        <td height="10%" width="35%">
+                                            <span t-field="o.parent_id.name"/>
+                                        </td>
+                                        <td height="10%" width="15%">Parent ID:</td>
+                                        <td height="10%" width="35%">
+                                            <span t-field="o.parent_id.parent1_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="10%" width="15%">Student Name:</td>
+                                        <td height="10%" width="35%">
+                                            <t t-set="counter" t-value="0"/>
+                                            <t t-foreach="o.parent_id.chield1_ids" t-as="child_obj">
+                                                <t t-if="counter !=0">,</t>
+                                                <span t-field="child_obj.name"/>
+                                                <t t-set="counter" t-value="counter + 1 "/>
+                                            </t>
+                                        </td>
+                                        <td height="10%" width="15%">Student Id:</td>
+                                        <td height="10%" width="35%">
+                                            <t t-set="counter" t-value="0"/>
+                                            <t t-foreach="o.parent_id.chield1_ids" t-as="child_obj">
+                                                <t t-if="counter !=0">,</t>
+                                                <span t-field="child_obj.student_id"/>
+                                                <t t-set="counter" t-value="counter + 1 "/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="10%" width="15%">Class:</td>
+                                        <td height="10%" width="35%">
+                                            <t t-set="counter" t-value="0"/>
+                                            <t t-foreach="o.parent_id.chield1_ids" t-as="child_obj">
+                                                <t t-if="counter !=0">,</t>
+                                                <span t-field="child_obj.class_id"/>
+                                                <t t-set="counter" t-value="counter + 1 "/>
+                                            </t>
+                                        </td>
+                                        <td height="10%" width="15%">Section:</td>
+                                        <td height="10%" width="35%">
+                                            <t t-set="counter" t-value="0"/>
+                                            <t t-foreach="o.parent_id.chield1_ids" t-as="child_obj">
+                                                <t t-if="counter !=0">,</t>
+                                                <span t-field="child_obj.student_section_id"/>
+                                                <t t-set="counter" t-value="counter + 1 "/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="10%" width="15%">Transaction from date:</td>
+                                        <td height="10%" width="35%">
+                                            <span t-field="o.date_from"/>
+                                        </td>
+                                        <td height="10%" width="15%">Transaction to date:</td>
+                                        <td height="10%" width="35%">
+                                            <span t-field="o.date_to"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="10%" width="15%">Date of Report:</td>
+                                        <td height="10%" width="35%">
+                                            <span t-field="o.date_today"/>
+                                        </td>
+                                        <td height="10%" width="15%">Downloaded By:</td>
+                                        <td height="10%" width="35%">
+                                            <span t-field="o.user.name"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--                 <t t-set="running_balance" t-value="0"/>-->
+                            <table class="table table-bordered" width="140%" height="100%"
+                                   style="border: 2px solid #000000;font-size:13px">
+                                <thead>
+                                    <tr style="border: 1px solid black;">
+                                        <th height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <strong>Date</strong>
+                                        </th>
+                                        <th height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <strong>Invoice ID</strong>
+                                        </th>
+                                        <th height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <strong>Student Name</strong>
+                                        </th>
+                                        <th height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <strong>Description</strong>
+                                        </th>
+                                        <th height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <strong>Debit Amount</strong>
+                                        </th>
+                                        <th height="10%" width="20%" class="text-right" style="border: 1px solid black;">
+                                            <strong>Credit Amount</strong>
+                                        </th>
+                                        <th height="10%" width="20%" class="text-right" style="border: 1px solid black;">
+                                            <strong>Running Balance</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <!--row for opening balance-->
+
+                                    <tr style="border: 1px solid black;">
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <strong>Opening Balance :</strong>
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <span t-field="o.past_balance"/>
+                                            <span t-esc="o.calc_debit(o.past_balance)"/>
+                                            <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                                0.0
+                                            </td>
+                                            <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                                <span t-esc="o.calc_current_running_balance(o.past_balance,0)"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+
+                                    <!--row lines-->
+                                    <t t-set="foo" t-value="0"/>
+                                    <tr t-foreach="o.line_details(o.invoice_ids,o.voucher_ids,o.date_from,o.date_to)" t-as="line_obj" style="border: 1px solid black;">
+                                        <t t-set="foo" t-value="foo+1"/>
+                                        <td height="10%" width="15%" class="text-center" style="border: 1px solid black;">
+                                            <t t-esc="line_obj['date']"/>
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <t t-esc="line_obj['invoice_number']"/>
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <span t-esc="line_obj['student_name']"/>
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <t t-esc="line_obj['description']"/>
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <t t-esc="line_obj['debit']"/>
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <t t-esc="line_obj['credit']"/>
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center" style="border: 1px solid black;">
+                                            <t t-if="line_obj['credit'] == 0.0 and line_obj['debit'] == 0.0">
+                                                <span t-esc="o.calc_current_running_balance(0,0)"/>
+                                            </t>
+                                            <t t-if="line_obj['credit'] != 0.0">
+                                                <span t-esc="o.calc_current_running_balance(0,line_obj['credit'])"/>
+                                            </t>
+                                            <t t-if="line_obj['debit'] != 0.0">
+                                                <span t-esc="o.calc_current_running_balance(0,-(line_obj['debit']))"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+
+                                    
+                                    <!--row for total balance,debit and credit-->
+                                    <tr>
+                                        <td>
+                                            <strong>Total Balance:</strong>
+                                        </td>
+                                        <td class="text-left" style="border: 1px solid black;">
+                                            <strong>
+                                                <!--<t t-esc="sum(l.residual for l in o.invoice_ids) + o.past_balance - sum(l.amount for l in o.voucher_ids)"/>-->
+                                                <!--<span t-esc="o.current_running_balance"/>-->
+						<span t-esc="o.cal_total_balance(o.parent_id.chield1_ids,o.parent_id)"/>
+                                            </strong>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-left" style="border: 1px solid black;">
+                                            <strong>Debit:
+                                                <!--<t t-esc="sum(l.amount_total for l in o.invoice_ids)+o.past_balance"/>-->
+                                                <t t-esc="o.total_debit_amount"/>
+                                            </strong>
+                                        </td>
+                                        <td class="text-left" style="border: 1px solid black;">
+                                            <strong>Credit:
+                                                <!--<t t-esc="sum(l.amount_total-l.residual for l in o.invoice_ids)+sum(l.amount for l in o.voucher_ids)"/>-->
+                                                <t t-esc="o.total_credit_amount"/>
+                                            </strong>
+                                        </td>
+                                        <td height="10%" width="20%" class="text-center"
+                                            style="border: 1px solid black;">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

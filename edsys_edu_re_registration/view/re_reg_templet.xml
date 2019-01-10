@@ -1,0 +1,249 @@
+<openerp>
+    <data>
+
+        <!-- ============= Request/Resend Re-Registration process web page ================= -->
+        <template id="re_registration_request">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container">
+                        <div class="row">
+                            <section id="forms">
+                                <br/>
+                                <br/>
+                                <div class="col-md-12" id="msg"></div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="portlet box blue">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-gift"></i>
+                                                    Re-Registration Form
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                <form role="form" method="post"
+                                                      t-attf-action="/student/re_registration/responce?parent_code=#{ parent_rec.code }"
+                                                      id="myform">
+                                                    <style>
+                                                        table#table_re_reg tr:nth-child(even) {
+                                                        background-color: #eee;
+                                                        }
+                                                        table#table_re_reg tr:nth-child(odd) {
+                                                        background-color:#fff;
+                                                        }
+                                                        table#table_re_reg th	{
+                                                        background-color: #1a8cff;
+                                                        color: white;
+                                                        }
+                                                    .modal {
+                                                        display: none;
+                                                        position: fixed;
+                                                        z-index: 1;
+                                                        padding-top: 100px;
+                                                        left: 0;
+                                                        top: 0;
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        overflow: auto;
+                                                        background-color: rgb(0,0,0);
+                                                        background-color: rgba(0,0,0,0.4);
+                                                    }
+                                                    .modal-content {
+                                                        background-color: #fefefe;
+                                                        margin: auto;
+                                                        padding: 20px;
+                                                        border: 1px solid #888;
+                                                        width: 600px;
+                                                        height:auto;
+                                                    }
+                                                    .close {
+                                                        color: #aaaaaa;
+                                                        float: right;
+                                                        font-size: 28px;
+                                                        font-weight: bold;
+                                                    }
+                                                    .close:hover,
+                                                    .close:focus {
+                                                        color: #000;
+                                                        text-decoration: none;
+                                                        cursor: pointer;
+                                                    }
+                                                    </style>
+                                                    <div class="form-body">
+                                                        <t t-set="count" t-value="1"/>
+                                                        <div class="row" hidden="True">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">No OF Child <span style="color:#FF0000">*</span> :   </label>
+                                                                        <div class="col-md-6">
+                                                                        	<div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                        		<input class="form-control" t-att-value="child_rec_list_length" name="child_length" id="child_length" type="text"/>
+                                                                        	</div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12">
+                                                                        <label>Select Yes/No to confirm re-registration of all the students below.</label>
+                                                                        <label>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</label>
+                                                                        <label><input id="re_reg_cheque_all_yes" name="re_reg_cheque_all" value="y" type="radio"/>
+                                                                        </label> Yes
+                                                                        <label><input id="re_reg_cheque_all_no" name="re_reg_cheque_all" value="n" type="radio"/>
+                                                                        </label>No
+                                                                    </div>
+                                                                        <span class="help-block"></span>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <br/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <label>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                                        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                                        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;OR</label>
+                                                                    <br/>
+                                                                    <label>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Select Yes/No for individual students in the table below.</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <b>
+                                                            <hr/>
+                                                        </b>
+                                                        <table id="table_re_reg" width="100%"  style="border: 1px solid #000000;font-size:15px">
+                                                            <tr style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                <th style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                    <b>
+                                                                        <i>Registration Number</i>
+                                                                    </b>
+                                                                </th>
+                                                                <th style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                    <b>
+                                                                        <i>Student Name</i>
+                                                                    </b>
+                                                                </th>
+                                                                <th style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                    <b>
+                                                                        <i>Current Class</i>
+                                                                    </b>
+                                                                </th>
+                                                                <th style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                    <b>
+                                                                        <i>Re-registration for</i>
+                                                                    </b>
+                                                                </th>
+                                                                <th style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                    <b>
+                                                                        <i>Re-registration Confirmation?</i>
+                                                                    </b>
+                                                                </th>
+                                                            </tr>
+                                                            <t t-foreach="children_rec_list" t-as="child_rec">
+                                                                <tr style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                    <td style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                        <span t-esc="child_rec.reg_no"/>
+                                                                    </td>
+                                                                    <td style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                        <span t-esc='child_rec.name.name'/>
+                                                                        <span t-esc='child_rec.name.middle_name'/>
+                                                                        <span t-esc='child_rec.name.last_name'/>
+                                                                    </td>
+                                                                    <td style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                        <span t-esc='child_rec.course_id.name'/>
+                                                                        <br/>
+                                                                        <span t-esc='child_rec.batch_id.name'/>
+                                                                    </td>
+                                                                    <td style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                        <span t-esc='child_rec.next_year_course_id.name'/>
+                                                                        <br/>
+                                                                        <span t-esc='child_rec.next_year_batch_id.name'/>
+                                                                    </td>
+                                                                    <td style="border: 1px solid #000000;font-size:15px;text-align:center">
+                                                                        <div>
+                                                                            <label>
+                                                                            <input t-att-name="'child'+str(count)" t-att-value="child_rec.code+'01'" type="radio"
+                                                                                    class="re_reg_cheque_child_yes"/>
+                                                                            </label> Yes
+                                                                            <label><input t-att-name="'child'+str(count)" t-att-value="child_rec.code+'00'" type="radio"
+                                                                                    class="re_reg_cheque_child_no"/>
+                                                                            </label>No
+                                                                        </div>
+                                                                        <span class="help-block"></span>
+                                                                    </td>
+                                                                    <t t-set="count" t-value="count + 1"/>
+                                                                </tr>
+                                                            </t>
+                                                        </table>
+                                                        <div id="myModal" class="modal">
+                                                            <div class="modal-content">
+                                                                <h4 id="dialog_message"></h4>
+                                                                <h5>Press OK to confirm your submission else press Cancel to go back to the registration page.</h5>
+                                                                <div class="col-md-5">
+                                                                    <button type="button" id="re_reg_dilog_cancle"
+                                                                            class="btn btn-circle blue btn-block">CANCEL
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <button type="submit" id="re_reg_dilog_ok"
+                                                                            class="btn btn-circle blue btn-block">OK
+                                                                    </button>
+                                                                </div>
+                                                                <p></p>
+                                                            </div>
+                                                        </div>
+		                                                <div class="row">
+		                                                    <div class="col-md-12"
+		                                                         style="margin-top:1%; margin-bottom:1%;">
+		                                                        <div class="form-group">
+		                                                            <label class="control-label col-md-4"></label>
+		                                                            <div class="col-md-1"></div>
+		                                                            <div class="col-md-5">
+		                                                                <input class="btn btn-circle blue btn-block"
+		                                                                       id="re_reg_submit_btn_new" name="re_reg_submit_btn_new" style="width:50%;"
+		                                                                       type="submit" value="Submit"/>
+		                                                                <span class="help-block"></span>
+		                                                            </div>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- ============= Thank You Page after getting Responce from Parent ============= -->
+        <template id="re_registration_request_thankyou">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Thank you!</h1>
+                            <br/>
+                                <h3>
+                                    <p>Thank you for completing the re-registration process for your children.
+                                        You will soon get the link in your email to pay the re-registration
+                                        fees online if you have accepted to re-register your children for the next academic year.</p>
+                                </h3>
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>

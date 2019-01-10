@@ -1,0 +1,56 @@
+<openerp>
+    <data>
+        <!--Tree view for Nationality-->
+        <record id="nationality_tree" model="ir.ui.view">
+            <field name="name">nationality.tree</field>
+            <field name="model">nationality</field>
+            <field name="arch" type="xml">
+                <tree string="nationality tree">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="country_id" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view design for Nationality -->
+        <record id="nationality_form_view" model="ir.ui.view">
+            <field name="name">nationality.form.view</field>
+            <field name="model">nationality</field>
+            <field name="arch" type="xml">
+                <form string="nationality form">
+                    <sheet>
+                                           
+                        <group>
+                            <group>
+                                <field name="name" /> 
+                            </group>
+                            <group>
+                                <field name="code" />
+                            </group>
+                                                   
+                        </group>
+                        <group>
+                            <group>
+                                <field name="country_id" />
+                            </group>
+                           
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!--Action for nationality-->
+        <record id="act_nationality" model="ir.actions.act_window">
+            <field name="name">Nationality</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">nationality</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>
+     

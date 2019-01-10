@@ -1,0 +1,130 @@
+<odoo>
+    <data>
+        <!--Email template for Student Enquiry Validate-->
+        <record id="student_submit_onnline_reg_email" model="mail.template">
+            <field name="name">online.Student.Enquiry.Success</field>
+            <!--<field name="email_from">${object.company_id.email}</field>-->
+            <field name="subject">Online Enquiry Successfully Registreied</field>
+            <field name="model_id" ref="edsys_edu.model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <script>
+                document.getElementById("demo").innerHTML = Date();
+                </script>
+            <table>
+                    <col width="130">
+                    <col width="150">
+                    <col width="130"/>
+                    <tr>
+                        <th><h3 id="demo"></h3></th>
+                        <th align="center" color="#03578D"><font face="Arial" size="5" aling="center" color="#03578D"></b>Online Enquiry Acknowledgement</b></font></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" height="10"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Enquiry Number : <i><b>${object.enquiry_no}</b></i></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">You have enquired for admission in edsys following the CBSE curriculum for the academic year 2015-2016</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" bgcolor="#03578D"><font color="wight">Student Details</font></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" aling="center">
+                            <table>
+                            <col width="182">
+                            <col width="290">
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Name</b></td>
+                                    <td>${object.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Date Of Birth</b></td>
+                                    <td>${object.birth_date}</td>
+                                </tr>
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Class/Year/Grade</b></td>
+                                    <td>${object.course_id.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Sibling Name and Student ID</b></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" bgcolor="#03578D"><font color="wight">Parent Details</font></b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <table>
+                                <col width="182">
+                                <col width="290">
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Name</b></td>
+                                    <td>${object.parent_name}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Current Address</b></td>
+                                    <td>${object.street}</td>
+                                </tr>
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Country</b></td>
+                                    <td>${object.nationality.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Phone</b></td>
+                                    <td>${object.mobile}</td>
+                                </tr>
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Email</b></td>
+                                    <td>${object.parent_email}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>For student registration, bring a printout/enquiry number along with the following documents and contact the Registrar on any of the working days Sunday to Thursday from 8:00 a.m. to 4:30 p.m. ,Saturday 8:00 am to 1:00 pm. with a registration fee of AED 600/- (non-refundable) The UAE Residence Visa and Transfer Certificate are not needed at the time of application processing, but will be needed at actual enrollment. </b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* 3 copies of the child's passport with residence visa and Emirates ID card<br/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* 1 copy of the parent's passport with residence visa and Emirates ID card.<br/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* 3 copies of the child's birth certificate (in English).<br/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* 5 recent passport size photographs of the child with white background<br/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* Two years of school reports / current year term progress report, including any learning support documents pertaining to your child's educational needs. (For early years, please submit nursery reports if available).<br/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* School Health Form (which can be downloaded from the school website).<br/></td>
+                    </tr>
+                     <tr>
+                        <td colspan="3">* Transfer Certificate(only needed at the time of enrolment).<br/></td>
+                    </tr>
+                     <tr>
+                        <td colspan="3">Registration fee payment to be made at school within 5 days from date of Registration. Otherwise this registration will become null and void.<br/></td>
+                    </tr>
+                     <tr>
+                        
+                    </tr>
+                </table>
+              <P>Thank you</p>
+	       </div>
+	]]>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
+<!--border="2"-->

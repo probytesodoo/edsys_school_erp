@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!--        <record id="menu_enquiry" model="website.menu">
+            <field name="name">Enquiry</field>
+            <field name="url">/enquiry</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">20</field>
+        </record>
+        <record id="menu_student_info" model="website.menu">
+            <field name="name">Student Info</field>
+            <field name="url">/student/verification</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">21</field>
+        </record>-->
+        
+<!--        <delete id="website.menu_contactus" model="website.menu">
+        </delete>
+        
+        <delete id="website.menu_homepage" model="website.menu">
+        </delete>-->
+
+    </data>
+</openerp>

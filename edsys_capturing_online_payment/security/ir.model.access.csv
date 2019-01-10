@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payfort_payment_capture_registration_user,payfort.payment.capture,model_payfort_payment_capture,edsys_edu.group_registration_user,1,0,0,0
+access_payfort_payment_capture_registration_manager,payfort.payment.capture,model_payfort_payment_capture,edsys_edu.group_registration_manager,1,1,1,0
+access_payfort_error_capture_registration_user,payfort.error.capture,model_payfort_error_capture,edsys_edu.group_registration_user,1,0,0,0
+access_payfort_error_capture_registration_manager,payfort.error.capture,model_payfort_error_capture,edsys_edu.group_registration_manager,1,1,1,0

@@ -1,0 +1,593 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="0">
+	
+	<record id="email_template_performa_invoice_receipt" model="mail.template">
+            <field name="name">Proforma Invoice Receipt</field>
+            <field name="subject">Proforma Invoice Receipt</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="action_proforma_invoice_registration"/>
+            <field name="report_name">proforma_invoice_receipt</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+            ]]></field>
+        </record>
+
+        <!--Registration Fee Payment Link-->
+        <record id="email_template_registration_fee_payment_link" model="mail.template">
+            <field name="name">Registration Fee Link - Send by Email</field>
+            <field name="subject">Registration Fee Payment Link</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                    <p>Dear ${object.parent_name},</p>
+                    <p>We have reviewed and validated your online enquiry for admission - enquiry number
+                     ${object.enquiry_no}. Please find the registration fee amount and the link for online payment appended
+                     at the end of this email.
+                     This is a secure link for fee payment and you will receive an acknowledgement immediately,
+                     both on the website and over email, detailing next steps. The online payment gateway charges may apply.
+                    Our secure payment gateway is powered by PayFort,
+                    the most trusted online payment gateway in the Middle East and UAE.</p><br/>
+                    <p>Alternatively, you can visit the school with a printout of this email (or note the enquiry number)
+                     along with the documents listed in your acknowledgement email and contact the Registrar on any
+                     working day (Sunday to Thursday from 8:00 a.m. to 4:30 p.m, Saturday 8:00 am to 1:00 pm) and
+                     pay the registration fee at the school counter.
+                     We encourage you to pay the fees online so that you do not have to wait for a significant
+                     duration during your school visit. </p>
+
+                   
+
+            ]]></field>
+        </record>
+
+        <!--Academic Fee Payment Link-->
+        <record id="email_template_academic_fee_payment_link" model="mail.template">
+            <field name="name">Academic Payment Link - Send by Email</field>
+            <field name="subject">Academic Fee Payment Link</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                    <p>Dear ${object.parent_name},</p>
+                    <p>We are glad to reserve admissions for ${object.name} subject to payment of minimum fees as appended at the end of this email.
+                    Please find the fee amount details and the link for online payment appended at the end of this email.
+                    This is a secure link for fee payment and you will receive an acknowledgement immediately,
+                     both on the website and over email, detailing next steps. The online payment gateway charges may apply.
+                    </p><br/>
+                    <p>Alternatively, you can visit the school to pay the fees in person via cash or cheque payment only.
+                    You can also pay using the bank transfer option. The details are given below:</p>
+                   
+                   
+                    <p>At the moment, we do not accept payment via debit or credit card when paid in the school fee counters.</p>
+
+                    <p>We urge you to pay the fees at the earliest so that we can finish all formalities and confirm admissions for your child.
+                     In case you have already paid the above fee,
+                     please ignore this email and await further communication from our side.</p>
+                     <p>Kindly note that the fee structure is based on academic year ${object.batch_id.name} approved fees and may be subject to revision upon regulatory approval. </p>
+                    
+            ]]></field>
+        </record>
+
+        <record id="email_template_registration_receipt" model="mail.template">
+            <field name="name">Registration receipt - Send by Email</field>
+            <field name="subject">Registration Fee Receipt</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="action_fee_receipt"/>
+            <field name="report_name">Registration_fee_receipt</field>
+            <field name="body_html"><![CDATA[
+    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Dear ${object.parent_name},</p>
+    <p></p>
+    <p>We thank you for paying the (non-refundable) registration fees for Enquiry number ${object.enquiry_no}.
+     The receipt for your payment is attached with this email.
+     We will contact you shortly to schedule your school visit for an interaction with the admissions team.</p>
+    <p></p>
+    <p></p>
+        
+    </div>
+            ]]></field>
+        </record>
+
+
+    <record id="email_template_academic_fee_receipt_paid" model="mail.template">
+            <field name="name">Academic fee receipt - Send by Email</field>
+	    <field name="subject">Academic Fee Receipt</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.action_student_payment_receipt"/>
+            <field name="report_name">Academic_fee_receipt</field>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.partner_id.name},</p>
+                <p></p>
+                <p>We confirm receipt of admissions related fees for the amount attached in the receipt
+                 which needs to be paid to take the process further for ministry approvals.</p>
+                <p>We once again thank you for choosing as for your child and
+                 we look forward to a long association with you and your family.</p>
+                <p>Please find attachment</p>
+                <p></p>
+                <p></p>
+               
+            </div>
+            ]]></field>
+        </record>
+
+        <record id="email_template_academic_fee_receipt_open" model="mail.template">
+            <field name="name">Academic fee receipt - Send by Email</field>
+	    <field name="subject">Academic Fee Receipt</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.action_student_payment_receipt"/>
+            <field name="report_name">Academic_fee_receipt</field>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.partner_id.name},</p>
+                <p></p>
+                <p>We confirm receipt of admissions related fees for the amount attached in the receipt.
+                 Please note that the pending fees is AED ${object.invoice_id.residual},
+                 which needs to be paid to take the process further for ministry approvals.</p>
+                <p>We once again thank you for choosing as for your child and
+                 we look forward to a long association with you and your family.</p>
+                <p>Please find attachment</p>
+                <p></p>
+                <p></p>
+              
+            </div>
+            ]]></field>
+        </record>
+
+        <!--Email template for Student Enquiry Validate-->
+        <record id="email_template_student_validate" model="mail.template">
+            <field name="name">Student Enquiry Validate</field>
+            <!--<field name="email_from">${object.company_id.email}</field>-->
+            <field name="subject">Online Registration Confirmation</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+            <table>
+                    <col width="150">
+                    <col width="130">
+                    <col width="130"/>
+                    <tr>
+                        <th ><b>${object.current_date_time}</b></th>
+                        <th align="center" color="#03578D"><font face="Arial" size="5" align="center" color="#03578D"></b>Online Enquiry Acknowledgement</b></font></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" height="10"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">ENQUIRY NUMBER : <b>${object.enquiry_no}</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">You have enquired for admission in EDSYS following the CBSE curriculum for the academic year ${object.batch_id.name}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" bgcolor="#03578D"><font color="white">Student Details</font></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="center">
+                            <table>
+                            <col width="182">
+                            <col width="280">
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Name</b></td>
+                                    <td>${object.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Date Of Birth</b></td>
+                                    <td>${object.birth_date}</td>
+                                </tr>
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Class/Year/Grade</b></td>
+                                    <td>${object.course_id.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Sibling Name and Student ID</b></td>
+                                    <td>
+                                        % for row in object.sibling_ids:
+                                            ${row.name or ""},
+                                        % endfor
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" bgcolor="#03578D"><font color="white">Parent/Guardian Details</font></b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <table>
+                                <col width="182">
+                                <col width="280">
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Name</b></td>
+                                    <td>${object.parent_name or ''}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Current Address</b></td>
+                                    <td>${object.street or ''}</td>
+                                </tr>
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Country</b></td>
+                                    <td>${object.birth_country.name or ''}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Phone</b></td>
+                                    <td>${object.parent_contact or ''}</td>
+                                </tr>
+                                <tr bgcolor="#F1F1F1">
+                                    <td><b>Email</b></td>
+                                    <td>${object.parent_email}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>
+                        For confirming your registration, we will validate your enquiry and then request you to pay the registration fees (non-refundable) online. Once the fee is paid we will schedule an appointment for an interaction with the child and review of your documents (we will call you to get your preferred timings).  The link for online-payment will be sent you via a separate email shortly, post our internal validation of your enquiry. Alternatively, you can visit the school with a printout of this email (or note the enquiry number) along with the documents listed below and contact the Registrar on any working day (Sunday to Thursday from 8:00 a.m. to 4:30 p.m, Saturday 8:00 am to 1:00 pm) and pay the registration fee at the school counter. We encourage you to pay the fees online so that you do not have to wait for a significant duration during your school visit. Please note that the UAE Residence Visa and Transfer Certificate/School Leaving Certificate are not needed at the time of application processing, but will be needed at actual enrollment. The transfer certificate should be attested from:
+                        </b></td>
+                    </tr>
+                <tr> 
+            
+                <tr><td bgcolor="#F1F1F1"><b>Categories</b></td><td bgcolor="#F1F1F1"colspan="2"><b>Attestation Required From</b></td></tr>
+                
+               
+</tr>
+                <tr  bgcolor="#F1F1F1"><td>Students coming from INDIA</td><td colspan="2">Education Officer of the Zone/District/Area and UAE Embassy ,India OR
+Indian Consulate in India and Foreign Affairs Ministry, India
+</td></tr>
+                </tr>
+                
+                <tr>
+                        <td colspan="3"><b>These are required documents for the registration of the child by the Knowledge and Human Development Authority in India.</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* 3 copies of the child's passport with residence visa and Emirates ID card</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* 1 copy of the parent's passport with residence visa and Emirates ID card.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* 3 copies of the child's birth certificate (in English/Arabic).</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* 5 recent passport size photographs of the child with white background</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* Two years of school reports / current year term progress report, including any learning support documents pertaining to your child's educational needs. (For early years, please submit nursery reports if available).</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">* School Health Form (you can fill this when you visit the school).</td>
+                    </tr>
+                     <tr>
+                        <td colspan="3">* Transfer Certificate(only needed at the time of enrollment).</td>
+                    </tr>
+                     <tr>
+                        <td colspan="3">Registration fee payment to be made at school within 5 days from date of Registration. Otherwise this registration will become null and void.</td>
+                    </tr>
+                     <tr>
+                        
+                    </tr>
+                </table>
+             
+	       </div>
+	]]>
+            </field>
+        </record>
+        
+        <record id="email_template_student_exam_email" model="mail.template">
+            <field name="name">Student Exam Detail</field>
+            <field name="subject">Appointment confirmation</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                
+            <p>Dear ${object.parent_name or ''},</p>
+                <p>Ref number:${object.enquiry_no}</p>
+                <p>Thank you for confirming your interest in admitting ${object.name} .
+                 We hereby confirm the schedule for an interview/discussion as below.
+                 For students in the Foundation Stage or Kindergarten, interaction with parents will also be recorded</p><br/>
+                <p>1. The date and time for the interaction/entrance exam at the school is ${format_tz(object.entrance_exam_date)}</p>
+                <p>2. To access the portions for entrance test (where applicable),
+                 please visit the school website or click on the link below:
+                
+                
+               
+                <p>Looking forward to interacting with you !</p>
+               
+            ]]>
+            </field>
+        </record>
+        
+        <record id="email_template_student_confirmation" model="mail.template">
+            <field name="name">Student Exam Detail</field>
+            <field name="subject">Fill additional data for student</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.parent_name or ''},</p>
+                <p></p>
+                <p>We are happy to inform you that we are in the final stages of confirming admission to ${object.email} for Ref number: ${object.enquiry_no}
+                  For us to proceed further, we need some additional details of the child,
+                   as mandated by KHDA and the Ministry of Education.
+                   We request you to fill the form below within 2 working days,as we have blocked a vacancy for your child.
+                   Please note that if possible, upload scanned copies of documents where applicable.
+                   If not, please visit the schools with a copy of the documents in the form and we will be happy
+                   to record it on your behalf. </p>
+                <p></p>
+                <p>Email : ${object.email}</p>
+                <p>Below is the link to fill up remaining information using the above email id as reference.</p>
+                <p><a href="/student/verification?ENQUIRY=${object.enquiry_no}&DATE=${object.current_date_for_link}">
+                Click here to Fill Remaining Information</a></p>
+                <p></p>
+               
+                </div>
+            ]]>
+            </field>
+        </record>
+
+        <!--Email template for Student Enquiry Validate-->
+        <record id="email_template_student_awaitting_fee" model="mail.template">
+            <field name="name">Student Awaitting Fees</field>
+            <field name="subject">IMPORTANT - Next steps to confirm admission</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                
+              
+                
+                <p>Thank you for confirming your interest in admitting ${object.name} with us.
+                 Congratulation as your child has been able to clear the admission test/interactive session with us and
+                 can now successfully move to admission stage.
+                 Mentioned below is the process for admission -</p>
+                <ol>
+                    <li>
+                    <p><b>Please collate the following documents prior to visiting the school</b></p>
+                    <ul>
+                        <li>     3 copies of the child's passport with residence visa and Emirates ID card</li>
+                        <li>     1 copy of the parent's passport with residence visa and Emirates ID card.</li>
+                        <li>     3 copies of the child's birth certificate (in English/Arabic).</li>
+                        <li>     5 recent passport size photographs of the child with white background</li>
+                        <li>     Two years of school reports / current year term progress report, including any learning</li>
+                        <li>     Support documents pertaining to your child's educational needs. (For early years, please submit nursery reports if available).</li>
+                        <li>     School Health Form (which can be downloaded from the school website).</li>
+                        <li>     Transfer Certificate(only needed at the time of enrollment) – Attested</li>
+                        <li>     Vaccination copy</p></li>
+                    </ul>
+                    </li>
+                    <li>
+		        <p> Approved Fee structure: Our approved fee structure for the full year and the frequency of installments is as below. Optional fees will be explained to you</p>
+                        <p>at the time of confirmation.Please note that we will send you a separate invoice for payment required to reserve admission separately:</p>
+
+				
+				                                         
+				<table border="1" width="50%">
+					<tbody>
+						<tr >
+							<th  width="50%">Name</th>
+							<th width="20%">Quantity</th>
+							<th width="30%"></th>
+						</tr>
+					</tbody>
+				</table>
+				
+				% for row in object.student_fee_line:
+				
+				
+				<table border="1" width="50%">
+					<tbody>
+				    	<tr >
+				            <td style="text-align: center; width: 50%;">${row.name.name or ''}</td>
+				            <td style="text-align: center; width: 20%;">${row.amount or ''}</td>
+				            <td style="text-align: center; width: 30%;">
+				                % if row.fee_pay_type.name == 'year':
+				                   Once in the year
+				               % endif
+				               % if row.fee_pay_type.name == 'month':
+				                   Monthly
+				               % endif
+				               % if row.fee_pay_type.name == 'one':
+				                   Once at the time of admission
+				               % endif
+				               % if row.fee_pay_type.name == 'quater':
+				                   Quaterly
+				               % endif
+				               % if row.fee_pay_type.name == 'alt_month':
+				                   Alternate Month
+				               % endif
+				               % if row.fee_pay_type.name == 'half_year':
+				                   Half Year
+				               % endif
+				               % if row.fee_pay_type.name == 'term':
+				                   Term
+				               % endif
+				            </td>
+				        </tr>
+					</tbody>
+				</table>
+				%endfor
+				
+		           <p>
+                              The amount payable by you to confirm your child's admission will be sent to you via a separate fee payment request email.
+                              You can either pay this fee online, using Payfort secure gateway link included in the fee request email or
+                              you can visit the school to pay the fees (cash or cheque only). If you pay online,
+                              next steps will be confirmed along with an email of the fee paid receipt.
+                            </p>
+                            <p>Option 1  - Payment by term – term fees should be paid during the first week of April, September  and January</p>
+                            <p>Option 2 – Payment by Month. Monthly fees should be paid on or before 5th of every month</p>
+                    </li>
+                    <p>Please inform your preference for future payments when you visit the school. By default option 2 (monthly fees) will be applicable.</p>
+                    <li>
+                        <p>Please also note that books and uniform should be purchased from the school or
+                         its approved vendors separately by paying applicable fees when you visit the school.</p>
+                    </li>
+                    <li>
+                        <p> Once the admission fees is paid you have to complete KHDA registration and contract signing
+                         formalities as mandated by KHDA and MoE regulations.
+                         We will explain this further when applicable.</p>
+                    </li>
+                </ol>
+               
+               
+                <p></p>
+                <p></p>
+		
+	       </div>
+	]]>
+            </field>
+		</record>
+
+        <record id="email_template_student_waiting_list" model="mail.template">
+            <field name="name">Student Waiting List</field>
+            <field name="subject">Student Waiting List</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Hello ${object.parent_name or ''},</p>
+                <p></p>
+                <h3><p>You have passed the entry test but you are in waiting list right now.</p></h3>
+                <p></p>
+                
+            ]]>
+            </field>
+        </record>
+
+        <record id="email_template_student_rejected" model="mail.template">
+            <field name="name">Student Rejected</field>
+            <field name="subject">Student Rejected</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Hello ${object.parent_name or ''},</p>
+                <p></p>
+                <h3><p>You have not passed the admission test.</p></h3>
+                <p></p>
+               
+                </div>
+            ]]>
+            </field>
+        </record>
+
+        <!--template for additional form fillup remainder -->
+        <record id="email_template_reminder_for_extra_form_fillup" model="mail.template">
+            <field name="name">Reminder for Extra Form Fillup</field>
+            <field name="subject">REMINDER - Need additional information confirm admission</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Hello ${object.parent_name or ''},</p>
+                <p></p>
+                <p>This is to remind you that you have not filled the Additional Information form sent to you earlier.
+                 Please note that without this information, we will not be able
+                  to proceed to finishing all formalities to confirm the admission and
+                   seek approvals from the ministry to register your child with us.</p>
+                <p>We therefore request you to kindly fill the form as soon as possible for further processing.
+                 Please note that incase you don't have clear scanned copies of the documents requested,
+                  you can leave that unfilled in the form and visit the school with the documents requested and
+                 we will be happy to collect it and update all required details in our system for further processing.</p><br/>
+                 <p>You can fill all required details using below link and
+                  with the email id you used to register for admission online.</p>
+               
+                <p></p>
+                <p></p>
+               
+                <p></p>
+                </div>
+            ]]>
+            </field>
+        </record>
+
+        <record id="email_template_student_decisition_to_waiting_list" model="mail.template">
+            <field name="name">Student Waiting list</field>
+            <field name="subject">Application in Waiting List</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Hello ${object.parent_name or ''},</p>
+                <p></p>
+                <p>We thank you once again for your interest for Admission with
+                Ref number:${object.enquiry_no}. We have currently moved your application to our
+                waiting list since we are now full on capacity.
+                However, our waiting lists convert into confirmations regularly and we will keep you updated
+                 as soon as a vacant seat arises due to any reason.</p>
+                <p></p>
+                <p>We appreciate the time and effort you have spent and thank you for your patience.
+                 We assure you that we will stay in touch and also welcome you to visit us at any time to interact with our team.</p>
+                <p></p>
+                
+                </div>
+            ]]>
+            </field>
+        </record>
+        
+        <record id="email_template_student_reject" model="mail.template">
+            <field name="name">Student Reject</field>
+            <field name="subject">Enquiry Status - Application moved to waiting list</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Hello ${object.parent_name or ''},</p>
+                <p></p>
+                <p>We thank you once again for your interest for Admission with
+                Ref number:${object.enquiry_no}. We have currently moved your application to our
+                waiting list since we are now full on capacity.
+                However, our waiting lists convert into confirmations regularly and we will keep you updated
+                 as soon as a vacant seat arises due to any reason.</p>
+                <p></p>
+                <p>We appreciate the time and effort you have spent and thank you for your patience.
+                 We assure you that we will stay in touch and also welcome you to visit us at any time to interact with our team.</p>
+                <p></p>
+                
+                </div>
+            ]]>
+            </field>
+        </record>
+
+        <record id="email_template_for_ministral_approval" model="mail.template">
+            <field name="name">Ministry Approval</field>
+            <field name="subject">CONGRATULATIONS: Admission fully confirmed</field>
+            <field name="model_id" ref="model_registration"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.parent_name or ''},</p>
+                <p></p>
+                <p>We take great pleasure in confirming admissions and all regulatory approvals for your child ${object.name or ''} for Ref number: ${object.enquiry_no}.
+                  </p>
+                <p></p>
+                <p>You will soon hear from the academic, transport and uniform teams for further information (if necessary).
+                 We look forward to welcoming you and
+                 ${object.name or ''} to the first day at school soon.</p>
+                <p></p>
+               
+                </div>
+            ]]>
+            </field>
+        </record>
+
+    </data>
+</odoo>

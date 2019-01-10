@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="transfer_certificate_request_menu" name='Transfer Certificate Request' parent='edsys_edu.studnt_main_menu' sequence="6"/>
+        <menuitem id="transfer_certificate_send_request_menu" name='Send TC Form' parent='transfer_certificate_request_menu'
+                action="send_tc_request_wiz_action_view"/>
+
+        <menuitem id="transfer_certificate_sub_menu" name='Transfer Certificate Detail' parent='edsys_edu.studnt_main_menu' sequence="7"/>
+        <menuitem id="transfer_certificate_send_requestd_menu" name='TC Requested' parent='transfer_certificate_sub_menu'
+                  action="trensfer_certificate_send_action_view" sequence="1"/>
+        <menuitem id="trensfer_certificate_fee_balance_review_menu" name='Fee Balance Review' parent='transfer_certificate_sub_menu'
+                  action="trensfer_certificate_fee_balance_review_action_view" sequence="2"/>
+        <menuitem id="trensfer_certificate_final_fee_awaited_menu" name='Fee Clearance' parent='transfer_certificate_sub_menu'
+                  action="trensfer_certificate_final_fee_awaited_action_view" sequence="3"/>
+        <menuitem id="trensfer_certificate_final_cancel_menu" name='TC Withdrawn' parent='transfer_certificate_sub_menu'
+                  action="trensfer_certificate_cancel_action_view" sequence="7"/>
+       <!-- <menuitem id="trensfer_certificate_ministry_approval_menu" name='Ministry Approval Awaited' parent='transfer_certificate_sub_menu'
+                  action="trensfer_certificate_ministry_approval_action_view" sequence="4"/>
+
+        <menuitem id="trensfer_certificate_ministry_approval_menu1234" name='Ministry Approval Awaited' parent='transfer_certificate_sub_menu'
+                  action="trensfer_certificate_ministry_approval_action_view" sequence="4"/>
+-->
+
+        <menuitem id="trensfer_certificate_process_completed_menu" name='TC Process Completed' parent='transfer_certificate_sub_menu'
+                  action="trensfer_certificate_withdrawn_action_view" sequence="5"/>
+                  
+        <menuitem id="menu_all_tc_view" name="All TC's" parent="transfer_certificate_sub_menu" action="act_tc_all_view1" sequence="6" />
+
+        <!-- ========= TC Fee Refund in Fee Colection ========= -->
+        <menuitem id="tc_fee_refund_invoice_menu" name='TC Fee Refund Invoice' parent='edsys_edu_fee.fee_payment_sub_menu'
+          action='action_tc_invoice_refund_out' sequence='8'/>
+
+        <!-- ======== TC Fee Define in Fee Management ========= -->
+        <menuitem id="trensfer_certificate_fee_structure_menu" name='TC Fee Structure' parent='edsys_edu_fee.Fee_structure_sub_menu'
+                  action='action_tc_fees_structure_form' sequence='3'/>
+
+    </data>
+</odoo>
+
+
+

@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <template id="paper_less_success_verification_templet" name="Enquiry">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Thank you!</h1>
+                            <br/>
+                            <h3>
+                                <p>Your Information Successfully updated.</p>
+                            </h3>
+                            <p>
+                                <span>
+                                    <a target="_blank"
+                                       t-attf-href="/student/download?student_id=#{ student_rec.id }"
+                                       class="btn btn-primary btn-lg">
+                                        <b>
+                                            Download Report&#160;&#160;
+                                            <span class="glyphicon glyphicon-circle-arrow-down"/>
+                                        </b>
+                                    </a>
+                                </span>&#160;&#160;
+                                <span>
+                                    <a target="_blank"
+                                       t-attf-href="/student/download/health?student_id=#{ student_rec.id }"
+                                       class="btn btn-primary btn-lg">
+                                        <b>Download Health Report&#160;&#160;
+                                            <span class="glyphicon glyphicon-circle-arrow-down"/>
+                                        </b>
+                                    </a>
+                                </span>
+                            </p>
+                            <!--<p>Download Health Report.-->
+                                <!-- -->
+                            <!--</p>-->
+                            <br/>
+                            <br/>
+                            <p>we will get back to you soon.</p>
+                        </div>
+                        <section data-snippet-id="cta" class="oe_dark">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt16 mb16">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <record model="ir.ui.view" id="journal_form_view_inherited">
+            <field name="name">account.journal.inherited</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_credit_account_id']" position="after">
+                    <field name="online_payment"/>
+                    <field name="is_cheque"/>
+                    <field name="advance_reconcillation_journal"/>
+                </xpath>
+            </field>       
+        </record>
+    </data>
+</odoo>

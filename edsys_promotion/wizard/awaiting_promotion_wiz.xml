@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="awaiting_promotion_wiz_view" model="ir.ui.view">
+            <field name="name">awaiting.promotion.wiz.view</field>
+            <field name="model">awaiting.promotion.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Awaiting Promotion Wizard">
+                    <group>
+                        <field name="student_section_ids"/>
+                    </group>
+                    <h3><label string="Are you sure to promote these students?"/></h3>
+                    <footer>
+                        <button name="promote_students" string="Promote" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <act_window
+            id="action_awaiting_promotion_wiz_view"
+            name=" Promote "
+            res_model="awaiting.promotion.wiz"
+            src_model="promote.student.line"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</odoo>

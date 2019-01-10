@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- =========== awaiting promotion tree view ============= -->
+        <record id="view_awaiting_promotion_tree" model="ir.ui.view">
+            <field name="name">awaiting.promotion.tree.view</field>
+            <field name="model">promote.student.line</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Awaiting Promotion">
+                    <field name="student_id"/>
+                    <field name="current_academic_year"/>
+                    <field name="current_academic_class"/>
+                    <field name="current_academic_section"/>
+                    <field name="new_acad_year"/>
+                    <field name="new_acad_class"/>
+                    <field name="new_acad_section"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ============= awaiting promotion search view =========== -->
+        <record id="view_awaiting_promotion_search" model="ir.ui.view">
+            <field name="name">awaiting.promotion.search.view</field>
+            <field name="model">promote.student.line</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Awaiting Promotion search view">
+                    <field name="student_id"/>
+                    <field name="current_academic_year"/>
+                    <field name="current_academic_class"/>
+                    <field name="current_academic_section"/>
+                    <field name="new_acad_year"/>
+                    <field name="new_acad_class"/>
+                    <field name="new_acad_section"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+
+        <!--=============== awaiting promotion form view==================-->
+        <record id="view_awaiting_promotion_form" model="ir.ui.view">
+            <field name="name">view.awaiting.promotion.form</field>
+            <field name="model">promote.student.line</field>
+            <field name="arch" type="xml">
+                <form string="Awaiting Promotion">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="student_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="current_academic_year" readonly="1"/>
+                                <field name="current_academic_class" readonly="1"/>
+                                <field name="current_academic_section" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="new_acad_year" readonly="1"/>
+                                <field name="new_acad_class" required="1"/>
+                                <field name="new_acad_section"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--=============== awaiting promotion action ==================-->
+        <record id="act_awaiting_promotion_view" model="ir.actions.act_window">
+            <field name="name">Awaiting Promotion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">promote.student.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','draft')]</field>
+            <field name="search_view_id" ref="view_awaiting_promotion_search"/>
+        </record>
+
+        <record id="action_awaiting promotion_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_awaiting_promotion_tree"/>
+            <field name="act_window_id" ref="act_awaiting_promotion_view"/>
+        </record>
+
+        <record id="action_awaiting_promotion_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_awaiting_promotion_form"/>
+            <field name="act_window_id" ref="act_awaiting_promotion_view"/>
+        </record>
+
+    </data>
+</odoo>

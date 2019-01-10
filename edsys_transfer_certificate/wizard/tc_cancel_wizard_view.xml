@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <!-- Cancel TC Module -->
+        <record id="cancle_tc_wiz" model="ir.ui.view">
+            <field name="name">cancle.tc.wiz</field>
+            <field name="model">tc.cancle.reason.wiz</field>
+            <field name="arch" type="xml">
+                <form string="TC Cancel Wizard">
+                    <group>
+                        <field name="reason" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="come_to_cancle_state" string="Cancel TC Application"
+                                type="object" class="oe_highlight"
+                                Confirm = "Are you sure to cancel this TC application?"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="trensfer_certificate_cancle_wiz_action_view">
+            <field name="name">Transfer Certificate Cancel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tc.cancle.reason.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,606 @@
+<openerp>
+    <data>
+
+        <template id="student_information" name="Enquiry">
+            <t t-call="website.layout">
+            	 <script type="text/javascript" src="/website_student_enquiry/static/src/js/datetimepicker_css.js"></script>
+                <t t-set="additional_title">Apply Registration</t>
+                    <div id="wrap">
+                        <div class="container">
+                            <div class="row">
+                                <section id="forms">
+                                    <!-- TODO Multilingual form action support ? -->
+                                    <div class="col-md-12">
+                                        <p class="text-center"><!--<img src="website_student_enquiry/static/description/tia.png" height="150px" width="auto"/>--></p>
+                                    </div>
+                                        <div class="col-md-12" style="background-color:#888; color:#FFFFFF; padding:20px; font-size:36px; margin-bottom:20px;">
+                                            Student Inforamtion
+                                        </div>
+                                        <div class="col-md-12" id="msg"></div>
+                                        <div class="row">
+                                            <div class="col-md-1">
+		                                    </div>
+                                            <div class="col-md-10">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-gift"></i> Student Information
+                                                    </div>
+                                                    <div class="tools">
+                                                        <a title="" data-original-title="" href="" class="collapse">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                    <form role="form" method="post" action="" id="myform">
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Academic Year:<span style="color:#FF0000">*</span> </label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control" name="Academic_Year" readonly="readonly">
+                                                                                <!--<option value="">|&#45;&#45; Academic Year &#45;&#45;|</option>-->
+                                                                                <t t-foreach="student_rec" t-as="stud">
+                                                                                    <option><span t-esc="stud.batch_id.name"/></option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Grade for which admission sought:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control" name="Course" id="gradeVal" readonly="readonly">
+                                                                                <t t-foreach="student_rec" t-as="stud">
+                                                                                    <option><span t-esc="stud.course_id.name"/> [ eligible age <span disabled="disabled" t-esc="stud.course_id.eligible_age"/> year ]</option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span id="msgage"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Name of Student(Name as in passport):<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="Name_Student" required="true" type="text" t-att-value="student_rec.name" ></input>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Date of Birth:<span style="color:#FF0000">*</span></label>
+                                                                            <div class="col-md-6">
+                                                                                    <input id="dp1437651782450" class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text"/>
+                                                                                    <input class="oe_datepicker_master" name="Date_of_Birth" type="text" id="demo2"/>
+                                                                                    <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+                                                                                     src="website_student_enquiry/static/description/cal.gif" height="16" width="16" border="0"
+                                                                                        onclick="javascript:NewCssCal('demo2')" style="cursor:pointer"/>
+                                                                                <span id="J_Date_of_Birth" t-esc="student_rec.birth_date" style="display: none;"/>
+                                                                                <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Place of Birth:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                                <input class="form-control" name="Place_of_Birth" required="true" type="text" t-att-value="student_rec.birth_place"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Country of Birth:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <select id="select2_sample4" class="form-control select2" name="Country" required="true">
+                                                                                <t t-if="student_rec.birth_country">
+                                                                                    <t t-foreach="student_rec.birth_country" t-as="con">
+                                                                                        <option><span t-esc="con.name"/></option>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </select>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--Gender-->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Gender:</label>
+                                                                        <span id="rec_gender" style="display:none;" t-esc="student_rec.gender"/>
+                                                                        <div class="col-md-3">
+                                                                            <div><label>
+                                                                                <input name="Gender" id="m_gender" value="m" checked="" type="radio"/>
+                                                                               </label> Male</div>
+                                                                            <div><label><input name="Gender" id="f_gender" value="f" type="radio"/></label>
+                                                                                Female</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+<!--                                                             Nationality 
+-->                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Nationality :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                                <input class="form-control" name="nationality" required="true" type="text" t-att-value="student_rec.nationality"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            <!-- Religion -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Religion:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control" name="Religion" required="true">
+                                                                                <!--<option value="">|&#45;&#45; Religion &#45;&#45;|</option>-->
+                                                                                <t t-foreach="student_rec.religion_id" t-as="reg">
+                                                                                    <option><span t-esc="reg.name"/></option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother Tongue -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Mother Tongue:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <select id="select2_sample4" class="form-control select2" name="Mother_Tongue" required="true">
+                                                                                <t t-foreach="student_rec.lang_id" t-as="lan">
+                                                                                    <option><span t-esc="lan.name"/></option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Passport No -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Passport No:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control " name="Passport_No" type="text" t-att-value="student_rec.passport_no"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Place of issue -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Place of issue:</label>
+                                                                        <div class="col-md-6">
+                                                                            <select id="select2_sample4" class="form-control select2" name="Pass_Place_of_issue" required="true">
+                                                                                <!--<option>|-&#45;&#45; Passport Place of issue -&#45;&#45;|</option>-->
+                                                                                <t t-foreach="student_rec.place_of_issue" t-as="country">
+                                                                                    <option><span t-esc="country.name"/></option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Date of issue -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Date of issue:</label>
+                                                                        <div class="col-md-6">
+                                                                            <!--<input class="form-control  date-picker hasDatepicker" name="Pass_Date_of_issue" id="dp1437483842349" value="" type="text"/>-->
+                                                                            <input id="dp1437651782450" class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text"/>
+                                                                                    <input class="oe_datepicker_master" name="Pass_Date_of_issue" type="text" id="demo1"/>
+                                                                                    <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+                                                                                     src="website_student_enquiry/static/description/cal.gif" height="16" width="16" border="0"
+                                                                                        onclick="javascript:NewCssCal('demo1')" style="cursor:pointer"/>
+                                                                            <span id="J_Date_of_pass" t-esc="student_rec.passport_issue_date" style="display: none;"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Date of Expiry -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Date of Expiry:</label>
+                                                                        <div class="col-md-6">
+                                                                            <!--<input class="form-control  date-picker hasDatepicker" name="Pass_Date_of_Expiry" id="dp1437483842350" value="" type="text"/>-->
+                                                                            <input id="dp1437651782450" class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text"/>
+                                                                            <input class="oe_datepicker_master" name="Pass_Date_of_Expiry" type="text" id="demo3"/>
+                                                                            <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+                                                                             src="website_student_enquiry/static/description/cal.gif" height="16" width="16" border="0"
+                                                                                onclick="javascript:NewCssCal('demo3')" style="cursor:pointer"/>
+                                                                            <span id="J_Date_ex_pass" t-esc="student_rec.passport_expiry_date" style="display: none;"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Visa Number -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Visa Number:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="Visa_Number" type="text" t-att-value="student_rec.visa_no"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- visa Date of issue -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Date of issue:</label>
+                                                                    <div class="col-md-6">
+                                                                        <!--<input class="form-control  date-picker hasDatepicker" name="visa_date_of_issue" id="dp1437483842351" value="" type="text"/>-->
+                                                                        <input id="dp1437651782450" class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text"/>
+                                                                        <input class="oe_datepicker_master" name="visa_date_of_issue" type="text" id="demo4"/>
+                                                                        <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+                                                                             src="website_student_enquiry/static/description/cal.gif" height="16" width="16" border="0"
+                                                                                onclick="javascript:NewCssCal('demo4')" style="cursor:pointer"/>
+                                                                        <span id="J_Date_visa" t-esc="student_rec.visa_issue_date" style="display: none;"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- visa date of expire -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Date of Expiry:</label>
+                                                                        <div class="col-md-6">
+                                                                            <!--<input class="form-control date-picker hasDatepicker" name="visa_date_of_exp" id="dp1437483842352" value="" type="text"/>-->
+                                                                            <input id="dp1437651782450" class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text"/>
+                                                                            <input class="oe_datepicker_master" name="visa_date_of_exp" type="text" id="demo5"/>
+                                                                            <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+                                                                             src="website_student_enquiry/static/description/cal.gif" height="16" width="16" border="0"
+                                                                                onclick="javascript:NewCssCal('demo5')" style="cursor:pointer"/>
+                                                                             <span id="J_Date_ex_visa" t-esc="student_rec.visa_expiry_date" style="display: none;"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Optional Language: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Optional Language:</label>
+                                                                        <div class="col-md-6">
+                                                                            <select id="select2_sample4" class="form-control select2" name="oplanguage" required="true">
+                                                                                <!--<option>|&#45;&#45; Optional Language &#45;&#45;|</option>-->
+                                                                                <t t-foreach="student_rec.other_lang_id" t-as="lan">
+                                                                                    <option><span t-esc="lan.name"/></option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Parent/Guardian's Name: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Parent/Guardian's Name:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="father_name" required="true" type="text" t-att-value="student_rec.parents1_id.name"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Profession -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Profession:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="father_profession" type="text" t-att-value="student_rec.parents1_id.parent_profession"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Contact No  -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Contact No <span style="color:#FF0000">*</span>: </label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-2" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control " name="mother_contact_code" placeholder="ISD Code" style="width: 89px;" type="text"/>
+                                                                            </div>
+                                                                            <div class="col-md-10" style="padding-right:0px;margin-bottom:5px;">
+                                                                            <input class="form-control" name="mother_contact" required="true" type="text" t-att-value="student_rec.parents1_id.parent_contact"/></div>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                             <!--Current Address:-->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Current Address:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <textarea class="form-control" rows="3" name="local_address" required="true"><t t-esc="student_rec.street"/></textarea>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Email -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Email:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="email"
+                                                                                   id="em"
+                                                                                   data-options="required:true,validType:'email'"
+                                                                                   type="text"
+                                                                                   t-att-value="student_rec.email"/>
+                                                                            <span id="msgem"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Re Enter Email: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Re Enter Email:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="reemail" id="reem" required="true" type="text"/>
+                                                                            <span id="msgrem"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Particulars of previous School -->
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-6"><b>Particulars of previous School</b></label>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Name and Place of the School last attended -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Name and Place of the School last attended:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="last_attend" type="text" t-att-value="student_rec.prev_institute"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Last date of attendance: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Last date of attendance:</label>
+                                                                        <div class="col-md-6">
+                                                                            <!--<input class="form-control" name="last_date_attend" id="last_date" style="cursor:pointer; background-color:#FFF" type="text"/>-->
+                                                                            <input id="dp1437651782450" class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text"/>
+                                                                            <input class="oe_datepicker_master" name="last_date_attend" type="text" id="demo6"/>
+                                                                            <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+                                                                             src="website_student_enquiry/static/description/cal.gif" height="16" width="16" border="0"
+                                                                                onclick="javascript:NewCssCal('demo6')" style="cursor:pointer"/>
+                                                                            <span id="J_Date_att" t-esc="student_rec.last_attendance" style="display: none;"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Curriculum -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Curriculum:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="curriculum" type="text" t-att-value="student_rec.curriculum"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Grade Last attended -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Grade Last attended:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control " name="grade_last_attend" type="text" t-att-value="student_rec.prev_grade"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Academic year of last School: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Academic year of last School:</label>
+                                                                        <div class="col-md-6">
+                                                                            <select id="select2_sample4" class="form-control select2" readonly="readonly" name="sepradio" required="true">
+                                                                                <!--<option>|&#45;&#45; Academic year of last School &#45;&#45;|</option>-->
+                                                                                <t t-foreach="student_rec.batch_id" t-as="batch">
+                                                                                    <option><span t-esc="batch.name"/></option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- City/Country: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">City/Country:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control " name="city" type="text" t-att-value="student_rec.city"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Reason for transfer -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Reason for transfer:</label>
+                                                                        <div class="col-md-6">
+                                                                            <textarea class="form-control " rows="3" name="reason_transfer"><t t-esc="student_rec.tranfer_reason"/></textarea>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Name and Grade of sibling, if any, studying in the School: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Name and Grade of sibling, if any, studying in the School:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control " name="sibling_name" type="text"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Remarks -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Remarks:</label>
+                                                                        <div class="col-md-6">
+                                                                            <textarea class="form-control " rows="3" name="remarks"><t t-esc="student_rec.remarks"/> </textarea>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                             <!--Where did you first find out about us?-->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Where did you first find out about us?</label>
+                                                                        <span id="radio_about_us" t-esc="student_rec.about_us" style="display: none;"/>
+                                                                        <div class="col-md-6">
+                                                                            <div>
+                                                                                <label><input name="optionsRadios" id="rad_google" value="google" type="radio"/></label> Google
+                                                                            </div>
+                                                                            <div>
+                                                                                <label><input name="optionsRadios" id="rad_fb" value="fb" type="radio"/></label> Facebook
+                                                                            </div>
+                                                                            <div>
+                                                                                <label><input name="optionsRadios" id="rad_np" value="np" type="radio"/></label> Newspaper
+                                                                            </div>
+                                                                            <div>
+                                                                                <label><input name="optionsRadios" id="rad_friend" value="friend" type="radio"/></label> Family &amp; Friends
+                                                                            </div>
+                                                                            <div>
+                                                                                <label><input name="optionsRadios" id="rad_sms_camp" value="sms_camp" type="radio"/></label> SMS campaign
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                <input name="optionsRadios" id="rad_visitnearbyarea" value="visitnearbyarea" type="radio"/></label> Visit to nearby area
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                <input name="optionsRadios" id="rad_marketing_leaflet" value="marketing_leaflet" type="radio"/></label> Marketing Leaflet
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                <input name="optionsRadios" id="rad_other" value="other" type="radio"/></label> Other
+                                                                            </div>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--&lt;!&ndash; other text box &ndash;&gt;-->
+                                                            <!--<div class="row" id="showtextbox">-->
+                                                                <!--<div class="col-md-12">-->
+                                                                    <!--<div class="form-group">-->
+                                                                        <!--<div class="col-md-4">-->
+                                                                        <!--</div>-->
+                                                                        <!--<div class="col-md-6">-->
+                                                                        <!--<input class="form-control" id="other_textbox" name="otherTextbox" type="text"/>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                            <!-- submit button -->
+                                                            <div class="row">
+                                                                <div class="col-md-12" style="margin-top:1%; margin-bottom:1%;">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"></label>
+                                                                        <div class="col-md-1"></div>
+                                                                        <div class="col-md-5">
+                                                                            <input class="btn btn-circle blue btn-block" id="btnSubmit" style="width:50%;" value="Submit" name="submit" type="submit"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+            </t>
+        </template>
+    </data>
+</openerp>

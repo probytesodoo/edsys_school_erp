@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fees_line_fees_user,fees.line,model_fees_line,group_fees_management_user,1,0,0,0
+access_fees_line_fees_manager,fees.line,model_fees_line,group_fees_management_manager,1,1,1,0
+access_fees_structure_fees_user,fees.structure,model_fees_structure,group_fees_management_user,1,0,0,0
+access_fees_structure_fees_manager,fees.structure,model_fees_structure,group_fees_management_manager,1,1,1,0
+access_fee_payment_type_fees_user,fee.payment.type,model_fee_payment_type,group_fees_management_user,1,0,0,0
+access_fee_payment_type_fees_manager,fee.payment.type,model_fee_payment_type,group_fees_management_manager,1,1,1,0
+access_fee_payment_line_fees_user,fee.payment.line,model_fee_payment_line,group_fees_management_user,1,0,0,0
+access_fee_payment_line_fees_manager,fee.payment.line,model_fee_payment_line,group_fees_management_manager,1,1,1,0
+access_fee_payment_fees_user,fee.payment,model_fee_payment,group_fees_management_user,1,0,0,0
+access_fee_payment_fees_manager,fee.payment,model_fee_payment,group_fees_management_manager,1,1,1,0
+access_fee_month_fees_user,fee.month,model_fee_month,group_fees_management_user,1,0,0,0
+access_fee_month_fees_manager,fee.month,model_fee_month,group_fees_management_manager,1,1,1,0
+access_fee_history_line_fees_user,fee.history.line,model_fee_history_line,group_fees_management_user,1,0,0,0
+access_fee_history_line_fees_manager,fee.history.line,model_fee_history_line,group_fees_management_manager,1,1,1,0

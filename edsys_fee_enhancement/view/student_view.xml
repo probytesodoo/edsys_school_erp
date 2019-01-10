@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--=============== Student form view inherit==================-->
+        <record id="view_student_parent_form_inherit_fee_enhancement" model="ir.ui.view">
+            <field name="name">Student.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="edsys_edu.view_student_parent_form" />
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='discount_on_fee']" position="after">
+                    <field name="discount_applicable_date" />
+                </xpath>
+                
+                <xpath expr="//notebook" position="inside">
+                	<page string="Fee Computation" >
+                    	<field name="fee_computation_ids" readonly="1">
+                    		<tree>
+                    			<field name="month_id" />
+			                   	<field name="fee_date" />
+			                   	<!-- <field name="fee_computation_line_ids" /> -->
+			                   	<field name="total_calculated_amount" />
+			                   	<field name="total_discount_amount" />
+			                   	<field name="invoice_amount" />
+			                   	<field name="discount_category_id" />
+			                   	<field name="status" />
+                    		</tree>
+                    	</field>
+                    </page>
+                    
+                    <page string="Discount History" >
+                    	<field name="discount_history_ids" readonly="1">
+                    		<tree>
+			                   	<field name="discount_category_id"  attrs="{'invisible': [('is_applicable','=',False)]}"  />
+			                   	<field name="discount_category_code" attrs="{'invisible': [('is_applicable','=',False)]}"  />
+			                   	<field name="action_type" attrs="{'invisible': [('is_applicable','=',False)]}"  />
+			                   	<field name="action_date" attrs="{'invisible': [('is_applicable','=',False)]}"  />
+			                   	<field name="applied_by" attrs="{'invisible': [('is_applicable','=',False)]}"  />
+			                   	<field name="applicable_from_date" attrs="{'invisible': [('is_applicable','=',False)]}"   />
+			                   	<field name="academic_year_id" attrs="{'invisible': [('is_applicable','=',False)]}"  />
+			                   	<field name="is_applicable" invisible="1" />
+                    		</tree>
+                    	</field>
+                    </page>
+                </xpath>
+                
+            </field>
+        </record>
+
+    </data>
+</odoo>

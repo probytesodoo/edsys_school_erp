@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_voucher_filter_form_inherit">
+            <field name="name">account.voucher.select.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="student_class"/>
+                    <field name="student_section"/>
+                    <field name="parent_email"/>
+                    <field name="parent_mobile"/>
+                    <field name="reference"/>
+                </xpath>
+                
+            </field>
+        </record>
+
+        <!-- Student Fee Payment Form View -->
+        <record  id="view_vendor_receipt_form_inherit" model="ir.ui.view">
+            <field name="name">view.vendor.receipt.form.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+                <field name="arch" type="xml">
+                        <xpath expr="//form/sheet/group/group/field[@name='partner_id']" position="after">
+                            <field name="is_parent" invisible="1"/>
+                            <field name="amount" class="oe_inline"
+                                string="Paid Amount"
+                                widget='monetary' options='{"currency_field": "currency_id"}'
+                                invisible="context.get('line_type', False)"
+                                on_change="onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, company_id, context)"/>
+                        </xpath>
+                      
+
+                        <xpath expr="//form/sheet/group/group/field[@name='partner_id']" position="attributes">
+                            <attribute name='domain'>[('is_parent','=',is_parent),('customer','=',True)]</attribute>
+                        </xpath>
+                       <xpath expr="//form/sheet/group/group/field[@name='journal_id']" position="replace">
+                        <field name="journal_id"
+                                        domain="[('type','in',['bank', 'cash'])]"
+                                        widget="selection"
+                                        string="Payment Method"/>
+                        </xpath> 
+                         <xpath expr="//form/sheet/group/group/field[@name='journal_id']" position="after">
+                             <field name="jounral_id_store" invisible='1'/>
+                             <field name="bank_name" attrs="{'invisible':[('jounral_id_store','!=',True)],'required':[('jounral_id_store','=',True)]}"/>
+                             <field name="cheque_start_date" string="Cheque Date" attrs="{'invisible':[('jounral_id_store','!=',True)],'required':[('jounral_id_store','=',True)]}"/>
+                             <field name="cheque_expiry_date" attrs="{'invisible':[('jounral_id_store','!=',True)]}"/>
+                             <field name="party_name" attrs="{'invisible':[('jounral_id_store','!=',True)]}"/>
+                             <field name="chk_num" attrs="{'invisible':[('jounral_id_store','!=',True)],'required':[('jounral_id_store','=',True)]}"/>
+                         </xpath>
+
+                        <xpath expr="//field[@name='name']" position="after">
+                            <field name="total_payble_amount" string='Total Remaining Amount'/>
+
+                            <field name="parent_email" attrs="{'invisible' : [('is_parent','=',False)]}"/>
+                            <field name="parent_mobile" attrs="{'invisible' : [('is_parent','=',False)]}"/>
+                            <field name="student_class" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                            <field name="student_section" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                            <field name="payfort_payment_id" string="Payfort Payment ID"/>
+                            <field name="payfort_pay_date" string="Payment Date"/>
+                        </xpath>
+
+                        <xpath expr="//form/header/button[@name='proforma_voucher']" position="after">
+                            <button name="send_receipt" type="object" string="Send Receipt" class="oe_highlight"
+                                    attrs="{'invisible' : [('state','!=','posted')]}"/>
+                        </xpath>
+                </field>
+
+        </record>
+
+        <!-- Student Fee Payment Action view -->
+        <record id="act_student_fee_payment1" model="ir.actions.act_window">
+            <field name="name">Student Fee Collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_parent','=',0),('journal_id.type', 'in', ['bank',
+                'cash']),('type','=','receipt'),('payfort_type','=',0)]
+            </field>
+            <field name="context">{"default_is_parent":0,"type":'receipt','send_receipt':True}</field>
+            <!--<field name="search_view_id" ref="view_student_res_partner_search_inherit"/>-->
+        </record>
+
+       <!--  <record id="action_student_fee_payment_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_voucher.view_voucher_tree"/>
+            <field name="act_window_id" ref="act_student_fee_payment1"/>
+        </record> -->
+
+       <!--  <record id="action_student_fee_payment_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_voucher.view_sale_receipt_form"/>
+            <field name="act_window_id" ref="act_student_fee_payment1"/>
+        </record> -->
+
+        <!-- Parent Fee Payment Action View -->
+        <record id="act_parent_fee_payment" model="ir.actions.act_window">
+            <field name="name">Parent Fee Collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_parent','=',1),('journal_id.type', 'in', ['bank', 'cash']),('type','=','receipt')]</field>
+            <field name="context">{"default_is_parent":1,"type":'receipt'}</field>
+            <!--<field name="search_view_id" ref="view_student_res_partner_search_inherit"/>-->
+        </record>
+
+        <record id="action_parent_fee_payment_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_voucher.view_voucher_tree"/>
+            <field name="act_window_id" ref="act_parent_fee_payment"/>
+        </record>
+
+        <record id="action_parent_fee_payment_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_voucher.view_sale_receipt_form"/>
+            <field name="act_window_id" ref="act_parent_fee_payment"/>
+        </record>
+
+        <!-- Account Move Line -->
+        <record model="ir.ui.view" id="account_view_move_form_inherit">
+            <field name="name">view.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page/field[@name='line_ids']//tree/field[@name='name']" position="after">
+                    <field name="parents1_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Suppler Payment Form View -->
+        <!-- <record model="ir.ui.view" id="view_vendor_payment_form_inherit">
+            <field name="name">view.vendor.payment.form.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account.view_account_payment_form" />
+            <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group/group/field[@name='journal_id']" position="after">
+                <field name="jounral_id_store" invisible='1'/>
+                <field name="bank_name" attrs="{'invisible':[('jounral_id_store','!=',True)],'required':[('jounral_id_store','=',True)]}"/>
+                <field name="cheque_start_date" string="Cheque Date" attrs="{'invisible':[('jounral_id_store','!=',True)],'required':[('jounral_id_store','=',True)]}"/>
+                <field name="cheque_expiry_date" attrs="{'invisible':[('jounral_id_store','!=',True)]}"/>
+                <field name="party_name" attrs="{'invisible':[('jounral_id_store','!=',True)]}"/>
+                <field name="chk_num" attrs="{'invisible':[('jounral_id_store','!=',True)],'required':[('jounral_id_store','=',True)]}"/>
+            </xpath>
+            </field>
+        </record> -->
+        
+        
+        <record model="ir.ui.view" id="view_vendor_receipt_form_inhrtited_status">
+            <field name="name">view.vendor.receipt.form.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form" />
+            <field name="arch" type="xml">
+            
+            	<xpath expr="//field[@name='state']" position="replace">
+                 	<field name="state" widget="statusbar" statusbar_visible="draft,review,posted" statusbar_colors='{"proforma":"blue"}'/>
+                </xpath>
+                <xpath expr="//header" position="replace">
+                 	<header invisible="context.get('line_type', False)">
+                 	<button name="review_voucher" string="Review" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="proforma_voucher" string="Validate" states="review" class="oe_highlight"/>
+                    <button name="cancel_voucher" string="Cancel Receipt" states="draft,review,proforma"/>
+                    <button name="cancel_voucher" string="Unreconcile" type="object" states="posted" confirm="Are you sure to unreconcile and cancel this record ?"/>
+                    <button name="action_cancel_draft" type="object" states="cancel" string="Set to Draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted" statusbar_colors='{"proforma":"blue"}'/>
+                </header>
+                </xpath>
+                
+                <xpath expr="//field[@name='line_ids']" position="replace">
+                     <label for="line_cr_ids" invisible="context.get('line_type', False)"/>
+                            <field name="line_cr_ids" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" on_change="onchange_line_ids(line_dr_ids, line_cr_ids, amount, currency_id, type, context)">
+                                <tree string="Invoices and outstanding transactions" editable="bottom" colors="gray:amount==0">
+                                    <field name="state" invisible="1"/>
+                                    <field name="move_line_id" context="{'journal_id':parent.journal_id, 'partner_id':parent.partner_id}"
+                                        domain="[('account_id.type','in',('receivable','payable')), ('reconcile_id','=', False), ('partner_id','=',parent.partner_id)]"
+                                        attrs="{'required': [('state', 'in', [False, 'draft'])]}"
+                                        groups="account.group_account_user"/>
+                                    <field name="account_id"  groups="base.group_no_one" domain="[('type','=','receivable')]"/>
+                                    <field name="date_original" readonly="1"/>
+                                    <field name="date_due" readonly="1"/>
+                                    <field name="amount_original" readonly="1"/>
+                                    <field name="amount_unreconciled" readonly="1" groups="account.group_account_user"/>
+                                    <field name="reconcile" groups="account.group_account_user"/>
+                                    <field name="amount" sum="Total Allocation" on_change="onchange_amount(amount, amount_unreconciled, context)" string="Allocation"/>
+                                </tree>
+                            </field>
+                   </xpath>
+                   
+                   <xpath expr="//field[@name='line_cr_ids']" position="after">
+                     <label for="line_dr_ids"/>
+                            <field name="line_dr_ids" context="{'journal_id':journal_id, 'partner_id':partner_id}" on_change="onchange_line_ids(line_dr_ids, line_cr_ids, amount, currency_id, type, context)">
+                                <tree string="Debits" editable="bottom" colors="gray:amount==0">
+                                    <field name="state" invisible="1"/>
+                                    <field name="move_line_id" context="{'journal_id':parent.journal_id, 'partner_id':parent.partner_id}"
+                                        domain="[('account_id.type','in',('receivable','payable')), ('reconcile_id','=', False), ('partner_id','=',parent.partner_id)]"
+                                        attrs="{'required': [('state', 'in', [False, 'draft'])]}"/>
+                                    <field name="account_id"  groups="base.group_no_one" domain="[('type','=','receivable')]"/>
+                                    <field name="date_original" readonly="1"/>
+                                    <field name="date_due" readonly="1"/>
+                                    <field name="amount_original" readonly="1"/>
+                                    <field name="amount_unreconciled" readonly="1"/>
+                                    <field name="reconcile"/>
+                                    <field name="amount" sum="Total Allocation" on_change="onchange_amount(amount, amount_unreconciled, context)" string="Allocation"/>
+                                </tree>
+                            </field>
+                   </xpath>
+                   
+                   
+                
+                 <xpath expr="//field[@name='line_dr_ids']" position="after">
+                	 <label for="invoice_line_ids" invisible="context.get('line_type', False)"/>
+                 	<field name="invoice_line_ids">
+                 		<tree string="Invoice lines" editable="bottom" delete="false">
+                                    <field name="invoice_id" />
+                                    <field name="priority"/>
+                                    <field name="name" />
+                                    <field name="account_id" />
+                                    <field name="quantity" />
+                                    <field name="rem_amount" />
+                                    <field name="price_subtotal" />
+                                    <field name="allocation"  sum="Total Allocation"/>
+                                    
+                                </tree>
+                    </field>            
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']" position="after">
+		               <group>
+		                    <field name="writeoff_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+		                    <field name="payment_option" required="1" attrs="{'invisible':[('writeoff_amount','=',0)]}"/>
+		                    <field name="writeoff_acc_id"
+		                           attrs="{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)], 'required':[('payment_option','=','with_writeoff')]}"
+		                           domain="[('type','=','other')]"/>
+		                    <field name="comment"
+		                           attrs="{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)]}"/>
+		                    <field name="analytic_id"
+		                           groups="analytic.group_analytic_accounting"
+		                           attrs="{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)]}"/>
+		                </group>
+             
+                 </xpath>
+                 
+                  <xpath expr="//page//field[@name='move_id']" position="after">
+                               <!--  <page string="Journal Items" name="journal items" attrs="{'invisible': [('state','!=','posted')]}"> -->
+                            <group col="4">
+                                <field name="audit"/>
+                            </group>
+                            <field name="move_ids" readonly="1">
+                                <tree string="Journal Items">
+                                    <field name="move_id"/>
+                                    <field name="ref"/>
+                                    <field name="date"/>
+                                    <field name="statement_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="account_id"/>
+                                    <field name="name"/>
+                                    <field name="debit"/>
+                                    <field name="credit"/>
+                                    <field name="state"/>
+                                    <field name="reconcile_id"/>
+                                    <field name="amount_currency"/>
+                                    <field name="currency_id" groups="base.group_multi_currency"/>
+                                </tree>
+                            </field>
+                        <!-- </page> -->
+                    </xpath>
+                
+                <xpath expr="//field[@name='writeoff_amount']" position="before">
+                 	<field name="total_reconciled_amount"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='writeoff_amount']" position="attributes">
+                     <attribute name='string'>Advances Recieved</attribute>
+                </xpath> 
+                
+               
+                
+                
+            </field>
+       </record>
+
+        <record model="ir.ui.menu" id="account.menu_action_account_payments_payable">
+        <field name='name'>Supplier Payments</field>
+        </record>
+
+    
+     <record model="ir.ui.menu" id="account.menu_action_account_payments_receivable">
+        <field name='name'>Student Fee Payments</field>
+    </record>
+    
+</data>
+
+
+</odoo>

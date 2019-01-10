@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+
+        <record id="bounce_reason_wiz_view_edsys" model="ir.ui.view">
+            <field name="name">Reject Reason</field>
+            <field name="model">bounce.reason.wiz</field>
+            <field name="inherit_id" ref="pdc_detail.bounce_reason_wiz_view"/>
+            <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+                <form string="Reject Reason Wizard">
+                    <group>
+                    	<field name="bounce_date_wizard" required="1"/>
+                        <field name="reason" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="bounce_cheque" string="Reject" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+               </xpath>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_bounce_reason_wiz_view"
+            name="Reject Cheque"
+            res_model="bounce.reason.wiz"
+            src_model="pdc.detail"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+    </data>
+</odoo>

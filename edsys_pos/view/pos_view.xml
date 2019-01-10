@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		     <record id="res_partner_pos_form_view_inherited" model="ir.ui.view">
+		            <field name="name">re_partner_view</field>
+		            <field name="model">res.partner</field>
+		            <field name="inherit_id" ref="base.view_partner_form"/>
+		            <field name="arch" type="xml">
+
+		            	<xpath expr="//page[@name='internal_notes']" position="before">
+		            		<page string="Point of Sale">
+		                           <group>
+		                             <field name="pos_order_id" nolabel="1">
+		                             	<!-- <tree editable='false' create="false" delete="false"> -->
+		                             	<tree>
+
+			                         				<field name="name"/>
+								                    <field name="pos_reference"/>
+								                    <field name="date_order"/>
+								                    <!-- <field name="user_id"/> -->
+								                    <field name="invoice_id"/>
+								                    <field name="amount_total"/>
+								                    <field name="company_id" groups="base.group_multi_company"/>
+								                    <field name="state"/>
+								                    <field name="session_id" />
+	                         			</tree>
+		                             </field>
+		                         </group>
+		                         </page>
+		                            	
+		                            
+		                        </xpath>
+		                   
+
+			      </field>
+			     </record>
+	  </data>
+</odoo>
+	

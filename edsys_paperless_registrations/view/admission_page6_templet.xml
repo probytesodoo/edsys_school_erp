@@ -1,0 +1,1532 @@
+<openerp>
+    <data>
+        <template id="student_other_information_page6" name="Enquiry">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Student Other Information</t>
+                    <div id="wrap">
+                        <div class="container">
+                            <div class="row">
+                                <section id="forms">
+                                    <form role="form"
+                                          method="post"
+                                          t-attf-action="/otherinformation/page6?student_id=#{ student_rec.id }"
+                                          enctype="multipart/form-data">
+                                    <input id="Student_Id" type="hidden" t-att-value="student_rec.id"/>
+                                    <input id="Page_Code" type="hidden" t-att-value="page_code"/>
+                                    <!-- TODO Multilingual form action support ? -->
+                                    <div class="col-md-12">
+                                        <p class="text-center"></p>
+                                    </div>
+                                        <div class="col-md-12" style="background-color:#888; color:#FFFFFF; padding:20px; font-size:36px; margin-bottom:20px;">
+                                            <center>Admission Form</center>
+                                        </div>
+                                        <div class="col-md-12" id="msg"></div>
+                                        <div class="row">
+                                            <div class="col-md-1">
+		                                    </div>
+                                            <div class="col-md-10">
+                                                <div class="portlet box blue">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-pencil-square-o"></i> Student Health Information
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body form">
+                                                        <div class="form-body">
+                                                            <!-- Student Name -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Name of Student(Name as in passport):<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <!-- ===== first name middle name last name -->
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control"
+                                                                                       placeholder=" First Name "
+                                                                                       style="width: 115px;"
+                                                                                       required="true"
+                                                                                       t-att-value="student_rec.name"
+                                                                                       type="text" readonly="1"/>
+                                                                                <span class="help-block"></span>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input class="form-control "
+                                                                                       placeholder=" Middle Name"
+                                                                                       style="width: 175px;"
+                                                                                       t-att-value="student_rec.middle_name"
+                                                                                       type="text" readonly="1"/>
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <input class="form-control "
+                                                                                       placeholder=" Last Name "
+                                                                                       style="width: 115px;"
+                                                                                       t-att-value="student_rec.last_name"
+                                                                                       type="text" readonly="1"/>
+                                                                            </div>
+                                                                            <!--<input class="form-control" name="Name_of_Student" required="true" type="text"/>-->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Date of Birth -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Date of Birth(As in Passport):<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6" readonly="1">
+                                                                                <input class="oe_datepicker_master" readonly="1"
+                                                                                       t-att-value="student_rec.birth_date"
+                                                                                       type="text"/>
+                                                                                <div class="glyphicon glyphicon-calendar" draggable="false"
+                                                                                     style="cursor:pointer" height="20" width="20"/>
+                                                                                <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  Gender -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Gender:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.gender == 'm'">
+                                                                                        <input name="Gender" value="m" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.gender != 'm'">
+                                                                                        <input name="Gender" value="m" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Male
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.gender == 'f'">
+                                                                                        <input name="Gender" value="f" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.gender != 'f'">
+                                                                                        <input name="Gender" value="f" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Female
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Nationality -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Nationality:<span style="color:#FF0000">*</span></label>
+                                                `                        <div class="col-md-6">
+                                                                            <select id="select2_sample4" class="form-control select2" name="Nationality">
+                                                                                <!--<option value="">|&#45;&#45; Nationality &#45;&#45;|</option>-->
+                                                                                <!--<t t-foreach="country_rec_list" t-as="country_rec">-->
+                                                                                    <!--<t t-if="country_rec.id == student_rec.nationality.id">-->
+                                                                                        <option t-att-value="student_rec.nationality.id"
+                                                                                                selected="selected"><span t-esc="student_rec.nationality.name"/></option>
+                                                                                    <!--</t>-->
+                                                                                    <!--<t t-if="country_rec.id != student_rec.nationality.id">-->
+                                                                                        <!--<option t-att-value="country_rec.id"><span t-esc="country_rec.name"/></option>-->
+                                                                                    <!--</t>-->
+                                                                                <!--</t>-->
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Grade -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Grade:<span style="color:#FF0000">*</span></label>
+                                                `                        <div class="col-md-6">
+                                                                            <select class="form-control select2">
+                                                                                <option t-att-value="student_rec.course_id.id"><span t-esc="student_rec.course_id.name"/></option>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Health Card No -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Health Card No:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   t-att-value="student_rec.health_card_no"
+                                                                                   name="Health_Card_No"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Father’s Name -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Father’s Name</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   t-att-value="student_rec.parents1_id.name"
+                                                                                   name="Father_Name"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother’s Name -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Mother’s Name</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   t-att-value="student_rec.parents1_id.mother_name"
+                                                                                   name="Mother_Name"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Residential Address -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Residential Address:</label>
+                                                                        <div class="col-md-6">
+                                                                            <textarea class="form-control"
+                                                                                      name="Residential_Address"
+                                                                                      rows="3"><t t-esc="student_rec.street"/></textarea>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Residence No -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Residence No:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   t-att-value="student_rec.mobile"
+                                                                                   name="S_Mobile"
+                                                                                   type="number"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Office No. -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Office No:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                               type="text"
+                                                                               name="Parents_Office_Contact"
+                                                                               t-att-value="student_rec.parents1_id.parents_office_contact"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Father Mobile No. -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Father Mobile No:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   placeholder="Ex : +9711234567890"
+                                                                                   id="father_mobile_no"
+                                                                                   required="true"
+                                                                                   type="text"
+                                                                                   t-att-value="student_rec.parents1_id.parent_contact"
+                                                                                   name='Father_Contact_No'/>
+                                                                            <span id="father_mobile_no_block"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother Mobile No. -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Mother Mobile No:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   required="true"
+                                                                                   placeholder="Ex : +9711234567890"
+                                                                                   id="mother_mobile_no"
+                                                                                   type="text"
+                                                                                   name='Mother_Contact_No'
+                                                                                   t-att-value="student_rec.parents1_id.mother_contact"/>
+                                                                            <span id="mother_mobile_no_block"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Previous School Name. -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Previous School Name:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                               name="Previous_School_Name"
+                                                                               t-att-value="student_rec.prev_institute"
+                                                                               type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Country -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Country:</label>
+                                                `                        <div class="col-md-6">
+                                                                            <select class="form-control select2" name="Prev_Academic_Country">
+                                                                                <option value="">|-- Country --|</option>
+                                                                                <t t-foreach="country_rec_list" t-as="country_rec">
+                                                                                    <t t-if="country_rec.id == student_rec.prev_academic_country.id">
+                                                                                        <option t-att-value="country_rec.id"
+                                                                                                selected="selected"><span t-esc="country_rec.name"/></option>
+                                                                                    </t>
+                                                                                    <t t-if="country_rec.id != student_rec.prev_academic_country.id">
+                                                                                        <option t-att-value="country_rec.id"><span t-esc="country_rec.name"/></option>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </select>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" id="msg"></div>
+                                        <div class="row">
+                                            <div class="col-md-1">
+		                                    </div>
+                                            <div class="col-md-10">
+                                                <div class="portlet box blue">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-pencil-square-o"></i> Medical history of child: Please tick appropriately
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body form">
+                                                        <div class="form-body">
+                                                            <!--o-->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-6"><h3><strong>Infectious disease</strong></h3></label>
+                                                                        <label class="control-label col-md-6"><h3><strong>Non - Infectious disease</strong></h3></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  1 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Diphtheria:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.diphtheria == 'yes'">
+                                                                                        <input name="Diphtheria"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.diphtheria != 'yes'">
+                                                                                        <input name="Diphtheria" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.diphtheria == 'no'">
+                                                                                        <input name="Diphtheria" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.diphtheria != 'no'">
+                                                                                        <input name="Diphtheria" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Accident:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.accident == 'yes'">
+                                                                                        <input name="Accident"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.accident != 'yes'">
+                                                                                        <input name="Accident" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.accident == 'no'">
+                                                                                        <input name="Accident" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.accident != 'no'">
+                                                                                        <input name="Accident" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  2 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Dysentery:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.dysentery == 'yes'">
+                                                                                        <input name="Dysentery"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.dysentery != 'yes'">
+                                                                                        <input name="Dysentery" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.dysentery == 'no'">
+                                                                                        <input name="Dysentery" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.dysentery != 'no'">
+                                                                                        <input name="Dysentery" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Allergies:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.allergies == 'yes'">
+                                                                                        <input name="Allergies"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.allergies != 'yes'">
+                                                                                        <input name="Allergies" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.allergies == 'no'">
+                                                                                        <input name="Allergies" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.allergies != 'no'">
+                                                                                        <input name="Allergies" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  3 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Infective Hepatitis:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.infective_hepatitis == 'yes'">
+                                                                                        <input name="Infective_Hepatitis"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.infective_hepatitis != 'yes'">
+                                                                                        <input name="Infective_Hepatitis" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.infective_hepatitis == 'no'">
+                                                                                        <input name="Infective_Hepatitis" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.infective_hepatitis != 'no'">
+                                                                                        <input name="Infective_Hepatitis" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Bronchial asthma:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.bronchial_asthma == 'yes'">
+                                                                                        <input name="Bronchial_Asthma"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.bronchial_asthma != 'yes'">
+                                                                                        <input name="Bronchial_Asthma" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.bronchial_asthma == 'no'">
+                                                                                        <input name="Bronchial_Asthma" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.bronchial_asthma != 'no'">
+                                                                                        <input name="Bronchial_Asthma" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  4 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Measles:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.measles == 'yes'">
+                                                                                        <input name="Measles"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.measles != 'yes'">
+                                                                                        <input name="Measles" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.measles == 'no'">
+                                                                                        <input name="Measles" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.measles != 'no'">
+                                                                                        <input name="Measles" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Congenital heart disease:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.congenital_heart_disease == 'yes'">
+                                                                                        <input name="Congenital_Heart_Disease"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.congenital_heart_disease != 'yes'">
+                                                                                        <input name="Congenital_Heart_Disease" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.congenital_heart_disease == 'no'">
+                                                                                        <input name="Congenital_Heart_Disease" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.congenital_heart_disease != 'no'">
+                                                                                        <input name="Congenital_Heart_Disease" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  5 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Mumps:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.mumps == 'yes'">
+                                                                                        <input name="Mumps"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.mumps != 'yes'">
+                                                                                        <input name="Mumps" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.mumps == 'no'">
+                                                                                        <input name="Mumps" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.mumps != 'no'">
+                                                                                        <input name="Mumps" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Diabetes mellitus:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.diabetes_mellitus == 'yes'">
+                                                                                        <input name="Diabetes_Mellitus"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.diabetes_mellitus != 'yes'">
+                                                                                        <input name="Diabetes_Mellitus" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.diabetes_mellitus == 'no'">
+                                                                                        <input name="Diabetes_Mellitus" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.diabetes_mellitus != 'no'">
+                                                                                        <input name="Diabetes_Mellitus" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  6 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Poliomyelitis:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.poliomyelitis == 'yes'">
+                                                                                        <input name="Poliomyelitis"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.poliomyelitis != 'yes'">
+                                                                                        <input name="Poliomyelitis" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.poliomyelitis == 'no'">
+                                                                                        <input name="Poliomyelitis" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.poliomyelitis != 'no'">
+                                                                                        <input name="Poliomyelitis" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Epilepsy:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.epilepsy == 'yes'">
+                                                                                        <input name="Epilepsy"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.epilepsy != 'yes'">
+                                                                                        <input name="Epilepsy" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.epilepsy == 'no'">
+                                                                                        <input name="Epilepsy" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.epilepsy != 'no'">
+                                                                                        <input name="Epilepsy" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  7 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Rubella:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.rubella == 'yes'">
+                                                                                        <input name="Rubella"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.rubella != 'yes'">
+                                                                                        <input name="Rubella" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.rubella == 'no'">
+                                                                                        <input name="Rubella" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.rubella != 'no'">
+                                                                                        <input name="Rubella" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">G6PD (Glucose 6 phosphate dehydrogenase deficiency):</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.G6PD == 'yes'">
+                                                                                        <input name="G6PD"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.G6PD != 'yes'">
+                                                                                        <input name="G6PD" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.G6PD == 'no'">
+                                                                                        <input name="G6PD" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.G6PD != 'no'">
+                                                                                        <input name="G6PD" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  8 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Scarlet fever:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.scarlet_fever == 'yes'">
+                                                                                        <input name="Scarlet_Fever"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.scarlet_fever != 'yes'">
+                                                                                        <input name="Scarlet_Fever" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.scarlet_fever == 'no'">
+                                                                                        <input name="Scarlet_Fever" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.scarlet_fever != 'no'">
+                                                                                        <input name="Scarlet_Fever" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Rheumatic fever</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.rheumatic_fever == 'yes'">
+                                                                                        <input name="Rheumatic_Fever"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.rheumatic_fever != 'yes'">
+                                                                                        <input name="Rheumatic_Fever" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.rheumatic_fever == 'no'">
+                                                                                        <input name="Rheumatic_Fever" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.rheumatic_fever != 'no'">
+                                                                                        <input name="Rheumatic_Fever" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  9 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Tuberculosis:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.tuberculosis == 'yes'">
+                                                                                        <input name="Tuberculosis"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.tuberculosis != 'yes'">
+                                                                                        <input name="Tuberculosis" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.tuberculosis == 'no'">
+                                                                                        <input name="Tuberculosis" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.tuberculosis != 'no'">
+                                                                                        <input name="Tuberculosis" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Surgical Operation</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.surgical_operation == 'yes'">
+                                                                                        <input name="Surgical_Operation"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.surgical_operation != 'yes'">
+                                                                                        <input name="Surgical_Operation" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.surgical_operation == 'no'">
+                                                                                        <input name="Surgical_Operation" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.surgical_operation != 'no'">
+                                                                                        <input name="Surgical_Operation" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  10 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Whooping cough:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.whooping_cough == 'yes'">
+                                                                                        <input name="Whooping_Cough"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.whooping_cough != 'yes'">
+                                                                                        <input name="Whooping_Cough" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.whooping_cough == 'no'">
+                                                                                        <input name="Whooping_Cough" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.whooping_cough != 'no'">
+                                                                                        <input name="Whooping_Cough" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Thalassemia</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.thalassemia == 'yes'">
+                                                                                        <input name="Thalassemia"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.thalassemia != 'yes'">
+                                                                                        <input name="Thalassemia" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.thalassemia == 'no'">
+                                                                                        <input name="Thalassemia" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.thalassemia != 'no'">
+                                                                                        <input name="Thalassemia" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  11 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Chicken pox:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.chicken_pox == 'yes'">
+                                                                                        <input name="Chicken_Pox"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.chicken_pox != 'yes'">
+                                                                                        <input name="Chicken_Pox" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.chicken_pox == 'no'">
+                                                                                        <input name="Chicken_Pox" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.chicken_pox != 'no'">
+                                                                                        <input name="Chicken_Pox" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Physically challenged</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.physically_challenged == 'yes'">
+                                                                                        <input name="Physically_Challenged"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.physically_challenged != 'yes'">
+                                                                                        <input name="Physically_Challenged" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.physically_challenged == 'no'">
+                                                                                        <input name="Physically_Challenged" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.physically_challenged != 'no'">
+                                                                                        <input name="Physically_Challenged" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  12 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-2">Others:</label>
+                                                                        <div class="col-md-2">
+                                                                            <div><label>
+                                                                                    <t t-if="student_rec.infectious_disease_other == 'yes'">
+                                                                                        <input name="Infectious_Disease_Other"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.infectious_disease_other != 'yes'">
+                                                                                        <input name="Infectious_Disease_Other" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes</div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.infectious_disease_other == 'no'">
+                                                                                        <input name="Infectious_Disease_Other" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.infectious_disease_other != 'no'">
+                                                                                        <input name="Infectious_Disease_Other" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Hearing/speech defect</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.hearing_speech_defect == 'yes'">
+                                                                                        <input name="Hearing_Speech_Defect"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.hearing_speech_defect != 'yes'">
+                                                                                        <input name="Hearing_Speech_Defect" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.hearing_speech_defect == 'no'">
+                                                                                        <input name="Hearing_Speech_Defect" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.hearing_speech_defect != 'no'">
+                                                                                        <input name="Hearing_Speech_Defect" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  13 -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                       <label class="control-label col-md-2"></label>
+                                                                        <div class="col-md-2">
+                                                                            <div><label>
+                                                                               </label></div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div><label></label>
+                                                                                </div>
+                                                                        </div>
+                                                                        <label class="control-label col-md-2">Vision Problems</label>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.vision_problems == 'yes'">
+                                                                                        <input name="Vision_Problems"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.vision_problems != 'yes'">
+                                                                                        <input name="Vision_Problems" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.vision_problems == 'no'">
+                                                                                        <input name="Vision_Problems" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.vision_problems != 'no'">
+                                                                                        <input name="Vision_Problems" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  History of blood transfusion -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">History of blood transfusion:</label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.history_of_blood_transfusion == 'no'">
+                                                                                        <input name="History_Of_Blood_Transfusion" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.history_of_blood_transfusion != 'no'">
+                                                                                        <input name="History_Of_Blood_Transfusion" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.history_of_blood_transfusion == 'yes'">
+                                                                                        <input name="History_Of_Blood_Transfusion"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.history_of_blood_transfusion != 'yes'">
+                                                                                        <input name="History_Of_Blood_Transfusion" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.history_of_blood_transfusion == 'frequency'">
+                                                                                        <input name="History_Of_Blood_Transfusion"
+                                                                                               value="frequency" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.history_of_blood_transfusion != 'frequency'">
+                                                                                        <input name="History_Of_Blood_Transfusion" value="frequency" type="radio"/>
+                                                                                    </t>
+                                                                                </label>Frequency
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  Hospitalization -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Hospitalization:</label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.hospitalization == 'yes'">
+                                                                                        <input name="Hospitalization"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.hospitalization != 'yes'">
+                                                                                        <input name="Hospitalization" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                                <label>
+                                                                                    <t t-if="student_rec.hospitalization == 'no'">
+                                                                                        <input name="Hospitalization" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.hospitalization != 'no'">
+                                                                                        <input name="Hospitalization" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Reason</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   t-att-value="student_rec.hospitalization_reason"
+                                                                                   name="Hospitalization_Reason" type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  Family History -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Family History:</label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.HTN">
+                                                                                        <input name="HTN" checked="true" type="checkbox"/>
+                                                                                    </t>
+                                                                                    <t t-if="not student_rec.HTN">
+                                                                                        <input name="HTN" type="checkbox"/>
+                                                                                    </t>
+                                                                               </label> HTN
+                                                                            </div>
+                                                                            <div>
+                                                                                <t t-if="student_rec.diabetes">
+                                                                                    <input name="Diabetes" checked="true" type="checkbox"/>
+                                                                                </t>
+                                                                                <t t-if="not student_rec.diabetes">
+                                                                                    <input name="Diabetes" type="checkbox"/>
+                                                                                </t>Diabetes
+                                                                            </div>
+                                                                            <div>
+                                                                                <t t-if="student_rec.mental">
+                                                                                    <input name="Mental" checked="true" type="checkbox"/>
+                                                                                </t>
+                                                                                <t t-if="not student_rec.mental">
+                                                                                    <input name="Mental" type="checkbox"/>
+                                                                                </t>Mental disorders
+                                                                            </div>
+                                                                            <!--<div>-->
+                                                                                <!--<t t-if="student_rec.disorders">-->
+                                                                                    <!--<input name="Disorders" checked="true" type="checkbox"/>-->
+                                                                                <!--</t>-->
+                                                                                <!--<t t-if="not student_rec.disorders">-->
+                                                                                    <!--<input name="Disorders" type="checkbox"/>-->
+                                                                                <!--</t> disorders-->
+                                                                            <!--</div>-->
+                                                                            <div><t t-if="student_rec.stroke">
+                                                                                    <input name="Stroke" checked="true" type="checkbox"/>
+                                                                                </t>
+                                                                                <t t-if="not student_rec.stroke">
+                                                                                    <input name="Stroke" type="checkbox"/>
+                                                                                </t>Stroke
+                                                                            </div>
+                                                                            <div><t t-if="student_rec.TB">
+                                                                                    <input name="TB" checked="true" type="checkbox"/>
+                                                                                </t>
+                                                                                <t t-if="not student_rec.TB">
+                                                                                    <input name="TB" type="checkbox"/>
+                                                                                </t>TB
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Others, Specify. -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Others, Specify:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   t-att-value="student_rec.HTN_other"
+                                                                                   name="HTN_other" type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  Is your child allergic to any medicine/drugs? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Is your child allergic to any medicine/drugs?:</label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.medicine_or_drugs == 'yes'">
+                                                                                        <input name="Medicine_or_Drugs"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.medicine_or_drugs != 'yes'">
+                                                                                        <input name="Medicine_or_Drugs" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                                <label>
+                                                                                    <t t-if="student_rec.medicine_or_drugs == 'no'">
+                                                                                        <input name="Medicine_or_Drugs" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.medicine_or_drugs != 'no'">
+                                                                                        <input name="Medicine_or_Drugs" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- If yes, please indicate the name of the medicine/drug. -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes, please indicate the name of the medicine/drug:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   t-att-value="student_rec.medicine_or_drugs_details"
+                                                                                   name="Medicine_or_Drugs_Details" type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Is your child currently under medication/treatment. -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Is your child currently under medication/treatment:</label>
+                                                                        <div class="col-md-6">
+                                                                            <t t-if="student_rec.under_medication">
+                                                                                <label>
+                                                                                    <input name="Under_Medication" value="True" checked="" type="radio"/>
+                                                                                </label> Yes
+                                                                                <label>
+                                                                                    <input name="Under_Medication" value="False"  type="radio"/>
+                                                                                </label> No
+                                                                            </t>
+                                                                            <t t-if="not student_rec.under_medication">
+                                                                                <label>
+                                                                                    <input name="Under_Medication" value="True" type="radio"/>
+                                                                                </label> Yes
+                                                                                <label>
+                                                                                    <input name="Under_Medication" value="False" checked="" type="radio"/>
+                                                                                </label> No
+                                                                            </t>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- If yes, please indicate the type and purpose. -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes, please indicate the type and purpose:</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   t-att-value="student_rec.w_medication_mention"
+                                                                                   name="Medication_Mention" type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12" id="msg"></div>
+                                        <div class="row">
+                                            <div class="col-md-1">
+		                                    </div>
+                                            <div class="col-md-10">
+                                                <div class="portlet box blue">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-pencil-square-o"></i> Consents
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body form">
+                                                        <div class="form-body">
+                                                            <!--  A) I give consent to the School Nurse to give my child oral analgesic or any antipyretic drug (for pain and administer first aid, if needed -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">A) I give consent to the School Nurse to give my child oral analgesic or any antipyretic drug (for pain and administer first aid, if needed):</label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.give_consent_oral_analgesic == 'yes'">
+                                                                                        <input name="Give_Consent_Oral_Analgesic"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.give_consent_oral_analgesic != 'yes'">
+                                                                                        <input name="Give_Consent_Oral_Analgesic" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.give_consent_oral_analgesic == 'no'">
+                                                                                        <input name="Give_Consent_Oral_Analgesic" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.give_consent_oral_analgesic != 'no'">
+                                                                                        <input name="Give_Consent_Oral_Analgesic" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- I give my consent for emergency measure including hospital treatment to be initiated for my child incase an accident or sudden illness (including school planned excursions -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">B) I give my consent for emergency measure including hospital treatment to be initiated for my child incase an accident or sudden illness (including school planned excursions):</label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.give_consent_hospital_treatment == 'yes'">
+                                                                                        <input name="Give_Consent_Hospital_Treatment"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.give_consent_hospital_treatment != 'yes'">
+                                                                                        <input name="Give_Consent_Hospital_Treatment" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.give_consent_hospital_treatment == 'no'">
+                                                                                        <input name="Give_Consent_Hospital_Treatment" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.give_consent_hospital_treatment != 'no'">
+                                                                                        <input name="Give_Consent_Hospital_Treatment" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- C) I give consent for the immunization for my child (applicable to children being admitted in Grade 1 and above -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">C) I give consent for the immunization for my child (applicable to children being admitted in Grade 1 and above):</label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.give_consent_immunization == 'yes'">
+                                                                                        <input name="Give_Consent_Immunization"
+                                                                                               value="yes" checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.give_consent_immunization != 'yes'">
+                                                                                        <input name="Give_Consent_Immunization" value="yes" type="radio"/>
+                                                                                    </t>
+                                                                                </label> Yes
+                                                                            </div>
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.give_consent_immunization == 'no'">
+                                                                                        <input name="Give_Consent_Immunization" value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.give_consent_immunization != 'no'">
+                                                                                        <input name="Give_Consent_Immunization" value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label> No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <span class="help-block"></span>
+                                                            <div class="row">
+                                                                <div class="col-md-12 text-center">
+                                                                    <div class="form-group col-md-12">
+                                                                        <div class="col-md-12">
+                                                                            <div class="col-md-3">
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                <center>
+                                                                                    <input class="btn btn-circle blue btn-block previous"
+                                                                                       t-attf-onclick="window.location.href='/student/verification/previous?student_id=#{ student_rec.id }&amp;page_code=#{ 5 }'"
+                                                                                       value="Previous" type="button"/>
+                                                                                </center>
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <center>
+                                                                                    <input class="btn btn-circle blue btn-block"
+                                                                                           value="Save And Submit"
+                                                                                           id="SubmitPaper6"
+                                                                                           name="submit"
+                                                                                           type="submit"/>
+                                                                                </center>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+            </t>
+        </template>
+    </data>
+</openerp>

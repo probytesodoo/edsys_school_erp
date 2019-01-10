@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="view_hr_employee_form_inherited_biometric" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="edsys_hrm.hr_employee_form_view_inherited"/>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="//field[@name='first_day_office']" position="after">
+                		<field name='biometric_id' />
+                		<field name='attendance_ids' invisible="1"/>
+                		<field name='attendance_report_from_date' invisible="1"/>
+                		<field name='attendance_report_to_date' invisible="1"/>
+                	</xpath>
+                </data>
+            </field>
+       </record>
+       
+       
+       <record id="view_biometric_attendance_form_inherited" model="ir.ui.view">
+            <field name="name">hr.attendance.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                <xpath expr="//sheet" position="before">
+	                <header>
+	                	<button string="Approve by Reporting Manager" groups="base.group_hr_manager" name="approve_attendance_reporting_manager" type="object" attrs="{'invisible': [('attendance_state', 'in', ('rejected_by_hr_manager','rejected_by_reporting_manager','approved_by_reporting_manager','approved_by_hr_manager','draft','confirmed','final'))]}"/>
+	                	<button string="Approve by HR Manager" groups="base.group_hr_manager" name="approve_attendance_hr_manager" type="object" attrs="{'invisible': [('attendance_state', 'in', ('rejected_by_hr_manager','approved_by_hr_manager','draft','confirmed','final'))]}"/>
+	                	<button string="Confirm" name="confirm_attendance" type="object" attrs="{'invisible': [('attendance_state', 'in', ('seek_review','rejected_by_hr_manager','rejected_by_reporting_manager','approved_by_reporting_manager','approved_by_hr_manager','confirmed','final'))]}"/>
+	                	<button string="Reject Reporting Manager" groups="base.group_hr_manager" name="reject_attendance_reporting_manager" type="object" attrs="{'invisible': [('attendance_state', 'in', ('rejected_by_hr_manager','rejected_by_reporting_manager','approved_by_reporting_manager','approved_by_hr_manager','draft','confirmed','final'))]}"/>
+	                	<button string="Reject HR Manager" groups="base.group_hr_manager" name="reject_attendance_hr_manager" type="object" attrs="{'invisible': [('attendance_state', 'in', ('rejected_by_hr_manager','approved_by_hr_manager','draft','confirmed','final'))]}"/>
+	                	<!-- <button string="Confirm" groups="base.group_hr_manager" name="reject_attendance" type="object" attrs="{'invisible': [('attendance_state', 'in', ('rejected','approved','draft'))]}"/> -->
+	                	<field name="attendance_state" widget="statusbar" statusbar_visible="draft, seek_review, confirmed, approved_by_reporting_manager, rejected_by_reporting_manager, approved_by_hr_manager, rejected_by_hr_manager, final" />
+	                </header>
+	            </xpath>
+                	<xpath expr="//field[@name='employee_id']" position="after">
+                		<field name="dubai_punch_date_format" attrs="{'readonly':[('attendance_state','=','final')]}" />
+                		<field name="attendance_tag" required="1" attrs="{'readonly':[('attendance_state','=','final')]}"/>
+                		<field name="review_tags" attrs="{'readonly':[('attendance_state','=','final')]}" />
+                		<field name="justification" attrs="{'readonly':[('attendance_state','=','final')]}"/>
+                		<field name="reject_reason" attrs="{'readonly':[('attendance_state','=','final')]}"/>
+                		<field name='current_user' invisible="1"/>
+                	</xpath>
+                	<!-- <xpath expr="//field[@name='name']" position="replace">
+                		<field name="name" invisible="1"/>
+                	</xpath> -->
+                </data>
+            </field>
+       </record>
+       <record id="view_biometric_attendance_tree_inherited" model="ir.ui.view">
+            <field name="name">hr.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="//field[@name='employee_id']" position="after">
+                		<field name="attendance_tag"/>
+                		<field name="attendance_state"/>
+                        <field name="dubai_punch_date_format"/>
+                	</xpath>
+                	<!-- <xpath expr="//field[@name='name']" position="replace">
+                		<field name="dubai_punch_date_format"/>
+                	</xpath> -->
+                </data>
+            </field>
+       </record>
+       
+       
+        <!-- <record id="finalized_attendance_action" model="ir.actions.act_window">
+            <field name="name">Finalized Attendances</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="finalized_attendance_view" />
+            <field name="help">Attendances which need to be approve.</field>
+            <field name="target">new</field>
+        </record>
+        
+        
+       <menuitem id="finalized_attendance_menu" groups="base.group_hr_manager" name='Finalized Attendance' parent='hr_attendance.menu_hr_attendance' action="finalized_attendance_action" />
+         -->
+        
+        <record model="ir.ui.view" id="view_hr_attendance_filter_inherited_biometric">
+            <field name="name">view_hr_attendance_filter</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Hr Attendance Search">
+                    <!-- <field name="name" string="Attendance"/>
+                    <field name="action"/> -->
+                    <filter string="Today" name="today" domain="[('name','&gt;=',current_date),('name','&lt;=',current_date)]" />
+                    <filter string="Current Month" domain="[('name','&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]" />
+                    <separator/>
+                    <filter string="My Attendance" domain="[('employee_id.user_id.id', '=', uid)]" />
+                    <field name="employee_id"/>
+                    <group expand="0" string="Group By">
+                    <filter name="group_attendance_state" string="State" context="{'group_by':'attendance_state'}"/>
+                        <filter name="employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                        <separator/>
+                        <filter name="groupby_name" string="Month" context="{'group_by':'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        
+        <record id="open_view_attendance_inherited_biometric" model="ir.actions.act_window">
+            <field name="name">Attendances</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_today":1, 'search_default_group_attendance_state': 1}</field>
+            <field name="search_view_id" ref="view_hr_attendance_filter_inherited_biometric" />
+            <field name="help">The Time Tracking functionality aims to manage employee attendances from Sign in/Sign out actions. You can also link this feature to an attendance device using Odoo's web service features.</field>
+        </record>
+        
+
+<record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_view_attendances">
+		<field name="action" ref="edsys_biometric.open_view_attendance_inherited_biometric"/>
+		</record>
+        
+   </data>
+</odoo>

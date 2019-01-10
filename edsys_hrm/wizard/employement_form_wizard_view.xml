@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="employement_form_wizard_form_view" model="ir.ui.view">
+            <field name="name">employement.form.wizard.view</field>
+            <field name="model">employement.form.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Send Employment Application Form">
+                    <h3><label string="Are you sure to send employment form to selected employees?"/></h3>
+                    <footer>
+                        <button name="send_employement_form" string="Send Employment Form" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_employement_form_wizard_view"
+            name="Send Additional Information Form"
+            res_model="employement.form.wizard"
+            src_model="hr.employee"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"
+            />
+
+    </data>
+</odoo>

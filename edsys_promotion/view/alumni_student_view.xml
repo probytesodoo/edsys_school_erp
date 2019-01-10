@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--=============== Alumni Student form view==================-->
+        <record id="view_alumni_student_form" model="ir.ui.view">
+            <field name="name">view.alumni.student.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Alumni Student Form View">
+                    <sheet>
+                        <field name="image" widget="image" class="oe_left oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        <div class="oe_right">
+                            <button type="action"
+                                class="oe_stat_button"
+                                id="invoice_button"
+                                icon="fa-pencil-square-o"
+                                name="%(account.action_invoice_refund_out_tree)d"
+                                context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups='edsys_edu.group_fee_confirm'>
+                                <div>
+                                    <strong>
+                                        <field name="total_invoiced" widget="monetary"/>
+                                    </strong><br/>Invoiced</div>
+                            </button>
+                            <button type="action" class="oe_stat_button" name="%(account.action_account_moves_all_tree)d" icon="fa-list" groups='edsys_edu.group_fee_confirm'>
+                                <field string="Journal Items" name="journal_item_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title oe_left">
+                            <div class="oe_edit_only">
+                                (<field name="is_parent" class="oe_inline" readonly="1"/> <label for="is_parent" string="Is a Parent?"/>)
+                                (<field name="is_student" class="oe_inline" readonly="1"/> <label for="is_student" string="Is a Student?"/>)
+                            </div>
+                            <h1>
+                                <field name="student_id" readonly="1"/>
+                                <field name="name" placeholder="First Name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group col="6">
+                            <group>
+                                <field name="middle_name" placeholder="Middle Name" readonly="1"/>
+                                <field name="last_name" placeholder="Last Name" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="reg_no" readonly="1"/>
+                                <field name="old_id" string="Old ID" readonly="1"/>
+                                <field name="class_id" readonly="1"/>
+                                <field name="year_id" readonly="1"/>
+                                <field name="student_section_id" string="Section Id" domain="[('course_id','=',class_id)]" options="{'no_quick_create': True,'no_create_edit':True}" readonly="1"/>
+                                <field name="stud_batch_shift" readonly="1"/>
+                                <field name="active" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="strike_off" invisible="1"/>
+                                <field name="last_attendance_date" readonly="1"/>
+                                <field name="activate_date" readonly="1"/>
+                                <field name="strike_off_date" readonly="1"/>
+                                <field name="remark" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="parents1_id" readonly="1"/>
+                        </group>
+                        <div class="oe_right oe_button_box" name="buttons"> </div>
+
+                    <notebook colspan="4">
+                        <page string="Accounting" col="4" name="accounting">
+                            <group>
+                                <group>
+                                    <!-- <field name="property_account_position" widget="selection" readonly="1"/> -->
+                                </group>
+                                <group>
+                                    <!-- <field name="last_reconciliation_date" readonly="1"/> -->
+                                </group>
+                                <group>
+                                    <!-- <field name="property_account_receivable" readonly="1"/> -->
+                                    <!-- <field name="property_payment_term" widget="selection" readonly="1"/> -->
+                                    <field name="credit" readonly="1"/>
+                                    <field name="credit_limit" readonly="1"/>
+                                </group>
+                                <group>
+                                    <!-- <field name="property_account_payable" readonly="1"/> -->
+                                    <!-- <field name="property_supplier_payment_term" widget="selection" readonly="1"/> -->
+                                    <field name="debit" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Personal Detail">
+                             <group>
+                                <group>
+                                    <field name="date_of_joining" readonly="1"/>
+                                    <field name="admission_date" readonly="1"/>
+                                    <field name="batch_id" readonly="1"/>
+                                    <field name="course_id" readonly="1"/>
+                                    <field name="gender" readonly="1"/>
+                                    <field name="emirati" readonly="1"/>
+                                    <field name="lang_id" widget="selection" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="email" readonly="1"/>
+                                    <field name="arab" readonly="1"/>
+                                    <field name="nationality" readonly="1"/>
+                                    <field name="religion_id" readonly="1"/>
+                                    <field name="birth_date" readonly="1"/>
+                                    <field name="birth_country" readonly="1"/>
+                                    <field name="birth_place" domain="[('country_id','=',birth_country)]" readonly="1"/>
+                                    <field name="emirates_id" readonly="1"/>
+                                    <field name="other_lang_id" string='Optional Language' widget="selection" domain="[('is_optional','=',True)]" readonly="1"/>
+                                </group>
+                            </group>
+                            <newline/><separator string="Passport Details"/><newline/>
+                                <group colspan="6" col="6">
+                                    <field name="passport_no" readonly="1"/>
+                                    <field name="passport_issue_date" readonly="1"/>
+                                    <field name="passport_expiry_date" readonly="1"/>
+                                </group>
+                            <newline/><separator string="Visa Details"/><newline/>
+                                <group colspan="6" col="6">
+                                    <field name="visa_no" readonly="1"/>
+                                    <field name="visa_issue_date" readonly="1"/>
+                                    <field name="visa_expiry_date" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="Address">
+                                <label for="street" string="Address" />
+                                <div>
+                                    <field name="street" placeholder="Street..." readonly="1"/>
+                                    <field name="street2" readonly="1"/>
+                                    <div class="address_format">
+                                        <field name="city" placeholder="City" style="width: 40%%" readonly="1"/>
+                                        <field name="state_id" options='{"no_open": True}'
+                                            placeholder="State" style="width: 24%%" readonly="1"/>
+                                        <field name="zip" placeholder="ZIP" style="width: 34%%" readonly="1"/>
+                                    </div>
+                                    <field name="country_id" placeholder="Country" options='{"no_open": True}' readonly="1"/>
+                                    <field name="phone" placeholder="Phone" readonly="1" />
+                                    <field name="mobile" placeholder="Mobile" readonly="1"/>
+                                </div>
+                                <group col="6" colspan="6">
+                                    <field name="family_business" readonly="1"/>
+                                    <field name="family_income" readonly="1"/>
+                                    <field name="emergency_contact" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="School History">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="prev_institute" string='School Name' readonly="1"/>
+                                        <field name="prev_academic_city" string="Place" readonly="1"/>
+                                        <field name="prev_academic_country" readonly="1"/>
+                                        <field name="last_attendance" string="Previous School Last Attendance Date" readonly="1"/>
+                                        <field name="curriculum" string="Curriculum" readonly="1"/>
+                                        <field name="prev_grade" readonly="1"/>
+                                        <field name="prev_academic_year" readonly="1"/>
+                                        <field name="t_c_number" readonly="1"/>
+                                        <field name="tranfer_reason" readonly="1"/>
+                                    </group>
+                                </div>
+                            </page>
+                             <page string="Medical">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="blood_group" readonly="1"/>
+                                        <field name="s_height" readonly="1"/>
+                                        <field name="s_width" readonly="1"/>
+                                        <field name="child_allergic" readonly="1"/>
+                                        <field name="w_allergic" attrs="{'invisible': [('child_allergic','=',False)]}" readonly="1"/>
+                                        <field name="w_reaction" attrs="{'invisible': [('child_allergic','=',False)]}" readonly="1"/>
+                                        <field name="w_treatment" attrs="{'invisible': [('child_allergic','=',False)]}" readonly="1"/>
+                                        <field name="under_medication" readonly="1"/>
+                                        <field name="w_medication_mention" attrs="{'invisible': [('under_medication','=',False)]}" readonly="1"/>
+                                        <field name="w_treatment_mention" attrs="{'invisible': [('under_medication','=',False)]}" readonly="1"/>
+                                    </group>
+                                </div>
+                             </page>
+                             <page string="Transportation Detail">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="transport_type" readonly="1"/>
+                                        <field name="bus_no" readonly="1"/>
+                                        <field name="pick_up" readonly="1"/>
+                                        <field name="droup_off_pick" readonly="1"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Documents">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <separator string="Student's Documents"/><newline/>
+                                        <group readonly="1">
+                                            <field name="transfer_certificate" readonly="1"/>
+                                            <field name="s_emirates_copy1" readonly="1"/>
+                                            <field name="s_emirates_copy2" readonly="1"/>
+                                            <field name="passport_copy1" readonly="1"/>
+                                            <field name="passport_copy2" readonly="1"/>
+                                         </group>
+                                        <newline/><separator string="Medical Documents"/><newline/>
+                                        <group readonly="1">
+                                            <field name="medical_documents_file" readonly="1"/>
+                                        </group>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Siblings">
+                                <field name="sibling_ids" readonly="1">
+                                    <!--<tree editable="bottom">
+                                        <field name="sibling_name"/>
+                                        field name="sibling_grade" />
+                                    </tree>-->
+                                </field>
+                                <group>
+                                    <field name="about_us" readonly="1"/>
+                                    <field name="about_us_other" attrs="{'invisible': [('about_us','!=','other')]}" readonly="1"/>
+                                    <field name="remarks" readonly="1"/>
+                                </group>
+                            </page>
+
+                            <page string="Fees Structure" list_options = '{"limit":2}'>
+                                <separator string="Fee Structure"/>
+                                <group>
+                                    <field name="discount_on_fee" readonly="1" widget="selection" groups='edsys_edu.group_fee_confirm'/>
+                                </group>
+                                <field name="student_fee_line" readonly="1">
+                                    <tree editable="bottom" delete="false" >
+                                        <field name="sequence" string="Priority" readonly="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="amount" readonly="1"/>
+                                        <field name="discount" groups='edsys_edu.group_fee_confirm'/>
+                                        <field name="discount_amount" groups='edsys_edu.group_fee_confirm'/>
+                                        <field name="type" readonly="1"/>
+                                        <field name="fee_pay_type" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Payment Detail">
+                                <separator string="Payment Detail"/>
+                                <field name="payble_fee_ids" readonly="1">
+                                    <tree string="Fee Payment Detail" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="year"/>
+                                        <field name="fee_pay_type"/>
+                                        <field name="total_amount"/>
+                                        <field name="discount_amount"/>
+                                        <field name="cal_amount"/>
+                                        <field name="cal_turm_amount"/>
+                                        <field name="rem_amount"/>
+                                        <field name="next_term"/>
+                                        <field name="is_next_half_year"/>
+                                    </tree>
+                                </field>
+                                <field name="paid_term_history_ids" invisible="1">
+                                    <tree string="Fee Status" editable="bottom">
+                                        <field name="batch_id"/>
+                                        <field name="term_id"/>
+                                        <field name="student_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Fee Status">
+                                <separator string="Payment Detail"/>
+                                <field name="payment_status" readonly="1">
+                                    <tree>
+                                        <field name="month_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="year"/>
+                                        <field name="paid"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--============== Action for Alumni Student =================-->
+        <record id="action_alumni_student" model="ir.actions.act_window">
+            <field name="name">Alumni Student</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="domain">[('active','=',False),('promoted','=',False), ('strike_off','=',False),
+                ('is_parent','=',0),('is_student','=',1),('customer','=',True),('supplier','=',False)]</field>
+            <field name="search_view_id" ref="edsys_edu.view_student_parent_search"/>
+        </record>
+        
+        <record id="action_alumni_student_kanban_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="edsys_edu.student_parent_kanban_view"/>
+            <field name="act_window_id" ref="action_alumni_student"/>
+        </record>
+
+        <record id="action_alumni_student_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="edsys_edu.view_student_tree_view"/>
+            <field name="act_window_id" ref="action_alumni_student"/>
+        </record>
+        
+        <record id="action_alumni_student_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_alumni_student_form"/>
+            <field name="act_window_id" ref="action_alumni_student"/>
+        </record>
+    </data>
+</odoo>

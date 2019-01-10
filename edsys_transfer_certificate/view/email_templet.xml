@@ -1,0 +1,173 @@
+<odoo>
+    <data noupdate="0">
+
+                <!-- Payment Receipt mail -->
+        <record id="email_template_tc_fee_receipt_paid" model="mail.template">
+            <field name="name">Fee Payment Receipt</field>
+            <field name="subject">Payment acknowledgement receipt for TC issuance</field>
+            <field name="model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.action_student_payment_receipt"/>
+            <field name="report_name">Academic_fee_receipt</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_id.parents1_id.name},</p>
+                        <p>Greetings!</p>
+                        <p>We thank you for paying the outstanding fees for TC number ${object.reference}.
+                        The receipt for your payment is attached with this email.</p>
+                       
+                       
+                </div>
+            ]]></field>
+        </record>
+
+        <!--TC issuance Email-->
+        <record id="email_template_tc_issuance_email" model="mail.template">
+            <field name="name">TC issuance Email</field>
+            <field name="subject">TC issuance for ${object.name.name or ''}</field>
+            <field name="model_id" ref="model_trensfer_certificate"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.name.parents1_id.name or ''},</p>
+                    <p>Greetings!</p>
+                    <p>The TC process for your ward(s) is now complete. You are requested to collect the Transfer Certificate from the school within 15 days from the receipt of this email.</p>
+                    <p>Thank you for your association with edsys.</p>
+                    <p>We wish you success and great future ahead.</p>
+                   
+                   
+                    </div>
+            ]]>
+            </field>
+        </record>
+
+        <!--TC form email-->
+        <record id="email_template_tc_form_email" model="mail.template">
+            <field name="name">TC Form Email</field>
+            <field name="subject">Transfer Certificate Form</field>
+            <field name="model_id" ref="model_trensfer_certificate"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.name.parents1_id.name or ''},</p>
+                    <p>Greetings!</p>
+                    <p>We have received your request for issuance of TC for your ward(s).</p>
+                    <p>We request you to fill TC form provided below within 2 working days from the receipt
+                     of this email, as we need to process your request and complete the legal and
+                     financial bindings. Please note any amount payable by you towards
+                     the school shall be notified in a separate email.</p>
+                    <p><a href=${object.tc_form_fill_link or ''}><button>Click here</button></a> to complete the transfer certificate request form.</p>
+                   
+                   
+                    </div>
+            ]]>
+            </field>
+        </record>
+
+        <!-- Resend TC form email-->
+        <record id="email_template_resend_tc_form_email" model="mail.template">
+            <field name="name">TC Form Reminder Email</field>
+            <field name="subject">Request for TC Form</field>
+            <field name="model_id" ref="model_trensfer_certificate"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.name.parents1_id.name or ''},</p>
+                    <p>Greetings!</p>
+                    <p>We have received your request for issuance of TC for your ward(s).</p>
+                    <p>While we would miss you at the edsys family, we understand your needs and wish your
+                     ward success and a great future ahead.</p>
+                    <p>We request you to fill TC form provided below within 2 working days from the receipt
+                     of this email, as we need to process your request and complete the legal and
+                     financial bindings. Please note any amount payable by you towards
+                     the school shall be notified in a separate email.</p>
+                    <p><a href=${object.tc_form_fill_link or ''}><button>Click here</button></a> to complete the transfer certificate request form.</p>
+                   
+                   
+                    </div>
+            ]]>
+            </field>
+        </record>
+
+                    <!-- Payment Link For NO BALANCE-->
+        <record id="email_template_payment_link_no_balance_email" model="mail.template">
+            <field name="name">TC fee payment link - No Balance</field>
+            <field name="subject">Transfer Certificate fee payment link</field>
+            <field name="model_id" ref="model_trensfer_certificate"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                    <p>Dear ${object.name.parents1_id.name or ''},</p>
+                    <p>Greetings!</p>
+                    <p>We have received your request for TC for your ward(s). The details of the TC status and
+                    outstanding balance (if any) are appended in the table below this email. You can pay the TC fees
+                    online via the link provided below the TC status table. This is a secure link for fee payment and
+                    you will receive an acknowledgement immediately, both on the website and over email, detailing next
+                    steps.PayFort transaction charges may apply and the link shall display the
+                    total payable amount.</p>
+                    <p>Alternatively, you can visit the school with a printout of this mail (or note the
+                     TC request number) and contact the Registrar on any working day (Sunday or Thursday
+                     from 8:00 a.m. to 4:30 p.m, Saturday 8:00 a.m. to 1:00 p.m) and pay the fee at the
+                     school counter. We encourage you to pay the fees online so that you do not have to
+                     wait for significant duration during school visit.</p>
+                    
+                    
+                </div>
+            ]]>
+            </field>
+        </record>
+
+                <!-- Payment Link For OUTSTANDING FEES-->
+        <record id="email_template_payment_link_outstanding_fees" model="mail.template">
+        <field name="name">TC fee payment link - Outstanding Fees</field>
+            <field name="subject">Transfer Certificate fee payment link</field>
+            <field name="model_id" ref="model_trensfer_certificate"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.name.parents1_id.name or ''},</p>
+                    <p>Greetings!</p>
+                    <p>We have reviewed and validated your TC request for your ward(s). The details of the TC status and
+                    outstanding balance (if any) are appended in the table below this email.You are requested to pay the
+                    total outstanding fee at the earliest for us to proceed with the TC issuance. You can pay this fees
+                    online via the link provided below. This is secure link for fee payment and you will receive an
+                    acknowledgement immediately, both on the website and via email, detailing next steps. PayFort charges may apply and the  link shall display the total amount including payFort charges.</p>
+                    <p>Alternatively, you can visit the school with a printout of this mail (or note the
+                     TC request number) and contact the Registrar on any working day (Sunday or Thursday
+                      from 8:00 a.m. to 4:30 p.m, Saturday 8:00 a.m. to 1:00 p.m) and pay the fee at the
+                      school counter. We encourage you to pay the fees online so that you do not have to
+                      wait for significant duration during school visit.</p>
+                   
+                   
+                    </div>
+            ]]>
+            </field>
+        </record>
+
+                <!-- Payment Link For Advance Payment(REFUND)-->
+        <record id="email_template_payment_link_refund" model="mail.template">
+            <field name="name">Transfer Certificate &amp; payment details - REFUND</field>
+            <field name="subject">Transfer Certificate &amp; payment details</field>
+            <field name="model_id" ref="model_trensfer_certificate"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.name.parents1_id.name or ''},</p>
+                    <p>Greetings!</p>
+                    <p>We have reviewed and validate your TC request for your ward(s). The details of the TC status and
+                    outstanding balance (if any) are appended in the table below this email.</p>
+                    
+                   
+                    </div>
+            ]]>
+            </field>
+        </record>
+
+    </data>
+</odoo>

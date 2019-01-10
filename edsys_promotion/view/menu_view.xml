@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <!-- ================= Student Menu=========================== -->
+        <menuitem id="student_alumni_menu" name="Alumni Students" parent="edsys_edu.Student_sub_menu" action="action_alumni_student" sequence="3"/>
+        <menuitem id="annual_promotion_menu" name="Annual Promotion" parent="edsys_edu.studnt_main_menu" sequence="2"/>
+        <menuitem id="student_promote_menu" name="Define Promotion" parent="annual_promotion_menu" action="action_student_promotion" sequence="1"/>
+        <menuitem id="awaiting_promotion_menu" name="Confirm Promotion" parent="annual_promotion_menu" action="act_awaiting_promotion_view" sequence="2"/>
+        <menuitem id="fee_structure_menu" name="Confirm Fee Structure" parent="annual_promotion_menu" action="act_confirm_fees_view" sequence="3"/>
+
+    </data>
+</odoo>

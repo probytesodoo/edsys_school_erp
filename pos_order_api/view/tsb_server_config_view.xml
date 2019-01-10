@@ -1,0 +1,96 @@
+<odoo>
+
+    <!--point_of_sale.res_users_form_view-->
+    <record id="res_users_barcode_form" model="ir.ui.view">
+            <field name="name">res_users.barcode.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="point_of_sale.res_users_form_view"/>
+            <field name="arch" type="xml">
+                <field name="barcode" position="replace">
+                    <field name="barcode" required="1" string="RFID"/>
+                </field>
+                <field name="barcode" position="after">
+                    <field name="pos_config" />
+                </field>
+            </field>
+    </record>
+
+
+    <record id="tsb_server_config_form" model="ir.ui.view">
+        <field name="name">tsb.server.config.form</field>
+        <field name="model">tsb.server.config</field>
+        <field name="arch" type="xml">
+            <form string="TSB Server Config Form">
+                <sheet>
+                    <group>
+                        <field name="name" placeholder="https://www.redbytes.com/" widget="url" required="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="port" placeholder="Port" />
+                            <field name="app_key" placeholder="App Key" />
+                            <field name="active_tsb"/>
+                        </group>
+                        <group>
+                            <field name="customer_id" placeholder="Customer Id" />
+                            <field name="operator_id" placeholder="Provider ID" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="tsb_server_config_tree" model="ir.ui.view">
+        <field name="name">tsb.server.config.tree</field>
+        <field name="model">tsb.server.config</field>
+        <field name="arch" type="xml">
+            <tree string="TSB Server Config">
+                <field name="name"/>
+                <field name="active_tsb"/>
+                <field name="port" />
+                <field name="app_key" />
+                <field name="customer_id" />
+                <field name="operator_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="tsb_server_config_search" model="ir.ui.view">
+            <field name="name">tsb_server_config_search</field>
+            <field name="model">tsb.server.config</field>
+            <field name="arch" type="xml">
+                <search string="TSB Sever Configuration">
+                    <field name="name"/>
+                    <field name="active_tsb"/>
+                    <field name="port" />
+                    <field name="app_key" />
+                    <field name="customer_id" />
+                    <field name="operator_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="URL" icon="terp-personal" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="Active" icon="terp-personal" domain="[]" context="{'group_by':'active_tsb'}"/>
+                        <filter string="Port" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'port'}"/>
+                        <filter string="App Key" icon="terp-go-month" domain="[]" context="{'group_by':'app_key'}"/>
+                        <filter string="Customer ID" icon="terp-go-month" domain="[]" context="{'group_by':'customer_id'}"/>
+                        <filter string="Provider ID" icon="terp-go-month" domain="[]" context="{'group_by':'operator_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    <record id="tsb_server_config_action" model="ir.actions.act_window">
+        <field name="name">TSB Server Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tsb.server.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="tsb_server_config_menu"
+              name='TSB Server Configuration'
+              parent='point_of_sale.menu_point_config_product'
+              action='tsb_server_config_action'
+              sequence='5' />
+
+</odoo>

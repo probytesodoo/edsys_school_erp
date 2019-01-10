@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        
+        <record id="hr_employee_form_view_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="groups_id" eval="[(6,0, [ref('base.group_user')])]" />
+            <field name="arch" type="xml">
+	                <xpath expr="//sheet" position="before">
+	                		<header>
+			                 	<button string="Validate" name="validate_employee" type="object" attrs="{'invisible': [('employee_state', '!=', 'validate')]}"/>
+			                 	<button string="Resend Additional Information Form" name="resend_employement_application_form" type="object" attrs="{'invisible': ['|','|',('employee_state','=','employee'),('employee_state','=','ex_employee'),('employment_application_form_link', '=', False)]}"/>
+								
+								<!-- <button string="Extend Probation" name="extend_probation" type="object" attrs="{'invisible': [('employee_state', '!=', 'probation')]}"/> -->
+								
+								<button string="Probation Completed" name="probation_completed" confirm="Do you want to proceed?" type="object" attrs="{'invisible': ['|',('employee_state', '!=', 'probation'),('show_message', '=', False)]}"/>
+								<button string="Probation Completed" name="probation_completed" type="object" attrs="{'invisible': ['|',('employee_state', '!=', 'probation'),('show_message', '=', True)]}"/>
+								
+								<button string="Off Boarding" confirm="Do you want to proceed to off-boarding process?"  name="off_boarding_employee" type="object" attrs="{'invisible': [('employee_state', 'not in', ('employee', 'probation'))]}"/>
+								<button string="On Board Confirmation" name="on_boarding_employee_comfirmation" type="object" attrs="{'invisible': [('employee_state', '!=', 'on_board')]}"/>
+								<button string="Off Board Confirmation" name="off_boarding_employee_comfirmation" type="object" attrs="{'invisible': [('employee_state', '!=', 'off_boarding')]}"/>
+								<button string="Cancel Offboarding" name="cancel_offboarding" type="object" attrs="{'invisible': [('employee_state', '!=', 'off_boarding')]}"/>
+							</header>
+	                	</xpath>
+                	<xpath expr="//field[@name='image']" position="replace">
+                		<field name="image_medium" widget='image' class="oe_left oe_avatar" attrs="{'readonly':[('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                	</xpath>
+                	<xpath expr="//field[@name='name']" position="replace">
+                		<field name="name" attrs="{'readonly':[('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+            			<h4><label for="middle_name" class="oe_edit_only"/></h4>
+                        <h1>
+                            <field name="middle_name" attrs="{'readonly':[('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                        </h1>
+                        <label for="last_name" class="oe_edit_only"/>
+                        <h1>
+                        	
+                            <field name="last_name" attrs="{'readonly':[('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                           <!--   <label for="category_ids" class="oe_edit_only" groups="hr.group_hr_user"/>
+                            <field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time" groups="hr.group_hr_user"/> -->
+                        </h1>
+                        <div class="oe_title">
+                           
+                            <label for="work_email" class="oe_edit_only"/>
+                            <field name="work_email" widget="email"/>
+                            <label for="work_phone" class="oe_edit_only"/>
+                            <field name="work_phone"/>
+                            <field name="off_boarding" invisible="1"/>
+                            <field name="pro_activities" invisible="1"/>
+                        </div>
+                    
+                	</xpath>
+
+                    
+                    <xpath expr="//field[@name='last_name']" position="after">
+                        <label for="category_ids_ids" class="oe_edit_only"/>
+                        <field name="category_ids_ids" attrs="{'readonly':[('current_user','in',('PRO User', 'Admin Manager'))],'required': [('employee_state', '=', 'on_board')]}" widget="many2many_tags" placeholder="e.g. Part Time" groups="hr.group_hr_user"/>
+                    </xpath>
+                	
+	                <xpath expr="//label[@for='name']" position="before">
+	                		<label for="employee_code" class="oe_edit_only" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+	                		<h2>
+	                		<field name="employee_code"/>
+	                		<field name="employee_state" invisible="1"/>
+	                		</h2>
+	                </xpath>
+                	
+                	
+                    <xpath expr="//field[@name='category_ids']" position="attributes">
+                       <attribute name="invisible">True</attribute>
+                    </xpath>
+                	
+                	<xpath expr="//field[@name='work_email']" position="replace">
+                		<field name="work_email" on_change="ValidateWorkEmail(work_email)" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': ['|',('is_existing_employee', '=', 'yes'),('employee_state', 'in', ('on_board', 'employee'))]}"/>
+                	</xpath>
+                	
+                	<xpath expr="//field[@name='work_phone']" position="replace">
+                		<field name="work_phone" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                	</xpath>
+                	
+	                <xpath expr="//field[@name='address_id']" position="replace">
+                		<field name="address_id" 
+                                            context="{'show_address': 1, 'default_customer': False}"
+                                            options='{"always_reload": True, "highlight_first_line": True}' attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                	</xpath>
+                	<xpath expr="//field[@name='mobile_phone']" position="replace">
+                		<field name="mobile_phone" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                	</xpath>
+                <xpath expr="//field[@name='work_location']" position="replace">
+                		<field name="work_location" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                	</xpath>
+                	
+                <xpath expr="//field[@name='department_id']" position="replace">
+                		<field name="department_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': [('employee_state', '=', 'validate')]}" on_change="onchange_department_id(department_id)"/>
+                	</xpath>
+                	<xpath expr="//field[@name='job_id']" position="replace">
+                		<field name="job_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                	</xpath>
+                	<xpath expr="//field[@name='parent_id']" position="replace">
+                		<field name="parent_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                	</xpath>
+                	<xpath expr="//field[@name='coach_id']" position="replace">
+                		<field name="coach_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                		<field name="admin_person" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" options="{'no_create_edit': True, 'editable': False}" />
+	                	<field name="hr_person" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" options="{'no_create_edit': True}" />
+	                	<field name="it_person" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" options="{'no_create_edit': True}" />
+                	</xpath>
+                	
+	                <xpath expr="//field[@name='company_id']" position="replace">
+                		<field name="company_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" groups="base.group_multi_company" on_change="_onchange_company_inherit()"/>
+                	</xpath>
+                	<xpath expr="//field[@name='user_id']" position="replace">
+                		<field name="user_id" string="Related User"
+                                            context="{'default_groups_ref': ['base.group_user']}" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                	</xpath>
+                	
+                	<xpath expr="//field[@name='notes']" position="replace">
+                		<field name="notes" placeholder="Other Information ..." colspan="4" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                	</xpath>
+	                
+            		<xpath expr="//page[2]" position="replace">
+                		<page string="Personal Information" name="personal information" groups="hr.group_hr_user">
+                              <group>
+                                  <group string="Citizenship &amp; Other Info">
+                                      <field name="country_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  options='{"no_open": True, "no_create": True}'/>
+                                      <field name="identification_id"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" groups="hr.group_hr_user"/>
+                                      <field name="bank_account_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                                      <field name="otherid" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  groups="hr.group_hr_user"/>
+                                  </group>
+                                   <group string="Contact Information">
+                                   		<field name="address_home_id" invisible="0"
+                                            context="{'show_address': 1, 'default_customer': False}"
+                                            options='{"always_reload": True, "highlight_first_line": True}'/>
+                                       <field name="current_user" invisible="True"/>
+				                       <field name="email_id" width="20%" widget="email" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': [('active_employee', '=', False)]}" on_change="ValidateEmail(email_id)"/>
+				                       <label for="contact_number1" string="Contact Number 1"/>
+				                       <div class="address_format">
+				                                <field name="isd_contact_number1" placeholder="ISD" style="width: 40%%" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                                <field name="contact_number1" placeholder="Phone" style="width: 60%%" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                       </div>
+				                       <label for="contact_number2" string="Emergency contact number"/>
+				                       <div class="address_format">
+				                                <field name="isd_contact_number2" placeholder="ISD" style="width: 40%%" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                                <field name="contact_number2" placeholder="Phone" style="width: 60%%" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                       </div>
+				                       <label for="contact_number3" string="Home country contact number" />
+				                       <div class="address_format">
+				                                <field name="isd_contact_number3" placeholder="ISD" style="width: 40%%" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                                <field name="contact_number3" placeholder="Phone" style="width: 60%%" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                       </div>
+				                       
+				                       <label for="current_street" string="Current Address"/>
+				                        <div>
+				                            <field name="current_street" placeholder="Street..."  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                            <field name="current_street2"   attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+				                            <field name="current_nearest_landmark"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                            <div class="address_format">
+				                                <field name="current_city" placeholder="City" style="width: 40%%" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                                <field name="current_state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}' attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                                <field name="current_zip" placeholder="ZIP" style="width: 20%%" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                            </div>
+				                            <field name="current_country_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  placeholder="Country" class="oe_no_button" options='{"no_open": True, "no_create": True}' />
+				                        </div>
+				                        
+				                        <label for="is_permanent_address_same" string="Same Permanent Address?"/>
+				                        <div>
+					                       
+					                        	<field name="is_permanent_address_same" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  on_change="on_change_is_permanent_address_same(is_permanent_address_same,current_street,current_street2,current_nearest_landmark,current_city,current_state_id,current_zip,current_country_id)"/>
+				                        </div>
+				                        
+				 						<label for="permnent_street" string="Permnent Address"/>
+				 						
+				                        <div>
+				                        
+				                            <field name="permnent_street" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  placeholder="Street..."  />
+				                            <field name="permnent_street2"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                            <field name="permnent_nearest_landmark"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  />
+				                            
+				                            <div class="address_format">
+				                                <field name="permnent_city"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" placeholder="City" style="width: 40%%" />
+				                                <field name="permnent_state_id" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}' />
+				                                <field name="permnent_zip" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"  placeholder="ZIP" style="width: 20%%" />
+				                            </div>
+				                            <field name="permnent_country_id"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" placeholder="Country" class="oe_no_button" options='{"no_open": True, "no_create": True}' />
+				                        </div>
+                                    </group>
+                                    <group string="Status">
+                                        <field name="gender" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                                        <field name="marital" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+				                		<field name="please_specify" attrs="{'invisible': [('marital', '!=', 'other')], 'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                                    </group>
+                                    <group string="Birth">
+                                        <field name="birthday" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+				                    	<field name="birth_city" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+				                    	<field name="birth_country" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                                    </group>
+                                </group>
+                           </page>
+                	</xpath>
+                	
+                	
+                	<!-- <xpath expr="//page[@name='hr_settings']//" position="inside">
+                		<field name="is_existing_employee" required="True"/>
+                		<field name="active" invisible="True"/>
+                		<field name="active_employee" readonly="1" />   
+                   		<field name="first_day_office"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': ['|',('is_existing_employee', '=', 'yes'),('employee_state', '=', 'on_board')]}"/>
+                   		<field name="probation_period" on_change="on_change_probation_period(probation_period,first_day_office)"  attrs="{'required': [('employee_state', '=', 'on_board')]}"/> 
+                   		<field name="probation_completion_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager', 'HR User'))]}"/>
+                   		<field name="confirmation_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager', 'HR User'))]}"/>
+                   		<field name="days_since_joining" />  
+                   		<field name="show_message" invisible="1"/>
+                	</xpath> -->
+                    <xpath expr="//page[3]//group//field[@name='user_id']" position="after">
+                        <field name="is_existing_employee" required="True"/>
+                        <field name="active" invisible="True"/><field name="active_employee" readonly="1"/>
+                        <field name="first_day_office" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': ['|',('is_existing_employee', '=', 'yes'),('employee_state', '=', 'on_board')]}"/>
+                        <field name="probation_period" on_change="on_change_probation_period(probation_period,first_day_office)" attrs="{'required': [('employee_state', '=', 'on_board')]}"/>
+                        <field name="probation_completion_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager', 'HR User'))]}"/>
+                        <field name="confirmation_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager', 'HR User'))]}"/>
+                        <field name="days_since_joining"/>
+                        <field name="show_message" invisible="1"/>
+                    </xpath>
+                	
+                	<xpath expr="//page[3]" position="inside">
+                    		<group>
+                    			<field name="employment_application_form_link" widget="url"/>   
+	                    		<field name="employment_form_filled" readonly="True" />
+	                    		<field name="last_update_date" readonly="True" />
+								<field name="visa_required" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('employee_state', '=', 'off_boarding')],'required': [('employee_state', '=', 'validate')]}" />   
+								<field name="accommodation" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('employee_state', '=', 'off_boarding')],'required': [('employee_state', '=', 'validate')]}" />   
+								<field name="health_card"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('employee_state', '=', 'off_boarding')],'required': [('employee_state', '=', 'validate')]}" />
+								<field name="medical_insurance"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('employee_state', '=', 'off_boarding')],'required': [('employee_state', '=', 'validate')]}" />
+								<field name="renew_labour_card" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('active_employee', '!=', True)]}"/>
+								<field name="renew_emirates_card" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('active_employee', '!=', True)]}"/>
+								<field name="remark" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('employee_state', '=', 'off_boarding')]}" /> 	
+	                    	</group>
+			               <group>
+			                	<field name="date_of_interview" attrs="{'invisible': [('employee_state', '=', 'off_boarding')]}"/> 
+								<field name="offer_letter_sent_date" attrs="{'invisible': [('employee_state', '=', 'off_boarding')]}"/>  
+								<field name="joining_date" /> 
+								<field name="terminated_resigned_selection" attrs="{'required': [('employee_state', '=', 'off_boarding')]}"/>
+								<field name="terminated_resigned" attrs="{'required': [('terminated_resigned_selection', '=', 'applicable')]}"/>
+								<field name="terminated_remark" attrs="{'invisible': [('terminated_resigned', '=', False)]}"/>
+								<field name="resignation_date" on_change="on_change_resignation_date()" attrs="{'invisible': [('terminated_resigned', '=', 'terminated')],'required': [('terminated_resigned', '=', 'resigned')]}"/>
+								<field name="last_working_day" attrs="{'invisible': [('terminated_resigned', '=', False)],'required': [('terminated_resigned', '!=', False)]}"/>
+			                </group>
+		                    <group string="Offer Letter" attrs="{'invisible': [('employee_state', '=', 'off_boarding')]}"> 
+                         		<field name="offer_letter" filename="filename"/>
+		                     </group>
+                    </xpath>
+                	
+                	<xpath expr="//notebook" position="inside">
+                    	<page string="Applicant Passport Details" >
+                                <group  string="Passport Details" name="passport" >
+                                    <group>
+                                        <field name="passport_number" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                                        <field name="passport_issue_place" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                                    </group>
+                                    <group>
+                                        <field name="passport_issue_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                                        <field name="passport_expiry_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                                    </group>
+                                </group>
+                         </page>
+                         <page string="Employee Qualification" groups="edsys_hrm.group_pro_user_rb,edsys_hrm.group_hr_user_rb,base.group_user">
+                         	<group string="Employee Qualification">
+                         		<field name="employee_qualification_id" nolabel="1" >
+                         			<tree editable="bottom">
+                         				<field name="university_name"/>
+                         				<field name="degree"/>
+                         				<field name="year"/>
+                         			</tree>
+                         		</field>
+                         	</group>
+                         </page>
+                         <page string="History Details" >
+                         <div>
+                           	<group string="Visa Details" >
+                                 <field name="uae_visa" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                             </group>
+                             <group>
+                                 <field name="visa_details_id" nolabel="1" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': [('uae_visa', '=', 'yes')]}">
+                                 	<tree  delete="false">
+                                 		<field name="visa_details_status"  attrs="{'invisible': [('confirm','=',False)]}"/>
+	                    				<field name="visa_type" attrs="{'invisible': [('confirm','=',False)]}"  options="{'no_create_edit': True}"  />
+	                    				<field name="visa_number" attrs="{'invisible': [('confirm','=',False)]}"/>
+	                    				<field name="visa_issue_date" attrs="{'invisible': [('confirm','=',False)]}" />
+	                    				<field name="visa_expiry_date" attrs="{'invisible': [('confirm','=',False)]}" />
+	                    				<field name="relation_with_emp" attrs="{'invisible': [('confirm','=',False)]}" />
+								      	<field name="sponsor_name" attrs="{'invisible': [('confirm','=',False)]}" />
+								      	<field name="sponsor_address" attrs="{'invisible': [('confirm','=',False)]}"/>
+								       	<field name="sponsor_visa_number" attrs="{'invisible': [('confirm','=',False)]}"/>
+								       	<field name="visa_attachment" attrs="{'invisible': [('confirm','=',False)]}"/>
+								       	<field name="visa_file_name" attrs="{'invisible': [('confirm','=',False)]}"/>
+								       	<field name="confirm" invisible="1"/>
+                    				</tree>
+                                 </field>
+                                 
+                             </group>
+                          </div>
+                         	<div>
+	                         	<group string="Labour Card Details" >
+	                                 <field name="labour_card_exist" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+	                             </group>
+                         		<group>
+                         		<field name="labour_card_details_id" nolabel="1" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': [('labour_card_exist', '=', 'yes')]}">
+                         			<tree  delete="false" editable="bottom">
+                         				<field name="labour_card_status"  attrs="{'invisible': [('confirm','=',False)]}" />
+                         				<field name="permit_card_no"  attrs="{'invisible': [('confirm','=',False)]}" />
+                         				<field name="permit_issue_date" string="Issue Date" attrs="{'invisible': [('confirm','=',False)]}" />
+                         				<field name="permit_expiry_date" string="Expiry Date" attrs="{'invisible': [('confirm','=',False)]}" />
+                         				<field name="labour_card_attachment" attrs="{'invisible': [('confirm','=',False)]}"/>
+                         				<field name="labour_card_file_name" attrs="{'invisible': [('confirm','=',False)]}"/>
+                         				<field name="confirm" invisible="1"/>
+                         			</tree>
+                         		</field>
+                         		</group>
+                         	</div>
+                         	<div>
+                         		<group string="Emirates ID Details" >
+	                                 <field name="emirates_id_exist" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+	                             </group>
+                         		<group>
+                         		<field name="emiratres_id_details_id" nolabel="1"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': [('emirates_id_exist', '=', 'yes')]}">
+                         			<tree  delete="false" editable="bottom">
+                         					<field name="emirates_id_status" attrs="{'invisible': [('confirm','=',False)]}"/>
+	                         				<field name="emirates_card_no" attrs="{'invisible': [('confirm','=',False)]}"/>
+	                         				<field name="emirates_start_date" string="Issue Date" attrs="{'invisible': [('confirm','=',False)]}"/>
+                         					<field name="emirates_expiry_date" string="Expiry Date" attrs="{'invisible': [('confirm','=',False)]}"/>
+                         					<field name="emirates_id_attachment" attrs="{'invisible': [('confirm','=',False)]}"/>
+                         					<field name="emirates_card_file_name" attrs="{'invisible': [('confirm','=',False)]}"/>
+                         					<field name="confirm" invisible="1"/>
+	                         			</tree>
+                         		</field>
+                         		</group>
+                         	</div>
+                         	<group name="other_information">
+                         		<group string="Work Experience" name="work_experience">
+                         			<field name="work_experience" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         			<field name="current_location" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         			<field name="current_salary" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         			<field name="currency" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         			<field name="notice_period" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />	
+                         		</group>
+                         		<group string="Other">
+                         			<field name="designation" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         			<field name="grade" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         		</group>
+                         	</group>
+                         	<group>
+                         		<group>
+                         			<field name="working_with_other_org" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         			<field name="current_employer" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         		</group>
+                         	</group>
+                         	
+                         	<group string="Document Data">
+                       			<field name="khda_moe_approval" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                       			<field name="document_name" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                       			<field name="attested_doc" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                       			<field name="document_issue_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                       			<field name="document_expiry_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                       			<field name="is_medical_condition_suffering" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                       			<field name="is_highest_degree_certificate_attached" widget="radio" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                       			<field name="medical_condition" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'required': [('is_medical_condition_suffering', '=', 'yes')],'invisible': [('is_medical_condition_suffering', '=', 'no')]}"/>
+                        	</group>
+                         </page>
+                         <page string="Admin Section" >
+                         	<group string="Medical Insurance Details" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('health_card', '=', 'no')]}">
+		                         <field name="medical_insurance_card_number" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+		                         <field name="medical_insurance_card_expiry_date" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}"/>
+                         	</group>
+                         	<group string="Health Card Details" attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))],'invisible': [('medical_insurance', '=', 'no')]}">
+		                         <field name="health_card_number"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+		                         <field name="health_card_expiry_date"  attrs="{'readonly': [('current_user','in',('PRO User', 'Admin Manager'))]}" />
+                         	</group>
+                         	<group>
+                         	</group>
+                         	<group string="Admin Document">
+                         		<field name="admin_attchment_ids" nolabel="1" >
+									<tree editable="bottom">
+				                         <field name="filename"/> 
+				                         <field name="file" filename="filename"/>
+				                         <field name="date" />
+				                         <field name="employee_id" invisible="1"/>
+			                      </tree>
+                         		</field>
+                         	</group>
+                         </page>
+                         <page string="PRO Section" >
+                         	<group>
+                         			<group>
+										<field name="khda_noc" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+										<field name="khda_noc_submitted" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': [('khda_noc', '=', 'yes')]}"/>
+										<field name="labour_noc" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+										<field name="labour_noc_submitted" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': [('labour_noc', '=', 'yes')]}"/>
+									</group>
+									<group></group>
+                         	</group>
+                            <group name="pro_visa_details" string="PRO Visa Details" >
+									<group>
+										<field name="pro_visa_details_status" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_type" options="{'no_create_edit': True}"   attrs="{'required': ['|','|','|', ('pro_visa_details_status', '=',  'completed' ), ('pro_visa_expiry_date','!=', False),('pro_visa_issue_date','!=', False),('pro_visa_number','!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_number"  attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': ['|','|','|', ('pro_visa_details_status', '=',  'completed' ), ('pro_visa_expiry_date','!=', False),('pro_visa_issue_date','!=', False),('pro_visa_type','!=', False)]}"/>
+										<field name="pro_visa_issue_date"  attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': ['|','|','|', ('pro_visa_details_status', '=',  'completed' ), ('pro_visa_expiry_date','!=', False),('pro_visa_type','!=', False),('pro_visa_number','!=', False)]}"/>
+										<field name="pro_visa_expiry_date" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': ['|','|','|', ('pro_visa_details_status', '=',  'completed' ), ('pro_visa_type','!=', False),('pro_visa_issue_date','!=', False),('pro_visa_number','!=', False)]}"/>
+										<field name="pro_visa_uid" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_sponsor_name"  attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_relation_with_emp" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_sponsor_visa_number" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_sponsor_visa_start_date" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_sponsor_visa_expiry_date" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_attachment" filename="pro_visa_file_name" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+										<field name="pro_visa_file_name" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'required': ['|','|','|', ('pro_visa_details_status', '=',  'completed' ), ('pro_visa_type','!=', False),('pro_visa_issue_date','!=', False),('pro_visa_number','!=', False)]}"/>
+									</group>
+									<group></group>
+							</group>
+							<group>
+								<group name="labour_card_details" string="Labour Card Details">
+									<field name="pro_labour_card_status" attrs="{'required' :['|','|',('pro_permit_expiry_date', '!=', False),('pro_labour_card_no', '!=', False),('pro_labour_card_start_date', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+									<field name="pro_labour_card_no" attrs="{'required' :['|','|',('pro_labour_card_status', '=','completed'),('pro_permit_expiry_date', '!=', False),('pro_labour_card_status', '!=', False),('pro_labour_card_start_date', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'invisible': [('pro_labour_card_status', '=', 'not_required')]}"/>
+									<field name="pro_labour_card_start_date" attrs="{'required' :['|','|',('pro_labour_card_status', '=','completed'),('pro_permit_expiry_date', '!=', False),('pro_labour_card_status', '!=', False),('pro_labour_card_start_date', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'invisible': [('pro_labour_card_status', '=', 'not_required')]}"/>
+									<field name="pro_permit_expiry_date" attrs="{'required' :['|','|',('pro_labour_card_status', '=','completed'),('pro_permit_expiry_date', '!=', False),('pro_labour_card_status', '!=', False),('pro_labour_card_start_date', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'invisible': [('pro_labour_card_status', '=', 'not_required')]}"/>
+									<field name="pro_labour_card_attachment" filename="pro_labour_card_file_name" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'invisible': [('pro_labour_card_status', '=', 'not_required')]}"/>
+									<field name="pro_labour_card_file_name" attrs="{'required' :['|','|',('pro_labour_card_status', '=','completed'),('pro_permit_expiry_date', '!=', False),('pro_labour_card_status', '!=', False),('pro_labour_card_start_date', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))],'invisible': [('pro_labour_card_status', '=', 'not_required')]}"/>
+								</group>
+								<group></group>
+							</group>
+							<group>
+								<group name="emirates_card_details" string="Emirates ID Details">
+									<field name="pro_emirates_id_status" attrs="{'required' : ['|',('pro_emirates_start_date', '!=', False),('pro_emirates_expiry_date', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+									<field name="pro_emirates_card_no" attrs="{'required' : ['|',('pro_emirates_start_date', '!=', False),('pro_emirates_expiry_date', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}"/>
+									<field name="pro_emirates_start_date" attrs="{'required' : ['|',('pro_emirates_card_no', '!=', False),('pro_emirates_expiry_date', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+									<field name="pro_emirates_expiry_date" attrs="{'required' : ['|',('pro_emirates_start_date', '!=', False),('pro_emirates_card_no', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+									<field name="pro_emirates_card_attachment" filename="pro_emirates_card_file_name" attrs="{'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+									<field name="pro_emirates_card_file_name" attrs="{'required' : ['|',('pro_emirates_start_date', '!=', False),('pro_emirates_card_no', '!=', False)],'readonly': [('current_user','in',('HR User', 'Admin Manager'))]}" />
+								</group>
+								<group></group>
+							</group>
+                         </page>
+                          <page string="Dependant Details" >
+                         	<group string="Dependant Details">
+                         		<field name="dependant_ids" nolabel="1" >
+									<tree editable="bottom">
+				                         <field name="full_name"/> 
+				                         <field name="date_of_birth"/>
+				                         <field name="relationship_with_dependant" />
+			                      </tree>
+                         		</field>
+                         	</group>
+                         </page>
+                         
+                    </xpath>
+                	
+                    
+                
+            </field>
+        </record>
+        
+        
+        <!-- 
+         <record id="view_employee_filter_inherited" model="ir.ui.view">
+            <field name="name">Employees</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@string='Company']" position="after">
+                    <filter name="group_employment_form_filled" string="Is Employment Form FIlled?? " domain="[]" context="{'group_by':'employment_form_filled'}"/>
+                </xpath>                                    
+                </field>
+           </record>
+        	  -->
+        	 
+       <!-- <record id="view_employee_filter_inherited" model="ir.ui.view">
+            <field name="name">Employees</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="Employees">
+                    <field name="name" string="Employees" filter_domain="['|',('work_email','ilike',self),('name','ilike',self)]"/>
+                    <field name="department_id" />
+                    <field name="category_ids" groups="base.group_hr_user"/>
+                    <group expand="0" string="Group By">
+                    	<filter name="group_employment_form_filled" string="Is Employment Form FIlled?? " context="{'group_by':'employment_form_filled'}"/>
+                        <filter string="Manager" icon="terp-personal" domain="[]" context="{'group_by':'parent_id'}"/>
+                        <filter string="Coach" icon="terp-personal" domain="[]" context="{'group_by':'coach_id'}"/>
+                        <filter string="Department" icon="terp-personal+" domain="[]" context="{'group_by':'department_id'}"/>
+                        <filter string="Job" icon="terp-gtk-select-all" domain="[]" context="{'group_by':'job_id'}"/>
+                        <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    </group>
+                </search>
+             </field>
+         </record> -->
+         
+         
+         <!-- <record id="view_employee_filter_inherited" model="ir.ui.view">
+            <field name="name">Employees</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+            	<search string="Employees">
+                    <field name="name" string="Employees" filter_domain="['|',('work_email','ilike',self),('name','ilike',self)]"/>
+                    <field name="department_id" />
+                    <field name="category_ids" groups="base.group_hr_user"/>
+                    <filter name="employment_form_filled" string="Employment Form Filled??" domain="[('employment_form_filled', '=', 1)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Manager" icon="terp-personal" domain="[]" context="{'group_by':'parent_id'}"/>
+                        <filter string="Coach" icon="terp-personal" domain="[]" context="{'group_by':'coach_id'}"/>
+                        <filter string="Department" icon="terp-personal+" domain="[]" context="{'group_by':'department_id'}"/>
+                        <filter string="Job" icon="terp-gtk-select-all" domain="[]" context="{'group_by':'job_id'}"/>
+                        <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    </group>
+                </search>
+            </field>
+        </record> -->
+        
+        
+        <record id="view_employee_filter_inherited" model="ir.ui.view">
+            <field name="name">Employees</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='category_ids']" position="after">
+            		<filter name="employment_form_filled" string="Employment Form Filled" domain="[('employment_form_filled', '=', 1)]"/>
+            		<filter name="employment_form_filled" string="Employment Form Not Filled" domain="[('employment_form_filled', '=', 0)]"/>
+            	</xpath>
+            </field>
+        </record>
+        	 
+        	 
+        
+        <!--                       Action Window                         -->
+        
+		<!--  Existing employee  -->
+		<record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+		<!-- <record id="view_exisiting_employee_form" model="ir.actions.act_window"> -->
+            <field name="name">Employees</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">['|', ('is_existing_employee','=',True),('employee_state','in',('employee', 'probation' ,'off_boarding'))]</field>
+            <field name="context">{}</field>
+            <!-- <field name="view_id" eval="False"/> -->
+            <!-- <field name="search_view_id" ref="hr.view_employee_filter"/> -->
+            <field name="search_view_id" ref="view_employee_filter_inherited"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a new employee.
+              </p><p>
+                With just a quick glance on the Odoo employee screen, you
+                can easily find all the information you need for each person;
+                contact data, job position, availability, etc.
+              </p>
+            </field>
+        </record>
+        
+        <!--  New Employee  -->
+        <record id="candidate_tree" model="ir.actions.act_window">
+           <field name="name">Candidates</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="hr.view_employee_filter"/>
+            <field name="domain">[('employee_state','=','new'),('active_employee','=',False), ('is_existing_employee','=','no')]</field>
+        </record>
+        <menuitem id="menu_candidate_tree" parent="hr.menu_hr_main" name="Candidates" sequence="1" action="candidate_tree" groups="base.group_erp_manager,group_admin_user_rb,group_admin_manager_user_rb,group_hr_user_rb,group_pro_user_rb"/> 	
+        
+        <!--  Validate Employees  -->
+        
+        <record model="ir.ui.view" id="view_validate_enquiry_tree">
+			<field name="name">validate enquiry</field>
+			<field name="model">hr.employee</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="pro_activities">
+			    	<field name="employee_code"/>
+				    <field name="employee_name"/>
+					<field name="mobile_phone"/>
+					<field name="work_email"/>	
+					<field name='department_id' />
+					<field name="job_id"/>	
+					<field name="parent_id"/>
+			    </tree>
+			</field>
+		</record>
+		
+		
+        <record id="action_validate_enquiry" model="ir.actions.act_window">
+           <field name="name">Validate Form</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_validate_enquiry_tree"/>
+            <field name="domain">[('employee_state','=','validate')]</field>
+        </record>
+        <menuitem id="menu_validate_enquiry_tree" parent="hr.menu_hr_main" name="Validate Form" sequence="2" action="action_validate_enquiry" groups="base.group_erp_manager,group_admin_user_rb,group_hr_user_rb"/> 	
+        
+        <!--  On Board Request  -->
+        <record model="ir.ui.view" id="view_on_boarding_request_tree">
+			<field name="name">Awaiting On-Boarding</field>
+			<field name="model">hr.employee</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="pro_activities">
+			    	<field name="employee_code"/>
+				    <field name="employee_name"/>
+					<field name="mobile_phone"/>
+					<field name="work_email"/>	
+					<field name='department_id' />
+					<field name="job_id"/>	
+					<field name="parent_id"/>
+			    </tree>
+			</field>
+		</record>
+		
+        <record id="action_employee_onboard_action_view" model="ir.actions.act_window">
+            <field name="name">Awaiting On-Boarding</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('employee_state','=','on_board')]</field>
+            <field name="view_id" ref="view_on_boarding_request_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                
+              </p><p>
+                
+              </p>
+            </field>
+        </record>
+        <menuitem sequence="2" id="on_boarding_request_menu" name='Awaiting On-Boarding' parent='hr.menu_hr_main' action="action_employee_onboard_action_view" groups="base.group_erp_manager,group_admin_user_rb,group_hr_user_rb"/> 
+        	
+        <!--  Off Board Request  -->
+        <record model="ir.ui.view" id="view_off_boarding_request_tree">
+			<field name="name">Off-boarding</field>
+			<field name="model">hr.employee</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="Off-boarding">
+			    	<field name="employee_code"/>
+				    <field name="employee_name"/>
+					<field name="joining_date" string="Date Of Joining" />	
+					<field name="last_working_day" string="Last Working Day"/>	
+			    </tree>
+			</field>
+		</record>
+		
+        <record id="view_off_boarding_action" model="ir.actions.act_window">
+           <field name="name">Off Boarding</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_off_boarding_request_tree"/>
+            <field name="domain">[('employee_state','=','off_boarding')]</field>
+        </record>
+        <menuitem id="main_off_boarding" name='Off-boarding' parent='hr.menu_hr_root' sequence="3" groups="base.group_erp_manager,group_admin_user_rb,group_admin_manager_user_rb,group_hr_user_rb"/> 
+    	<menuitem id="sub_menu_off_boarding" name='Off-boarding' parent='main_off_boarding' action="view_off_boarding_action" sequence="1"/> 
+
+    	
+    	
+    	<!--  Ex-Employee -->
+    	<record id="view_ex_employee_action1" model="ir.actions.act_window">
+           <field name="name">Ex-Employee</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="view_off_boarding_request_tree"/>
+            <field name="domain">[('employee_state','=','ex_employee')]</field>
+        </record> 
+         <menuitem groups="base.group_user,group_admin_user_rb,group_hr_user_rb" id="sub_menu_ex_employee" name='Ex-Employee' parent='main_off_boarding' action="view_ex_employee_action1" sequence="3"/>
+    	
+    	
+    	<record model="ir.ui.view" id="view_probation_emp_tree">
+			<field name="name">Probation Employees</field>
+			<field name="model">hr.employee</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree string="pro_activities" default_order="probation_completion_date">
+			    	<field name="employee_name"/>
+			    	<field name="employee_code"/>
+				    <field name="first_day_office"/>
+					<field name="probation_completion_date"/>
+					<field name="days_since_joining"/>	
+			    </tree>
+			</field>
+		</record>
+		
+    	 <!-- Probation Employees -->
+        <record model="ir.actions.act_window" id="action_probation_employees">
+            <field name="name">Probation Employees</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_id" ref="view_probation_emp_tree"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('employee_state','=','probation')]</field>
+        </record>
+        
+        <menuitem sequence="2" id="probation_employees_menu" name='Probation Employees' parent='hr.menu_hr_main' action="action_probation_employees" groups="base.group_erp_manager,group_admin_user_rb,group_admin_manager_user_rb,group_hr_user_rb"/>
+        
+        	 
+
+</odoo>

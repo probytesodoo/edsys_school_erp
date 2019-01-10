@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+
+        <!-- =========== Reconsile Advance Payement ================= -->
+        <record id="resend_payfort_link_voucher_wiz" model="ir.ui.view">
+            <field name="name">resend.payfort.link.voucher</field>
+            <field name="model">resend.payfort.link.voucher</field>
+            <field name="arch" type="xml">
+                <form>
+                	<group>
+                		<field name="voucher_date"/>
+                	</group>
+                    <footer>
+                        <button string="Resend Payfort Link" name="resend_payfort_link_voucher" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <!--===== displaying in to re-registration waiting parent view ====== -->
+        <act_window
+            id="action_resend_voucher_link_voucher"
+            name="Resend Payfort Link"
+            res_model="resend.payfort.link.voucher"
+            src_model="account.voucher"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</odoo>

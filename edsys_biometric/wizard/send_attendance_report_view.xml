@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+    	<!-- send_attendance_report wizard -->
+        <record id="send_attendance_report_wizard_view" model="ir.ui.view">
+            <field name="name">Send Attendance Report</field>
+            <field name="model">send.attendance.report</field>
+            <field name="arch" type="xml">
+                <form string="Seek Review">
+	                <group>
+		                <group>
+		                    <field name="from_date"/>
+		                </group>
+		                <group>
+		                    <field name="to_date"/>
+		                </group>
+	                </group>
+                    <footer>
+                        <button string="Send Report" name="send_attendance_report_button" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <act_window id="send_attendance_report_wizard_action"
+            name="Send Attendance Report"
+            src_model="hr.employee"
+            res_model="send.attendance.report"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new" />
+    
+    
+
+    </data>
+</odoo>

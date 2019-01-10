@@ -1,0 +1,38 @@
+<odoo>
+    <data noupdate="0">
+        <menuitem id="account.menu_finance_receivables" name="Students" parent="account.menu_finance" sequence="2"/>
+        <menuitem action="account.action_invoice_tree1" id="account.menu_action_invoice_tree1" parent="account.menu_finance_receivables"
+                  name="Student Fee Invoices"/>
+   <!--  <menuitem action="account_voucher.action_vendor_receipt" icon="STOCK_JUSTIFY_FILL" sequence="12"
+            id="student_fee_payment_new"  parent="account.menu_finance_receivables"
+                  name="Student Fee Payments"/> -->
+       <!--  <menuitem action="edsys_edu_fee.action_vendor_receipt" sequence="12"
+        id="edsys_edu_fee.menu_action_vendor_receipt"
+     parent="account.menu_finance_receivables" name="Student Fee Payments"/> -->
+    
+     
+
+
+        <!--<delete model="ir.ui.menu" id="account.menu_action_invoice_tree3" />-->
+        <!--<delete model="ir.ui.menu" id="account_voucher.menu_action_sale_receipt" />-->
+        <!--<delete model="ir.ui.menu" id="account.menu_account_customer" />-->
+        <!--<delete model="ir.ui.menu" id="account.menu_action_invoice_tree2" />-->
+        <!--<delete model="ir.ui.menu" id="account.menu_action_invoice_tree4" />-->
+        <!--<delete model="ir.ui.menu" id="account_voucher.menu_action_purchase_receipt" />-->
+        <!--<delete model="ir.ui.menu" id="account_voucher.menu_action_vendor_payment" />-->
+        <!--<delete model="ir.ui.menu" id="account.menu_account_supplier" />-->
+        <!--<delete model="ir.ui.menu" id="account.menu_validate_account_moves"/>-->
+        <!--&lt;!&ndash; Delete menu chart of account menu &ndash;&gt;-->
+        <!--<delete model="ir.ui.menu" id="account.menu_action_account_tree2"/>-->
+        <!--&lt;!&ndash; Delete menu Chart of Text menu&ndash;&gt;-->
+        <!--<delete model="ir.ui.menu" id="account.menu_action_tax_code_tree"/>-->
+        <!--&lt;!&ndash; Delete Manual Reconcialition menu&ndash;&gt;-->
+        <!--<delete model="ir.ui.menu" id="account.menu_manual_reconcile"/>-->
+        <!--&lt;!&ndash; Delete Autometic Reconciliat &ndash;&gt;-->
+        <!--<delete model="ir.ui.menu" id="account.menu_automatic_reconcile"/>-->
+        <!-- Delete Reconciliat on Bank menu -->
+        <!--<delete model="ir.ui.menu" id="account.menu_finance_payables" />-->
+        <!--<delete model="ir.ui.menu" id="account.menu_finance_periodical_processing" />-->
+        <!--<delete model="ir.ui.menu" id="account.menu_finance_reports" />-->
+    </data>
+</odoo>

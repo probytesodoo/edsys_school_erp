@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- ===================== PDC Detail search view ========================= -->
+        <record id="pdc_detail_search_view" model="ir.ui.view">
+            <field name="name">student.serch.view</field>
+            <field name="model">pdc.detail</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="PDC Detail Search View">
+                    <field name="bank_name"/>
+                    <field name="cheque_start_date"/>
+                    <field name="cheque_expiry_date"/>
+                    <field name="state"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Cheque Date" domain="[]" context="{'group_by':'cheque_start_date'}"/>
+                        <filter string="Cheque Expiry Date" domain="[]" context="{'group_by':'cheque_expiry_date'}"/>
+                        <filter string="Bank Name" domain="[]" context="{'group_by':'bank_name'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ========================= PDC Detail tree view =========================== -->
+        <record id="view_pdc_detail_tree" model="ir.ui.view">
+            <field name="name">PDC Detail Tree</field>
+            <field name="model">pdc.detail</field>
+            <field name="arch" type="xml">
+                <tree string="PDC Detail" colors="blue:state == 'draft';red:state == 'bounced';green:state == 'cleared'">
+                    <field name="name" />
+                    <field name="partner_id" string="Partner"/>
+                    <field name="cheque_start_date" />
+                    <field name="cheque_expiry_date"/>
+                    <field name="bank_name" />
+                    <field name="party_name" />
+                    <field name="amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+	</record>
+
+        <!-- ============================ Form view for Enquiry ==================== -->
+        <record id="pdc_detail_form_view" model="ir.ui.view">
+            <field name="name">PDC Detail</field>
+            <field name="model">pdc.detail</field>
+            <field name="arch" type="xml">
+                <form string="PDC Detail">
+                    <header>
+                        <button name='post_cheque' string="Post Cheque" type="object" state="draft" attrs="{'invisible': [('state','!=','draft')]}" class="oe_highlight" />
+                        <button name='cleared_cheque' string="Clear Cheque" type="object" state="posted" attrs="{'invisible': [('state','!=','posted')]}"  class="oe_highlight" />
+                        <button name='bounce_cheque_wiz' string="Bounce Cheque" type="object" state="posted" attrs="{'invisible': [('state','!=','posted')]}"  class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_colors='{"enquiry":"green"}'/>
+                    </header>
+                    <sheet>
+                        <h1>
+                        <field name="name" class="oe_inline"  readonly="1"/>
+                        </h1>
+                        <group col="4" colspan="4">
+                            <field name="chk_fee_type"/>
+                            <field name="enquiry_no" readonly="1" attrs="{'invisible': [('chk_fee_type','=','academic')]}"/>
+                            <field name="partner_id" readonly="1" attrs="{'invisible': [('chk_fee_type','=','reg')]}"/>  
+                            <field name="cheque_start_date" readonly="1"/>
+                            <field name="cheque_expiry_date" readonly="1"/>
+                            <field name="bank_name" readonly="1"/>
+                            <field name="party_name" readonly="1"/>
+                            <field name="period_id" readonly="1"/>
+                            <field name="journal_id" readonly="1"/>
+                            <field name="journal_entry_id" string= 'Journal Entry' readonly="1"/>
+                            <field name="cleared_entry_id" readonly="1"/>
+                            <field name="voucher_id" readonly="1"/>
+                            <field name="reason" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ====================== Enquery Action View ====================== -->
+
+        <record id="action_pdc_detail_form" model="ir.actions.act_window">
+            <field name="name">PDC Detail</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pdc.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_pdc_detail_tree"/>
+            <field name="search_view_id" ref="pdc_detail_search_view"/>
+        </record>
+
+    <menuitem id="pdc_detail_sub_menu" name='Fees Cheque Register' parent='edsys_edu_fee.student_invoice_menu'/>
+    <menuitem id="pdc_detail_sub_menu1" name='Fees Cheque Register' parent='pdc_detail_sub_menu' action='action_pdc_detail_form'/>
+       
+    </data>
+</openerp>

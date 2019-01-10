@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Fees payment Information From View -->
+        <record model="ir.ui.view" id="view_fee_payment_inherit_fee_enhancement_form">
+            <field name="name">fee.payment.form</field>
+            <field name="model">fee.payment</field>
+            <field name="inherit_id" ref="edsys_edu_fee.view_fee_payment_form" />
+            <field name="arch" type="xml">
+	           <xpath expr="//button[@name='generate_fee_payment']" position="replace">
+	                   <button name="generate_invoices"  string="Generate Invoices" type="object" class="oe_highlight"/>
+	           </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

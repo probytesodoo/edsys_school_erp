@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- ======== Payfort error Capture Search View ======== -->
+        <record id="payfort_error_capture_search_view" model="ir.ui.view">
+            <field name="name">payfort.error.capture.search.view</field>
+            <field name="model">payfort.error.capture</field>
+            <field name="arch" type="xml">
+                <search string="Payfort Error Capture">
+                    <field name="date"/>
+                    <field name="payment_status"/>
+                    <field name="pay_id"/>
+                    <field name="reference_number"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- ========== Payfort error Capture Tree View ========== -->
+        <record id="payfort_error_capture_tree_view" model="ir.ui.view">
+            <field name="name">payfort.error.capture.tree.view</field>
+            <field name="model">payfort.error.capture</field>
+            <field name="arch" type="xml">
+                <tree string="Payfort Error Capture Tree">
+                    <field name="date"/>
+                    <field name="pay_id"/>
+                    <field name="reference_number"/>
+                    <field name="payment_status"/>
+                    <field name="amount"/>
+                    <field name="error_message"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ========= Payfort Error Capture Form View ========= -->
+        <record id="payfort_error_capture_form_view" model="ir.ui.view">
+            <field name="name">payfort.error.capture.form.view</field>
+            <field name="model">payfort.error.capture</field>
+            <field name="arch" type="xml">
+                <form string="Payfort Error Capture Form">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="reference_number" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="pay_id" readonly="1"/>
+                                <field name="payment_status" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="date" readonly="1"/>
+                                <field name="amount" readonly="1"/>
+                            </group>
+                        </group>
+                        <separator string="Error Message"/>
+                        <field name="error_message" readonly="1"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ======== Payfort Error Capture Action View ======== -->
+        <record id="act_payfort_error_capture_view" model="ir.actions.act_window">
+            <field name="name">Payfort Error Capture</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payfort.error.capture</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="payfort_error_capture_search_view"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <odoo>
+        <data>
+            <record model="ir.ui.view" id="res_partner_advance_payment_view">
+                <field name="name">res.partner.advance.payment.view</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="base.view_partner_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='property_account_payable_id']" position="after" >
+                        <field name="property_account_supplier_advance"/>
+                    </xpath>
+                   <!--  <xpath expr="//field[@name='property_account_receivable_id']" position="after" >
+                        <field name="property_account_customer_advance"/>
+                    </xpath> -->
+                    <!--
+                    <xpath expr="//field[@name='credit']" position="after" >
+                        <field name="customer_advance"/>
+                    </xpath>
+                    <xpath expr="//field[@name='debit']" position="after" >
+                        <field name="supplier_advance"/>
+                    </xpath>
+                    -->
+                </field>
+            </record>
+            <record id="res_partner_student_parent_form_view" model="ir.ui.view">
+                <field name="name">res.partner.student.parent.form.view</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="edsys_edu.view_student_parent_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//page[@name='accounting']//field[@name='property_account_receivable_id']" position="after">
+                        <field name="property_account_customer_advance"/>
+                         <!-- <field name="re_reg_advance_account"/> -->
+                    </xpath>
+                </field>
+            </record>
+
+           
+
+        </data>
+</odoo>

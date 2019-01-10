@@ -1,0 +1,162 @@
+<openerp>
+    <data>
+        
+        <template id="payfort_submission_form" name="New Employee">
+            <t t-call="website.layout">
+                <t t-set="additional_title">payfort_submission</t>
+                    <div id="wrap">
+                        <div class="container oe_website_employee">
+                            <div class="row">
+                                <section id="forms">
+                                            <div class="col-md-10">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                    <form method="post" action="/redirect/payfort" id="form1" name="form1">
+                                                    <style>
+                                                        table#table_re_reg tr:nth-child(even) {
+                                                        background-color: #eee;
+                                                        }
+                                                        table#table_re_reg tr:nth-child(odd) {
+                                                        background-color:#fff;
+                                                        }
+                                                        table#table_re_reg th	{
+                                                        background-color: #1a8cff;
+                                                        color: white;
+                                                        }
+                                                    .modal {
+                                                        display: none;
+                                                        position: fixed;
+                                                        z-index: 1;
+                                                        padding-top: 100px;
+                                                        left: 0;
+                                                        top: 0;
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        overflow: auto;
+                                                        background-color: rgb(0,0,0);
+                                                        background-color: rgba(0,0,0,0.4);
+                                                    }
+                                                    .modal-content {
+                                                        background-color: #fefefe;
+                                                        margin: auto;
+                                                        padding: 20px;
+                                                        border: 1px solid #888;
+                                                        width: 600px;
+                                                        height:auto;
+                                                    }
+                                                    .close {
+                                                        color: #aaaaaa;
+                                                        float: right;
+                                                        font-size: 28px;
+                                                        font-weight: bold;
+                                                    }
+                                                    .close:hover,
+                                                    .close:focus {
+                                                        color: #000;
+                                                        text-decoration: none;
+                                                        cursor: pointer;
+                                                    }
+                                                    </style>
+				                                         <div class="form-body">
+				                                         
+				                                         	<div class="row">
+                                                                <h3 style="color:red;">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                                        &amp;nbsp; <u>Note: Please select payment method to continue your payment process</u></h3>
+                                                            </div>
+				                                             <br></br><br></br>				                                             
+				                                             <div class="row">
+													               <div class="col-md-12">
+													                   <div class="form-group">
+													                       <label class="control-label col-md-4" style="margin-left: 77px;">Select Payment Method: <span style="color:#FF0000">*</span>:   </label>
+													                       
+													                           <div class="col-md-5" style="padding-left:0px;margin-bottom:5px;">
+													                           		  <input type="radio" name="payment_method" value="CREDIT_CARD" checked="True"/> Credit Card <br>
+																					  <input type="radio" name="payment_method" value="MASTERPASS"/> Master Pass <img src="/edsys_capturing_online_payment/static/src/img/masterpass.jpeg" style="width:185px;height:128px;"/> </br>
+																					  <input type="radio" name="payment_method" value="VISA_CHECKOUT"/> Visa Checkout <img src="/edsys_capturing_online_payment/static/src/img/visa_checkout.jpeg" style="width:185px;height:89px;"/>
+													                           </div>
+													                           <span id="msgsphoto"></span>
+													                           <span class="help-block"></span>
+													                      
+													                   </div>
+													               </div>
+													           </div>
+			                                                <div class="row" >
+			                                                    <div class="col-md-12"
+			                                                         style="margin-top:1%; margin-bottom:1%;">
+			                                                        <div class="form-group">
+			                                                            <label class="control-label col-md-4"></label>
+			                                                            <div class="col-md-1"></div>
+			                                                            <div class="col-md-4">
+			                                                                <input class="btn btn-circle blue btn-block"
+			                                                                       id="re_reg_submit_btn" style="width:70%;"
+			                                                                       type="submit" value="Click Proceed To Payment"/>
+			                                                                <span class="help-block"></span>
+			                                                            </div>
+			                                                        </div>
+			                                                    </div>
+			                                                </div>
+						                                    
+							                               <div class="row" hidden="True">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-6">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                                        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                                        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Amount :   </label>
+                                                                        <div class="col-md-6">
+                                                                        	<div class="col-md-6" style="padding-left:0px;margin-bottom:5px;">
+                                                                        		<input class="form-control" t-att-value="AMOUNT" name="AMOUNT" id="AMOUNT" readonly="1"/>
+                                                                        	</div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="row" hidden="True">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-6">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                                        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                                        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Order ID :   </label>
+                                                                        <div class="col-md-6">
+                                                                        	<div class="col-md-6" style="padding-left:0px;margin-bottom:5px;">
+                                                                        		<input class="form-control" t-att-value="ORDERID" name="ORDERID" id="ORDERID" readonly="1"/>
+                                                                        	</div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>     
+							                                    
+				                                           </div>
+				                                       </form>            
+                                                </div>
+                                            </div>
+                                            </div>
+                                       
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+        </template>
+        
+          
+    </data>
+</openerp>
+
+
+
+
+
+
+
+
+
+						

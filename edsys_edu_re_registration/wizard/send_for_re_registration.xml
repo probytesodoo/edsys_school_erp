@@ -1,0 +1,36 @@
+<openerp>
+    <data>
+        <record id="send_re_registration_wiz_view" model="ir.ui.view">
+            <field name="name">send.re.registration.wiz.view</field>
+            <field name="model">re.registration.parent.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Re-Registration Wizard">
+                    <group>
+                        <field name="batch_id" required="1" domain="[('current_academic', '=', True)]"/>
+                        <field name="class_ids" widget="many2many_tags"/>
+                        <field name="student_section_ids" widget="many2many_tags"/>
+			<field name="exclude_strike_off_student"/>
+                        <field name="parent_ids" context="{'tree_view_ref': 'edsys_edu.view_parent_tree_view'}" required='1' >
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>                    </group>
+                    <footer>
+                        <button name="send_re_registration_link" string="Send Request" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_re_registration_wiz_view"
+            name="Send Re-Registration Mail"
+            res_model="re.registration.parent.wiz"
+            src_model=""
+            target="new"
+            view_mode="form"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+
+        <!-- Discount Tree View -->
+        <record id="product_discount_tree_view" model="ir.ui.view">
+            <field name="name">product.discount.tree.view</field>
+            <field name="model">discount.category</field>
+            <field name="arch" type="xml">
+                <tree string="Discount Category">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="discount_category_line" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Descount Form View -->
+        <record model="ir.ui.view" id="product_discount_form_view">
+            <field name="name">product.discount.form.view</field>
+            <field name="model">discount.category</field>
+            <field name="arch" type="xml">
+                <form string="Discount Form view">
+                    <sheet>
+                        <group>
+                            <group><field name="name" required="1"/></group>
+                            <group><field name="code" required="1"/></group>
+                        </group>
+                        <notebook>
+                            <page string="Discount Line">
+                                <field name="discount_category_line">
+                                    <tree string="Discount Line" editable="bottom">
+                                        <field name="product_id" domain="[('is_fees_discount','=',True)]" required="1"/>
+                                        <field name="discount_type" required="1"/>
+                                        <field name="discount_amount"
+                                               attrs="{'invisible':[('discount_type','!=','amount')]}"/>
+                                        <field name="discount_persentage"
+                                               attrs="{'invisible':[('discount_type','=','amount')]}"/>
+                                        <field name="update_discount" string="Update discount"/>
+                                        <button name="discount_update" type="object" string="Update"/>
+                                        <field name="discount_category_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Discount History">
+                                <field name="discount_history_line">
+                                    <tree string="Discount History" readonly="1">
+                                        <field name="updated_discount_id"/>
+                                        <field name="discount_type"/>
+                                        <field name="old_discount_amount" attrs="{'invisible':[('discount_type','!=','amount')]}"/>
+                                        <field name="new_discount_amount" attrs="{'invisible':[('discount_type','!=','amount')]}"/>
+                                        <field name="old_discount_persentage" attrs="{'invisible':[('discount_type','=','amount')]}"/>
+                                        <field name="new_discount_persentage" attrs="{'invisible':[('discount_type','=','amount')]}"/>
+                                        <field name="update_date"/>
+                                        <field name="discount_category_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Discount Action View -->
+        <record model="ir.actions.act_window" id="act_product_discount_view">
+            <field name="name">Fees Discount</field>
+            <field name="res_model">discount.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

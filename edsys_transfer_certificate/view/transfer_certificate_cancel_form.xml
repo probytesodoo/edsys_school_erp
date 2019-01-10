@@ -1,0 +1,43 @@
+<openerp>
+    <data>
+
+         <!-- =============== trensfer certificate cancel tree View ================= -->
+        <record id="trensfer_certificate_cancel_tree_view" model="ir.ui.view">
+            <field name="name">trensfer.certificate.cancel.tree.view</field>
+            <field name="model">trensfer.certificate</field>
+            <field name="arch" type="xml">
+                <tree string="Transfer Certificate" colors="grey:state not in ('tc_cancel');">
+                    <field name="code" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="reg_no" string="Registration Number" readonly="1"/>
+                    <field name="batch_id" readonly="1"/>
+                    <field name="course_id" readonly="1"/>
+					<field name="student_section_id" readonly="1"/>
+                    <field name="reason" string= "Reason" readonly="1"/>
+                    <field name="cancel_state" readonly="1" string="Cancelled From State"/>
+                    <button name="back_from_cancel" string="Back" type="object" icon="fa fa-repeat"/>
+                    <field name="state" readonly="1" string="Current State"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <!-- =============== trensfer certificate send Action View ================= -->
+        <record model="ir.actions.act_window" id="trensfer_certificate_cancel_action_view">
+            <field name="name">Transfer Certificate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">trensfer.certificate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('state','=','tc_cancel')]</field>
+        </record>
+
+        <record id="act_tree_trensfer_certificate_cancel" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="trensfer_certificate_cancel_tree_view"/>
+            <field name="act_window_id" ref="trensfer_certificate_cancel_action_view"/>
+        </record>
+
+    </data>
+</openerp>

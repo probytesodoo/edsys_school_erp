@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <!--=============== Student Promotion tree view==================-->
+        <record id="view_student_tree" model="ir.ui.view">
+            <field name="name">view.student.tree</field>
+            <field name="model">promote.student</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Student Tree">
+                    <field name="class_id"/>
+                    <field name="batch_id"/>
+                    <field name="student_section_ids"/>
+                    <field name="promote_to_class"/>
+                    <field name="promote_to_batch"/>
+                    <field name="promote_to_section"/>
+                    <field name="student_line"/>
+                    <!--<field name="state"/>-->
+                </tree>
+            </field>
+        </record>
+        
+        <!--=============== Student Promotion search view==================-->
+        <record id="view_student_promotion_search" model="ir.ui.view">
+            <field name="name">view.student.promotion.search</field>
+            <field name="model">promote.student</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Student Promotion search view">
+                    <field name="class_id"/>
+                    <field name="student_section_ids"/>
+                    <field name="batch_id"/>
+                    <field name="promote_to_class"/>
+                    <field name="promote_to_batch"/>
+                    <field name="promote_to_section"/>
+                </search>
+            </field>
+        </record>
+      
+        <!-- =============== Inherited Strike-off Student form view==================-->
+        <record id="inherit_view_student_parent_form_inherit_promotion" model="ir.ui.view">
+            <field name="name">inherit.student.parent.form.view.inherit.promotion</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="edsys_strike_off.view_student_parent_form_inherit_strike_off"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group/group/field[@name='active']" position="after">
+                    <field name="promoted" readonly="1" attrs="{'invisible' : [('is_student','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!--=============== Inherited Course form view==================-->
+        <record id="inherit_view_course_form_view" model="ir.ui.view">
+            <field name="name">inherit.view.course.form.view</field>
+            <field name="model">course</field>
+            <field name="inherit_id" ref="edsys_edu.view_course_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group/field[@name='max_age']" position="after">
+                    <field name="is_last_course"/>
+                    <field name="next_course" domain="[('id', '!=', id)]" attrs="{'invisible' : [('is_last_course','=',True)]}"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!--=============== Inherited Batch form view==================-->
+        <record id="inherit_view_barch_form_view" model="ir.ui.view">
+            <field name="name">inherit.view.batch.form.view</field>
+            <field name="model">batch</field>
+            <field name="inherit_id" ref="edsys_edu.view_barch_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group/field[@name='current_academic']" position="after">
+                    <field name="next_batch" domain="[('id', '!=', id)]" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- =============== Inherited Student form view==================-->
+        <record id="view_student_parent_form_inherit_promotion" model="ir.ui.view">
+            <field name="name">view.student.parent.form.inherit.promotion</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="edsys_edu.view_student_parent_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page['14']" position="after">
+                    <page string="Fee Structure History" name="fee structure history" attrs="{'invisible' : [('is_student','=',False)]}">
+                        <separator string="Fee Structure History"/>
+                        <field name="student_fees_history" >
+                            <tree editable="bottom">
+                                <field name="academic_year_id"/>
+                                <field name="class_id"/>
+                                <field name="sequence" string="Priority"/>
+                                <field name="name"/>
+                                <field name="amount"/>
+                                <field name="discount"/>
+                                <field name="discount_amount"/>
+                                <field name="type"/>
+                                <field name="fee_pay_type"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--=============== Student Promotion form view==================-->
+        <record id="view_promotion_form" model="ir.ui.view">
+            <field name="name">view.promotion.form</field>
+            <field name="model">promote.student</field>
+            <field name="arch" type="xml">
+                <form string="Student Promotion">
+                    <header>
+                        <!--<field name="state" widget="statusbar"/>-->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="class_id" required="1" attrs="{'readonly':[('student_list','=',True)]}"/>
+                                <field name="batch_id" required="1" attrs="{'readonly':[('student_list','=',True)]}"/>
+                                <field name="student_section_ids" widget="many2many_tags" attrs="{'readonly':[('student_list','=',True)]}"/>
+                            </group>
+                            <group>
+                                <field name="promote_to_class" required="1" attrs="{'readonly':[('student_list','=',True)]}"/>
+                                <field name="promote_to_batch" required="1" attrs="{'readonly':[('student_list','=',True)]}"/>
+                                <field name="promote_to_section"/>
+                            </group>
+                            <field name="student_list" invisible="1"/>
+                        </group>
+                        <group>
+                            <group>
+                                <button name="show_student_list" string="Show Student List" type="object"
+                                         class="oe_highlight"/>
+                                <!--<button name="student_promotion" string="Promote" type="object"-->
+                                        <!--attrs="{'invisible':['|',('student_list','=',False),('state','=','promote')]}"-->
+                                        <!--class="oe_highlight" confirm="Are you sure to promote these students?"/>-->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Student Promotion">
+                                <field name="student_line">
+                                    <tree string="Students" editable="bottom">
+                                        <field name="student_id" readonly="1"/>
+                                        <field name="current_academic_year" readonly="1"/>
+                                        <field name="current_academic_class" readonly="1"/>
+                                        <field name="current_academic_section" readonly="1"/>
+                                        <field name="new_acad_year" readonly="1"/>
+                                        <field name="new_acad_class" readonly="1"/>
+                                        <field name="new_acad_section"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!--============== Action for Student Promotion =================-->
+        <record id="action_student_promotion" model="ir.actions.act_window">
+            <field name="name">Student Promotion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">promote.student</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

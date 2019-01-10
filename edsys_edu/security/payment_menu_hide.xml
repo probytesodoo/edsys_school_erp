@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+  <record id="make_invisible" model="res.groups">
+
+        <field name="name">Invisible</field>
+
+    </record>
+  <!--    <record id="make_invisible_payment" model="res.groups">
+
+        <field name="name">Invisible</field>
+
+    </record>
+     -->
+
+
+</data>
+</odoo>

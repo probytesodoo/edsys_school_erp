@@ -1,0 +1,22 @@
+<openerp>
+    <data>
+        <!-- templet for expired link -->
+        <template id="additional_form_link_expired_templet" name="Link">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Sorry!</h1>
+                            <br/>
+                            <h3>
+                                <p>You Can not use this link. This Link is Expired.</p>
+                                <p></p>
+                                <!--<p>Your Enquiry Number is : <i><b><span t-esc="enquiry_no"/></b></i></p>-->
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

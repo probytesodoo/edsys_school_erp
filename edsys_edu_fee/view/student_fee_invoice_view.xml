@@ -1,0 +1,123 @@
+<odoo>
+    <data>
+
+
+       <!--   <record model="ir.ui.view" id="journal_id_hide">
+            <field name="name">student.fee.invoice.form.inherit.in</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="edsys_edu_fee.view_vendor_receipt_form" />
+            <field name="arch" type="xml">
+               <xpath expr="//group//field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record model="ir.ui.view" id="invoice_form_inherit">
+			<field name="name">student.fee.invoice.form.inherit</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form" />
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name='string'>Student</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group[1]/group[2]/field[@name='team_id']" position="after">
+                    <field name="month" attrs="
+                    {'readonly':[('state','in',['proforma','proforma2','open','paid','cancel'])]}"/>
+                    <field name="batch_id" string="Academic Year"/>
+                    <field name="invoice_number"/>
+                    <field name="payfort_payment_id"/>
+                    <field name="payfort_pay_date"/>
+                    <!-- <field name="currency_id"/> -->
+                    <!-- <field name="payment_rate"/> -->
+				</xpath>
+                <xpath expr="//page//field[@name='invoice_line_ids']//tree//field[@name='quantity']" position="attributes">
+                    <attribute name='readonly'>1</attribute>
+                </xpath>
+                <xpath expr="//page//field[@name='invoice_line_ids']//tree//field[@name='quantity']" position="before">
+                    <field name="parent_id"/>
+                    <field name="priority" string="Prority" readonly="1"/>
+                    <!--<field name="full_paid"/>-->
+                    <field name="rem_amount" readonly="1"/>
+                </xpath> 
+                 <xpath expr="//page[@name='other_info']" position="after">
+                    <page string="Payments" groups="base.group_user">
+                            <field name="payment_move_line_ids">
+                                <tree string="Payments">
+                                    <field name="date"/>
+                                    <field name="move_id"/>
+                                    <field name="ref"/>
+                                    <field name="name"/>
+                                    <field name="journal_id" groups="base.group_user"/>
+                                    <field name="debit"/>
+                                    <field name="credit"/>
+                                    <field name="amount_currency" string="Amount Currency"/>
+                                  <!--   <field name="currency_id" string ="Currency"
+                                        groups="base.group_multi_currency"/> -->
+                                </tree>
+                            </field>
+                        </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+            <field name="name">Student Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','out_invoice')]</field>
+            <field name="context">{'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a customer invoice.
+              </p><p>
+                Odoo's electronic invoicing allows to ease and fasten the
+                collection of customer payments. Your customer receives the
+                invoice by email and he can pay online and/or import it
+                in his own system.
+              </p><p>
+                The discussions with your customer are automatically displayed at
+                the bottom of each invoice.
+              </p>
+            </field>
+        </record>
+	<!-- account payment form  view inherit  by komal -->
+	 <record model="ir.ui.view" id="view_account_payment_invoice_form_inherit">
+			<field name="name">account.payment.invoice.form</field>
+			<field name="model">account.payment</field>
+			<field name="inherit_id" ref="account.view_account_payment_invoice_form" /> 
+			<!-- <field name="inherit_id" ref="account_voucher.view_sale_receipt_form" /> -->
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                	 <field name="partner_id"/>
+                    <field name="jounral_id_store"/>
+                     <field name="bank_name" attrs="{'invisible':[('jounral_id_store','!=','bank')]}"/>
+                     <field name="cheque" attrs="{'invisible':[('jounral_id_store','!=','bank')]}"/>
+                     <field name="cheque_start_date" string="Cheque Date"
+                            attrs="{'invisible':[('cheque','!=',True)],
+                                         'required' : [('cheque','=',True)]}" />
+                     <field name="cheque_expiry_date"
+                            attrs="{'invisible':[('cheque','!=',True)],
+                                         'required' : [('cheque','=',True)]}"/>
+                    <field name="payfort_type" invisible="1"/>
+                    <field name="payfort_link_order_id" attrs="{'invisible':[('payfort_type','!=',True)]}"/> 
+				</xpath>
+            </field>
+        </record> 
+
+        <!-- <record id="action_payfort_link_resend_voucher" model="ir.actions.act_window"> -->
+            <!--<field name="name">Account Voucher by Payfort</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!-- <field name="res_model">account.voucher</field> -->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="context">{"default_payfort_type":1}</field>-->
+            <!--<field name="domain">[('payfort_type','=',1)]</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

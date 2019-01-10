@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record model="ir.ui.menu" id="edsys_edu.studnt_main_menu">
+		  <field name="groups_id" eval="[(6,0,[ref('group_sync_odoo_data'), ref('edsys_edu.group_registration_user'), ref('edsys_edu.group_registration_manager')])]"/>
+		</record>
+		
+		<record model="ir.ui.menu" id="edsys_edu.Student_sub_menu">
+		  <field name="groups_id" eval="[(6,0,[ref('group_sync_odoo_data'), ref('edsys_edu.group_registration_user'), ref('edsys_edu.group_registration_manager')])]"/>
+		</record>
+		
+		<record model="ir.ui.menu" id="edsys_edu.student_menu">
+		  <field name="groups_id" eval="[(6,0,[ref('group_sync_odoo_data'), ref('edsys_edu.group_registration_user'), ref('edsys_edu.group_registration_manager')])]"/>
+		</record>
+		
+        <record model="ir.ui.menu" id="edsys_edu.parents_menu">
+		  <field name="groups_id" eval="[(6,0,[ref('group_sync_odoo_data'), ref('edsys_edu.group_registration_user'), ref('edsys_edu.group_registration_manager')])]"/>
+		</record>
+		
+		
+
+		<record id="view_student_parent_form_inherited_odoo_sync" model="ir.ui.view">
+            <field name="name">view.student.parent.form.inherited</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="edsys_promotion.view_student_parent_form_inherit_promotion"/>
+            <field name="arch" type="xml">
+                <data>
+	                <xpath expr="//page[@name='accounting']" position="attributes">
+	                	<attribute name="groups">edsys_edu_fee.group_fees_management_user,edsys_edu_fee.group_fees_management_manager,edsys_edu_fee.group_fees_account_manager,edsys_edu.group_fee_payment_manual,edsys_edu.group_registration_user,edsys_edu.group_registration_manager,edsys_edu.group_registration_configuration,edsys_edu.group_fee_confirm</attribute>
+	                </xpath>
+	                
+	                <xpath expr="//page[@name='school_history']" position="attributes">
+	                	<attribute name="groups">edsys_edu_fee.group_fees_management_user,edsys_edu_fee.group_fees_management_manager,edsys_edu_fee.group_fees_account_manager,edsys_edu.group_fee_payment_manual,edsys_edu.group_registration_user,edsys_edu.group_registration_manager,edsys_edu.group_registration_configuration,edsys_edu.group_fee_confirm</attribute>
+	                </xpath>
+	                
+	                <xpath expr="//page[@name='medical']" position="attributes">
+	                	<attribute name="groups">edsys_edu_fee.group_fees_management_user,edsys_edu_fee.group_fees_management_manager,edsys_edu_fee.group_fees_account_manager,edsys_edu.group_fee_payment_manual,edsys_edu.group_registration_user,edsys_edu.group_registration_manager,edsys_edu.group_registration_configuration,edsys_edu.group_fee_confirm</attribute>
+	                </xpath>
+	                
+	                <xpath expr="//page[@name='documents']" position="attributes">
+	                	<attribute name="groups">edsys_edu_fee.group_fees_management_user,edsys_edu_fee.group_fees_management_manager,edsys_edu_fee.group_fees_account_manager,edsys_edu.group_fee_payment_manual,edsys_edu.group_registration_user,edsys_edu.group_registration_manager,edsys_edu.group_registration_configuration,edsys_edu.group_fee_confirm</attribute>
+	                </xpath>
+	                
+	                <xpath expr="//page[@name='fees structure']" position="attributes">
+	                	<attribute name="groups">edsys_edu_fee.group_fees_management_user,edsys_edu_fee.group_fees_management_manager,edsys_edu_fee.group_fees_account_manager,edsys_edu.group_fee_payment_manual,edsys_edu.group_registration_user,edsys_edu.group_registration_manager,edsys_edu.group_registration_configuration,edsys_edu.group_fee_confirm</attribute>
+	                </xpath>
+	                
+	                <xpath expr="//page[@name='payment detail']" position="attributes">
+	                	<attribute name="groups">edsys_edu_fee.group_fees_management_user,edsys_edu_fee.group_fees_management_manager,edsys_edu_fee.group_fees_account_manager,edsys_edu.group_fee_payment_manual,edsys_edu.group_registration_user,edsys_edu.group_registration_manager,edsys_edu.group_registration_configuration,edsys_edu.group_fee_confirm</attribute>
+	                </xpath>
+	                
+	                <xpath expr="//page[@name='fee status']" position="attributes">
+	                	<attribute name="groups">edsys_edu_fee.group_fees_management_user,edsys_edu_fee.group_fees_management_manager,edsys_edu_fee.group_fees_account_manager,edsys_edu.group_fee_payment_manual,edsys_edu.group_registration_user,edsys_edu.group_registration_manager,edsys_edu.group_registration_configuration,edsys_edu.group_fee_confirm</attribute>
+	                </xpath>
+	                
+	                
+	                <xpath expr="//page[@name='fee structure history']" position="attributes">
+	                	<attribute name="groups">edsys_edu_fee.group_fees_management_user,edsys_edu_fee.group_fees_management_manager,edsys_edu_fee.group_fees_account_manager,edsys_edu.group_fee_payment_manual,edsys_edu.group_registration_user,edsys_edu.group_registration_manager,edsys_edu.group_registration_configuration,edsys_edu.group_fee_confirm</attribute>
+	                </xpath>
+	                
+	         	</data>
+	         </field>
+	      </record>
+	
+	
+    </data>
+</odoo>

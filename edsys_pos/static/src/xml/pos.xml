@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1:
+-->
+	<templates id="template" xml:space="preserve">
+		 <t t-name="PosTicket">
+        <div class="pos-sale-ticket">
+        	<div class="pos-center-align">
+        		
+			<t t-esc="widget.pos.company.name"/><br />
+            		Email : <t t-esc="widget.pos.company.email || ''"/><br />
+            		Website : <t t-esc="widget.pos.company.website || ''"/><br />
+            		Phone: <t t-esc="widget.pos.company.phone || ''"/> Fax : <t t-esc="widget.pos.company.fax || ''"/><br />
+			Tax Number : <t t-esc="widget.pos.company.vat || ''"/><br />
+			</div>
+			<br />
+            <div class="pos-center-align"><h3>Receipt</h3></div>
+            <br />
+            Date:<!--  <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
+                Date.CultureInfo.formatPatterns.longTime)"/> -->
+            <br />
+            Reference: <t t-esc="widget.pos.pos_session.name || ''"/><br />
+            Receipt No: <t t-esc="order.get('name')"/><br />
+            Name: <!-- <t t-esc="customer.name"/> --><br />
+            Class: <!-- <t t-esc="customer.class_id[1]"/>  --><br />
+            Academic Year: <!-- <t t-esc="customer.batch_id[1]"/> --> <br />
+            
+            
+            
+            <br />
+            <t t-if="widget.pos.config.receipt_header">
+                <div style='text-align:center'>
+                    <t t-esc="widget.pos.config.receipt_header" />
+                </div>
+                <br />
+            </t>
+            <table class="table table-condensed">
+               <thead>
+                        <tr>
+                            <th>Desc</th>
+                            <th class="pos-right-align">Qty</th>
+                            <th class="pos-right-align">Price</th>
+                            <th class="pos-right-align">Amount</th>
+                        </tr>
+               </thead>
+               <tbody>
+                <tr t-foreach="orderlines" t-as="orderline">
+                    <td>
+                        <t t-esc="orderline.get_product().display_name"/>
+                         <t t-if="orderline.get_discount() > 0">
+                            <div class="pos-disc-font">
+                                With a <t t-esc="orderline.get_discount()"/>% discount
+                            </div>
+                        </t>
+                    </td>
+                    <td class="pos-right-align">
+                        <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                    </td>
+                    <td class="pos-right-align">
+                        <t t-esc="orderline.get_display_price()"/>
+                    </td>
+                  	<td class="pos-right-align">
+                        <t t-esc="widget.format_currency(orderline.get_display_price())"/>
+                    </td>  
+                  
+                </tr>
+                </tbody>
+            </table>
+            <br />
+            <table>
+                <tr>
+                    <td>Total Without Taxes</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(order.getTotalTaxExcluded())"/>
+                    </td>
+                </tr>
+                <!-- <t t-foreach="order.getTaxDetails()" t-as="taxdetail"> -->
+                    <tr>
+                        <!-- <td><t t-esc="taxdetail.name" /></td> -->
+                        <td class="pos-right-align">
+                            <!-- <t t-esc="widget.format_currency(taxdetail.amount)" /> -->
+                        </td>
+                    </tr>
+                <!-- </t> -->
+                <tr>
+                    <td>Discount:</td>
+                    <td class="pos-right-align">
+                        <!-- <t t-esc="widget.format_currency(order.getDiscountTotal())"/> -->
+                    </td>
+                </tr>
+                <tr class="emph">
+                    <td>Total:</td>
+                    <td class="pos-right-align">
+                      <!--   <t t-esc="widget.format_currency(order.getTotalTaxIncluded())"/> -->
+                    </td>
+                </tr>
+            </table>
+            <br />
+            
+            <t t-if="widget.pos.config.receipt_footer">
+                <br />
+                <div style='text-align:center'>
+                    <t t-esc="widget.pos.config.receipt_footer" />
+                </div>
+            </t>
+        </div>
+    </t>
+    
+    
+    
+    <t t-name="ClientListScreenWidget">
+        <div class="clientlist-screen screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Cancel
+                    </span>
+                    <span class='searchbox'>
+                        <input placeholder='Search Customers' />
+                        <span class='search-clear'></span>
+                    </span>
+                    <span class='searchbox'></span>
+                    <span class='button new-customer'>
+                        <i class='fa fa-user'></i>
+                        <i class='fa fa-plus'></i>
+                    </span>
+                    <span class='button next oe_hidden highlight'>
+                        Select Customer
+                        <i class='fa fa-angle-double-right'></i>
+                    </span>
+                </section>
+                <section class="full-content">
+                    <div class='window'>
+                        <section class='subwindow collapsed'>
+                            <div class='subwindow-container collapsed'>
+                                <div class='subwindow-container-fix client-details-contents'>
+                                </div>
+                            </div>
+                        </section>
+                        <section class='subwindow'>
+                            <div class='subwindow-container'>
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y'>
+                                    <table class='client-list'>
+                                        <thead>
+                                            <tr>
+                                                <th>Student ID</th>
+                                                <th>Student Name</th>
+                                                <th>Grade</th>
+                                                <th>Section</th>
+                                                <th>Academic Year</th>
+                                            	<th>Parent code</th>
+                                            	<th>Parent Name</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody class='client-list-contents'>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+	
+	
+	<t t-name="ClientLine">
+        <tr class='client-line' t-att-data-id='partner.id'>
+	        <td><t t-esc='partner.student_id or ""' /></td>
+			<td><t t-esc='partner.name or ""' /></td>
+			<td><t t-esc='partner.class_id[1] or "" ' /></td>
+			<td><t t-esc='partner.student_section_id[1] or ""' /></td>
+			<td><t t-esc='partner.batch_id[1] or ""' /></td>
+			<td><t t-esc='partner.parents1_id[0] or ""' /></td>
+			<td><t t-esc='partner.parents1_id[1] or ""' /></td>
+        </tr>
+    </t>
+		  
+	</templates>
+

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <report 
+        string="Fee Receipt" 
+        id="action_fee_receipt" 
+        model="registration" 
+        report_type="qweb-pdf"
+        name="edsys_edu.report_fee_receipt"
+        file="edsys_edu.report_fee_receipt"
+        attachment="(object.state in ('reg')) and
+        ('RegFee'+(object.enquiry_no or '').replace('/','')+'.pdf')"
+    />
+    
+<template id="report_fee_receipt">
+    <t t-foreach="docs" t-as="o">
+    <t t-call="edsys_edu_fee.custom_receipt_external_layout_payment_receipt">
+        <div class="page">
+            <div class="oe_structure"/>
+            <div class="row mt32 mb32">
+            
+            	<div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <table width="100%" height="100%">
+                    <tbody>
+                    	<tr>
+                            <td class="text-left">
+				            		<strong>Date:   <t t-if="o.trx_date"> <span   t-esc="time.strftime('%d/%m/%Y',time.strptime(o.trx_date,'%Y-%m-%d'))"/></t> </strong>
+                            </td>
+                            
+                            <td class="text-right">
+				            		<strong>Receipt No:  <span t-field="o.reg_fee_receipt.name"/></strong>
+                            </td>
+                            
+                        </tr>
+                     </tbody>
+                </table>
+		        
+               	<div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <br/>
+		        
+		        
+		        <table width="100%" height="100%">
+                    <tbody>
+                        <tr>
+                           <td class="text-left">
+                               <strong>Enquiry No:  <span t-field="o.enquiry_no"/></strong>
+                            </td>
+                            
+                            <td class="text-right">
+                              	<strong>Class:  <span t-field="o.course_id.name"/></strong>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                           	<td class="text-left">
+				                    <strong>Name:  <span t-field="o.parent_name"/> </strong>
+                            </td>
+                            
+                            <td class="text-right">
+                            
+                            </td>
+                        </tr>
+                       </tbody>
+                    </table>
+                    <br/>
+            		<div class="row zero_min_height">
+			            <div class="col-xs-12">
+			                <div style="border-bottom: 1px solid black;"></div>
+			            </div>
+			        </div>
+			        <br/>
+                              
+            </div>
+            <table class="table table-bordered" width="100%" height="100%" style="border: 2px solid #000000;font-size:13px">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid black;"><strong>SI.No.</strong></th>
+                        <th class="text-center"  style="border: 1px solid black;"><strong>Description</strong></th>
+                        <th class="text-right" style="border: 1px solid black;"><strong>Amount</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="foo" t-value="0"/>
+                    
+                    
+                        <tr t-foreach="o.reg_fee_line" t-as="line">
+                            <t t-set="foo" t-value="foo+1"/>
+                            <td style="border: 1px solid black;">
+                               <t t-esc="foo"/>
+                            </td>
+                            <td class="text-center" style="border: 1px solid black;">
+                              <strong> <span  t-field="line.name.name"/> by  <span t-field="o.reg_fee_receipt.journal_id.name"/> </strong>
+                            </td>
+                            <td class="text-right"  style="border: 1px solid black;">
+                                <span t-field="line.amount"/>
+                            </td>
+                        </tr>
+                        
+                        <tr style="border: 1px solid black;" t-foreach="o.reg_fee_line" t-as="line">
+                            <td class="text-left" style="border: 1px solid black;">
+                                <strong>Total</strong>
+                             </td>
+                             <td><strong>AED: <span t-esc="o.amount_to_text(line.amount)"/> </strong></td>
+                             <td class="text-right" style="border: 1px solid black;">
+                                 <strong><span t-field="line.amount"/></strong>
+                             </td> 
+                        </tr>
+                                       
+                </tbody>
+                
+            </table>
+            <div class="row mt32 mb32">
+                <div class="col-xs-12" style="text-align:right">
+                    <p>This is a computer generated invoice and does not require signature. Online, cheque and bank transfer payment subject to realisation.</p>
+                    
+                </div>
+            </div>
+            <div class="oe_structure"/>
+        </div>
+    </t>
+    </t>
+</template>
+
+</data>
+</odoo>
+    
+

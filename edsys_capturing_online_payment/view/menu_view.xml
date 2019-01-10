@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="edsys_edu.payfort_details" name="Online Gateway details"
+                  parent="edsys_edu.configuration_sub_menu"
+                  action="edsys_edu.act_payfort_config" sequence="8"/>
+        <!-- ===== Payfort Payment Capture Menu ===== -->
+        <menuitem id="payfort_payment_capture_menu" name="Online Payment"
+                  parent="account.menu_finance_receivables"
+                  action="act_payfort_payment_capture_view" sequence='25'/>
+        <!-- ===== Payfort Error Capture Menu ===== -->
+        <menuitem id="payfort_error_capture_menu" name="Online Payment Warning"
+                  parent="account.menu_finance_receivables"
+                  action="act_payfort_error_capture_view" sequence='26'/>
+
+    </data>
+</openerp>

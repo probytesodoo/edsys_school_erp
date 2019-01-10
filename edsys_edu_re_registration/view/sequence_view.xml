@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ============== Re-Registration Parents ==================== -->
+
+       <!-- <record id="seq_type_re_reg_parent" model="ir.sequence.type">
+            <field name="name">Re Registration Form Parent</field>
+            <field name="code">re.reg.parent.form</field>
+        </record>  -->
+
+        <record id="seq_re_reg_parent" model="ir.sequence">
+            <field name="name">Re Registration Form Parent</field>
+            <field name="code">re.reg.parent.form</field>
+            <field name="prefix">RE-REG-P</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- ============== Re-Registration Student ==================== -->
+
+        <!-- <record id="seq_type_re_reg_student" model="ir.sequence.type">
+            <field name="name">Re Registration Form Student</field>
+            <field name="code">re.reg.student.form</field>
+        </record> -->
+
+        <record id="seq_re_reg_student" model="ir.sequence">
+            <field name="name">Re Registration Form Student</field>
+            <field name="code">re.reg.student.form</field>
+            <field name="prefix">RE-REG-S</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_re_reg_number" model="ir.sequence">
+            <field name="name">Re-Registration Number Sequence</field>
+            <field name="code">re.reg.waiting.responce.parents</field>
+            <field name="prefix">28</field>
+            <field name="padding">7</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

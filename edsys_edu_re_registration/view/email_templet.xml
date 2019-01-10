@@ -1,0 +1,153 @@
+<odoo>
+    <data noupdate="0">
+
+        <!--Request For Re-registration-->
+        <record id="email_template_re_registration_request" model="mail.template">
+            <field name="name">Re-Registration Request - Send by Email</field>
+            <field name="subject">Request for Re-Registration</field>
+            <field name="model_id" ref="model_re_reg_waiting_responce_parents"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.name.name},</p>
+                    <p>Thank you for entrusting your child to our school. As we go forward, we request you to kindly
+                     complete the re-registration process to ensure a place for your child(ren) in the next academic year.</p>
+                    <p>To secure a place in the next academic year, you would have to pay an amount of AED 1000.
+                     This deposit is <b>non-refundable</b> should a student not take up the
+                     confirmed place in, April, but is fully adjustable against the first term fees. The deposit may be
+                     paid online using our online Payment gateway (Online transaction charges may apply), in person at
+                     the school fee counter or via bank transfer.</p>
+                     <p>Kindly complete this process before the close of the academic year ( the exact date has been
+                     appended at the end of the email) so as to help us enlist your child in the next academic year.
+                     The school will be unable to confirm a seat, if the re-registration process is not completed for
+                     any reasons.</p>
+                    <p>Our school teams are happy to help if you need any further details regarding re-registration or
+                     have queries regarding the process. Please contact our Registration Team or Accounts Department at
+                     the address given below.</p>
+                    
+                </div>
+            ]]></field>
+        </record>
+
+                     <!--Resend Request For Re-registration for PARENT-->
+        <record id="email_template_resend_re_registration_request_parent" model="mail.template">
+            <field name="name">Resend Re-Registration Request for parent- Send by Email</field>
+            <field name="subject">Resend Request for Re-Registration</field>
+            <field name="model_id" ref="model_re_reg_waiting_responce_parents"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                    <p>Dear ${object.name.name},</p>
+                    <p>Greetings!!</p>
+                    <p>This is a kind reminder for re-registration of your child(ren) for the next academic year
+                    ${object.request_batch_id.name}.</p>
+                    <p>As informed earlier it is imperative for the child to be re-registered so as to confirm a place
+                    for him/her in the next academic year. You are requested to refer to the link appended to the end of
+                     this email and fill in the re-registration form for your ward(s).</p>
+                   <p>To secure a place in the next academic year, you would have to pay an amount of AED 1000.
+                    This deposit is non-refundable should a student not take up the confirmed place in April,
+                    but is fully adjustable against the first term fees. The deposit may be paid online with a credit card,
+                     in person at the school fee counter or via bank transfer.</p>
+                    <p>Thank you for entrusting your child to our school.</p>
+                    <p>If you require any further details regarding re-registration or have questions regarding the process,
+                    please contact our Registration Team or Accounts Department at the address given below.</p>
+                    <p>We once again appreciate your support to us and look forward for a long and trusted connection ahead.</p>
+                  
+                </div>
+            ]]></field>
+        </record>
+
+                 <!--Resend Request For Re-registration for STUDENT-->
+        <record id="email_template_resend_re_registration_request_student" model="mail.template">
+            <field name="name">Resend Re-Registration Request for student- Send by Email</field>
+            <field name="subject">Resend Request for Re-Registration</field>
+            <field name="model_id" ref="model_re_reg_waiting_responce_student"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                    <p>Dear ${object.name.parents1_id.name},</p>
+                    <p>Greetings!!</p>
+                    <p>This is a kind reminder for re-registration of your child(ren) for the next academic year
+                    ${object.next_year_batch_id.name}.</p>
+                    <p>As informed earlier it is imperative for the child to be re-registered so as to confirm a place
+                    for him/her in the next academic year. You are requested to refer to the link appended to the end of
+                     this email and fill in the re-registration form for your ward(s).</p>
+                   <p>To secure a place in the next academic year, you would have to pay an amount of AED 1000.
+                    This deposit is non-refundable should a student not take up the confirmed place in April,
+                    but is fully adjustable against the first term fees. The deposit may be paid online with a credit card,
+                     in person at the school fee counter or via bank transfer.</p>
+                    <p>Thank you for entrusting your child to our school.</p>
+                    <p>If you require any further details regarding re-registration or have questions regarding the process,
+                    please contact our Registration Team or Accounts Department at the address given below.</p>
+                    <p>We once again appreciate your support to us and look forward for a long and trusted connection ahead.</p>
+                   
+                </div>
+            ]]></field>
+        </record>
+
+                <!--Re-registration Confirmation-->
+        <record id="email_template_re_registration_confirmation" model="mail.template">
+            <field name="name">Re-Registration Confirmation - Send by Email</field>
+            <field name="subject">Re-registration Confirmation for your ward(s)</field>
+            <field name="model_id" ref="model_re_reg_waiting_responce_parents"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.name.name},</p>
+                    <p></p>
+                    <p>We have received your inputs regarding the re-registration of your ward(s) and the
+                    re-registration status and fee details are in the table appended below in the email.</p>
+                    <p>If you have answered with a YES to any of the fields in the summary provided in the appended
+                    table, you are requested to pay the applicable re-registration fees towards confirmation of the
+                    re-registration process for your child. All advance payments made shall be adjusted to the
+                    re-registration fee. Online payment transaction charges may apply and the amount mentioned in
+                    the online fee payment link may vary accordingly.</p>
+                    <p>If you have a NO in the confirmation column, we assume your ward(s) shall not be continuing
+                    with us in the next academic year.</p>
+                   
+                    <p>All fee payments can be paid:</p>
+                    <p>1. By cash at the fee counter in school</p>
+                    <p>2. By bank transfer</p>
+                    <p>3. By Cheque, deposited at the fee counter in school.</p>
+                    <p>4. By using the following link to pay online using our online payment gateway-PayFort<p>
+                    <p>The amount paid towards re-registration is collected as advance and will be adjusted in next
+                    year's academic fee.</p>
+                    <p>Thank you for your prompt response and confirmation.</p>
+                    <p>We wish your child(ren) better prospects in the next grade.</p>
+                    
+                </div>
+            ]]></field>
+        </record>
+
+        <!--Receipt-->
+        <record id="email_template_re_registration_fee_receipt_paid" model="mail.template">
+            <field name="name">Re-Registration fee receipt - Send by Email</field>
+            <field name="subject">Re-Registration Fee Receipt</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="edsys_edu_fee.action_student_payment_receipt"/>
+            <field name="report_name">Re_reg_fee_receipt</field>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                <p>Dear ${object.partner_id.parents1_id.name},</p>
+                <p></p>
+                <p>Thank you for completing the re-registration process by paying the re-registration advance and
+                 confirming a place for your child(ren) in the next academic year. Please find the receipt for the
+                 payment made, appended below in this email.</p>
+                <p>The amount paid towards re-registration is collected as advance and will be adjusted in next year
+                 academic fee.</p>
+                <p>Thank you for your prompt response and confirming a seat for your child(ren) in the next academic
+                 year with us. We wish your child(ren) better prospects in the next grade and together we will ensure
+                 the best of learning for them.</p>
+                <p></p>
+                
+            </div>
+            ]]></field>
+        </record>
+
+    </data>
+</odoo>
+

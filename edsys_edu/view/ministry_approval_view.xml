@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    <!-- =====================Ministry Approval search view ========================= -->
+    	<record id="view_ministry_approval_search" model="ir.ui.view">
+            <field name="name">ministry.approval.serch.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Registration">
+                    <field name="name" />
+                    <field name="middle_name" />
+                    <field name="last_name" />
+                    <field name="enquiry_no"/>
+                    <field name="admission_date" />
+                    <field name="application_date" />
+                    <field name="birth_date" />
+                    <field name="course_id" />
+                    <field name="batch_id" />
+                    <field name="batch_shift"/>
+		    <field name="first_acd_year_of_child" />
+                    <newline />
+                    <group expand="0" string="Group By...">
+                            <filter string="Last Name" domain="[]"
+                                    context="{'group_by':'last_name'}" />
+                            <!--<filter string="Application Number" domain="[]"-->
+                                    <!--context="{'group_by':'application_number'}" />-->
+                            <filter string="Admission Date" domain="[]"
+                                    context="{'group_by':'admission_date'}" />
+                            <filter string="Application Date" domain="[]"
+                                    context="{'group_by':'application_date'}" />
+                            <filter string="Class" domain="[]" context="{'group_by':'course_id'}" />
+                            <filter string="Academic Year" domain="[]" context="{'group_by':'batch_id'}" />
+                            <filter string="Status" domain="[]" context="{'group_by':'state'}" />
+                            <filter string="Batch Shift" domain="[]" context="{'group_by':'batch_shift'}"/>
+			     <filter string="First Academic Year Of Child" domain="[]" context="{'group_by':'first_acd_year_of_child'}"/>
+                            <!--<filter string="Standard" domain="[]"-->
+                                    <!--context="{'group_by':'standard_id'}" />-->
+                    </group>
+                </search>
+            </field>
+	</record>
+
+
+        <!-- ================== Ministry Approval tree view ========================== -->
+        <record id="view_ministry_approval_tree" model="ir.ui.view">
+            <field name="name">ministry.approval.tree.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Admission">
+                    <field name="enquiry_no"/>
+                    <field name="name"/>
+                    <field name="middle_name"/>
+                    <field name="last_name" />
+                    <field name="course_id" />
+                    <field name="state" />
+                    <field name="batch_shift"/>
+                </tree>
+            </field>
+	</record>
+        <!--=============== Ministry Approval form view==================-->
+        <record id="view_ministry_approval_form" model="ir.ui.view">
+            <field name="name">ministry.approval.form.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Ministry Approval">
+                    <header>
+                        <button name="mini_app_to_done" String="Click for FINAL CONFIRMATION" type="object"
+                                attrs="{'invisible':[('state','=','done')]}" class="oe_highlight"
+                                confirm="Are you sure to give a final confirmation ?"/>
+                        <field name="state" widget="statusbar" statusbar_colors='{"r":"red"}'/>
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_left oe_avatar" readonly="1"/>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="title" placeholder="Title" readonly="1"/>
+                            </h1>
+                            <h1>
+                                <field name="name" placeholder="First Name" readonly="1" />
+                                <field name="middle_name" placeholder="Middle Name" readonly="1"/>
+                                <field name="last_name" placeholder="Last Name" readonly="1"/>
+                            </h1>
+                            <field name="student_id" readonly="1"/>
+                            <group>
+                                <field name="complete_parent_contract"/>
+                                <field name="khada_sis" required="1"/>
+                                <field name="batch_shift" readonly="1" />
+                            </group>
+                        </div>
+                        <notebook colspan="4">
+                        <page string="Personal Detail">
+                            <group>
+                                <field name="email" placeholder="student@email.com" readonly="1"/>
+                            </group>
+                            <group col="6" colspan="4">
+                                <!--<field name="application_number" />-->
+                                <field name="application_date" attrs="{'readonly':[('user_id','!=',1)]}"/>
+                                <field name="user_id" invisible="1"/>
+                                <field name="admission_date" attrs="{'readonly':[('user_id','!=',1)]}"/>
+				<field name="first_acd_year_of_child" />
+                                <field name="batch_id" readonly="1"/>
+                                <field name="course_id" readonly="1"/>
+<!--                                <field name="standard_id" required="1"/>
+                                <field name="category_id" /> -->
+                                <field name="gender" readonly="1"/>
+                                <field name="emirati" readonly="1"/>
+                                <field name="arab" readonly="1"/>
+                                <field name="nationality_id" readonly="1"/>
+                                <field name="religion_id" readonly="1"/>
+                                <field name="birth_date" readonly="1"/>
+                                <field name="birth_country" readonly="1"/>
+                                <field name="birth_place" domain="[('country_id','=',birth_country)]" readonly="1"/>
+                                <field name="emirates_id" readonly="1"/>
+                                <field name="lang_id" string='Mother Tongue' widget="selection" readonly="1"/>
+                                <field name="other_lang_id" string='Optional Language'
+                                       widget="selection" domain="[('is_optional','=',True)]" readonly="1"/>
+                            </group>
+                            <separator string="Passport Detail"/>
+                            <group col="4" colspan="4">
+                                <field name="passport_no" readonly="1"/>
+                                <field name="place_of_issue" readonly="1"/>
+                                <field name="passport_issue_date" readonly="1"/>
+                                <field name="passport_expiry_date" readonly="1"/>
+                            </group>
+                            <separator string="Visa Detail"/>
+                            <group col="6" colspan="6">
+                                <field name="visa_no" readonly="1"/>
+                                <field name="visa_issue_date" readonly="1"/>
+                                <field name="visa_expiry_date" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Siblings">
+                                <field name="sibling_ids" readonly="1">
+                                    <!--<tree editable="bottom">
+                                        <field name="sibling_name" />
+                                        field name="sibling_grade" />
+                                    </tree>-->
+                                </field>
+                                <group>
+                                    <field name="about_us" readonly="1"/>
+                                    <field name="about_us_other" readonly="1"
+                                           attrs="{'invisible': [('about_us','!=','other')]}" />
+                                    <field name="sibling_info" />
+                                    <field name="remarks" readonly="1"/>
+                                </group>
+                        </page>
+                        <page string="Address">
+                            <label for="street" string="Address" />
+                            <div>
+                                <field name="street" placeholder="Street" readonly="1"/>
+                                <field name="street2" readonly="1"/>
+                                <div class="address_format">
+                                    <field name="city" readonly="1"
+                                           placeholder="City" style="width: 40%%" />
+                                    <field name="state_id" options='{"no_open": True}' readonly="1"
+                                        placeholder="State" style="width: 24%%" />
+                                    <field name="zip" placeholder="ZIP" style="width: 34%%" readonly="1"/>
+                                </div>
+                                <field name="country_id" placeholder="Country"
+                                       options='{"no_open": True}' readonly="1"/>
+                                <field name="phone" readonly="1" placeholder="Phone" />
+                                <field name="mobile" readonly="1" placeholder="Mobile" />
+                            </div>
+                            <group col="4" colspan="4">
+                                <field name="family_business" readonly="1"/>
+                                <field name="family_income" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="School History">
+                            <div class="oe_list_content">
+                                <group col="4" colspan="4">
+                                    <field name="prev_institute" readonly="1" string='School Name' />
+                                    <field name="prev_academic_city" string="Place" readonly="1"/>
+                                    <field name="last_attendance" readonly="1"/>
+                                    <field name="curriculum" string="Curriculum" readonly="1"/>
+                                    <field name="prev_grade" readonly="1"/>
+                                    <field name="prev_academic_year" readonly="1"/>
+                                     <field name="t_c_number" readonly="1"/>
+                                    <field name="tranfer_reason" readonly="1"/>
+                                </group>
+                            </div>
+                        </page>
+                        <page string="Medical">
+                            <div class="oe_list_content">
+                                <group col="4" colspan="4">
+                                    <field name="blood_group" readonly="1"/>
+                                    <field name="s_height" readonly="1"/>
+                                    <field name="s_width" readonly="1"/>
+                                    <field name="child_allergic" readonly="1"/>
+                                    <field name="w_allergic" readonly="1"
+                                           attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                    <field name="w_reaction" readonly="1"
+                                           attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                    <field name="w_treatment" readonly="1"
+                                           attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                    <field name="under_medication" readonly="1"/>
+                                    <field name="w_medication_mention" readonly="1"
+                                           attrs="{'invisible': [('under_medication','=',False)]}"/>
+                                    <field name="w_treatment_mention" readonly="1"
+                                           attrs="{'invisible': [('under_medication','=',False)]}"/>
+                                </group>
+                            </div>
+                        </page>
+                        <page string="Parents Detail">
+                            <div class="oe_list_content">
+                                <group col="6" colspan="4">
+                                    <field name="parent_name" required="1" readonly="1"/>
+                                    <field name="parent_profession" string='Father Profession' readonly="1"/>
+                                    <field name="parent_contact" string="Father Contact" readonly="1"/>
+                                    <field name="parent_email" string='Father Email' required="1"
+                                           widget="email" readonly="1"/>
+                                    <field name="parent_office_contact"
+                                           readonly="1" string="Office Tel. No"/>
+                                </group>    
+                                <group col="6" colspan="4">    
+                                    <field name="mother_name" readonly="1"/>
+                                    <field name="mother_profession" readonly="1"/>
+                                    <field name="mother_contact" readonly="1"/>
+                                    <field name="mother_email"  readonly="1"/>
+                                    <field name="emergency_contact" readonly="1"/>
+                                </group>
+                                <!--<group><field name="parent_residential_address"/></group>-->
+                            </div>
+                        </page>
+                        <page string="Transportation Detail">
+                            <div class="oe_list_content">
+                                <group col="4" colspan="4">
+                                    <field name="transport_type" readonly="1"/>
+                                    <field name="bus_no" readonly="1"/>
+                                    <field name="pick_up" readonly="1"/>
+                                    <field name="droup_off_pick" readonly="1"/>
+                                </group>
+                            </div>
+                        </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ministry_approve_form_inherit_registra" model="ir.ui.view">
+            <field name="name">view.ministry.approve.form.inherit.registra</field>
+            <field name="model">registration</field>
+            <field name="inherit_id" ref="view_ministry_approval_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('edsys_edu.group_registration_manager') ])]" />
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="batch_shift" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- ============ Ministry Approval Action View ==================== -->
+##         <record model="ir.actions.act_window" id="act_ministry_approval_view">
+##             <field name="name">Ministry Approval</field>
+##             <field name="type">ir.actions.act_window</field>
+##             <field name="res_model">registration</field>
+##             <field name="view_type">form</field>
+##             <field name="view_mode">tree,form</field>
+##             <field name="context">{"search_default_state":'ministry_approval'}</field>
+##             <field name="domain">[('state','=','ministry_approval')]</field>
+##              <field name="search_view_id" ref="view_ministry_approval_search"/>
+##         </record>
+##
+##         <record id="action_ministry_approval_tree_view" model="ir.actions.act_window.view">
+##             <field name="sequence" eval="1"/>
+##             <field name="view_mode">tree</field>
+##             <field name="view_id" ref="view_ministry_approval_tree"/>
+##             <field name="act_window_id" ref="act_ministry_approval_view"/>
+##         </record>
+##
+##         <record id="action_ministry_approval_form_view" model="ir.actions.act_window.view">
+##             <field name="sequence" eval="1"/>
+##             <field name="view_mode">form</field>
+##             <field name="view_id" ref="view_ministry_approval_form"/>
+##             <field name="act_window_id" ref="act_ministry_approval_view"/>
+##         </record>
+    </data>
+</odoo>

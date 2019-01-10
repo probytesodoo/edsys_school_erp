@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- =====================registration Fee search view ========================= -->
+        <record id="view_registration_fee_search" model="ir.ui.view">
+            <field name="name">registration.fee.serch.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Registration">
+                    <field name="name"/>
+                    <field name="fee_status"/>
+                    <field name="enquiry_no"/>
+                    <!--<field name="application_number"/>-->
+                    <field name="admission_date"/>
+                    <field name="application_date"/>
+                    <field name="birth_date"/>
+                    <field name="course_id"/>
+                    <field name="batch_id"/>
+                    <!--<field name="category_id"/>-->
+<!--                    <field name="standard_id"/>-->
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Name" domain="[]"
+                                context="{'group_by':'name'}"/>
+                        <filter string="Fee Status" domain="[]"
+                                context="{'group_by':'fee_status'}"/>
+                        <filter string="Admission Date" domain="[]"
+                                context="{'group_by':'admission_date'}"/>
+                        <filter string="Application Date" domain="[]"
+                                context="{'group_by':'application_date'}"/>
+                        <filter string="Class" domain="[]" context="{'group_by':'course_id'}" />
+                        <filter string="Academic Year" domain="[]" context="{'group_by':'batch_id'}" />
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <!--<filter string="Category" domain="[]"-->
+                                <!--context="{'group_by':'category_id'}"/>-->
+                        <!--                        <filter string="Standard" domain="[]"
+                                                        context="{'group_by':'standard_id'}"/>-->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ================== Registration fee tree view ========================== -->
+        <record id="view_registration_fee_tree_view" model="ir.ui.view">
+            <field name="name">Registration</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Registration" colors="red:fee_status == 'reg_fee_unpaid';blue:fee_status == 'reg_fee_pay'">
+<!--                    <field name="registration_id"/>-->
+                    <!--<field name="application_number"/>-->
+                    <field name="name"/>
+                    <field name="last_name"/>
+                    <field name="course_id"/>
+                    <field name="fee_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--=============== Registration Fee form view==================-->
+        <record id="view_registration_fee_form" model="ir.ui.view">
+            <field name="name">registration.fee.form.view</field>
+            <field name="model">registration</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Registration">
+                    <header>
+                        <!--<button name="reg_pay_manually" state="reg" string="Pay Manually" type="object"-->
+                                <!--class="oe_highlight"-->
+                                <!--attrs="{'invisible':['|',('fee_status','=','reg_fee_pay'),'|',('state','=','pending'),('state','=','rejected')]}"/>-->
+                        <!--<button name="send_payfort_reg_pay_link" state="reg" string="Send PayFort Payment Link" type="object" class="oe_highlight"-->
+                                <!--attrs="{'invisible':['|',('fee_status','=','reg_fee_pay'),'|',('state','=','pending'),('state','=','rejected')]}"/>-->
+                        <!--<button name="reg_to_decision_pending" state="reg" string="Decision Pending" type="object"-->
+                                <!--class="oe_highlight"-->
+                                <!--attrs="{'invisible':['|',('fee_status','=','reg_fee_unpaid'),'|',('state','=','pending'),('state','=','rejected')]}"/>-->
+                        <!--<button name="reject_state" state="reg" string="Reject" type="object" attrs="{'invisible':['|',('state','=','pending'),('state','=','rejected')]}" class="oe_highlight"/>-->
+                        <field name="state" widget="statusbar" statusbar_visible="reg"
+                               statusbar_colors='{"r":"red"}'/>
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_left oe_avatar" required="1"/>
+                        <h1>
+                            <field name="enquiry_no" class="oe_inline" readonly="1"
+                                   attrs="{'invisible':[('fee_status','=','reg_fee_pay')]}"/>
+<!--                            <field name="registration_id" class="oe_inline" readonly="1"
+                                   attrs="{'invisible':[('fee_status','!=','reg_fee_pay')]}"/>-->
+                        </h1>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="title" placeholder="Title"/>
+                            </h1>
+                            <h1>
+                                <field name="name" placeholder="First Name"/>
+                                <field name="middle_name" placeholder="Middle Name"/>
+                                <field name="last_name" placeholder="Last Name"/>
+                            </h1>
+                        </div>
+                         <div class="oe_right">
+                            <group>
+                                <field name="entrance_exam_date"
+                                        attrs="{'required':[('fee_status','=','reg_fee_pay')],'readonly':[('user_id','!=',1)]}"/>
+                                <field name="fee_status" readonly="1"/>
+                                <field name="reg_pay_link"/>
+                            </group>
+                        </div>
+                        <notebook colspan="4">
+                            <page string="Personal Detail">
+                                <group>
+                                    <field name="email" placeholder="student@email.com"/>
+                                </group>
+                                <group col="6" colspan="4">
+                                    <!--<field name="application_number"/>-->
+                                    <field name="application_date" attrs="{'readonly':[('user_id','!=',1)]}"/>
+                                    <field name="user_id" invisible="1"/>
+                                    <field name="admission_date" required="1"/>
+                                    <field name="batch_id"/>
+                                    <field name="course_id"/>
+                                    <!--<field name="standard_id" />-->
+                                    <!--<field name="category_id"/>-->
+                                    <field name="gender"/>
+                                    <field name="emirati"/>
+                                    <field name="arab"/>
+                                    <field name="nationality_id"/>
+                                    <field name="religion_id"/>
+                                    <field name="birth_date"/>
+                                    <field name="birth_country"/>
+                                    <field name="birth_place" string="Birth of Place" domain="[('country_id','=',birth_country)]"/>
+                                    <field name="emirates_id"/>
+                                    <field name="other_lang_id" string='Optional Language' widget="selection" domain="[('is_optional','=',True)]"/>
+                                    <field name="lang_id" string='Mother Tongue' widget="selection"/>
+                                    <field name="sen"/>
+                                    <field name="eal"/>
+                                    <field name="efl"/>
+                                </group>
+                                <separator string="Passport Detail"/>
+                                <group col="4" colspan="4">
+                                    <field name="passport_no"/>
+                                    <field name="place_of_issue"/>
+                                    <field name="passport_issue_date"/>
+                                    <field name="passport_expiry_date"/>
+                                </group>
+                                <separator string="Visa Detail"/>
+                                <group col="6" colspan="6">
+                                    <field name="visa_no"/>
+                                    <field name="visa_issue_date"/>
+                                    <field name="visa_expiry_date"/>
+                                </group>
+                            </page>
+                            <page string="Siblings">
+                                <field name="sibling_ids">
+                                    <!--<tree editable="bottom">
+                                        <field name="sibling_name" />
+                                        <field name="sibling_grade" />
+                                    </tree>-->
+                                </field>
+                                <group>
+                                    <field name="about_us" />
+                                    <field name="sibling_info" />
+                                    <field name="remarks" />
+                                </group>
+                            </page>
+                            <page string="Address">
+                                <label for="street" string="Address"/>
+                                <div>
+                                    <field name="street" placeholder="Street..."/>
+                                    <field name="street2"/>
+                                    <div class="address_format">
+                                        <field name="city" placeholder="City" style="width: 40%%"/>
+                                        <field name="state_id" options='{"no_open": True}'
+                                               placeholder="State" style="width: 24%%"/>
+                                        <field name="zip" placeholder="ZIP" style="width: 34%%"/>
+                                    </div>
+                                    <field name="country_id" placeholder="Country" options='{"no_open": True}'/>
+                                    <field name="phone" placeholder="Phone"/>
+                                    <field name="mobile" placeholder="Mobile"/>
+                                </div>
+                                <group col="4" colspan="4">
+                                    <field name="religion_id"/>
+                                    <field name="family_business"/>
+                                    <field name="family_income"/>
+                                </group>
+                            </page>
+                            <page string="School History">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="prev_institute" string='School Name'/>
+                                        <field name="prev_academic_city" string="Place"/>
+                                        <field name="prev_academic_country"/>
+                                        <field name="last_attendance"/>
+                                        <field name="curriculum" string="Curriculum"/>
+                                        <field name="prev_grade"/>
+                                        <field name="prev_academic_year"/>
+                                        <field name="t_c_number"/>
+                                        <field name="tranfer_reason"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Medical">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="blood_group"/>
+                                        <field name="s_height"/>
+                                        <field name="s_width"/>
+                                        <field name="child_allergic"/>
+                                        <field name="w_allergic" attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="w_reaction" attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="w_treatment"
+                                               attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="under_medication"/>
+                                        <field name="w_medication_mention"
+                                               attrs="{'invisible': [('under_medication','=',False)]}"/>
+                                        <field name="w_treatment_mention"
+                                               attrs="{'invisible': [('under_medication','=',False)]}"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Parents Detail">
+                                <div class="oe_list_content">
+                                    <group col="6" colspan="4">
+                                        <field name="parent_name" required="1"/>
+                                        <field name="parent_profession" string='Father Profession'/>
+                                        <field name="parent_contact" string="Father Contact"/>
+                                        <field name="parent_email" string='Father Email' required="1" widget="email"/>
+                                        <field name="parent_office_contact" string="Office Tel. No"/>
+                                    </group>
+                                    <group col="6" colspan="4">
+                                        <field name="mother_name"/>
+                                        <field name="mother_profession"/>
+                                        <field name="mother_contact"/>
+                                        <field name="mother_email"/>
+                                        <field name="emergency_contact"/>
+                                    </group>
+                                    <!--<group><field name="parent_residential_address"/></group>-->
+                                </div>
+                            </page>
+                            <page string="Transportation Detail">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="transport_type"/>
+                                        <field name="bus_no"/>
+                                        <field name="pick_up"/>
+                                        <field name="droup_off_pick"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Registrition Fees">
+                                <separator string="Student Registrition Fee"/>
+                                <field name="reg_fee_line">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="amount"/>
+                                        <field name="type"/>
+                                        <field name="fee_pay_type"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ============ Registratioon Fee  Action View ==================== -->
+        <record model="ir.actions.act_window" id="act_registration_fee_view1">
+            <field name="name">Registration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">registration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','reg')]</field>
+            <field name="search_view_id" ref="view_registration_search"/>
+        </record>
+
+        <record id="action_registration_fee_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_registration_fee_tree_view"/>
+            <field name="act_window_id" ref="act_registration_fee_view1"/>
+        </record>
+
+        <record id="action_registration_fee_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_registration_fee_form"/>
+            <field name="act_window_id" ref="act_registration_fee_view1"/>
+        </record>
+
+    </data>
+</odoo>

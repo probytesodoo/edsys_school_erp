@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ============== TC Student Code ==================== -->
+
+        <record id="seq_type_tc" model="ir.sequence.type">
+            <field name="name">TC Student</field>
+            <field name="code">trensfer.certificate.form</field>
+        </record>
+
+        <record id="seq_tc" model="ir.sequence">
+            <field name="name">TC Student</field>
+            <field name="code">trensfer.certificate.form</field>
+            <field name="prefix">TC</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_tc_no" model="ir.sequence">
+            <field name="name">Transfer Certificate Number Sequence</field>
+            <field name="code">trensfer.certificate</field>
+            <field name="prefix">26</field>
+            <field name="padding">7</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

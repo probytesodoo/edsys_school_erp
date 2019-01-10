@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+                <!-- ===================== Next Year Advance Fee search view ========================= -->
+        <record id="next_year_advance_fee_search_view" model="ir.ui.view">
+            <field name="name">next.year.advance.fee.search.view</field>
+            <field name="model">next.year.advance.fee</field>
+            <field name="arch" type="xml">
+                <search string="Next Year Advance Fee Search">
+                    <field name="partner_id"/>
+                    <field name="reg_id"/>
+                    <field name="batch_id"/>
+                    <field name="enq_date"/>
+                    <field name="order_id"/>
+                    <field name="state" />
+                    <group expand="0" string="Group By...">
+                        <filter string="Academic Year" domain="[]" context="{'group_by':'batch_id'}"/>
+                        <filter string="Enquiry Date" domain="[]" context="{'group_by':'enq_date'}"/>
+                        <filter string="Stage" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ================== Next Year Advance Fee Tree View========================== -->
+        <record id="next_year_advance_fee_tree_view" model="ir.ui.view">
+            <field name="name">next.year.advance.fee.tree.view</field>
+            <field name="model">next.year.advance.fee</field>
+            <field name="arch" type="xml">
+                <tree string="Next Year Advance Fee" delete="false" create="false"
+                      colors="red:state == 'fee_unpaid';blue:state == 'fee_paid';#FFA500:state == 'fee_partial_paid';gray:state == 'invoice_reconcile'">
+                    <field name="partner_id"/>
+                    <field name="reg_id"/>
+                    <field name="batch_id"/>
+                    <field name="enq_date"/>
+                    <field name="order_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+	    </record>
+
+        <!--=============== Next Year Advance Fee Form View ==================-->
+        <record id="next_year_advance_fee_form_view" model="ir.ui.view">
+            <field name="name">next.year.advance.fee.form.view</field>
+            <field name="model">next.year.advance.fee</field>
+            <field name="arch" type="xml">
+                <form string="Next Year Advance Fee">
+                    <header>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="partner_id" readonly="1"/>
+                            <field name="reg_id" readonly="1"/>
+                            <field name="batch_id" readonly="1"/>
+                            <field name="enq_date" readonly="1"/>
+                            <field name="order_id" readonly="1"/>
+                            <field name="journal_ids" widget="many2many_tags"/>
+                            <field name="journal_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Advance Fee Line">
+                                <field name="next_year_advance_fee_line_ids" readonly="1">
+                                    <tree string="Next Year Advance Fee" nolabel="1" editable="bottom">
+                                        <field name="priority"/>
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                        <field name="account_id"/>
+                                        <field name="rem_amount"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <group>
+                                        <field name="total_amount" widget="monetary"/>
+                                        <field name="total_paid_amount" widget="monetary"/>
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <field name="residual" string="Balance" widget="monetary" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Payment" attrs="{'invisible':[('state','not in',('fee_partial_paid','fee_paid'))]}">
+                                <separator string="Payment Detail"/>
+                                <field name="payment_ids">
+                                <field name="view_id" ref="view_account_payment_form_inherit"/>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- ============ Next Year Advance Fee Action View ==================== -->
+        <record model="ir.actions.act_window" id="next_year_advance_fee_action_view">
+            <field name="name">Next Year Advance Fee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">next.year.advance.fee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <!--Tree view for payment type -->
+        <record id="payment_type_tree" model="ir.ui.view">
+            <field name="name">payment.type.tree</field>
+            <field name="model">fee.payment.type</field>
+            <field name="arch" type="xml">
+                <tree string="Payment Type Tree" create="false">
+                    <field name="name" />
+                    <field name="code" />
+                    
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view design for payment type -->
+        <record id="payment_type_form" model="ir.ui.view">
+            <field name="name">payment.type.form</field>
+            <field name="model">fee.payment.type</field>
+            <field name="arch" type="xml">
+                <form string="Payment Type Form" create="false">
+                    <sheet>
+                                           
+                        <group>
+                            <group>
+                                <field name="name" /> 
+                            </group>
+                            <group>
+                                <field name="code" />
+                            </group>
+                                                   
+                        </group>
+<!--                        <group>
+                            <group>
+                                <field name="start_date" attrs="{'invisible':[('name','!=','term')]}"/>
+                            </group>
+                           
+                            <group>
+                                <field name="end_date" attrs="{'invisible':[('name','!=','term')]}"/>
+                            </group>
+                        </group>-->
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!--Action for Payment Type -->
+        <record id="payment_type_action" model="ir.actions.act_window">
+            <field name="name">Payment Frequency</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fee.payment.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>
+     

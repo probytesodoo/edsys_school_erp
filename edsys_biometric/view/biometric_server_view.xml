@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+	    <record model="ir.ui.view" id="view_biometric_server_form">
+		<field name="name">Biometric Server Form</field>
+		<field name="model">biometric.server</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		    <form string="PRO Activities" create="false">
+		    	<!-- <header>
+		    		<button string="Fetch Biometric Data" name="fetch_biometric_data" type="object"/>
+		    	</header> -->
+		    	<sheet>
+		    		<group string="Biometric Server Details">
+			    		<field name="name"/>
+			    		<field name="port"/>
+			    		<field name="biometric_db_name"/>
+			    		<field name="biometric_db_username"/>
+			    		<field name="biometric_db_password" password="True"/>
+			    	</group>
+			    	<group name="fetch_manual_attedance_data" string="Fetch Attendance Manually">
+			    		<group>
+							<field name="attendance_date_from"/>
+							<button name="fetch_attendance_data_manually" string="Fetch Data" type="object"/>
+						</group>
+					</group>
+			    	
+		    	</sheet>
+			</form>
+		</field>
+	   </record>
+	   
+	   
+	   
+	    <record model="ir.ui.view" id="view_biometric_server_tree">
+			<field name="name">Biometric Server Tree</field>
+			<field name="model">biometric.server</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+			    <tree create="false">
+				    <field name="name"/>
+		    		<field name="port"/>
+		    		<field name="biometric_db_name"/>
+			    </tree>
+			</field>
+		</record>
+		
+        <record model="ir.actions.act_window" id="action_biometric_server_form">
+            <field name="name">Biometric Server Action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">biometric.server</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        
+        
+        <menuitem id="main_biometric_server_menu" name='Biometric Server Configurations' parent='hr.menu_hr_root' /> 
+		<menuitem id="biometric_server_menu" name='Biometric Server Configurations' parent='main_biometric_server_menu' action="action_biometric_server_form" /> 
+		
+		 
+	</data>
+</odoo>
+

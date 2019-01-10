@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="res_lang_tree_inherit">
+			<field name="name">Language</field>
+			<field name="model">res.lang</field>
+			<field name="inherit_id" ref="base.res_lang_tree" />
+			<field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='iso_code']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <xpath expr="//tree/field[@name='direction']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <xpath expr="//tree/field[@name='translatable']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <!-- <xpath expr="//tree/button[@name='Update Terms']" position="attributes"> -->
+                    <!-- <attribute name='invisible'>1</attribute> -->
+				<!-- </xpath> -->
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="res_lang_form_inherit">
+			<field name="name">Language</field>
+			<field name="model">res.lang</field>
+			<field name="inherit_id" ref="base.res_lang_form" />
+			<field name="arch" type="xml">
+
+                <xpath expr="//field[@name='time_format']" position="after">
+                    <field name="is_optional" string="Is Optional"/>
+				</xpath>
+				<xpath expr="//group/field[@name='grouping']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <!--<xpath expr="//form/sheet/group/field[@name='date_format']" position="attributes">-->
+                    <!--<attribute name='invisible'>1</attribute>-->
+				<!--</xpath>-->
+                <xpath expr="//group/field[@name='time_format']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <xpath expr="//group/field[@name='direction']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <xpath expr="//group/field[@name='decimal_point']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <xpath expr="//group/field[@name='thousands_sep']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <xpath expr="//group/field[@name='translatable']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <xpath expr="//group/field[@name='iso_code']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+                <xpath expr="//form/sheet/group[2]" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+               <!--  <xpath expr="//form/sheet/group[3]" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath> -->
+                <xpath expr="//group[3]" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+				</xpath>
+
+            </field>
+        </record>
+
+        <!-- Action for Language -->
+        <record id="act_res_lang_form_inherit" model="ir.actions.act_window">
+            <field name="name">Language</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.lang</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

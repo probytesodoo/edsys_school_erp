@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="product_template_discount_form_view_inherited">
+            <field name="name">product.template.only.form.view.inherited</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+<!--                    <attribute name='invisible'>1</attribute>-->
+                     <h3><group><field name="fees" readonly="1"/></group></h3>
+                     <h3><group><field name="is_fees_discount" readonly="1"/></group></h3>
+                    <group>
+                        <field name="is_admission_fee" attrs="{'invisible':[('is_fees_discount','=',True)]}"/>
+                    </group>
+                </xpath>
+               <xpath expr="//page[4]" position="after">
+                    <page string="Discount" attrs="{'invisible':[('is_fees_discount','=',True)]}">
+                        <group>
+                             <field name="fees_discount" domain="[('is_fees_discount','=',True)]"/>
+                        </group>
+                    </page>
+                </xpath> 
+              <!--   <xpath expr="//page[@string='Procurements']" position="attributes">
+                     <attribute name='invisible'>0</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Inventory']" position="attributes">
+                     <attribute name='invisible'>0</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Sales']" position="attributes">
+                     <attribute name='invisible'>0</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Variants']" position="attributes">
+                     <attribute name='invisible'>0</attribute>
+                </xpath> -->
+                <xpath expr="//field[@name='type']" position="attributes">
+                     <attribute name='readonly'>0</attribute>
+                </xpath>
+               <!--  <xpath expr="//field[@name='property_account_income_id']" position="attributes">
+                     <attribute name='attrs'>{'required':[('fees','=',True)]}</attribute>
+                </xpath> -->
+
+            </field>
+        </record>
+
+        <record id="product_template_fees_action_view" model="ir.actions.act_window">
+            <field name="name">Fee Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product.product_template_kanban_view"/>
+            <field name="context">{"default_fees":1,"default_type":'service'}</field>
+            <field name="domain">[('fees','=',1)]</field>
+        </record>
+
+        <record id="product_template_discount_action_view" model="ir.actions.act_window">
+            <field name="name">Discount Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product.product_template_kanban_view"/>
+            <field name="context">{"default_is_fees_discount":1,"default_type":'service'}</field>
+            <field name="domain">[('is_fees_discount','=',1)]</field>
+        </record>
+
+    </data>
+</odoo>

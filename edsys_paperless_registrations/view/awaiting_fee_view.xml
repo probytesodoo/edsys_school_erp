@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- =============== Inherited Registration Awaiting Fee form view==================-->
+        <record id="view_waiting_fee_form_view_inherit_paper_less" model="ir.ui.view">
+            <field name="name">view.waiting.fee.form.view.inherit.paper.less</field>
+            <field name="model">registration</field>
+            <field name="inherit_id" ref="edsys_edu.view_waiting_fee_form_view"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//notebook//page[@name='address']//group[1]" position="after">
+                     <group>
+                         <field name="postal_address" readonly="1"/>
+                     </group>
+                 </xpath>
+                <xpath expr="//page[@name='personal_detail']//group[4]" position="after">
+                    <newline/><separator string="Family History"/><newline/>
+                    <group>
+                        <field name="student_is_living_with" readonly="1"/>
+                        <field name="lang_spoken_at_home" readonly="1"/>
+                        <field name="english_is_spoken_at_home" readonly="1"/>
+                    </group>
+                    <newline/><separator string="Proficiency in English as a Second Language"/><newline/>
+                    <group colspan="6" col="6">
+                        <field name="english_written" readonly="1"/>
+                        <field name="english_spoken" readonly="1"/>
+                        <field name="english_reading" readonly="1"/>
+                    </group>
+                 </xpath>
+                <!-- -->
+                <xpath expr="//notebook//page[@name='personal_detail']"
+                       position="after">
+                    <page string="General Details">
+                        <group col="2" colspan="4">
+                            <field name="identified_gifted_or_talented" readonly="1"/>
+                            <field name="has_child_detained" readonly="1"/>
+                            <field name="has_child_detained_grade" readonly="1" attrs="{'invisible': [('has_child_detained','=','no')]}"/>
+                            <field name="child_received_academic_distinction" readonly="1"/>
+                            <field name="child_received_academic_distinction_details" readonly="1" attrs="{'invisible': [('child_received_academic_distinction','=','no')]}" placeholder="if your child received academic distinction mention here" />
+                            <field  name="has_suspended_expelled_by_school" readonly="1"/>
+                            <field name="has_suspended_expelled_by_school_details" readonly="1" attrs="{'invisible': [('has_suspended_expelled_by_school','=','no')]}" placeholder="If yes, please indicate details" />
+                            <field name="child_associated_with_awareness" readonly="1"/>
+                            <field name="child_associated_with_awareness_details" readonly="1" attrs="{'invisible': [('child_associated_with_awareness','=','no')]}" placeholder="If yes, please indicate details" />
+                            <field name="member_of_environment_protection" readonly="1"/>
+                            <field name="member_of_environment_protection_details" readonly="1" attrs="{'invisible': [('member_of_environment_protection','=','no')]}" placeholder="If yes, please indicate details" />
+                            <field name="leadership_positions_in_school" readonly="1"/>
+                            <field name="leadership_positions_in_school_details" readonly="1" attrs="{'invisible': [('leadership_positions_in_school','=','no')]}" placeholder="If yes, please indicate details" />
+                            <field name="special_education_programme" readonly="1"/>
+                            <field name="special_education_programme_details" readonly="1" attrs="{'invisible': [('special_education_programme','=','no')]}" placeholder="If yes, please indicate details" />
+                            <field name="special_learning_disability" readonly="1"/>
+                            <field name="special_learning_disability_details" readonly="1" attrs="{'invisible': [('special_learning_disability','=','no')]}"/>
+                            <field name="has_other_than_english_languages" readonly="1"/>
+                            <field name="other_than_english_languages" readonly="1" attrs="{'invisible': [('has_other_than_english_languages','=','no')]}"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='parent_detail']"
+                       position="replace">
+                    <page string="Parents Detail">
+                        <separator string="Father Details"/>
+                        <group colspan="4" col="4">
+                            <field name="parent_name" required="1" readonly="1"/>
+                            <field name="father_nationality"/>
+                            <field name="father_passport"/>
+                            <field name="father_emirates_id"/>
+                            <field name="parent_profession" string='Father Profession' readonly="1"/>
+                            <field name='isd_code' placeholder="ISD" readonly="1"/>
+                            <field name="parent_contact" string="Father Contact" readonly="1"/>
+                            <field name="parent_email" string='Father Email' required="1" widget="email" readonly="1"/>
+                            <field name="parent_office_contact" string="Office Tel. No" readonly="1"/>
+                        </group>
+                        <newline><separator string="Mother Details"/></newline>
+                        <group colspan="4" col="4">
+                            <field name="mother_name" readonly="1"/>
+                            <field name="mother_nationality" readonly="1"/>
+                            <field name="mother_passport" readonly="1"/>
+                            <field name="mother_emirates_id" readonly="1"/>
+                            <field name="mother_profession" readonly="1"/>
+                            <field name="mother_contact" readonly="1"/>
+                            <field name="mother_office_contact" readonly="1"/>
+                            <field name="mother_email" readonly="1"/>
+                        </group>
+                        <newline><separator string="Emergency Contact"/></newline>
+                        <group col="4" colspan="4">
+                            <field name="person_to_call" readonly="1"/>
+                            <field name="emergency_contact" readonly="1"/>
+                            <field name="emergency_relationship" readonly="1"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='school_history']"
+                       position="after">
+                    <page string="Extra Curricular">
+                        <group col="2" colspan="4">
+                            <field name="hobbies_interests" readonly="1"/>
+                            <field name="sport_child_play" readonly="1"/>
+                            <field name="special_activity_interested" readonly="1"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <field name="has_play_any_musical_instrument" readonly="1"/>
+                            <field name="musical_instrument_details"
+                                   attrs="{'invisible': [('has_play_any_musical_instrument','=','no')]}" readonly="1"/>
+                            <field name="has_formal_training_in_music" readonly="1"/>
+                            <field name="training_in_music_details"
+                                   attrs="{'invisible': [('has_formal_training_in_music','=','no')]}" readonly="1"/>
+                            <field name="has_training_or_interest_art" readonly="1"/>
+                            <field name="has_training_or_interest_art_details"
+                                   attrs="{'invisible': [('has_training_or_interest_art','=','no')]}" readonly="1"/>
+                            <field name="inter_school_competitions" readonly="1"/>
+                            <field name="inter_school_competitions_details" readonly="1"
+                                   attrs="{'invisible': [('inter_school_competitions','=','no')]}"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='transportation_detail']//div[@class='oe_list_content']"
+                       position="replace">
+                    <group col="2" colspan="2">
+                        <field name="has_use_bus_facility"/>
+                    </group>
+                    <group col="4" colspan="4" attrs="{'invisible': [('has_use_bus_facility','=','no')]}">
+                        <field name="transport_type" readonly="1" />
+                        <field name="bus_no" readonly="1" />
+                        <field name="pick_up" readonly="1" attrs="{'invisible': [('transport_type','=','own')]}"/>
+                        <field name="droup_off_pick" readonly="1" attrs="{'invisible': [('transport_type','=','own')]}" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

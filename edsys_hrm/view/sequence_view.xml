@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ============== Sequence Employee Code ==================== -->
+
+        <record id="seq_type_emp_code" model="ir.sequence">
+            <field name="name">Employee Code</field>
+            <field name="code">Employee Code</field>
+        </record>
+
+        <record id="seq_emp_code" model="ir.sequence">
+            <field name="name">Employee Code</field>
+            <field name="code">Employee Code</field>
+            <field name="prefix">4</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
+
+
+
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        ============== Sequence Employee Code ====================
+
+        <record id="seq_type_emp_code" model="ir.sequence">
+            <field name="name">Employee Code</field>
+            <field name="code">Employee Code</field>
+        </record>
+
+        <record id="seq_emp_code" model="ir.sequence">
+            <field name="name">Employee Code</field>
+            <field name="code">Employee Code</field>
+            <field name="prefix">4</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>  -->

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- =========== confirm fee structure tree view ============= -->
+        <record id="view_confirm_fees_tree" model="ir.ui.view">
+            <field name="name">view.confirm.fees.tree.view</field>
+            <field name="model">promote.student.line</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Confirm Fee Structure Tree"  colors="red:status=='not_confirm';green:status=='confirm'">
+                    <field name="student_id"/>
+                    <field name="current_academic_year"/>
+                    <field name="current_academic_class"/>
+                    <field name="current_academic_section"/>
+                    <field name="new_acad_year"/>
+                    <field name="new_acad_class"/>
+                    <field name="new_acad_section"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ============= confirm fee structure search view =========== -->
+        <record id="view_confirm_fees_search" model="ir.ui.view">
+            <field name="name">confirm.fee.search.view</field>
+            <field name="model">promote.student.line</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Confirm Fee Structure search view">
+                    <field name="student_id"/>
+                    <field name="current_academic_year"/>
+                    <field name="current_academic_class"/>
+                    <field name="current_academic_section"/>
+                    <field name="new_acad_year"/>
+                    <field name="new_acad_class"/>
+                    <field name="new_acad_section"/>
+                    <field name="status"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Status" name="status" domain="[]" context="{'group_by':'status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--=============== confirm fee structure form view==================-->
+        <record id="view_confirm_fees_form" model="ir.ui.view">
+            <field name="name">view.confirm.fee.form</field>
+            <field name="model">promote.student.line</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Fee Structure">
+                    <header>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="student_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="current_academic_year" readonly="1"/>
+                                <field name="current_academic_class" readonly="1"/>
+                                <field name="current_academic_section" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="new_acad_year" readonly="1"/>
+                                <field name="new_acad_class" readonly="1"/>
+                                <field name="new_acad_section" attrs="{'readonly' : [('promoted_fee_structure_done','!=',False)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Fee Structure">
+                                <group>
+                                    <group>
+                                        <field name="discount_category" widget="selection" attrs="{'readonly' : [('status','=','confirm')]}"/>
+                                    </group>
+                                    <group>
+                                        <div class="oe_right">
+                                            <button name="confirm_promoted_fee_structure" string="Confirm" type="object"
+                                                    class="oe_highlight" attrs="{'invisible' : [('promoted_fee_structure_done','!=',False)]}" />
+                                            <button name="reverse_promoted_fee_structure" string="Reverse" type="object"
+                                                    class="oe_highlight" attrs="{'invisible':['|',('promoted_fee_structure_done','!=',True),('promoted_fee_structure_confirm','!=',False)]}" />
+                                            <button name="confirm_done_promoted_fee_structure" string="Done" type="object"
+                                                    class="oe_highlight" attrs="{'invisible':['|',('promoted_fee_structure_done','!=',True),('promoted_fee_structure_confirm','!=',False)]}"/>
+                                        </div>
+                                    </group>
+                                    <field name="promoted_fee_structure_confirm" invisible="1"/>
+                                    <field name="promoted_fee_structure_done" invisible="1"/>
+                                </group>
+                                <field name="fees_structure_lines" attrs="{'readonly' : [('status','=','confirm')]}">
+                                    <tree string="Fee Lines" editable="bottom">
+                                        <field name="sequence" string="Priority"/>
+                                        <field name="name"/>
+                                        <field name="amount"/>
+                                        <field name="discount"/>
+                                        <field name="discount_amount"/>
+                                        <field name="type" required="1"/>
+                                        <field name="fee_pay_type" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!--=============== confirm fee structure action ==================-->
+        <record id="act_confirm_fees_view" model="ir.actions.act_window">
+            <field name="name">Confirm Fee Structure</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">promote.student.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','!=','draft')]</field>
+            <field name="search_view_id" ref="view_confirm_fees_search"/>
+        </record>
+
+        <record id="action_confirm_fee_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_confirm_fees_tree"/>
+            <field name="act_window_id" ref="act_confirm_fees_view"/>
+        </record>
+
+        <record id="action_confirm_fee_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_confirm_fees_form"/>
+            <field name="act_window_id" ref="act_confirm_fees_view"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="send_monthly_fee_form_view" model="ir.ui.view">
+            <field name="name">send.monthly.fee.wizard.view</field>
+            <field name="model">send.monthly.fee.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Send Monthly Fee Calculations">
+                    <h3><label string="Are you sure to send monthly fee calculations?"/></h3>
+                    <footer>
+                        <button name="send_monthly_fee_button" string="Send Invoices" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_send_monthly_fee_wizard_view"
+            name="Send Invoices"
+            res_model="send.monthly.fee.wizard"
+            src_model="fee.payment"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"
+            />
+
+    </data>
+</odoo>

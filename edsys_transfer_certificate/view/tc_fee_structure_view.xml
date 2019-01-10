@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- TC Fees Structure Information From View -->
+        <record model="ir.ui.view" id="tc_fees_structure_form">
+            <field name="name">tc.fees.structure.form</field>
+            <field name="model">tc.fees.structure</field>
+            <field name="arch" type="xml">
+                <form string="TC Student Fees Structure">
+                    <sheet>
+	                   <group col="4" colspan="4">
+	                       <field name="name" placeholder="Name"/>
+	                       <field name="code" placeholder="Code"/>
+	                   </group>
+	                   <notebook colspan="4">
+	                       <page string="Fees Lines">
+	                           <field name="tc_fees_line_ids" nolabel="1" colspan="4">
+                                   <tree string='Fees Lines' editable='bottom'>
+                                       <field name="sequence" string="Priority" required="1"/>
+                                       <field name="name" domain="[('fees','=',True)]"/>
+                                       <field name="type" required="1"/>
+                                       <field name="tc_type" string="TC Type" required="1"/>
+                                       <field name="amount"/>
+                                   </tree>
+                               </field>
+	                       </page>
+	                   </notebook>
+	               </sheet>
+                </form>
+            </field>
+        </record>
+
+     <!-- Student Fees Structure Information Tree View-->
+        <record model="ir.ui.view" id="tc_fees_structure_tree">
+            <field name="name">tc.fees.structure.tree</field>
+            <field name="model">tc.fees.structure</field>
+            <field name="arch" type="xml">
+                <tree string="Fees Structure">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_tc_fees_structure_form">
+            <field name="name">Fee Structure</field>
+            <field name="res_model">tc.fees.structure</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

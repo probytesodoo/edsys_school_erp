@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<odoo>
+    <data>
+        
+        <report
+            id="point_of_sale.action_report_pos_receipt"
+            string="Receipt"
+            model="pos.order"
+            report_type="qweb-pdf"
+            name="edsys_pos.report_pos_order"
+            file="edsys_pos.report_pos_order"
+        />
+        
+    </data>
+</odoo>

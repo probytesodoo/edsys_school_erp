@@ -1,0 +1,17 @@
+<odoo>
+    <data>           
+
+        <record model="ir.ui.view" id="invoice_form_edsys_fee_inherit">
+			<field name="name">invoice.form.edsys.fee.inherit</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form" />
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="fee_calculation_mail_sent" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

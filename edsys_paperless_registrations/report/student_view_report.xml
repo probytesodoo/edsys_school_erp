@@ -1,0 +1,1058 @@
+<openerp>
+    <data>
+
+        <!-- Report Declaration -->
+        <report id="student_admission_report"
+                model="res.partner"
+                string="Student Admission Report"
+                name="edsys_paperless_registrations.student_admission_report_templet"
+                file="edsys_paperless_registrations.student_admission_report_templet"
+                report_type="qweb-pdf" />
+
+        <!-- Report Header -->
+        <template id="student_header_footer">
+            <t t-call="edsys_paperless_registrations.own_header"/>
+            <t t-raw="0"/>
+            <t t-call="edsys_paperless_registrations.own_footer"/>
+        </template>
+
+        <!-- Report own Header -->
+        <template id="own_header">
+            <div class="header">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <center><b>Student Admission Report</b></center>
+                        </td>
+                    </tr>
+                </table>
+                <hr/>
+            </div>
+        </template>
+
+        <!-- Report own Footer -->
+        <template id="own_footer">
+            <div class="footer">
+                <hr/>
+                <table>
+                    <tr>
+                        <td class="text-right" bgcolor="#BDBDBD" width="10%"><b>Page </b><span class="page" /> of <span class="topage" /></td>
+                    </tr>
+                </table>
+            </div>
+        </template>
+
+        <!-- Report Templets -->
+        <template id="student_admission_report_templet">
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout"></t>
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="edsys_paperless_registrations.student_header_footer">
+                        <div class="page">
+                            <!--===========================Report Page 1 =============================-->
+                            <!--<style>-->
+                                <!--table tr td th-->
+                                <!--{-->
+                                <!--width:20%;-->
+                                <!--}-->
+                                <!--th-->
+                                <!--{-->
+                                <!--background-color:#2980b9;-->
+                                <!--color:#2c3e50;-->
+                                <!--}-->
+                            <!--</style>-->
+                            <table class="table" style="width:100%;">
+                                <tr>
+                                    <td rowspan="4" width="20%">
+                                        <t t-set="image" t-value="''"/>
+                                        <t t-if="o.image">
+                                            <t t-set="image" t-value="o.image"/>
+                                        </t>
+                                        <img t-att-src="'data:image/png;base64,'+image" width="130" height="150"/>
+                                    </td>
+                                    <td rowspan="4" style="width:20%;"></td>
+                                    <th>Online Registration No.</th><td><t t-esc="o.reg_no"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Date of Application</th><td><t t-esc="o.date_of_joining"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Admitted to Grade</th><td><t t-esc="o.course_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Academic Year</th><td><t t-esc="o.year_id.name"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 A. Student Details</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Name of Student:(in Block Letters) *</td><td><t t-esc="o.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date Of Birth</td><td><t t-esc="o.birth_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td><td><t t-esc="o.gender"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Place of Birth</td><td><t t-esc="o.birth_place"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Nationality</td><td><t t-esc="o.nationality.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Religion</td><td><t t-esc="o.religion_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Passport No</td><td><t t-esc="o.passport_no"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Place of Issue</td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Issue</td><td><t t-esc="o.passport_issue_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Expiry</td><td><t t-esc="o.passport_expiry_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Visa No</td><td><t t-esc="o.visa_no"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Issue</td><td><t t-esc="o.visa_issue_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Expiry</td><td><t t-esc="o.visa_expiry_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Emirates Id No</td><td><t t-esc="o.emirates_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Residential Address</td><td><t t-esc="o.street"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Postal Address</td><td><t t-esc="o.street"/></td>
+                                </tr>
+                                <tr>
+                                    <td>E-mail</td><td><t t-esc="o.email"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile</td><td><t t-esc="o.mobile"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 B. Family History</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Student is living with</td><td><t t-esc="o.student_is_living_with"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Language(s) spoken at home</td><td>
+                                    <t t-foreach="o.lang_spoken_at_home" t-as="lang_rec">
+                                        <t t-esc="lang_rec.name"/> ,
+                                    </t></td>
+                                </tr>
+                                <tr>
+                                    <td>English is spoken at home (Yes / No)</td><td><t t-esc="o.english_is_spoken_at_home"/></td>
+                                </tr><tr>
+                                <td>Proficiency in English as a Second Language (Mark a tick in the appropriate box)</td><td><t t-esc="o.english_spoken"/><br/><t t-esc="o.english_written"/><br/><t t-esc="o.english_reading"/></td>
+                            </tr>
+
+                            </table>
+                            <!--===========================Report Page 2 =============================-->
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 C. Father’s Details</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Name</td><td><t t-esc="o.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Nationality</td><td><t t-esc="o.parents1_id.father_nationality.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Passport No.</td><td><t t-esc="o.parents1_id.father_passport"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Emirates Id No</td><td><t t-esc="o.parents1_id.father_emirates_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Designation</td><td><t t-esc="o.parents1_id.parent_profession"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Office Address</td><td><t t-esc="o.parents1_id.parents_office_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tel. No. (Office)</td><td><t t-esc="o.parent_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile</td><td><t t-esc="o.parent_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>E-mail</td><td><t t-esc="o.parents1_id.parents_email"/></td>
+                                </tr>
+
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 D. Mother’s Details</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Name</td><td><t t-esc="o.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Nationality</td><td><t t-esc="o.parents1_id.mother_nationality.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Passport No.</td><td><t t-esc="o.parents1_id.mother_passport"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Emirates Id No</td><td><t t-esc="o.parents1_id.mother_emirates_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Designation</td><td><t t-esc="o.parents1_id.mother_profession"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Office Address</td><td><t t-esc="o.parents1_id.mother_office_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tel. No. (Office)</td><td><t t-esc="o.mother_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile</td><td><t t-esc="o.mother_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>E-mail</td><td><t t-esc="o.parents1_id.mother_email"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 E. Parent Resources</strong></th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">We are keen to use talent and resources that are available in the School Community which can enrich our school programme.</td>
+                                </tr>
+                                <tr>
+                                    <td>Please indicate if you may be able to make any special contribution to the School, such as:</td>
+                                    <td><t t-esc="o.parents1_id.spe_contribution"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+
+                            <!--===========================Report Page 3 =============================-->
+
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 F. Educational History</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Current School Name (Where the child is studying now)</td><td><t t-esc="o.prev_institute"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td><td><t t-esc="o.prev_academic_city"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Subjects studied/Curriculum</td><td><t t-esc="o.curriculum"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Medium of Instruction</td><td><t t-esc="o.medium_of_instruction"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Last date of Attendance</td><td><t t-esc="o.last_attendance"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Reason for Transfer</td><td><t t-esc="o.tranfer_reason"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>General (Please tick the appropriate answer)</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Current School Name (Where the child is studying now)</td><td><t t-esc="o.prev_institute"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Has your child ever received a double promotion</td>
+                                    <td>
+                                        <t t-if="o.received_double_promotion == 'yes'"> Yes </t>
+                                        <t t-if="o.received_double_promotion == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Has your child ever been identified as gifted or talented?</td>
+                                    <td>
+                                        <t t-if="o.identified_gifted_or_talented == 'yes'"> Yes </t>
+                                        <t t-if="o.identified_gifted_or_talented == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Has your child ever been detained?</td>
+                                    <td>
+                                        <t t-if="o.has_child_detained == 'yes'"> Yes </t>
+                                        <t t-if="o.has_child_detained == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.has_child_detained == 'yes'">
+                                    <tr>
+                                        <td>Grade</td>
+                                        <td>
+                                            <span t-esc="o.has_child_detained_grade.name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child received any academic distinction?</td>
+                                    <td>
+                                        <t t-if="o.child_received_academic_distinction == 'yes'"> Yes </t>
+                                        <t t-if="o.child_received_academic_distinction == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.child_received_academic_distinction == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details: <t t-esc="o.child_received_academic_distinction_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child ever been suspended/ expelled by any school in the past?</td>
+                                    <td>
+                                        <t t-if="o.has_suspended_expelled_by_school == 'yes'"> Yes </t>
+                                        <t t-if="o.has_suspended_expelled_by_school == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.has_suspended_expelled_by_school == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details: <t t-esc="o.has_suspended_expelled_by_school_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child been associated with any social awareness programme?</td>
+                                    <td>
+                                        <t t-if="o.child_associated_with_awareness == 'yes'"> Yes </t>
+                                        <t t-if="o.child_associated_with_awareness == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.child_associated_with_awareness == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details:<t t-esc="o.child_associated_with_awareness_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child been a member of environment protection group?</td>
+                                    <td>
+                                        <t t-if="o.member_of_environment_protection == 'yes'"> Yes </t>
+                                        <t t-if="o.member_of_environment_protection == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.member_of_environment_protection == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details: <t t-esc="o.member_of_environment_protection_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child held any leadership positions in School? (Prefectorial Board/ Student Council) Yes / No</td>
+                                    <td>
+                                        <t t-if="o.leadership_positions_in_school == 'yes'"> Yes </t>
+                                        <t t-if="o.leadership_positions_in_school == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.leadership_positions_in_school == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details:<t t-esc="o.leadership_positions_in_school_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child ever been in a speech therapy, remedial reading support, special education programme?</td>
+                                    <td>
+                                        <t t-if="o.special_education_programme == 'yes'"> Yes </t>
+                                        <t t-if="o.special_education_programme == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.special_education_programme == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details:<t t-esc="o.special_education_programme_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child ever been identified as having a special learning disability?</td>
+                                    <td>
+                                        <t t-if="o.special_learning_disability == 'yes'"> Yes </t>
+                                        <t t-if="o.special_learning_disability == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.special_learning_disability == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate learning disability area:
+                                            <t t-if="o.special_learning_disability_details == 'reading'">Reading
+                                            </t>
+                                            <t t-if="o.special_learning_disability_details == 'language'">Language
+                                            </t>
+                                            <t t-if="o.special_learning_disability_details == 'mathematics'">Mathematics
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child ever studied any languages other than English?</td>
+                                    <td>
+                                        <t t-if="o.has_other_than_english_languages == 'yes'"> Yes </t>
+                                        <t t-if="o.has_other_than_english_languages == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.has_other_than_english_languages == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please mention the other languages:
+                                            <t t-esc="o.other_than_english_languages.name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Optional Language Selection (Please select one option as Second Language for your child)</td>
+                                    <td>
+                                        <t t-esc="o.other_lang_id.name"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <!--===========================Report Page 4 =============================-->
+
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 G. Extracurricular Activities</strong></th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Please list your child's hobbies / interests</td>
+                                </tr>
+                                <tr>
+                                    <td>Does your child play any musical instrument?    </td>
+                                    <td>
+                                        <t t-if="o.has_play_any_musical_instrument == 'yes'"> Yes </t>
+                                        <t t-if="o.has_play_any_musical_instrument == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.has_play_any_musical_instrument == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details: <t t-esc="o.musical_instrument_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child had any formal training in music?</td>
+                                    <td>
+                                        <t t-if="o.has_formal_training_in_music == 'yes'"> Yes </t>
+                                        <t t-if="o.has_formal_training_in_music == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.has_formal_training_in_music == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details:<t t-esc="o.training_in_music_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Which sport does your child play?</td>
+                                    <td>
+                                        <t t-esc="o.sport_child_play"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Has your child been associated with any social awareness programme?</td>
+                                    <td>
+                                        <t t-if="o.child_associated_with_awareness == 'yes'"> Yes </t>
+                                        <t t-if="o.child_associated_with_awareness == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">If yes, please indicate details: <t t-esc="o.child_associated_with_awareness_details"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Has your child had any training / shown interest in fine arts?</td>
+                                    <td>
+                                        <t t-if="o.has_training_or_interest_art == 'yes'"> Yes </t>
+                                        <t t-if="o.has_training_or_interest_art == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.has_training_or_interest_art == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details: <t t-esc="o.has_training_or_interest_art_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Has your child participated in inter/ intra school competitions?</td>
+                                    <td>
+                                        <t t-if="o.inter_school_competitions == 'yes'"> Yes </t>
+                                        <t t-if="o.inter_school_competitions == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.inter_school_competitions == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please indicate details:<t t-esc="o.inter_school_competitions_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Any other special activity your child is interested in?</td>
+                                    <td>
+                                        <t t-if="o.special_activity_interested"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 H. Social History</strong></th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">(Please tick mark the appropriate descriptions)</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <t t-if="o.adjusts_new_situations_with_ease">Adjusts to new situations with ease</t>
+                                        <t t-if="o.has_small_group_of_friends">Has a small group of friends</t>
+                                        <t t-if="o.has_never_adjust_new_situation">Has never had to adjust to a new situation</t>
+                                        <t t-if="o.has_many_friends">Has many friends</t>
+                                        <t t-if="o.likes_be_active_in_school">Likes to be active in school</t></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Please tick the expression that describe your child.</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <t t-if="o.expressions_describe_your_child == 'very_active'">Very Active</t>
+                                        <t t-if="o.expressions_describe_your_child == 'very_quiet'">Very Quiet</t>
+                                        <t t-if="o.expressions_describe_your_child == 'average'">Average</t>
+                                        <t t-if="o.expressions_describe_your_child == 'above_average'">Above Average</t>
+                                        <t t-if="o.expressions_describe_your_child == 'shy'">Shy</t>
+                                        <t t-if="o.expressions_describe_your_child == 'sociable'">Sociable</t>
+                                        <t t-if="o.expressions_describe_your_child == 'aggressive'">Aggressive</t>
+                                        <t t-if="o.expressions_describe_your_child == 'other'">Other</t></td>
+                                </tr>
+                                <tr>
+                                    <td>Has your child ever experienced social, emotional or behavioural difficulties?</td>
+                                    <td>
+                                        <t t-if="o.social_emotional_behavioural_difficulties == 'yes'"> Yes </t>
+                                        <t t-if="o.social_emotional_behavioural_difficulties == 'no'"> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.social_emotional_behavioural_difficulties == 'yes'">
+                                    <tr>
+                                        <td colspan="2">If yes, please mention the details: <t t-esc="o.social_emotional_behavioural_difficulties_details"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Is there any other information you feel would be useful for those educating your child?</td>
+                                    <td>
+                                        <t t-esc="o.useful_information_for_educating"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 I. Emergency Contact</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Person to call</td><td><t t-esc="o.person_to_call"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Relationship</td><td><t t-esc="o.emergency_relationship"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tel. Nos. to call</td><td><t t-esc="o.emergency_contact"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 J. Bus Facility</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Would your child be using bus facility?</td>
+                                    <td>
+                                        <t t-if="o.has_use_bus_facility == 'yes' "> Yes </t>
+                                        <t t-if="o.has_use_bus_facility == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <t t-if="o.has_use_bus_facility == 'yes' ">
+                                    <tr>
+                                        <td>If yes, mention the pick-up point</td><td><t t-esc="o.pick_up"/></td>
+                                    </tr>
+                                </t>
+                            </table>
+
+                            <!--===========================Report Page 5 =============================-->
+
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2"><strong>1 A. Student Details</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>Name of Student:(in Block Letters)</td><td><t t-esc="o.name"/>    <t t-esc="o.middle_name"/>    <t t-esc="o.last_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of birth</td><td><t t-esc="o.birth_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>
+                                        <t t-if="o.gender == 'm'">Male</t>
+                                        <t t-if="o.gender == 'f'">Female</t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Entry to the School:</td>
+                                    <td><t t-esc="o.admission_date"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2">
+                                        <strong>Child’s Birth History</strong>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>Normal delivery</td>
+                                    <td><t t-esc="o.normal_delivery"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Caesarean</td>
+                                    <td><t t-esc="o.caesarean"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Premature</td>
+                                    <td><t t-esc="o.premature"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><b>Developmental Milestones:</b></td>
+                                </tr>
+                                <tr>
+                                    <td>At what age did your child talk? (14 months +)</td>
+                                    <td><t t-esc="o.age_your_child_talk"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Hand
+                                        <Preference></Preference>
+                                    </td>
+                                    <td>
+                                        <t t-if="o.hand_preference == 'left'"> Left </t>
+                                        <t t-if="o.hand_preference == 'right'"> Right </t>
+                                        <t t-if="o.hand_preference == 'both'"> Both </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Can the child button his shirt?</td>
+                                    <td>
+                                        <t t-if="o.can_button_his_shirt == 'yes'"> Yes  </t>
+                                        <t t-if="o.can_button_his_shirt == 'no'"> No  </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Can the child zip his pant?</td>
+                                    <td><t t-if="o.can_zip_his_pant == 'yes'"> Yes  </t>
+                                        <t t-if="o.can_zip_his_pant == 'no'"> No  </t></td>
+                                </tr>
+                                <tr>
+                                    <td>Can the child indicate his toilet needs?</td>
+                                    <td>
+                                        <t t-if="o.can_child_indicate_his_toilet_needs == 'yes'"> Yes  </t>
+                                        <t t-if="o.can_child_indicate_his_toilet_needs == 'no'"> No  </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>If yes, how?</td>
+                                    <td><t t-esc="o.child_indicate_his_toilet_needs_details"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Does your child know his phone number?</td>
+                                    <td>
+                                        <t t-if="o.child_know_his_phone_number == 'yes'"> Yes  </t>
+                                        <t t-if="o.child_know_his_phone_number == 'no'"> No  </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>What are the toys he / she likes to play with?</td>
+                                    <td><t t-esc="o.toys_likes_to_play_with"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Any special interest that your child has?</td>
+                                    <td><t t-esc="o.special_interest"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Does your child like to play: alone / with friends / with family members</td>
+                                    <td><t t-esc="o.child_like_to_play_with"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Does your child like to look at picture books?</td>
+                                    <td>
+                                        <t t-if="o.child_like_to_look_at_picture == 'yes'"> Yes  </t>
+                                        <t t-if="o.child_like_to_look_at_picture == 'no'"> No  </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Does your child like to watch TV programmes?</td>
+                                    <td>
+                                        <t t-if="o.child_like_to_watch_tv_programmes == 'yes'"> Yes  </t>
+                                        <t t-if="o.child_like_to_watch_tv_programmes == 'no'"> No  </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>What channels does he / she watch?</td>
+                                    <td><t t-esc="o.channels_like_to_watch"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Does your child have any health problem?</td>
+                                    <td>
+                                        <t t-if="o.child_have_any_health_problem == 'yes'"> Yes  </t>
+                                        <t t-if="o.child_have_any_health_problem == 'no'"> No  </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>If yes, what?</td>
+                                    <td><t t-esc="o.health_problem_details"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Is your child allergic to any medicine, food items etc.</td>
+                                    <td>
+                                        <t t-if="o.under_medication == 'True'"> Yes  </t>
+                                        <t t-if="o.under_medication == 'False'"> No  </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>If yes, what?</td>
+                                    <td><t t-esc="o.w_medication_mention"/></td>
+                                </tr>
+                            </table>
+
+                            <!--===========================Report Page 6 =============================-->
+
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2">
+                                        <strong>Student Health Information</strong>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>Name of Student:(in Block Letters) *</td>
+                                    <td><t t-esc="o.name"/><t t-esc="o.middle_name"/><t t-esc="o.last_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of birth *</td>
+                                    <td><t t-esc="o.birth_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Gender *</td>
+                                    <td>
+                                        <t t-if="o.gender == 'm'"> Male </t>
+                                        <t t-if="o.gender == 'f'"> Female </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Nationality</td>
+                                    <td><t t-esc="o.nationality.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Grade</td>
+                                    <td><t t-esc="o.course_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Health Card No</td>
+                                    <td><t t-esc="o.health_card_no"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Father’s Name</td>
+                                    <td><t t-esc="o.parents1_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Mother’s Name</td>
+                                    <td><t t-esc="o.parents1_id.mother_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Residential Address</td>
+                                    <td><t t-esc="o.street"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Residence No.</td>
+                                    <td><t t-esc="o.mobile"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Office No.</td>
+                                    <td><t t-esc="o.parents1_id.parents_office_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Father Mobile No.</td>
+                                    <td><t t-esc="o.parent_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Mother Mobile No.</td>
+                                    <td><t t-esc="o.mother_contact"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Previous School Name</td>
+                                    <td><t t-esc="o.prev_institute"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Grade</td>
+                                    <td><t t-esc="o.course_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Country</td>
+                                    <td><t t-esc="o.prev_academic_country.name"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="4">
+                                        <strong>Medical history of child: Please tick appropriately</strong>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Infectious disease</th>
+                                    <th>Yes/No</th>
+                                    <th>Non - Infectious disease</th>
+                                    <th>Yes/No</th>
+                                </tr>
+                                <tr>
+                                    <td>Diphtheria</td>
+                                    <td>
+                                        <t t-if="o.diphtheria == 'yes' "> Yes </t>
+                                        <t t-if="o.diphtheria == 'no' "> No </t>
+                                    </td>
+                                    <td>Accident</td>
+                                    <td>
+                                        <t t-if="o.accident == 'yes' "> Yes </t>
+                                        <t t-if="o.accident == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Dysentery</td>
+                                    <td>
+                                        <t t-if="o.dysentery == 'yes' "> Yes </t>
+                                        <t t-if="o.dysentery == 'no' "> No </t>
+                                    </td>
+                                    <td>Allergies</td>
+                                    <td>
+                                        <t t-if="o.allergies == 'yes' "> Yes </t>
+                                        <t t-if="o.allergies == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Infective Hepatitis</td>
+                                    <td>
+                                        <t t-if="o.infective_hepatitis == 'yes' "> Yes </t>
+                                        <t t-if="o.infective_hepatitis == 'no' "> No </t>
+                                    </td>
+                                    <td>Bronchial asthma</td>
+                                    <td>
+                                        <t t-if="o.bronchial_asthma == 'yes' "> Yes </t>
+                                        <t t-if="o.bronchial_asthma == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Measles</td>
+                                    <td>
+                                        <t t-if="o.measles == 'yes' "> Yes </t>
+                                        <t t-if="o.measles == 'no' "> No </t>
+                                    </td>
+                                    <td>Congenital heart disease</td>
+                                    <td>
+                                        <t t-if="o.congenital_heart_disease == 'yes' "> Yes </t>
+                                        <t t-if="o.congenital_heart_disease == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mumps</td>
+                                    <td><t t-if="o.mumps == 'yes' "> Yes </t>
+                                        <t t-if="o.mumps == 'no' "> No </t></td>
+                                    <td>Diabetes mellitus</td>
+                                    <td><t t-if="o.diabetes_mellitus == 'yes' "> Yes </t>
+                                        <t t-if="o.diabetes_mellitus == 'no' "> No </t></td>
+                                </tr>
+                                <tr>
+                                    <td>Poliomyelitis</td>
+                                    <td>
+                                        <t t-if="o.poliomyelitis == 'yes' "> Yes </t>
+                                        <t t-if="o.poliomyelitis == 'no' "> No </t>
+                                    </td>
+                                    <td>Epilepsy</td>
+                                    <td>
+                                        <t t-if="o.epilepsy == 'yes' "> Yes </t>
+                                        <t t-if="o.epilepsy == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Rubella</td>
+                                    <td>
+                                        <t t-if="o.rubella == 'yes' "> Yes </t>
+                                        <t t-if="o.rubella == 'no' "> No </t>
+                                    </td>
+                                    <td>G6PD (Glucose 6 phosphate dehydrogenase deficiency)</td>
+                                    <td>
+                                        <t t-if="o.G6PD == 'yes' "> Yes </t>
+                                        <t t-if="o.G6PD == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Scarlet fever</td>
+                                    <td>
+                                        <t t-if="o.scarlet_fever == 'yes' "> Yes </t>
+                                        <t t-if="o.scarlet_fever == 'no' "> No </t>
+                                    </td>
+                                    <td>Rheumatic fever</td>
+                                    <td>
+                                        <t t-if="o.rheumatic_fever == 'yes' "> Yes </t>
+                                        <t t-if="o.rheumatic_fever == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tuberculosis</td>
+                                    <td>
+                                        <t t-if="o.tuberculosis == 'yes' "> Yes </t>
+                                        <t t-if="o.tuberculosis == 'no' "> No </t>
+                                    </td>
+                                    <td>Surgical Operation</td>
+                                    <td>
+                                        <t t-if="o.surgical_operation == 'yes' "> Yes </t>
+                                        <t t-if="o.surgical_operation == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Whooping cough</td>
+                                    <td>
+                                        <t t-if="o.whooping_cough == 'yes' "> Yes </t>
+                                        <t t-if="o.whooping_cough == 'no' "> No </t>
+                                    </td>
+                                    <td>Thalassemia</td>
+                                    <td>
+                                        <t t-if="o.thalassemia == 'yes' "> Yes </t>
+                                        <t t-if="o.thalassemia == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Chicken pox</td>
+                                    <td>
+                                        <t t-if="o.chicken_pox == 'yes' "> Yes </t>
+                                        <t t-if="o.chicken_pox == 'no' "> No </t>
+                                    </td>
+                                    <td>Physically challenged</td>
+                                    <td>
+                                        <t t-if="o.physically_challenged == 'yes' "> Yes </t>
+                                        <t t-if="o.physically_challenged == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Others</td>
+                                    <td>
+                                        <t t-if="o.infectious_disease_other == 'yes' "> Yes </t>
+                                        <t t-if="o.infectious_disease_other == 'no' "> No </t>
+                                    </td>
+                                    <td>Hearing/speech defect</td>
+                                    <td>
+                                        <t t-if="o.hearing_speech_defect == 'yes' "> Yes </t>
+                                        <t t-if="o.hearing_speech_defect == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Vision problems</td>
+                                    <td>
+                                        <t t-if="o.vision_problems == 'yes' "> Yes </t>
+                                        <t t-if="o.vision_problems == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">History of blood transfusion</td>
+                                    <td colspan="2">
+                                        <!--<t t-if="o. == 'yes' "> Yes </t>-->
+                                        <!--<t t-if="o. == 'no' "> No </t>-->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Hospitalization</td>
+                                    <td colspan="2">
+                                        <t t-if="o.hospitalization == 'yes' "> Yes </t>
+                                        <t t-if="o.hospitalization == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Family History</td>
+                                    <td colspan="2">
+                                        <t t-if="o.HTN">HTN, </t>
+                                        <t t-if="o.diabetes">Diabetes, </t>
+                                        <t t-if="o.mental">Mental disorders, </t>
+                                        <!--<t t-if="o.disorders"></t>-->
+                                        <t t-if="o.stroke">Stroke, </t>
+                                        <t t-if="o.TB">Mental, </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Others, Specify</td>
+                                    <td colspan="2"><t t-esc="o.HTN_other"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Is your child allergic to any medicine/drugs?</td>
+                                    <td colspan="2">
+                                        <t t-if="o.medicine_or_drugs == 'yes' "> Yes </t>
+                                        <t t-if="o.medicine_or_drugs == 'no' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">If yes, please indicate the name of the medicine/drug : <t t-esc="o.medicine_or_drugs_details"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Is your child currently under medication/treatment</td>
+                                    <td colspan="2">
+                                        <t t-if="o.under_medication == 'True' "> Yes </t>
+                                        <t t-if="o.under_medication == 'False' "> No </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">If yes, please indicate the type and purpose</td>
+                                    <td colspan="2"><t t-esc="o.w_medication_mention"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2">
+                                        <strong>Consents</strong>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>A) I give consent to the School Nurse to give my child oral analgesic or any
+                                        antipyretic drug (for pain and administer first aid, if needed
+                                    </td>
+                                    <td><t t-esc="o.give_consent_oral_analgesic"/></td>
+                                </tr>
+                                <tr>
+                                    <td>B) I give my consent for emergency measure including hospital treatment to be
+                                        initiated for my child incase an accident or sudden illness (including school
+                                        planned excursions)
+                                    </td>
+                                    <td><t t-esc="o.give_consent_hospital_treatment"/></td>
+                                </tr>
+                                <tr>
+                                    <td>C) I give consent for the immunization for my child (applicable to children
+                                        being admitted in Grade 1 and above
+                                    </td>
+                                    <td><t t-esc="o.give_consent_immunization"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

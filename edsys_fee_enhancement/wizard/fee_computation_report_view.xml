@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <!-- Form view for Fee Computation Report Wizard -->
+        <record id="fee_computation_report_view" model="ir.ui.view">
+            <field name="name">fee computation report</field>
+            <field name="model">fee.compt.report</field>
+            <field name="arch" type="xml">
+                <form string="Fee Computation Report">
+                    <group>
+                        <field name="class_id"/>
+                        <field name="student_section_id"/>
+                        <field name="batch_id"/>
+                       	<field name="parent_ids" context="{'tree_view_ref': 'edsys_fee_enhancement.view_parent_tree_view'}"
+                               domain="[('is_parent','=',True),('is_student','=',False)]">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="fee_compute_report" string="Fee Computation Report" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <act_window
+            id="action_fee_computation_report_view"
+            name="Fee Computation Report"
+            res_model="fee.compt.report"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+            
+            <menuitem id="fee_compt_report_menu" name="Fee Computation Report" parent="account.menu_finance_legal_statement"
+                  action="action_fee_computation_report_view"/>
+            
+
+    </data>
+</odoo>

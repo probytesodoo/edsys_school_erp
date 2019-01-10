@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+        <!--===== Move single or multiple students to TC Process Completed state ====== -->
+        <record id="ministry_app_confirm" model="ir.ui.view">
+            <field name="name">ministry.app.confirm</field>
+            <field name="model">ministry.approval.confirm</field>
+            <field name="arch" type="xml">
+                <form string="Confirm TC Application">
+                    <h3><label string="Are you sure to Confirm TC application for these student?"/></h3>
+                    <footer>
+                        <button name="ministry_confirm" string="Confirm" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <!-- ====== Display in Re-registration waiting Student view ====== -->
+        <act_window
+            id="action_ministry_app_confirm"
+            name=" Confirm TC Application "
+            res_model="ministry.approval.confirm"
+            src_model="trensfer.certificate"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</odoo>

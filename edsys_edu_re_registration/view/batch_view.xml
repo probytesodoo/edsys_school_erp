@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="inherit_view_barch_form_view" model="ir.ui.view">
+            <field name="name">inherit.</field>
+            <field name="model">batch</field>
+            <field name="inherit_id" ref="edsys_edu.view_barch_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <seperator />
+                    <group col="12">
+                        <group colspan="4" string="Re-registration">
+                            <field name="re_reg_start_date" />
+                            <field name="re_reg_end_date" />
+                        </group>
+                        <group  colspan="4" string="Promotion">
+                            <field name="promotion_start_date" />
+                            <field name="promotion_end_date" />
+                        </group>
+                        <group  colspan="4" string="TC">
+                            <field name="tc_start_date" />
+                            <field name="tc_end_date" />
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

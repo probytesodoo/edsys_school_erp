@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <!-- ================= Strike_off Student Menu=========================== -->
+        <menuitem id="student_strike_off_menu" name="Strike-off Students" parent="edsys_edu.Student_sub_menu" action="act_strike_off_student_view" sequence="4"/>
+        <menuitem id="strike_off_history_menu" name="Strike-off History" parent="edsys_edu.Student_sub_menu" action="act_strike_off_history_view" sequence="5"/>
+
+    </data>
+</openerp>

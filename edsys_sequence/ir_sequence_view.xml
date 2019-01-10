@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="ir_sequence_form_view_inherited" model="ir.ui.view">
+            <field name="name">ir.sequence.form</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//sheet" position="before">
+		            <header>
+		            	<button string="Generate Sequence" name="generate_sequence_button" type="object" />
+		            </header>
+		        </xpath>
+               	<xpath expr="//field[@name='code']" position="after">
+               		<field name="model_id" />
+               		<field name="field_id" />
+               	</xpath>
+            </field>
+        </record>
+        	 
+    </data>
+</odoo>

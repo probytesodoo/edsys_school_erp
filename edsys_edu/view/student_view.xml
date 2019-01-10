@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+         
+
+
+        <!-- ==================================== Kanban view inheret of res.partner for Student ============================= -->
+
+        <!--================== Registration Kanban View ========================= -->
+        <record model="ir.ui.view" id="student_parent_kanban_view">
+            <field name="name">student.parent.kanban.view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name" />
+                    <field name="middle_name" />
+                    <field name="last_name" />
+                    <field name="course_id" />
+                    <field name="batch_id" />
+                    <field name="email" />
+                    <field name="image" />                   
+                     <!-- <field name="registration_id"/> -->
+                    <!--<field name="application_number"/>-->
+                    <field name="gender"/>
+                    <field name="has_image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                        <div class="oe_kanban_vignette oe_semantic_html_override">
+                            <a type="open">
+                                <t t-if="record.has_image.raw_value === true">
+                                    <img t-att-src="kanban_image('res.partner', 'image_medium', record.id.value)" class="oe_kanban_image"/>
+                                </t>
+                                <t t-if="record.has_image.raw_value === false">
+                                        <img t-att-src='_s + "/base/static/src/img/avatar.png"' class="oe_kanban_image"/>
+                                </t>
+                            </a>
+                            <div class="oe_kanban_details">
+                                <h4 class="oe_partner_heading"><a type="open">
+                                    <field name="name"/>
+                                    <field name="middle_name"/><field name="last_name"/></a></h4>
+                                <div class="oe_kanban_partner_categories"/>
+                                <div class="oe_kanban_partner_links"/>
+                                <ul>
+                                    <li t-if="record.name.raw_value"><b>Id : <field name="student_id"/></b></li>
+                                    <li t-if="record.batch_id.raw_value"><b>Academic Year : </b><field name="batch_id"/></li>
+                                    <li t-if="record.course_id.raw_value"><b>Class : </b><field name="course_id"/></li>
+                                    <li t-if="record.street.raw_value"><field name="street"/></li>
+                                    <li t-if="!record.street2.raw_value"><field name="street2"/></li>
+                                    <li t-if="record.city.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
+                                    <li t-if="record.email.raw_value"><a t-attf-href="mailto:#{record.email.raw_value}"><field name="email"/></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- =====================registration search view ========================= -->
+        <record id="view_student_parent_search" model="ir.ui.view">
+            <field name="name">student.serch.view</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Student Parent search view">
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="old_id"/>
+                    <field name="reg_no"/>
+                    <field name="parent1_id"/>
+                    <field name="middle_name"/>
+                    <field name="last_name"/>
+                    <field name="parents_email"/>
+                    <field name="email"/>
+		    <field name="first_acd_year_of_child" />
+                    <!--<field name="application_number"/>-->
+                    <field name="birth_date"/>
+                    <field name="course_id"/>
+                    <field name="student_section_id" string="Section Id"/>
+                    <field name="batch_id"/>
+                    <field name="stud_batch_shift"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <!--<filter string="Application Number" domain="[]"-->
+                                <!--context="{'group_by':'application_number'}"/>-->
+                        <filter string="Class" domain="[]" context="{'group_by':'course_id'}"/>
+                        <filter string="Academic Year" domain="[]" context="{'group_by':'batch_id'}"/>
+                        <filter string="Email" domain="[]" context="{'group_by':'email'}"/>
+                        <filter string="Section" domain="[]" context="{'group_by':'student_section_id'}"/>
+                        <filter string="Batch Shift" domain="[]" context="{'group_by':'stud_batch_shift'}"/>
+			<filter string="First Academic Year Of Child" domain="[]" context="{'group_by':'first_acd_year_of_child'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ================== Registration tree view ========================== -->
+        <record id="view_student_tree_view" model="ir.ui.view">
+            <field name="name">Student Parent Tree</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="7"/>
+            <field name="arch" type="xml">
+                <tree string="Student Parent Tree">
+                    <field name="student_id"/>
+                    <field name="old_id"/>
+                    <field name="reg_no"/>
+                    <field name="name"/>
+                    <field name="middle_name"/>
+                    <field name="last_name"/>
+                    <field name="batch_id"/>
+                    <field name="course_id"/>
+                    <field name="stud_batch_shift"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_parent_tree_view" model="ir.ui.view">
+            <field name="name">Parent Tree</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Parent Tree">
+                    <field name="name"/>
+                    <field name="parent1_id"/>
+                    <field name="parents_email"/>
+                    <field name="parent_contact"/>
+                    <field name="parent_profession"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--=============== Student form view==================-->
+        <record id="view_student_parent_form" model="ir.ui.view">
+            <field name="name">view.student.parent.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <form string="Student Parnt Form View">
+                    <sheet>
+                        <field name="image" widget="image" class="oe_left oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        <div class="oe_right">
+
+                            <button type="action"
+                                class="oe_stat_button"
+                                id="invoice_button"
+                                icon="fa-pencil-square-o"
+                                name="%(account.action_invoice_refund_out_tree)d"
+                                context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups='edsys_edu.group_fee_confirm'>
+                                <div>
+                                    <strong>
+                                        <field name="total_invoiced" widget="monetary"/>
+                                    </strong><br/>Invoiced</div>
+                            </button>
+                            <button type="action" class="oe_stat_button" name="%(account.action_account_moves_all_tree)d" icon="fa-list" groups='edsys_edu.group_fee_confirm'>
+                                <field string="Journal Items" name="journal_item_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title oe_left">
+                            <div class="oe_edit_only">
+                                (<field name="is_parent" class="oe_inline" readonly="1"/> <label for="is_parent" string="Is a Parent?"/>)
+                                (<field name="is_student" class="oe_inline" readonly="1"/> <label for="is_student" string="Is a Student?"/>)
+                            </div>
+                            <h1>
+                                <field name="student_id" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                                <field name="parent1_id" attrs="{'invisible' : [('is_parent','!=',True)]}"/>
+                                <field name="name" placeholder="First Name"/>
+                            </h1>
+                            <group attrs="{'invisible' : [('is_parent','!=',True)]}">
+                                <field name="middle_name" placeholder="Middle Name" />
+                                <field name="last_name" placeholder="Last Name" />
+                            </group>
+                        <group attrs="{'invisible' : [('is_parent','=',True)]}">
+                           <group>
+                                    <field name="middle_name" placeholder="Middle Name" attrs="{'invisible' : [('is_parent','=',True)]}" />
+                                    <field name="last_name" placeholder="Last Name" attrs="{'invisible' : [('is_parent','=',True)]}" />
+                                </group>
+                                <group>
+                                    <field name="old_id" string="Old ID"/>
+                                    <field name="reg_no" readonly="1" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                                    <field name="khada_sis" readonly="1"/>
+                                    <field name="class_id" readonly="1" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                                    <field name="year_id" readonly="1" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                                    <field name="student_section_id" string="Section Id"
+                                           domain="[('course_id','=',class_id)]"
+                                           options="{'no_quick_create': True,'no_create_edit':True}"/>
+                                    <field name="stud_batch_shift" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                                    <field name="active"/>
+                                </group>
+                            </group>
+                            <!--<field name="parents1_id"/>-->
+                            <group>
+                                <field  name="parents1_id" context="{'active_id': parents1_id}"  readonly="1"/>
+                            </group>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons"> </div>
+
+                    <notebook colspan="4">
+                        <page string="Accounting" col="4" name="accounting">
+                            <group>
+                                <group>
+                                    <field name="property_account_position_id" widget="selection"/>
+                                </group>
+                                <group>
+                                    <field name="last_time_entries_checked"/>
+                                </group>
+                                <group>
+                                    <field name="property_account_receivable_id"/>
+                                    <field name="property_payment_term_id" widget="selection"/>
+                                    <field name="credit"/>
+                                    <field name="credit_limit"/>
+                                    <field name="barcode" string="RFID"/>
+                                </group>
+                                <group>
+                                    <field name="property_account_payable_id"/>
+                                    <field name="property_supplier_payment_term_id" widget="selection"/>
+                                    <field name="debit"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Children" attrs="{'invisible' : [('is_parent','!=',True)]}">
+                            <field name="chield1_ids"/>
+                        </page>
+                        <page string="Personal Detail" name="personal_detail" attrs="{'invisible' : [('is_parent','!=',True)]}">
+                            <group>
+                                <separator string="Profession"/><newline/>
+                                <field name="parent_profession" string="Father Profession" />
+                                <field name="mother_profession" string="Mother Profession" />
+                                <newline/> <separator string="Contact"/><newline/>
+                                <field name="isd_code"/>
+                                <field name="parent_contact" string="Father Contact"/>
+                                <field name="mother_contact" string="Mother Contect"/>
+                                <newline/> <separator string="Email"/><newline/>
+                                <field name="parents_email" string="Father Email"/>
+                                <field name="mother_email" string="Mother Email" />
+                                <newline/> <separator string="Office Contact"/><newline/>
+                                <field name="parents_office_contact" string="Father Office Contact"/>
+                                <field name="mother_office_contact" string="Mother Office Contact"/>
+                                <newline/> <separator string="Address"/><newline/>
+                                <field name="parent_address" string="Father Address"/>
+                                <field name="mother_address" string="Mother Address"/>
+                            </group>
+                        </page>
+                        <page string="Personal Detail" name="personal_detail" attrs="{'invisible' : [('is_parent','=',True)]}">
+                             <group>
+                                <group>
+                                    <field name="date_of_joining"/>
+                                    <field name="admission_date"/>
+                                    <field name="batch_id" />
+                                    <field name="course_id" />
+                                    <!--<field name="standard_id"/>-->
+                                    <field name="gender" />
+                                    <field name="emirati" />
+                                    <field name="lang_id" widget="selection"/>
+                                </group>
+                                <group>
+                                    <field name="email"/>
+                                    <field name="arab" />
+                                    <field name="nationality"/>
+                                    <field name="religion_id" />
+                                    <field name="birth_date" />
+                                    <field name="birth_country" />
+                                    <field name="birth_place" domain="[('country_id','=',birth_country)]" />
+                                    <field name="emirates_id" />
+                                    <field name="other_lang_id" string='Optional Language' widget="selection" domain="[('is_optional','=',True)]"/>
+                                </group>
+                            </group>
+                            <newline/><separator string="Passport Details"/><newline/>
+                                <group colspan="6" col="6">
+                                    <field name="passport_no" />
+                                    <field name="passport_issue_date" />
+                                    <field name="passport_expiry_date" />
+                                </group>
+                            <newline/><separator string="Visa Details"/><newline/>
+                                <group colspan="6" col="6">
+                                    <field name="visa_no" />
+                                    <field name="visa_issue_date" />
+                                    <field name="visa_expiry_date" />
+                                </group>
+                            </page>
+                            <page string="Address" name='address' attrs="{'invisible' : [('is_parent','=',True)]}">
+                                <label for="street" string="Address" />
+                                <div>
+                                    <field name="street" placeholder="Street..." />
+                                    <field name="street2" />
+                                    <div class="address_format">
+                                        <field name="city" placeholder="City" style="width: 40%%" />
+                                        <field name="state_id" options='{"no_open": True}'
+                                            placeholder="State" style="width: 24%%" />
+                                        <field name="zip" placeholder="ZIP" style="width: 34%%" />
+                                    </div>
+                                    <field name="country_id" placeholder="Country" options='{"no_open": True}' />
+                                    <field name="phone" placeholder="Phone" />
+                                    <field name="mobile" placeholder="Mobile" />
+                                </div>
+                                <group col="6" colspan="6">
+                                    <field name="family_business" />
+                                    <field name="family_income" />
+                                    <field name="emergency_contact"/>
+                                </group>
+                            </page>
+                            <page string="School History" name="school_history" attrs="{'invisible' : [('is_parent','=',True)]}">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="prev_institute" string='School Name' />
+                                        <field name="prev_academic_city" string="Place"/>
+                                        <field name="prev_academic_country" />
+                                        <field name="last_attendance" string="Previous School Last Attendance Date"/>
+                                        <field name="curriculum" string="Curriculum"/>
+                                        <field name="prev_grade" />
+                                        <field name="prev_academic_year" />
+                                        <field name="t_c_number"/>
+                                        <field name="tranfer_reason" />
+                                    </group>
+                                </div>
+                            </page>
+                             <page string="Medical" name="medical" attrs="{'invisible' : [('is_parent','=',True)]}">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="blood_group"/>
+                                        <field name="s_height"/>
+                                        <field name="s_width"/>
+                                        <field name="child_allergic"/>
+                                        <field name="w_allergic" attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="w_reaction" attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="w_treatment" attrs="{'invisible': [('child_allergic','=',False)]}"/>
+                                        <field name="under_medication"/>
+                                        <field name="w_medication_mention" attrs="{'invisible': [('under_medication','=',False)]}"/>
+                                        <field name="w_treatment_mention" attrs="{'invisible': [('under_medication','=',False)]}"/>
+                                    </group>
+                                </div>
+                             </page>
+                             <page string="Transportation Detail" name='transportation_detail' attrs="{'invisible' : [('is_parent','=',True)]}">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <field name="transport_type" />
+                                        <field name="bus_no" />
+                                        <field name="pick_up" />
+                                        <field name="droup_off_pick" />
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Documents" name="documents">
+                                <div class="oe_list_content">
+                                    <group col="4" colspan="4">
+                                        <separator string="Student's Documents" attrs="{'invisible' : [('is_parent','=',True)]}"/><newline/>
+                                        <group attrs="{'invisible' : [('is_parent','=',True)]}">
+                                            <field name="transfer_certificate" />
+                                            <field name="s_emirates_copy1" />
+                                            <field name="s_emirates_copy2" />
+                                            <field name="passport_copy1" />
+                                            <field name="passport_copy2" />
+                                         </group>
+                                        <newline/><separator string="Father's Document" attrs="{'invisible' : [('is_parent','!=',True)]}"/><newline/>
+                                        <group attrs="{'invisible' : [('is_parent','!=',True)]}">
+                                            <field name="parent_visa_copy" />
+                                            <field name="f_emirates_copy1" />
+                                            <field name="f_emirates_copy2" />
+                                        </group>
+                                        <newline/><separator string="Mother's Document" attrs="{'invisible' : [('is_parent','!=',True)]}"/><newline/>
+                                        <group attrs="{'invisible' : [('is_parent','!=',True)]}">
+                                            <field name="mother_visa_copy" />
+                                            <field name="m_emirates_copy1" />
+                                            <field name="m_emirates_copy2" />
+                                        </group>
+                                        <newline/><separator string="Medical Documents" attrs="{'invisible' : [('is_parent','=',True)]}"/><newline/>
+                                        <group attrs="{'invisible' : [('is_parent','=',True)]}">
+                                            <field name="medical_documents_file"/>
+                                        </group>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Siblings" attrs="{'invisible' : [('is_parent','=',True)]}">
+                                <field name="sibling_ids">
+                                    <!--<tree editable="bottom">
+                                        <field name="sibling_name" />
+                                        <field name="sibling_grade" />
+                                    </tree>-->
+                                </field>
+                                <group>
+                                    <field name="about_us" />
+                                    <field name="about_us_other" attrs="{'invisible': [('about_us','!=','other')]}" />
+                                    <field name="sibling_info" />
+                                    <field name="remarks" />
+                                </group>
+                            </page>
+
+                            <page string="Fees Structure" name="fees structure" attrs="{'invisible' : [('is_parent','=',True)]}" list_options = '{"limit":2}'>
+                                <!--<button name="fee_calculation_for_old_student" string="Only for old recrd" type="object"/>-->
+                                <!--<button name="update_student_parent" string="Parent_student rel" type="object"/>-->
+                                <!--<button name="update_fee_status_for_old_data" string="First 1" type="object"/>-->
+                                <!--<button name="update_data_for_monthaly_fee_genarate" string="Second 2" type="object"/>-->
+                                <separator string="Fee Structure"/>
+                                <group>
+                                    <group>
+                                        <field name="discount_on_fee" widget="selection" groups='edsys_edu.group_fee_confirm'/>
+                                    </group>
+                                    <group>
+                                        <div class="oe_right">
+                                            <!--<button name="get_fee_structure_all" string="&#45;&#45;OK&#45;&#45;" type="object" class="oe_highlight"/>-->
+                                            <button name="update_fee_structure" string="Update" type="object" class="oe_highlight" groups='edsys_edu.group_fee_confirm'/>
+                                        </div>
+                                    </group>
+                                </group>
+                                <field name="student_fee_line">
+                                    <tree editable="bottom" delete="false" >
+                                        <field name="sequence" string="Priority" readonly="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="amount" readonly="1"/>
+                                        <field name="discount" groups='edsys_edu.group_fee_confirm'/>
+                                        <field name="discount_amount" groups='edsys_edu.group_fee_confirm'/>
+                                        <field name="type" readonly="1"/>
+                                        <field name="fee_pay_type" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Payment Detail" name="payment detail" attrs="{'invisible' : [('is_parent','=',True)]}">
+                                <separator string="Payment Detail"/>
+                                <field name="payble_fee_ids" readonly="1">
+                                    <tree string="Fee Payment Detail" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="year"/>
+                                        <field name="fee_pay_type"/>
+                                        <field name="total_amount"/>
+                                        <field name="discount_amount"/>
+                                        <field name="cal_amount"/>
+                                        <field name="cal_turm_amount"/>
+                                        <field name="rem_amount"/>
+                                        <field name="next_term"/>
+                                        <field name="is_next_half_year"/>
+                                    </tree>
+                                </field>
+                                <field name="paid_term_history_ids" invisible="1">
+                                    <tree string="Fee Status" editable="bottom">
+                                        <field name="batch_id"/>
+                                        <field name="term_id"/>
+                                        <field name="student_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Fee Status" name="fee status" attrs="{'invisible' : [('is_parent','=',True)]}">
+                                <separator string="Payment Detail"/>
+                                <field name="payment_status" >
+                                    <tree>
+                                        <field name="month_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="year"/>
+                                        <field name="paid"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"
+                               widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- ================================================================================================================= -->
+
+        <!-- ====================== Action for Student ============================ -->
+
+        <record id="act_student_view" model="ir.actions.act_window">
+            <field name="name">Student</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('is_parent','=',0),('is_student','=',1)]</field>
+            <field name="context">{'default_is_student':True}</field>
+            <field name="search_view_id" ref="view_student_parent_search"/>
+        </record>
+
+        <record id="action_student_kanban_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="student_parent_kanban_view"/>
+            <field name="act_window_id" ref="act_student_view"/>
+        </record>
+
+        <record id="action_student_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_student_tree_view"/>
+            <field name="act_window_id" ref="act_student_view"/>
+        </record>
+
+        <record id="action_student_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_student_parent_form"/>
+            <field name="act_window_id" ref="act_student_view"/>
+        </record>
+
+        <record id="act_parent_view" model="ir.actions.act_window">
+            <field name="name">Parent</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_parent','=',1),('is_student','=',0)]</field>
+            <field name="context">{'default_is_parent':True}</field>
+            <field name="search_view_id" ref="view_student_parent_search"/>
+        </record>
+
+        <record id="action_parent_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_parent_tree_view"/>
+            <field name="act_window_id" ref="act_parent_view"/>
+        </record>
+
+        <record id="action_student_parent_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_student_parent_form"/>
+            <field name="act_window_id" ref="act_parent_view"/>
+        </record>
+
+    </data>
+</odoo>

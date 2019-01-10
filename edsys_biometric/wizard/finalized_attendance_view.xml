@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+    	<!-- Seek Review wizard -->
+        <record id="finalized_attendance_view" model="ir.ui.view">
+            <field name="name">Finalized Attendance</field>
+            <field name="model">finalized.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Finalized Attendance">
+                <group>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="tags_or_all" widget="radio" />
+                    <field name="tag_ids" widget="many2many_tags"  attrs="{'invisible': [('tags_or_all', '==', 'all')], 'required': [('tags_or_all', '==', 'tags')]}"/>
+                 </group>
+                    <footer>
+                        <button string="FINALIZE" name="submit_finalized_attendance_button" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="finalized_attendance_action" model="ir.actions.act_window">
+            <field name="name">Finalized Attendances</field>
+            <field name="res_model">finalized.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="finalized_attendance_view" />
+            <field name="help">Attendances which need to be approve.</field>
+            <field name="target">new</field>
+        </record>
+        
+        
+       <menuitem id="finalized_attendance_menu" groups="hr.group_hr_manager,hr.group_hr_user" name='Finalized Attendance' parent='hr_attendance.menu_hr_attendance_root' action="finalized_attendance_action" />
+
+    </data>
+</odoo>

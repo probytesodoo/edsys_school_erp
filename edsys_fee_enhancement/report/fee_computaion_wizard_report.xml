@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<report 
+		string="fee computation Wizard Report" 
+		id="action_fee_computation_wizard"
+		model="fee.compt.report" 
+		report_type="qweb-pdf"
+		name="edsys_fee_enhancement.report_fee_computation_wizard_report" 
+		file="edsys_fee_enhancement.report_fee_computation_wizard_report" />
+
+		<template id="report_fee_computation_wizard_report">
+			<t t-call="edsys_edu_fee.custom_receipt_external_layout_payment_receipt" />
+			<div class="page">
+				<div class="oe_structure" />
+				<div>
+					<center>
+						<h3>Customer Invoice Report</h3>
+			 	</center>
+				</div>
+				<br />
+				<t t-foreach="docs" t-as="o">
+					  <!--  parent report  --> 
+					<t t-foreach="o.parent_ids" t-as="parent">
+						
+						<t t-foreach="parent.chield1_ids" t-as="child">
+							<div class="row mt32 mb32">
+
+								<div class="row zero_min_height">
+									<div class="col-xs-12">
+										<div style="border-bottom: 1px solid black;"></div>
+									</div>
+								</div>
+
+								<table width="100%" height="100%">
+								</table>
+								</div>
+									
+							   <table class="table table-bordered" width="100%" height="100%"
+								style="border: 2px solid #000000;font-size:12px">
+								<thead>
+									<tr style="border: 1px solid black;">
+									   <th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Student Id</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Name</strong>
+										</th>
+										 <th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Acadmic Year/Name</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Admission To class/Name</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Admission To section/Name</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Parent Code</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Parent/Name</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Email</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Mobile</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Month/Term</strong>
+										</th>
+										<th height="10%" width="30%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Invoice Lines</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Amount</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Discount Name</strong>
+										</th>
+										<th height="10%" width="10%" class="text-center"
+											style="border: 1px solid black;">
+											<strong>Disc %</strong>
+										</th>
+										<th height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<strong>Discount </strong>
+										</th>
+										<th height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<strong>Calculated Amount</strong>
+										</th>
+										<th height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<strong>Invoice Amount</strong>
+										</th>
+										<th height="10%" width="10%" class="text-right"
+											style="border: 1px solid black;">
+											<strong>Status</strong> 
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-set="foo" t-value="0" />
+
+									<tr t-foreach="child[0].get_fee_computation_line(child[0])"
+										t-as="computed_fee_line" style="border: 1px solid black;">
+										
+										<tr t-foreach="computed_fee_line" t-as="fee_computation_line"
+											style="border: 1px solid black;">
+											 <td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[0]" />
+											</td> 
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[1]"  />
+											</td> 
+											 <td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[2]"  />
+											</td>  
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[3]"  />
+											</td> 
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[4]"  />
+											</td>
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[5]"  />
+											</td> 
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[6]"  />
+											</td> 
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[7]"  />
+											</td> 
+											<td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[8]"  />
+											</td> 
+											 <td height="10%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[10]" />
+											</td> 
+											 
+											<td height="10%" width="10%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][0]" />
+											</td>
+											 <td height="100%" width="20%" class="text-left"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][1]" />
+											</td>
+											  <td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][2]" />
+												
+											</td>
+											<td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][3]" />
+												
+											</td>
+											
+											<td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][4]" />
+												
+											</td>
+											
+											<td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[11][5]" />
+												
+											</td>
+											
+											 <td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[12]" />
+												
+											</td>
+											<td height="10%" width="10%" class="text-right"
+												style="border: 1px solid black;">
+												<t t-esc="fee_computation_line[13]" />
+											</td> 
+										</tr>
+									</tr>
+
+								</tbody>
+							</table>
+							<table class="table table-bordered" width="100%" height="100%"
+								style="border: 2px solid #000000;font-size:13px">
+								<tbody>
+									<tr>
+
+										<td width="80%" class="text-center" style="border: 1px solid black;">
+											<strong>
+												<span> Total </span>
+											</strong>
+										</td>
+										<td width="20%" class="text-right" style="border: 1px solid black;">
+											<t t-esc="child[0].total_invoice_amount" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+							   <p style="page-break-before:always;">
+							   </p>
+						</t>
+					</t>
+				 </t>
+				<div class="oe_structure" />
+             
+			</div> 
+
+		</template>
+		<!-- end of res partner -->
+
+
+
+	</data>
+</odoo>
+    

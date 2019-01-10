@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="reject_reason_wiz_view" model="ir.ui.view">
+            <field name="name">reject.reason.wiz.view</field>
+            <field name="model">reject.reason.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Reject Reason Wizard">
+                    <group>
+                        <field name="reason"/>
+                    </group>
+                    <footer>
+                        <button name="reject_state" string="Reject" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_reject_reason_wiz_view"
+            name=" Reject Reason"
+            res_model="reject.reason.wiz"
+            src_model="registration"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</odoo>

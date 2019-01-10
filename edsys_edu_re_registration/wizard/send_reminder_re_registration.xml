@@ -1,0 +1,92 @@
+<openerp>
+    <data>
+
+        <!-- =========== Send Reminder for Re-Registration to Parent ================= -->
+        <record id="send_reminder_re_registration_parent_view" model="ir.ui.view">
+            <field name="name">send.reminder.re.registration.parent.view</field>
+            <field name="model">reminder.re.registration.parent</field>
+            <field name="arch" type="xml">
+                <form string="Resend Request for Re-Registration">
+                    <p class="oe_grey">
+                        Are you sure you want to Resend Re-Registration Form Link.
+                    </p>
+                    <footer>
+                        <button string="Resend Link" name="resend_re_reg_link_parent" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <!--===== displaying in to re-registration waiting parent view ====== -->
+        <act_window
+            id="action_re_registration_parent_link"
+            name="Resend Request Parents"
+            res_model="reminder.re.registration.parent"
+            src_model="re.reg.waiting.responce.parents"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+        <!-- =========== Send Reminder for Re-Registration to Student================= -->
+        <record id="send_reminder_re_registration_student_view" model="ir.ui.view">
+            <field name="name">send.reminder.re.registration.student.view</field>
+            <field name="model">reminder.re.registration.student</field>
+            <field name="arch" type="xml">
+                <form string="Resend Request for Re-Registration">
+                    <p class="oe_grey">
+                        Are you sure you want to Resend Re-Registration Form Link.
+                    </p>
+                    <footer>
+                        <button string="Resend Link" name="resend_re_reg_link_student" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- ====== Displaying on Re-registration waiting Student view ====== -->
+        <act_window
+            id="action_re_registration_student_link"
+            name="Resend Request to Student"
+            res_model="reminder.re.registration.student"
+            src_model="re.reg.waiting.responce.student"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+        
+         <!--=========== Send Payment link for Re-Registration to Parent =================--> 
+        <record id="send_payment_link_reminder_re_registration_parent_view" model="ir.ui.view">
+            <field name="name">send.payment.link.reminder.re.registration.parent.view</field>
+            <field name="model">payment.reminder.re.registration.parent</field>
+            <field name="arch" type="xml">
+                <form string="Resend Payment Link for Re-Registration">
+                    <p class="oe_grey">
+                        Are you sure you want to Resend Re-Registration Fee Payment Link?
+                    </p>
+                    <footer>
+                        <button string="Resend Payment Link" name="resend_re_reg_payment_link_parent" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--===== Display in re-registration waiting parent view ======--> 
+        <act_window
+            id="action_re_registration_parent_payment_link"
+            name="Resend Payment Link to Parents"
+            res_model="payment.reminder.re.registration.parent"
+            src_model="re.reg.waiting.responce.parents"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+        
+    </data>
+</openerp>

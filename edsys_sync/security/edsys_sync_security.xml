@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+		
+        <record id="group_sync_odoo_data" model="res.groups">
+            <field name="name">Sync ERP Data</field>
+	    <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+        
+    </data>
+</odoo>

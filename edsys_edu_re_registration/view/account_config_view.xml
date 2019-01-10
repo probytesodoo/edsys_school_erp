@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="payfort_reminder_config2">
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='account_config']" position="inside">
+					<div>
+						<label for="amount_configurable"/>
+	                   <field name="amount_configurable" class="oe_inline"/>
+	                   
+	                 </div>
+				</xpath>
+			</field>
+		</record>
+
+
+	</data>
+</odoo>

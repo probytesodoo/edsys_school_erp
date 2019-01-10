@@ -1,0 +1,32 @@
+<openerp>
+    <data>
+
+        <record id="bounce_reason_wiz_view" model="ir.ui.view">
+            <field name="name">Bounce Reason</field>
+            <field name="model">bounce.reason.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Bounce Reason Wizard">
+                    <group>
+                        <field name="reason"/>
+                    </group>
+                    <footer>
+                        <button name="bounce_cheque" string="Bounce" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_bounce_reason_wiz_view"
+            name=" Cheque Bounce"
+            res_model="bounce.reason.wiz"
+            src_model="pdc.detail"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- ============== Sequences for enquiry ==================== -->
+        <record id="seq_type_enquiry" model="ir.sequence.type">
+            <field name="name">Enquiry Form</field>
+            <field name="code">enquiry.form</field>
+        </record>
+
+        <record id="seq_enquiry" model="ir.sequence">
+            <field name="name">Enquiry Form</field>
+            <field name="code">enquiry.form</field>
+            <field name="prefix"></field>
+            <!--<field name="padding"></field>-->
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- ============== Sequences for Registration ==================== -->
+       <!--  <record id="seq_type_registration" model="ir.sequence.type">
+            <field name="name">Registration Form</field>
+            <field name="code">reg.form</field>
+        </record> -->
+
+        <record id="seq_registration" model="ir.sequence">
+            <field name="name">Registration Form</field>
+            <field name="code">reg.form</field>
+            <field name="prefix">EDSYSREG</field>
+           <!--  <field name="padding"></field> -->
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_registration_number" model="ir.sequence">
+            <field name="name">Registration Number Sequence</field>
+            <field name="code">registration</field>
+            <field name="prefix">10</field>
+            <field name="padding">7</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- ============== Sequences for Student ==================== -->
+        <record id="student_seq_type" model="ir.sequence.type">
+            <field name="name">Student Form</field>
+            <field name="code">res.partner</field>
+        </record>
+
+        <record id="seq_student" model="ir.sequence">
+            <field name="name">Student Form</field>
+            <field name="code">res.partner</field>
+            <field name="prefix">TIAS-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- =============== Sequences for Parent ==================== -->
+        <record id="parent_seq_type" model="ir.sequence.type">
+            <field name="name">Parent Form</field>
+            <field name="code">partner.form</field>
+        </record>
+
+        <record id="seq_parent" model="ir.sequence">
+            <field name="name">Parent Form</field>
+            <field name="code">partner.form</field>
+            <field name="prefix">P-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

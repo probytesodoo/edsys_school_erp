@@ -1,0 +1,86 @@
+<openerp>
+    <data>
+
+        <!-- ========== Re-Registration TC Expected Tree view for Student ========== -->
+
+        <record id="re_registration_tc_expected_student_tree_view" model="ir.ui.view">
+            <field name="name">Re-Refistration TC Expected Tree</field>
+            <field name="model">re.reg.waiting.responce.student</field>
+            <field name="arch" type="xml">
+                <tree string="Re-Registration TC Expected Responce">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="reg_no"/>
+                    <field name="batch_id"/>
+                    <field name="course_id"/>
+                    <field name="next_year_batch_id"/>
+                    <field name="next_year_course_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ========== Re-Registration TC Expected Form view for Student ========== -->
+
+        <record id="re_registration_tc_expected_form_view_student" model="ir.ui.view">
+            <field name="name">Re-Refistration TC expected Form Student</field>
+            <field name="model">re.reg.waiting.responce.student</field>
+            <field name="arch" type="xml">
+                <form string="Re-Registration Tc Expected Responce">
+                    <header>
+                        <button name="come_tc_expected_to_waiting_fee" class="oe_highlight" type="object" string="Awaiting Fee"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="code"/></h1>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="re_reg_parents"/>
+                                <field name="batch_id"/>
+                                <field name="course_id"/>
+                            </group>
+                            <group>
+                                <field name="reg_no"/>
+                                <field name="next_year_batch_id"/>
+                                <field name="next_year_course_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- ========== Re-Registration TC Expected Student Action view ========== -->
+
+        <record id="re_registration_student_tc_expected_action" model="ir.actions.act_window">
+            <field name="name">Re-Registration TC Expected Student</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">re.reg.waiting.responce.student</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','tc_expected')]</field>
+        </record>
+
+        <record id="action_re_registration_student_tc_expect_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="re_registration_tc_expected_student_tree_view"/>
+            <field name="act_window_id" ref="re_registration_student_tc_expected_action"/>
+        </record>
+
+        <record id="action_re_registration_student_tc_expect_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="re_registration_tc_expected_form_view_student"/>
+            <field name="act_window_id" ref="re_registration_student_tc_expected_action"/>
+        </record>
+
+    </data>
+</openerp>

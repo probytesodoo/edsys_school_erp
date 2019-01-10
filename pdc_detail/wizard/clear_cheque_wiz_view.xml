@@ -1,0 +1,34 @@
+
+<openerp>
+    <data>
+        <record id="clear_cheque_wiz_view" model="ir.ui.view">
+            <field name="name">Clear Cheque</field>
+            <field name="model">clear.cheque.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Clear Cheque">
+                    <group>
+                       <h3>
+                        <label string="Are you sure to cleared selected cheque"/>
+                       </h3>
+                    </group>
+                    <footer>
+                        <button name="clear_cheque" string=" Cleared" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_clear_cheque_wiz_view"
+            name=" Clear Cheque"
+            res_model="clear.cheque.wiz"
+            src_model="pdc.detail"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</openerp>

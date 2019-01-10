@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--=============== Fee Computation Form View==================-->
+        <record id="view_fee_computation_line_form" model="ir.ui.view">
+            <field name="name">fee.computation.line.form.view</field>
+            <field name="model">fee.computation.line</field>
+            <field name="arch" type="xml">
+	            <form>
+	            	<sheet>
+		            	<group>
+		                    <field name="name" /> 
+		                    <field name="calculated_amount" />
+		                   	<field name="discount_percentage" />
+		                   	<field name="discount_amount" />
+		                   	<field name="payable_amount" />
+	                   	</group>
+	                </sheet>
+	             </form>
+            </field>
+        </record>
+
+		<!--=============== Fee Computation tree View==================-->
+        <record id="view_fee_computation_line_tree" model="ir.ui.view">
+            <field name="name">fee.computation.line.tree.view</field>
+            <field name="model">fee.computation.line</field>
+            <field name="arch" type="xml">
+	            <tree>
+                    <field name="name" /> 
+                    <field name="calculated_amount" />
+                   	<field name="discount_percentage" />
+                   	<field name="discount_amount" />
+                   	<field name="payable_amount" />
+	             </tree>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

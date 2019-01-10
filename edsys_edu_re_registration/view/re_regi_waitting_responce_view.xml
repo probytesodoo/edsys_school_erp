@@ -1,0 +1,355 @@
+<odoo>
+    <data>
+
+        <!-- ========== Re-Registration Waiting Responce Tree view for Parent ========== -->
+        <record id="re_registration_waiting_parent_tree_view" model="ir.ui.view">
+            <field name="name">Re-Refistration Waiting Tree</field>
+            <field name="model">re.reg.waiting.responce.parents</field>
+            <field name="arch" type="xml">
+                <tree string="Re-Registration Waiting Responce">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="parent_contact"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ======= Re-Registration Waiting Responce search view for Parent ======== -->
+        <record id="view_re_reg_parent_search" model="ir.ui.view">
+            <field name="name">re.reg.parent.serch.view</field>
+            <field name="model">re.reg.waiting.responce.parents</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Re-registration Parent search view">
+                    <group expand="0" string="Group By...">
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                     <field name="name">
+                        <filter name="name" domain="" string="Name"/>
+                    </field>
+                </search>
+            </field>
+        </record>
+
+        <!-- ========== Re-Registration Waiting Responce Form view for Parent ========== -->
+        <record id="re_registration_waiting_form_view" model="ir.ui.view">
+            <field name="name">Re-Refistration Waiting Form</field>
+            <field name="model">re.reg.waiting.responce.parents</field>
+            <field name="arch" type="xml">
+                <form string="Re-Registration Waiting Responce">
+                    <header>
+                        <button name="button_re_ref_awaiting_fee" type="object"
+                                string="Confirm Re Registration" class="oe_highlight"
+                                attrs="{'invisible':[('state','!=','awaiting_response')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="awaiting_response"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="code"/></h1>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="parent_contact" string="Parent Contact"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Children Detail">
+                                <field name="student_ids">
+                                    <tree editable="bottom">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="reg_no"/>
+                                        <!--<field name="batch_id"/>-->
+                                        <!--<field name="next_year_batch_id"/>-->
+                                        <field name="course_id"/>
+                                        <field name="next_year_course_id"/>
+                                        <field name="confirm"/>
+                                        <field name="response"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- ========== Re-Registration Waiting Responce Parent Action view ========== -->
+        <record id="re_registration_parent_waiting_action" model="ir.actions.act_window">
+            <field name="name">Re-Registration Parent</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">re.reg.waiting.responce.parents</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context">{"search_default_state":'awaiting_response'}</field>-->
+            <field name="domain">[('state','=','awaiting_response')]</field>
+        </record>
+
+        <record id="action_re_registration_parent_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="re_registration_waiting_parent_tree_view"/>
+            <field name="act_window_id" ref="re_registration_parent_waiting_action"/>
+        </record>
+
+        <record id="action_re_registration_parent_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="re_registration_waiting_form_view"/>
+            <field name="act_window_id" ref="re_registration_parent_waiting_action"/>
+        </record>
+
+        <!-- ========== Re-Registration Waiting Responce Tree view for Student ========== -->
+        <record id="re_registration_waiting_student_tree_view" model="ir.ui.view">
+            <field name="name">Re-Refistration Waiting Tree</field>
+            <field name="model">re.reg.waiting.responce.student</field>
+            <field name="arch" type="xml">
+                <tree string="Re-Registration Waiting Responce"
+                      fonts="bold:state == 'awaiting_response'"
+                      colors="red:fee_status == 're_unpaid';blue:fee_status == 're_Paid';#FFA500:fee_status == 're_partially_paid';gray:fee_status == 'invoice_reconcile' and state == 're_registration_confirmed'">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="reg_no"/>
+                    <field name="batch_id"/>
+                    <field name="course_id"/>
+                    <field name="next_year_batch_id"/>
+                    <field name="next_year_course_id"/>
+                    <field name="confirm"/>
+                    <field name="fee_status"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--=========  Re-Registration Search View   ============-->
+        <!--<record id="re_registration_waiting_student_search_view" model="ir.ui.view">-->
+        <!--<field name="name">Re-Refistration Waiting Search</field>-->
+        <!--<field name="model">re.reg.waiting.responce.student</field>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<search string="Re-Refistration">-->
+        <!--<field name="name"/>-->
+        <!--<filter name="name" domain="" string="Name"/>-->
+
+        <!--</search>-->
+        <!--</field>-->
+        <!--</record>-->
+
+        <!-- ======= Re-Registration Waiting Responce search view for Student ======== -->
+	<!--
+        <record id="view_re_reg_student_search" model="ir.ui.view">
+            <field name="name">re.reg.student.serch.view</field>
+            <field name="model">re.reg.waiting.responce.student</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Re-registration Student search view">
+                    <group expand="0" string="Group By...">
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                    <field name="name">
+                        <filter name="name" domain="" string="Name"/>
+                    </field>
+
+                    <field name="batch_id">
+                        <filter name="batch_id" domain="[('batch_id','=','batch_id')]" string="Current Academic Year"/>
+                    </field>
+
+                     <field name="course_id">
+                        <filter name="course_id" domain="" string="Current Admission To Class"/>
+                    </field>
+
+                    <field name="next_year_batch_id">
+                        <filter name="next_year_batch_id" domain="" string="Next Academic Year"/>
+                    </field>
+
+                    <field name="next_year_course_id">
+                        <filter name="next_year_course_id" domain="" string="Next Year Admission To Class"/>
+                    </field>
+
+                    <field name="confirm">
+                        <filter name="confirm" domain="[('confirm','=',True)]" string="Confirm Re-Registration Process"/>
+                    </field>
+
+
+                </search>
+            </field>
+        </record> -->
+
+	<record id="view_re_reg_student_search" model="ir.ui.view">
+            <field name="name">re.reg.student.serch.view</field>
+            <field name="model">re.reg.waiting.responce.student</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Re-registration Student search view">
+                	<field name="name"/>
+                    <field name="batch_id"/>
+                     <field name="course_id"/>
+                    <field name="next_year_batch_id"/>
+                    <field name="next_year_course_id"/>
+                    <field name="confirm"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Current Academic Year" domain="[]" context="{'group_by':'batch_id'}"/>
+                        <filter context="{'group_by':'course_id'}" domain="[]" string="Current Admission To Class"/>
+                        <filter context="{'group_by':'next_year_batch_id'}" domain="[]" string="Next Academic Year"/>
+                       	<filter context="{'group_by':'next_year_course_id'}" domain="[]" string="Next Year Admission To Class"/>
+                        <filter context="{'group_by':'confirm'}" string="Confirm Re-Registration Process"/>
+                    </group>
+                    
+                </search>
+            </field>
+        </record>
+
+        <!-- ========== Re-Registration Waiting Responce Form view for Student ========== -->
+        <record id="re_registration_waiting_form_view_student" model="ir.ui.view">
+            <field name="name">Re-Refistration Waiting Form Student</field>
+            <field name="model">re.reg.waiting.responce.student</field>
+            <field name="arch" type="xml">
+                <form string="Re-Registration Waiting Responce">
+                    <header>
+                        <button name="%(edsys_edu_re_registration.action_re_registration_pay_manualy_wizard_student_action_view)d"
+                                type="action"
+                                attrs="{'invisible':['|',('residual','&lt;',0),('residual','=',0)]}"
+                                string="Pay Manually"
+                                class="oe_highlight"/>
+                        <button name="re_send_payfort_payment_link_student"
+                                type="object"
+                                attrs="{'invisible':[('fee_status','=','re_Paid')]}"
+                                string="Send Payfort Reminder"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="code"/></h1>
+                        <group>
+                            <field name="name"/>
+                            <field name="confirm" string="Confirm Re-Registration Process"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="re_reg_parents"/>
+                                <field name="batch_id"/>
+                                <field name="course_id"/>
+                            </group>
+                            <group>
+                                <field name="reg_no"/>
+                                <field name="next_year_batch_id"/>
+                                <field name="next_year_course_id"/>
+                                <field name="fee_status"
+                                       attrs="{'invisible':[('state','not in',['awaiting_re_registration_fee','re_registration_confirmed'])]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Fees Structure"
+                                  attrs="{'invisible':[('state','not in',['awaiting_re_registration_fee','re_registration_confirmed'])]}">
+                                <field name="fees_line_ids" readonly="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="type"/>
+                                        <field name="fee_pay_type"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <group>
+                                        <field name="total_amount" widget="monetary"/>
+                                        <field name="total_paid_amount" widget="monetary"/>
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <field name="residual" string="Balance" widget="monetary" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </group>
+                                <group class="oe_inline"></group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- ========== Re-Registration Waiting Responce Student Action view ========== -->
+        <record id="re_registration_student_waiting_action" model="ir.actions.act_window">
+            <field name="name">Re-Registration Student</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">re.reg.waiting.responce.student</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','!=','tc_expected')]</field>
+	    <field name="search_view_id" ref="view_re_reg_student_search"/> 
+        </record>
+
+        <record id="action_re_registration_student_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="re_registration_waiting_student_tree_view"/>
+            <field name="act_window_id" ref="re_registration_student_waiting_action"/>
+        </record>
+
+        <record id="action_re_registration_student_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="re_registration_waiting_form_view_student"/>
+            <field name="act_window_id" ref="re_registration_student_waiting_action"/>
+        </record>
+
+	<!-- <record id="view_student_parent_search_inherited" model="ir.ui.view">
+            <field name="name">inherit.student.serch.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="edsys_edu.view_student_parent_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group//filter[@name='Batch Shift']" position="after">
+		    			<filter string="Status" domain="[]" context="{'group_by':'student_state'}"/>
+                </xpath>
+            </field>
+        </record> -->
+
+
+        <!-- ========== Student view inherit =========== -->
+        <record id="inherit_view_student_parent_form_inherit" model="ir.ui.view">
+            <field name="name">inherit.student.parent.form.view.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="edsys_strike_off.view_student_parent_form_inherit_strike_off"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parents1_id']" position="after">
+                    <field name="re_reg_next_academic_year" attrs="{'invisible':[('is_student','=',False)]}"/>
+		    <field name="student_state" attrs="{'invisible':[('is_student','=',False)]}"/>
+                    <field name="tc_initiated" attrs="{'invisible':[('is_student','=',False)]}"/>
+                </xpath>
+		<xpath expr="//field[@name='mother_profession']" position="after">
+                    <field name="mother_name" string= "Mother Name" attrs="{'invisible' : [('is_parent','!=',True)]}"/>
+                </xpath>
+                <xpath expr="//page[@name='accounting']//field[@name='credit']" position="after">
+                    <field name="re_reg_advance_account"/>
+                </xpath>
+                <xpath expr="//field[@name='credit']" position="after">
+                    <field name="re_reg_total_recivable" string="Re-Reg Total Receive in Advance"/>
+                    <field name="advance_total_recivable" string="Total Receive in Advance"/>
+                </xpath>
+		<xpath expr="//field[@name='class_id']" position="after">
+                    <field name="first_acd_year_of_child" attrs="{'invisible' : [('is_parent','=',True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+	<record id="view_student_tree_view_inherited_new" model="ir.ui.view">
+            <field name="name">inherit.student.parent.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="edsys_edu.view_student_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='last_name']" position="after">
+		    			<field name="student_state"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

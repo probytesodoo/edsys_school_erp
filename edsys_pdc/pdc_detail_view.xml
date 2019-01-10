@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+	 <!-- ===================== PDC Detail search view ========================= -->
+        <record id="pdc_detail_search_view_edsys" model="ir.ui.view">
+            <field name="name">student.serch.view</field>
+            <field name="model">pdc.detail</field>
+            <field name="inherit_id" ref="pdc_detail.pdc_detail_search_view"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='bank_name']" position="replace">
+            	<field name="bank_payment_name"/>
+		<field name="name"/>
+            	<field name="partner_id"/>
+            </xpath>
+            	<xpath expr="//filter[3]" position="replace">
+            		<filter string="Bank Payment Name" domain="[]" context="{'group_by':'bank_payment_name'}"/>
+                    <filter string="Party Name" domain="[]" context="{'group_by':'party_name'}"/>
+                    <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Payment Method" domain="[]" context="{'group_by':'journal_id'}"/>
+            	</xpath>
+            </field>
+        </record>
+
+
+	<!-- ========================= PDC Detail tree view =========================== -->
+        <record id="view_pdc_detail_tree_edsys" model="ir.ui.view">
+            <field name="name">PDC Detail Tree</field>
+            <field name="model">pdc.detail</field>
+            <field name="inherit_id" ref="pdc_detail.view_pdc_detail_tree"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='bank_name']" position="replace">
+	            	<field name="bank_payment_name"/>
+	            </xpath>
+            </field>
+	</record>
+	
+
+
+        <!-- ============================ Form view for Enquiry ==================== -->
+        <record id="pdc_detail_form_view" model="ir.ui.view">
+            <field name="name">PDC Detail</field>
+            <field name="model">pdc.detail</field>
+            <field name="inherit_id" ref="pdc_detail.pdc_detail_form_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//button[@name='bounce_cheque_wiz']" position="replace">
+            		<button name='bounce_cheque_wiz' string="Reject Cheque" type="object" state="posted" attrs="{'invisible': [('state','!=','posted')]}"  class="oe_highlight" />
+            	</xpath>
+                <xpath expr="//field[@name='bank_name']" position="after">
+                	<field name="amount" readonly="1"/>
+                	<field name="bank_payment_name" attrs="{'readonly': [('state','in',('posted','cleared', 'bounced'))]}"/>
+                	<field name="clear_cheque_date" attrs="{'readonly': [('state','in',('cleared', 'bounced'))]}"/>
+                    <field name="bounce_cheque_date" attrs="{'readonly': [('state','in',('cleared', 'bounced'))]}"/>
+                    
+                </xpath>
+                
+                <xpath expr="//field[@name='chk_fee_type']" position="replace">
+                	<field name="chk_fee_type" attrs="{'readonly': [('state','in',('posted','cleared', 'bounced'))]}"/>
+                </xpath>
+                <xpath expr="//button[@name='post_cheque']" position="replace">
+                	<button name='post_cheque' string="Submit Cheque" type="object" state="draft" attrs="{'invisible': [('state','!=','draft')]}" class="oe_highlight" />
+                </xpath>
+                <xpath expr="//field[@name='cheque_start_date']" position="replace">
+                	<field name="cheque_start_date" attrs="{'readonly': [('state','in',('cleared', 'bounced'))]}"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='cheque_expiry_date']" position="replace">
+                    <field name="cheque_expiry_date" attrs="{'readonly': [('state','in',('cleared', 'bounced'))]}"/>
+                </xpath>
+                
+            </field>
+        </record>
+	
+       
+    <record model="ir.ui.menu" id="pdc_detail.pdc_detail_sub_menu">
+      <field name="name">Cheque Register</field>
+    </record>
+    
+    <record model="ir.ui.menu" id="pdc_detail.pdc_detail_sub_menu1">
+      <field name="name">Cheque Register</field>
+    </record>
+       
+       
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="send_academic_fee_receipt_wizard_form_view" model="ir.ui.view">
+            <field name="name">send.academic.fee.receipt.wizard.view</field>
+            <field name="model">send.academic.fee.receipt.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Send Academic Fee Receipt">
+                    <h3><label string="Are you sure to send academic fee receipt?"/></h3>
+                    <footer>
+                        <button name="send_academic_fee_receipt_button" string="Send Academic Fee Receipt" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="send_academic_fee_receipt_wizard_action"
+            name="Send Academic Fee Receipt"
+            res_model="send.academic.fee.receipt.wizard"
+            src_model="registration"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"
+            />
+
+    </data>
+</odoo>

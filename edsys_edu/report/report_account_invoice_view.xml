@@ -1,0 +1,138 @@
+<odoo>
+    <data>
+
+        <!-- <report
+        id="student_invoice_duplicate"
+        model="account.invoice"
+        string="Invoices Attachment"
+        report_type="qweb-pdf"
+        name="edsys_edu.report_invoice_attachment"
+        file="edsys_edu.report_invoice_attachment"
+        attachment_use="True"
+        attachment="(object.state in ('open','paid')) and
+        ('INV'+(object.number or '').replace('/','')+'.pdf')"
+    /> -->
+
+<template id="report_invoice_document_attachment">
+    <t t-call="report.external_layout">
+        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+        <div class="page">
+            <div class="row">
+                <div class="col-xs-10">
+                    <strong>Student Id &amp; Name :</strong>
+                    <span t-field="o.partner_id"
+                        t-field-options='{"fields": ["address", "name"], "no_marker": true}' /><br/>
+                    <strong>Class :</strong>
+                    <span t-if="o.partner_id.course_id.id"><span t-field="o.partner_id.course_id.name"/></span><br/>
+                    <strong>Section :</strong>
+                    <span t-if="o.partner_id.student_section_id">
+                        <span t-field="o.partner_id.student_section_id.code"/>
+                    </span>
+                </div>
+            </div>
+            <h4>
+                <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Invoice</span>
+                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                <span t-if="o.type == 'out_refund'">Refund</span>
+                <span t-if="o.type == 'in_refund'">Vendor Refund</span>
+                <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
+                <span t-field="o.number"/>
+                <t t-foreach="o.invoice_line_ids" t-as="inv_line_rec">
+                    <t t-if="inv_line_rec.account_id.code=='402010'">
+                        <t t-if="o.partner_id.student_fee_line">
+                            <t t-foreach="o.partner_id.student_fee_line" t-as="fee_line_rec">
+                                <t t-if="fee_line_rec.name.id==inv_line_rec.product_id.id">
+                                    <t t-if="fee_line_rec.fee_pay_type.code=='month'">
+                                        <span t-if="o.month">
+                                            for the month of <span t-field="o.month"/>
+                                        </span>
+                                    </t>
+                                    <t t-if="fee_line_rec.fee_pay_type.code=='half_year'">
+                                        for Half Year
+                                    </t>
+                                    <t t-if="fee_line_rec.fee_pay_type.code=='term'">
+                                        <t t-foreach="o.batch_id" t-as="batch">
+                                            <t t-foreach="batch.term_ids" t-as="term_rec">
+                                                <t t-if="term_rec.start_date&lt;=o.date_invoice">
+                                                    <t t-if="term_rec.end_date&gt;=o.date_invoice">
+                                                        for the <span t-field="term_rec.name"/>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </h4>
+            <div class="row mt32 mb32">
+                <div class="col-xs-2" t-if="o.name">
+                    <strong>Description:</strong>
+                    <p t-field="o.name"/>
+                </div>
+                <div class="col-xs-2" t-if="o.date_invoice">
+                    <strong>Invoice Date:</strong>
+                    <p t-field="o.date_invoice"/>
+                </div>
+                <div class="col-xs-2" t-if="o.partner_id.ref">
+                    <strong>Customer Code:</strong>
+                    <p t-field="o.partner_id.ref"/>
+                </div>
+                <div name="reference" class="col-xs-2" t-if="o.reference">
+                    <strong>Reference:</strong>
+                    <p t-field="o.reference"/>
+                </div>
+            </div>
+            <!-- Is there a discount on at least one line? -->
+            <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th class="text-right">Amount</th>
+                    </tr>
+                </thead>
+                <tbody class="invoice_tbody">
+                    <tr t-foreach="o.invoice_line_ids" t-as="l">
+                        <td><span t-field="l.name"/></td>
+                        <td class="text-right">
+                            <span t-field="l.price_subtotal"
+                                t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Subtotal</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                 <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+<template id="report_invoice_attachment">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="edsys_edu.report_invoice_document_attachment" t-lang="o.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+    </data>
+</odoo>

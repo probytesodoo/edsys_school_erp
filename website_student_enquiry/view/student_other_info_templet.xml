@@ -1,0 +1,645 @@
+<openerp>
+    <data>
+        <template id="student_other_information" name="Enquiry">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Student Other Information</t>
+                    <div id="wrap">
+                        <div class="container">
+                            <div class="row">
+                                <section id="forms">
+                                    <!-- TODO Multilingual form action support ? -->
+                                    <div class="col-md-12">
+                                        <p class="text-center"><!--<img src="website_student_enquiry/static/description/tia.png" height="150px" width="auto"/>--></p>
+                                    </div>
+                                        <div class="col-md-12" style="background-color:#888; color:#FFFFFF; padding:20px; font-size:36px; margin-bottom:20px;">
+                                            Hello <t t-esc="student_rec.name"/>!
+                                        </div>
+                                        <p>
+                                            <h5>
+                                                <li>We request you to kindly fill this form as soon as possible for further processing of your child's admission request.
+                                                </li><li>Please note that in case you don't have clear scanned copies of the documents requested,
+                                                </li><li>you can leave those unfilled in the form below and visit the school with the documents requested.
+                                                </li><li>We will be happy to collect it and update all required details in our system for further processing.
+                                                </li><li>However, submitting those online will expedite your childs admission confirmation.</li>
+                                            </h5>
+                                        </p>
+                                        <div class="col-md-12" id="msg"></div>
+                                        <div class="row">
+                                            <div class="col-md-1">
+		                                    </div>
+                                            <div class="col-md-10">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-gift"></i> Student Information
+                                                    </div>
+                                                    <div class="tools">
+                                                        <a title="" data-original-title="" href="" class="collapse">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                <form role="form" method="post" action="/otherinformation/thankyou" id="myform" enctype="multipart/form-data">
+                                                        <input type="text" name="stud_rec" t-att-value="student_rec.email" style="display : none;"/>
+                                                        <div class="form-body">
+                                                             <!--Student Name Copy -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Student Name :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control " t-att-value="student_rec.name" name="fname" placeholder=" First Name" style="width: 115px;" readonly="1" type="text"/>
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+                                                                                <input class="form-control " t-att-value="student_rec.middle_name" placeholder=" Middle Name" name="mname" style="width: 175px;" type="text" readonly="1"/>
+                                                                            </div>
+                                                                            <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                                <input class="form-control" t-att-value="student_rec.last_name" placeholder=" Last Name" name="lname" style="width: 115px;" type="text" readonly="1"/>
+                                                                            </div>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Student Enquiry Number -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Student Enquiry :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" t-att-value="student_rec.reg_no" name="senquiry" type="text" readonly="1"/>
+                                                                            <span id="msgsphoto"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Academic year -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Academic Year:<span style="color:#FF0000">*</span> </label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control" name="Academic_Year" readonly="readonly">
+                                                                                <!--<option value="">|&#45;&#45; Academic Year &#45;&#45;|</option>-->
+                                                                                <t t-foreach="student_rec" t-as="stud">
+                                                                                    <option><span t-esc="stud.batch_id.name"/></option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Grade for which admission sought:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control" name="Course" id="gradeVal" readonly="readonly">
+                                                                                <t t-foreach="student_rec" t-as="stud">
+                                                                                    <option><span t-esc="stud.course_id.name"/>[ min age <span t-esc="stud.course_id.min_age"/> | max age <span t-esc="stud.course_id.max_age"/> ]</option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span id="msgage"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Emirati -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Emirati:</label>
+                                                                        <div class="col-md-3">
+                                                                            <div><label>
+                                                                                <input name="emirati" value="y" type="radio" required="1"/>
+                                                                               </label> Yes</div>
+                                                                            <div><label><input name="emirati" value="n" type="radio"/></label>
+                                                                                No</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Arab:</label>
+                                                                        <div class="col-md-3">
+                                                                            <div><label>
+                                                                                <input name="Arab_v" value="arab" checked="" type="radio" required="1"/>
+                                                                               </label> Arabs</div>
+                                                                            <div><label><input name="Arab_v" value="non_arab" type="radio"/></label>
+                                                                                Non-Arabs</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Student Email -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Father Email:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" t-att-value="parent_email" name="semail" id="email_parent" data-options="required:true,validType:'email'" type="text"/>
+                                                                            <span id="p_em_er"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Emirates -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Emirates Id No :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="emirates_id" type="text" required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Blood Group -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Blood Group :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="blood_group" type="text" required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Height(In Cm) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Height(In Cm) :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="hight" type="text" required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Weight(In Kg) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Weight(In Kg) :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="weight" type="text" required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Is your child allergic to anything? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Is your child allergic to anything?</label>
+                                                                        <div class="col-md-3">
+                                                                            <div><label>
+                                                                                <input name="allergic" value="y" type="radio" required="true"/>
+                                                                               </label> Yes</div>
+                                                                            <div><label><input name="allergic" value="n" type="radio"/></label>
+                                                                                No</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- what is your child allergic to? -->
+                                                            <div class="row" id="yes_allergic_id">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">what is your child allergic to? :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="yes_allergic" type="text" id="yes_allergic_text"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- What is the reaction? -->
+                                                            <div class="row" id="yes_allergic_id1">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">What is the reaction? :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="reaction" type="text" id="yes_allergic_text1"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- What is the treatment? -->
+                                                            <div class="row" id="yes_allergic_id2">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">What is the treatment? :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="treatment" type="text" id="yes_allergic_text2"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Is your child currently under medication / treatment? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Is your child currently under medication / treatment?</label>
+                                                                        <div class="col-md-3">
+                                                                            <div><label>
+                                                                                <input name="under_medication" value="y" type="radio" required="true"/>
+                                                                               </label> Yes</div>
+                                                                            <div><label><input name="under_medication" value="n" type="radio"/></label>
+                                                                                No</div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- please mention -->
+                                                            <div class="row" id="mention_id">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Please mention :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="mention" type="text" id="mention_text"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- What is the treatment? -->
+                                                            <div class="row" id="mention_id1">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> What is the treatment? :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="w_treatment" type="text" id="w_treatment_text"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Office Tel. No -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Office Tel. No :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="office_no" type="text" required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Tel. No: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Tel. No :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <div class="col-md-2" style="padding-left:0px;margin-bottom:5px;">
+                                                                                <input class="form-control" maxlength='4' id="reg_isd_code" t-att-value="reg_rec.isd_code" name="mother_contact_code" placeholder="ISD Code" style="width: 89px;" type="text"/>
+                                                                            </div>
+                                                                            <div class="col-md-10" style="padding-right:0px;margin-bottom:5px;">
+                                                                                <input class="form-control" id="reg_father_mobile" name="tel_no" t-att-value="student_rec.mobile"  type="text" required="true"/>
+                                                                            </div>
+    									    <span id="f_isd_err"></span>
+                                                                            <span id="f_mob_err"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Address -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Address:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <textarea class="form-control" rows="3" name="parents_address" required="true"> <t t-esc="reg_rec.street"/> </textarea>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother's Name: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Mother's Name :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="mother_name" type="text" required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother Profession: -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Mother's Profession :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="mother_profession" type="text" required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- mothers Mobile No:* -->
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Mothers Mobile No :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" id="reg_mother_mobile_no" name="mother_mobile_no" type="text" required="true"/>
+                                					    <span id="mother_mob_err"></span>
+				                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Tel. No -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Mother's Tel. No :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="mother_tel_no" type="text"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother Email:* -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Mother Email:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="mother_email" id="mother_email" data-options="required:true,validType:'email'" type="text"/>
+                                                                            <span id="m_em_er"></span>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother Address:* -->
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Mother Address:<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <textarea class="form-control" rows="3" name="mother_address" required="true"></textarea>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Emergency contact: -->
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Emergency contact :<span style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="emergency_mobile_no" type="text" required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Transport -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Transport Type :</label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control select2" name="transport_type" id="transport_type">
+                                                                                <option value="">|-- Student Transport type --|</option>
+                                                                                <option value="own">Own Transport</option>
+                                                                                <option value="school">School Transport</option>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Pick up -->
+                                                            <div class="row" id="pick_up_hide">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Pick up :<span id="up_pick" style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="pick_up" type="text" id="pick_up"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Drop off points -->
+                                                            <div class="row" id="drop_off_points_hide">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"> Drop off points :<span id="off_droup" style="color:#FF0000">*</span></label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control" name="droup_off" type="text" id="droup_off"/>
+                                                                        <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Transfer Certificate -->
+                                                            <h2>Student Documents</h2>
+                                                            <span class="help-block"></span>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Transfer Certificate :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" id="transfer_certi_file01" class="input-file" name="transfer_certi" accept="image/*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Visa Copy(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Medical Documents/File :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="s_visa" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Emirates Id Copy Page 1(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Emirates Id Copy Page 1(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="s_emirates_copy1" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Emirates Id Copy Page 2(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Emirates Id Copy Page 2(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="s_emirates_copy2" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Passport Copy Page 1(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Passport Copy Page 1(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="s_pass_copy1" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Passport Copy Page 2(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Passport Copy Page 2(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="s_pass_copy2" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Father Visa Copy(Scanned copy) -->
+                                                            <span class="help-block"></span>
+                                                            <h2>Father Documents</h2>
+                                                            <span class="help-block"></span>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Father Visa Copy(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="f_visa_copy1" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Emirates Id Copy Page 1(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Father Emirates Id Copy Page 1(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="f_emirates_copy1" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Emirates Id Copy Page 2(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Father Emirates Id Copy Page 2(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="f_emirates_copy2" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother Visa Copy(Scanned copy) -->
+                                                            <h2>Mother Documents</h2>
+                                                            <span class="help-block"></span>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Mother Visa Copy(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="m_visa_copy1" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother Emirates Id Copy Page 1(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Mother Emirates Id Copy Page 1(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="m_emirates_copy1" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Mother Emirates Id Copy Page 2(Scanned copy) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Mother Emirates Id Copy Page 2(Scanned copy) :</label>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="input-file" name="m_emirates_copy2" accept="*"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- submit button -->
+                                                            <div class="row">
+                                                                <div class="col-md-12" style="margin-top:1%; margin-bottom:1%;">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4"></label>
+                                                                        <div class="col-md-1"></div>
+                                                                        <div class="col-md-5">
+                                                                            <input class="btn btn-circle blue btn-block" id="stud_other_submit" style="width:50%;" value="Submit" name="submit" type="submit"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+        </template>
+    </data>
+</openerp>

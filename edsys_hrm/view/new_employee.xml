@@ -1,0 +1,537 @@
+<odoo>
+    <data>
+    	<template id="show_employee_new_form" customize_show="True" inherit_id="website.layout" name="Employee New">
+		    <xpath expr="//ul[@id='top_menu']" position="inside">
+		        <li class="divider" groups="base.group_public"/>
+		        <li groups="base.group_public">
+		            <a t-attf-href="/new_employee">New Employee</a>
+		        </li>
+		    </xpath>
+		</template>
+		
+		<template id="employee_complete_template" name="New Employee Form">
+
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Thank you!</h1>
+                            <br/>
+                                <p t-if="error_message">
+                                    <span t-esc="error_message"/>
+                                </p>
+                            <br/><br/>
+                                <p>we will get back to you soon.</p>
+                        </div>
+                        <section data-snippet-id="cta" class="oe_dark">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt16 mb16">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </t>
+        </template>
+        
+        <template id="employee_duplicate_email" name="New Employee Form">
+
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h3>Employee with same email id exist. Please create record with different email</h3>
+                        </div>
+                        
+                        <section data-snippet-id="cta" class="oe_dark">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt16 mb16">
+                                        <a href="/new_employee" class="btn btn-primary btn-lg">Create New Employee</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                         <br/><br/> <br/><br/> <br/><br/> 
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="new_employement_form" name="New Employee">
+            <t t-call="website.layout">
+            	 <script type="text/javascript" src="/edsys_hrm/static/src/js/website_employement.js"></script>
+            	 <script type="text/javascript" src="/edsys_hrm/static/src/js/datetimepicker_css.js"></script>
+            	 <script type="text/javascript" src="/edsys_hrm/static/src/js/moment.min.js"></script>
+            	 <script type="text/javascript" src="/edsys_hrm/static/src/js/moment-with-locales.min.js"></script>
+                <t t-set="additional_title">Create Employee</t>
+                
+                    <div id="wrap">
+                        <div class="container oe_website_employee">
+                            <div class="row">
+                                <section id="forms">
+                                    <!-- TODO Multilingual form action support ? -->
+                                    <div class="col-md-12">
+                                        <p class="text-center"></p>
+                                    </div>
+                                        <div class="col-md-12" id="msg"></div>
+                                        <div class="row">
+                                            <div class="col-md-1">
+		                                    </div>
+                                            <div class="col-md-10">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                       <h2> <i class="fa fa-gift"></i>New Employee Registration</h2>
+                                                    </div>
+                                                    <div class="tools">
+                                                        <a title="" data-original-title="" href="" class="collapse">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                    <form role="form" method="post" action="/employee/create_new_employee" id="myform" enctype="multipart/form-data">
+				                                         <div class="form-body">
+				                                             <div class="row">
+				                                                 <div class="col-md-12">
+				                                                     <div class="form-group">
+				                                                         <label class="control-label col-md-4">Employee Name <span style="color:#FF0000">*</span> :  </label>
+				                                                         <div class="col-md-6">
+				
+				                                                             <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+				                                                                 <input class="form-control "  name="name" placeholder=" First Name" style="width: 115px;" type="text" required="1"/>
+				                                                             </div>
+				                                                             <div class="col-md-5" style="padding-right:2px;margin-bottom:5px; margin-right:1px;">
+				                                                                 <input class="form-control "  placeholder=" Middle Name" name="middle_name" style="width: 175px;" type="text" />
+				                                                             </div>
+				                                                             <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+				                                                                 <input class="form-control"  placeholder=" Last Name" name="last_name" style="width: 115px;" type="text" required="1"/>
+				                                                             </div>
+				                                                             <span id="msgsphoto"></span>
+				                                                             <span class="help-block"></span>
+				                                                         </div>
+				                                                     </div>
+				                                                 </div>
+				                                             </div>
+				                                             <div  class="row">
+				                                                          <div class="col-md-12">
+				                                                              <div class="form-group">
+				                                                                  <label class="control-label col-md-4"> Personal Email ID <span style="color:#FF0000">*</span> :   </label>
+				                                                                 <div class="col-md-6">
+				                                                                      <input class="form-control"  name="email_id" id="email_id" type="text" required="1"/>
+				                                                                      <span id="msgsphoto"></span>
+				                                                                      <span class="help-block"></span>
+				                                                                  </div>
+				                                                              </div>
+				                                                           </div>
+				                                                    </div>
+					                                             <div class="row">
+								                                        <div class="col-md-12">
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-4">Contact Number <span style="color:#FF0000">*</span> :   </label>
+								                                                <div class="col-md-6">
+			                                                                        <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+			                                                                        	<input class="form-control"  name="isd_contact_number1"   placeholder="0091" id="isd_contact_number1" type="text" required="1"/>
+			                                                                        </div>
+			                                                                        <div class="col-md-6" style="padding-left:0px;margin-bottom:5px;">
+		                                                                            	<input class="form-control"  name="contact_number1"   placeholder="contact number" id="contact_number1" type="text" required="1"/>
+		                                                                            </div>
+		                                                                            <span id="msgsphoto"></span>
+		                                                                            <span class="help-block"></span>
+		                                                                        </div>
+								                                            </div>
+								                                        </div>
+								                                    </div>
+								                                    
+								                                    
+								                                    <div class="row">
+								                                        <div class="col-md-12">
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-4">Emergency contact number  :   </label>
+								                                                <div class="col-md-6">
+			                                                                        <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+			                                                                        	<input class="form-control"  name="isd_contact_number2"   placeholder="0091" id="isd_contact_number2" type="text" />
+			                                                                        </div>
+			                                                                        <div class="col-md-6" style="padding-left:0px;margin-bottom:5px;">
+		                                                                            	<input class="form-control"  name="contact_number2"   placeholder="contact number" id="contact_number2" type="text" />
+		                                                                            </div>
+		                                                                            <span id="msgsphoto"></span>
+		                                                                            <span class="help-block"></span>
+		                                                                        </div>
+								                                            </div>
+								                                        </div>
+								                                    </div>
+								                                    
+								                                     <div class="row">
+								                                        <div class="col-md-12">
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-4">Home country contact number  :   </label>
+								                                                <div class="col-md-6">
+			                                                                        <div class="col-md-3" style="padding-left:0px;margin-bottom:5px;">
+			                                                                        	<input class="form-control"  name="isd_contact_number3"   placeholder="0091" id="isd_contact_number3" type="text" />
+			                                                                        </div>
+			                                                                        <div class="col-md-6" style="padding-left:0px;margin-bottom:5px;">
+		                                                                            	<input class="form-control"  name="contact_number3"   placeholder="contact number" id="contact_number3" type="text" />
+		                                                                            </div>
+		                                                                            <span id="msgsphoto"></span>
+		                                                                            <span class="help-block"></span>
+		                                                                        </div>
+								                                            </div>
+								                                        </div>
+								                                    </div>
+							                                   
+							                                     
+				                                                 <div class="row">
+				                                                     <div class="col-md-12">
+				                                                         <div class="form-group">
+				                                                             <label class="control-label col-md-4"> Date Of Birth :    </label>
+				                                                             <div class="col-md-6">
+				                                                                 <input  readonly="1" class="oe_datepicker_container hasDatepicker"  placeholder="dd/mm/yyyy" name="birthday" id="birthday" type="text" />
+				                                                                 <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+	                                                                                     src="edsys_hrm/static/description/cal.gif" height="16" width="16" border="0"
+	                                                                                        onclick="javascript:NewCssCal('birthday')" style="cursor:pointer"/> 
+				                                                                 <span id="msgsphoto"></span>
+				                                                                 <span class="help-block"></span>
+				                                                             </div>
+				                                                         </div>
+				                                                     </div>
+				                                                 </div>
+				                                                 
+				                                                 <!-- <t t-name="web.datepicker">
+																    <span>
+																        <t t-set="placeholder" t-value="widget.getParent().node and widget.getParent().node.attrs.placeholder"/>
+																        <input type="text" class="oe_datepicker_container" disabled="disabled" style="display: none;"/>
+																        <input type="text"
+																            class="oe_datepicker_master"
+																        /><img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+																               t-att-src='"/web/static/src/img/ui/field_calendar.png"'
+																               title="Select date" width="16" height="16" border="0"/>
+																    </span>
+																</t> -->
+																
+																
+																<!-- <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Date of Birth(As in Passport):<span style="color:#FF0000">*</span></label>
+	                                                                            <div class="col-md-6">
+	                                                                                    <input id="dp1437651782450" class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text"/>
+	                                                                                    <input class="oe_datepicker_master" name="birthday" type="text" id="birthday" required="true"/>
+	                                                                                    <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+	                                                                                     src="edsys_hrm/static/description/cal.gif" height="16" width="16" border="0"
+	                                                                                        onclick="javascript:NewCssCal('birthday')" style="cursor:pointer"/>
+	                                                                                <br/><span id="msgage"></span>
+	                                                                                <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div> -->
+							                                    
+							                                     <div class="row">
+				                                                       <div class="col-md-12">
+				                                                           <div class="form-group">
+				                                                               <label class="control-label col-md-4"> Nationality :    </label>
+				                                                               <div class="col-md-6">
+				                                                                   <select  id="nationality" name="nationality" class="form-control" >
+																                          <option  value="">Nationality...</option>
+																                          <t t-foreach="countries or []" t-as="country">
+																                              <option t-att-value="country.id" ><t t-esc="country.name"/></option>
+																                          </t>
+																                      </select>
+				                                                                   <span class="help-block"></span>
+				                                                               </div>
+				                                                           </div>
+				                                                       </div>
+				                                                </div>
+				                                                
+				                                                <div class="row">
+				                                                       <div class="col-md-12">
+				                                                           <div class="form-group">
+				                                                               <label class="control-label col-md-4"> Job Title <span style="color:#FF0000">*</span>:    </label>
+				                                                               <div class="col-md-6">
+				                                                                   <select  id="job_id" name="job_id" class="form-control" required="1">
+																                          <t t-foreach="hr_job_ids or []" t-as="hr_job_id">
+																                              <option t-att-value="hr_job_id.id" ><t t-esc="hr_job_id.name"/></option>
+																                          </t>
+																                      </select>
+				                                                                   <span class="help-block"></span>
+				                                                               </div>
+				                                                           </div>
+				                                                       </div>
+				                                                </div>
+							                                    
+							                                    <div class="row">
+				                                                     <div class="col-md-12">
+				                                                         <div class="form-group">
+				                                                             <label class="control-label col-md-4"> Date Of Interview <span style="color:#FF0000">*</span>:    </label>
+				                                                             <div class="col-md-6">
+				                                                                 <input  readonly="1" class="oe_datepicker_container hasDatepicker"  placeholder="dd/mm/yyyy" name="date_of_interview" id="date_of_interview" type="text" required="1"/>
+				                                                                 <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+	                                                                                     src="edsys_hrm/static/description/cal.gif" height="16" width="16" border="0"
+	                                                                                        onclick="javascript:NewCssCal('date_of_interview')" style="cursor:pointer"/> 
+				                                                                 <span id="msgsphoto"></span>
+				                                                                 <span class="help-block"></span>
+				                                                             </div>
+				                                                         </div>
+				                                                     </div>
+				                                                 </div>
+				                                                 
+				                                                 <div class="row">
+				                                                     <div class="col-md-12">
+				                                                         <div class="form-group">
+				                                                             <label class="control-label col-md-4"> Offer Letter Sent Date <span style="color:#FF0000">*</span>:    </label>
+				                                                             <div class="col-md-6">
+				                                                                 <input  readonly="1" class="oe_datepicker_container hasDatepicker"  placeholder="dd/mm/yyyy" name="offer_letter_sent_date" id="offer_letter_sent_date" type="text" required="1"/>
+				                                                                <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+	                                                                                     src="edsys_hrm/static/description/cal.gif" height="16" width="16" border="0"
+	                                                                                        onclick="javascript:NewCssCal('offer_letter_sent_date')" style="cursor:pointer"/>
+				                                                                 <span id="msgsphoto"></span>
+				                                                                 <span class="help-block"></span>
+				                                                             </div>
+				                                                         </div>
+				                                                     </div>
+				                                                 </div>
+				                                                 
+				                                                 <div class="row">
+				                                                     <div class="col-md-12">
+				                                                         <div class="form-group">
+				                                                             <label class="control-label col-md-4"> Expected Date Of Joining <span style="color:#FF0000">*</span>:    </label>
+				                                                             <div class="col-md-6">
+				                                                                 <input  readonly="1" class="oe_datepicker_container hasDatepicker"  placeholder="dd/mm/yyyy" name="joining_date" id="joining_date" type="text" required="1"/>
+				                                                                 <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+	                                                                                     src="edsys_hrm/static/description/cal.gif" height="16" width="16" border="0"
+	                                                                                        onclick="javascript:NewCssCal('joining_date')" style="cursor:pointer"/>
+				                                                                 <span id="msgsphoto"></span>
+				                                                                 <span class="help-block"></span>
+				                                                             </div>
+				                                                         </div>
+				                                                     </div>
+				                                                 </div>
+				                                                 
+				                                                <div class="row">
+		                                                                <div class="col-md-12">
+		                                                                    <div class="form-group">
+		                                                                        <label class="control-label col-md-4">Do you have a valid Labour Card/ Work Permit? :   </label>
+		                                                                        <div class="col-md-3">
+		                                                                            <div>
+		                                                                                <input name="labour_card_exist"  id="labour_card_exist" value="yes" type="radio" />Yes
+		                                                                           		<input name="labour_card_exist"  id="labour_card_exist"  value="no" type="radio" />No
+		                                                                   			</div>
+		                                                                            <span class="help-block"></span>
+		                                                                        </div>
+		                                                                    </div>
+		                                                                </div>
+		                                                            </div> 
+							                                    <div  t-att-hidden="labour_card_exist != 'yes' " id="labour_card_details" name="labour_card_details">
+								                                    <div class="row">
+					                                                   	<div class="col-md-12">
+					                                                           <div class="form-group">
+					                                                               <label class="control-label col-md-4">Labour / Permit card No :   </label>
+					                                                               <div class="col-md-6">
+					                                                                   <input class="form-control" id="permit_card_no" name="permit_card_no" type="text" />
+					                                                                   <span id="msgsphoto"></span>
+					                                                                   <span class="help-block"></span>
+					                                                               </div>
+					                                                           </div>
+					                                                       </div>
+					                                                      </div>
+					                                                      <div class="row">
+					                                                       <div class="col-md-12">
+					                                                           <div class="form-group">
+					                                                               <label class="control-label col-md-4">Expiry date of labour card :   </label>
+					                                                               <div class="col-md-6">
+					                                                                   <input  readonly="1" class="oe_datepicker_container hasDatepicker" placeholder="dd/mm/yyyy" id="permit_expiry_date" name="permit_expiry_date" type="text" />
+					                                                                   <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+	                                                                                     src="edsys_hrm/static/description/cal.gif" height="16" width="16" border="0"
+	                                                                                        onclick="javascript:NewCssCal('permit_expiry_date')" style="cursor:pointer"/>
+					                                                                   <span id="msgsphoto"></span>
+					                                                                   <span class="help-block"></span>
+					                                                               </div>
+					                                                           </div>
+					                                                       </div>
+					                                                   </div>
+				                                                </div>
+				                                                
+				                                                <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Do you have a valid Emirates ID Card? :   </label>
+	                                                                        <div class="col-md-3">
+	                                                                            <div>
+	                                                                                <input name="emirates_id_exist" id="emirates_id_exist" value="yes" type="radio" />Yes
+																					<input name="emirates_id_exist" id="emirates_id_exist" value="no" type="radio" />No
+																				</div>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div> 
+                                                               <div  t-att-hidden="emirates_id_exist != 'yes' " id="emirates_id_card_details" name="emirates_id_card_details">
+					                                                <div class="row">
+					                                                 	<div class="col-md-12">
+					                                                         <div class="form-group">
+					                                                             <label class="control-label col-md-4">Emirates card No :   </label>
+					                                                             <div class="col-md-6">
+					                                                                 <input class="form-control" id="emirates_card_no" name="emirates_card_no" type="text" />
+					                                                                 <span id="msgsphoto"></span>
+					                                                                 <span class="help-block"></span>
+					                                                             </div>
+					                                                         </div>
+					                                                 	</div>
+					                                               	</div>
+					                                              	 <div class="row">
+					                                                 	<div class="col-md-12">
+					                                                         <div class="form-group">
+					                                                             <label class="control-label col-md-4"> Expiry Date of Emirates ID :   </label>
+					                                                             <div class="col-md-6">
+					                                                                 <input  readonly="1" class="oe_datepicker_container hasDatepicker" placeholder="dd/mm/yyyy" id="emirates_expiry_date" name="emirates_expiry_date" type="text" />
+					                                                                 <img class="oe_input_icon oe_datepicker_trigger" draggable="false"
+	                                                                                     src="edsys_hrm/static/description/cal.gif" height="16" width="16" border="0"
+	                                                                                        onclick="javascript:NewCssCal('emirates_expiry_date')" style="cursor:pointer"/>
+					                                                                 <span id="msgsphoto"></span>
+					                                                                 <span class="help-block"></span>
+					                                                             </div>
+					                                                         </div>
+					                                                     </div>
+					                                               	</div>    
+					                                            </div>        
+					                                            
+					                                            <!-- New changes 17-sep-2016 Cr by amrita -->
+							                                    <div class="row">
+							                                        <div class="col-md-12">
+							                                            <div class="form-group">
+							                                                <label class="control-label col-md-4">Passport Number  :   </label>
+							                                                <div class="col-md-6">
+							                                                    <input class="form-control"  name="passport_number"   id="passport_number" type="text"/>
+							                                                    <span id="msgsphoto"></span>
+							                                                    <span class="help-block"></span>
+							                                                </div>
+							                                            </div>
+							                                        </div>
+							                                    </div>
+							                                    <div class="row">
+							                                        <div class="col-md-12">
+							                                            <div class="form-group">
+							                                                <label class="control-label col-md-4">Candidate Profile Number  :   </label>
+							                                                <div class="col-md-6">
+							                                                    <input class="form-control"  name="identification_id"   id="identification_id" type="text"/>
+							                                                    <span id="msgsphoto"></span>
+							                                                    <span class="help-block"></span>
+							                                                </div>
+							                                            </div>
+							                                        </div>
+							                                    </div>
+							                                    <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Employer VISA required <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-3">
+	                                                                            <div>
+	                                                                                <input name="visa_required" id="visa_required" value="yes" type="radio" required="1"/>Yes
+																					<input name="visa_required" id="visa_required" value="no" type="radio" />No
+																				</div>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div> 
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Employer accommodation <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-3">
+	                                                                            <div>
+	                                                                                <input name="accommodation" id="accommodation" value="yes" type="radio" required="1"/>Yes
+																					<input name="accommodation" id="accommodation" value="no" type="radio" />No
+																				</div>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div> 
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Health card required <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-3">
+	                                                                            <div>
+	                                                                                <input name="health_card" id="health_card" value="yes" type="radio" required="1"/>Yes
+																					<input name="health_card" id="health_card" value="no" type="radio" />No
+																				</div>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div> 
+	                                                            <div class="row">
+	                                                                <div class="col-md-12">
+	                                                                    <div class="form-group">
+	                                                                        <label class="control-label col-md-4">Medical insurance required <span style="color:#FF0000">*</span>:   </label>
+	                                                                        <div class="col-md-3">
+	                                                                            <div>
+	                                                                                <input name="medical_insurance" id="medical_insurance" value="yes" type="radio" required="1"/>Yes
+																					<input name="medical_insurance" id="medical_insurance" value="no" type="radio" />No
+																				</div>
+	                                                                            <span class="help-block"></span>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div> 
+	                                                            <div class="row">
+							                                        <div class="col-md-12">
+							                                            <div class="form-group">
+							                                                <label class="control-label col-md-4">Remarks  :   </label>
+							                                                <div class="col-md-6">
+							                                                    <input class="form-control"  name="remark"   id="remark" type="text"/>
+							                                                    <span id="msgsphoto"></span>
+							                                                    <span class="help-block"></span>
+							                                                </div>
+							                                            </div>
+							                                        </div>
+							                                    </div>
+	                                                            
+	                                                            <!--  End  -->
+	                                                            
+							                                    <div class="row" >
+				                                                    <div class="col-md-12">
+				                                                        <div class="form-group">
+				                                                            <label class="control-label col-md-4">Offer Letter : <span style="color:#FF0000">*</span> </label>
+				                                                            <div class="col-md-6">
+				                                                                <input type="file" id="offer_letter" class="input-file" name="offer_letter" accept="pdf/*" required="1"/>
+				                                                                <span class="help-block"></span>
+				                                                            </div>
+				                                                        </div>
+				                                                    </div>
+				                                                </div>
+				                                                
+				                                                <div class="row">
+				                                                    <div class="col-md-12" style="margin-top:1%; margin-bottom:1%;">
+				                                                        <div class="form-group">
+				                                                            <label class="control-label col-md-4"></label>
+				                                                            <div class="col-md-1"></div>
+				                                                            <div class="col-md-5">
+				                                                                <input class="btn btn-circle blue btn-block" id="new_employement_form_submit_new_from" style="width:50%;" value="Submit" name="new_employement_form_submit_new_from" type="submit"/>
+				                                                                <span class="help-block"></span>
+				                                                            </div>
+				                                                        </div>
+				                                                    </div>
+				                                                </div>
+							                                    
+							                                    
+							                                    
+				                                           </div>
+				                                       </form>            
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+        </template>
+    </data>
+</odoo>

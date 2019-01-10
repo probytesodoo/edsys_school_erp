@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="re_reg_load_js_css" inherit_id="website.assets_frontend" name="Re Registration Form Box">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/edsys_edu_re_registration/static/src/js/webform_re_reg_request.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

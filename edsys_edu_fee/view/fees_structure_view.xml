@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+<!-- Fees Structure Information From View -->
+        <record model="ir.ui.view" id="view_fees_structure_form">
+            <field name="name">fees.structure.form</field>
+            <field name="model">fees.structure</field>
+            <field name="arch" type="xml">
+                <form string="Student Fees Structure">
+                    <sheet>
+	                   <group col="4" colspan="4">
+	                       <field name="name" placeholder="Name"/>
+	                       <field name="code" placeholder="Code"/>
+                               <field name="type" required="1" />
+                               <field name="course_id" required="1"/>
+	                       <field name="academic_year_id" required="1"/>
+	                   </group>
+	                   <notebook colspan="4">
+	                       <page string="Fees Lines">
+	                           <field name="fee_line_ids" nolabel="1" colspan="4">
+                                   <tree string='Fees Lines' editable='bottom'>
+                                       <field name="sequence" string="Priority" required="1"/>
+                                       <field name="name" domain="[('fees','=',True)]"/>
+                                       <field name="amount"/>
+                                       <field name="type" required="1"/>
+                                       <field name="fee_pay_type" required="1"/>
+                                       <field name="update_amount"/>
+                                       <field name="amount_from_percentage"/>
+                                       <button name="update_fee_amount" type="object" string="Update"/>
+                                   </tree>
+                               </field>
+	                       </page>
+                           <page string="Fee History">
+                               <field name="fee_history_line" nolabel="1" colspan="4" readonly="1">
+                                    <tree string="fee history line">
+                                        <field name="sequence"/>
+                                        <field name="name"/>
+                                        <field name="old_amount"/>
+                                        <field name="new_amount"/>
+                                        <field name="date"/>
+                                    </tree>
+                               </field>
+	                       </page>
+	                   </notebook>
+	               </sheet>
+                </form>
+            </field>
+        </record>
+
+     <!-- Student Fees Structure Information Tree View-->
+        <record model="ir.ui.view" id="view_fees_structre_tree">
+            <field name="name">fees.structure.tree</field>
+            <field name="model">fees.structure</field>
+            <field name="arch" type="xml">
+                <tree string="Fees Structure">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="course_id"/>
+	            <field name="academic_year_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_fees_structure_form">
+            <field name="name">Fee Structure</field>
+            <field name="res_model">fees.structure</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+ 			<!-- New Code For Header -->
+			<template id="custom_receipt_external_layout_header_payment_receipt">
+			    <div class="header">
+			        <div id='left'   style='width:33.33%;height:200px;float:left;'>
+				        <div class="row">
+				            <div class="col-xs-12">
+				                <strong>
+				                <div t-field="company.partner_id" 
+				                    t-field-options='{"widget": "contact", "fields": ["address","name"], "no_marker": true}'
+				                    /></strong>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-xs-12">
+				                <strong>Email: </strong>  
+				                    <span t-field="company.email"/>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-xs-12">
+				                <strong>Website: </strong> 
+				                    <span t-field="company.website"/> 
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-xs-12">
+				                <strong>Phone:   </strong><span t-field="company.phone"/>
+				                
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-xs-12">
+				                <strong>Fax:  </strong> <span t-field="company.fax"/>
+				                
+				            </div>
+				        </div>
+				    </div>
+				     
+					<div id='middle' style='width:33.33%;height:200px;float:left;'  >
+							<div class="row">
+					            <div align="center">
+					                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" align="center" style="height:95px;"/>
+					            </div>
+					        </div>
+					        <div class="row">
+					            <div align="center"  t-field="company.rml_header1"/>
+					        </div>
+					        <div class="row">
+					            <div align="center"><span><strong>RECEIPT</strong></span></div>
+					        </div>
+					</div>
+				     
+				     
+				     
+				    <div id='right'  style='width:33.33%;height:200px;float:left;'>
+				    	<div>
+				    		<img src="/edsys_edu/static/description/header_new.jpg" align="right" style="width:330px;"></img>
+				    	</div>
+				    </div>
+				    
+			    </div>
+			</template>
+	
+			<!-- New Code For Footer -->
+			<template id="custom_receipt_external_layout_footer_payment_receipt">
+			    <div class="footer">
+			        <div class="text-center" style="border-top: 1px solid black;">
+						
+			            <t t-if="company.custom_footer">
+			                <span t-raw="company.rml_footer"/>
+			            </t>
+						<div>
+							<span>N.B.: The fees should be paid in advance, before the 10th of every month. Cheques will be credited subject to realization. Thank you.</span>
+						</div>
+			            <ul class="list-inline">
+			                <li>Page:</li>
+			                <li><span class="page"/></li>
+			                <li>/</li>
+			                <li><span class="topage"/></li>
+			            </ul>
+			        </div>
+			    </div>      
+			</template>
+	    
+	
+			<template id="custom_receipt_external_layout_payment_receipt">
+			    <t t-if="o and 'company_id' in o">
+			        <t t-set="company" t-value="o.company_id"></t>
+			    </t>
+			    <t t-if="not o or not 'company_id' in o">
+			        <t t-set="company" t-value="res_company"></t>
+			    </t>
+			
+			    <t t-call="edsys_edu_fee.custom_receipt_external_layout_header_payment_receipt" />
+			    <t t-raw="0" />
+			    <t t-call="edsys_edu_fee.custom_receipt_external_layout_footer_payment_receipt" />
+			</template>    
+
+</data>
+</odoo>
+    
+

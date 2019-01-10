@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--=============== Discount History Form View==================-->
+        <record id="view_discount_history_form" model="ir.ui.view">
+            <field name="name">discount.history.form.view</field>
+            <field name="model">discount.history</field>
+            <field name="arch" type="xml">
+	            <form>
+	            	<sheet>
+		            	<group>
+		                    <field name="sr_no" />
+		                   	<field name="discount_category_id" />
+		                   	<field name="discount_category_code" />
+		                   	<field name="action_type" />
+		                   	<field name="action_date" />
+		                   	<field name="applied_by" />
+		                   	<field name="applicable_from_date" />
+		                   	<field name="academic_year_id" />
+		                   	<field name="is_applicable" />
+		                </group>
+	                </sheet>
+	             </form>
+            </field>
+        </record>
+
+		<!--=============== Discount History tree View==================-->
+        <record id="view_discount_history_tree" model="ir.ui.view">
+            <field name="name">discount.history.tree.view</field>
+            <field name="model">discount.history</field>
+            <field name="arch" type="xml">
+	            <tree>
+	                    <field name="sr_no" />
+	                   	<field name="discount_category_id" />
+	                   	<field name="discount_category_code" />
+	                   	<field name="action_type" />
+	                   	<field name="action_date" />
+	                   	<field name="applied_by" />
+	                   	<field name="applicable_from_date" />
+	                   	<field name="academic_year_id" />
+	                   	<field name="is_applicable" />
+	             </tree>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

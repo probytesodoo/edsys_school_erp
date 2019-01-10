@@ -1,0 +1,8 @@
+pysftp
+PySftp
+jwt
+pyjwt
+pycrypto
+Crypto
+num2word
+validate_email

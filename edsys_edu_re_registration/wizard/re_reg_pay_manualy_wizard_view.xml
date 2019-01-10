@@ -1,0 +1,101 @@
+<openerp>
+    <data>
+
+        <!-- ============= Re-Registration fee pay manualy wizard for Student =========== -->
+
+        <record id="re_registration_student_pay_manualy_wizard_view" model="ir.ui.view">
+            <field name="name">re.registration.pay.manualy.wiz.view</field>
+            <field name="model">re.registration.fee.pay.manualy.student</field>
+            <field name="arch" type="xml">
+                <form string="Re-Registration Pay Manualy">
+                    <group>
+                        <h3>
+                            <label string="You are going to pay your Re-Registration Fee"/>
+                            <field name="total_fee" required='1' readonly="1"/>
+                        </h3>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="journal_id" required='1'
+                                   domain="[('type','in',['bank', 'cash']),('online_payment','=',False)]"
+                                   widget="selection"/>
+                            <field name="bank_name" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                            <field name="cheque_start_date" string="Cheque Date" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                            <field name="cheque_expiry_date" attrs="{'invisible':[('cheque','!=',True)]}"/>
+                            <field name="party_name" attrs="{'invisible':[('cheque','!=',True)]}"/>
+                            <field name="chk_num" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                        </group>
+                        <group>
+                            <field name="cheque" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="submit_re_registration_fee" string="Submit" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_re_registration_pay_manualy_wizard_student_action_view" model="ir.actions.act_window">
+            <field name="name">Re-Registration Fee Pay Manualy</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">re.registration.fee.pay.manualy.student</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- ============= Re-Registration fee pay manualy wizard for Parent =========== -->
+
+        <record id="re_registration_student_pay_manualy_wizard_parent_view" model="ir.ui.view">
+            <field name="name">re.registration.pay.manualy.wiz.parent.view</field>
+            <field name="model">re.registration.fee.pay.manualy.parent</field>
+            <field name="arch" type="xml">
+                <form string="Re-Registration Pay Manualy">
+                    <group>
+                        <h3>
+                            <label string="You are going to pay your Re-Registration Fee"/>
+                            <field name="total_fee" required='1'/>
+                        </h3>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="journal_id" required='1'
+                                   domain="[('type','in',['bank', 'cash']),('online_payment','=',False)]"
+                                   widget="selection"/>
+                            <field name="bank_name" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                            <field name="cheque_start_date" string="Cheque Date" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                            <field name="cheque_expiry_date" attrs="{'invisible':[('cheque','!=',True)]}"/>
+                            <field name="party_name" attrs="{'invisible':[('cheque','!=',True)]}"/>
+                            <field name="chk_num" attrs="{'invisible':[('cheque','!=',True)],
+                                                   'required' : [('cheque','=',True)]}"/>
+                        </group>
+                        <group>
+                            <field name="cheque" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="parent_submit_re_registration_fee" string="Submit" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_re_registration_pay_manualy_wizard_parent_action_view" model="ir.actions.act_window">
+            <field name="name">Re-Registration Fee Pay Manualy</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">re.registration.fee.pay.manualy.parent</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

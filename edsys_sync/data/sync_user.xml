@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="partner_sync" model="res.partner">
+            <field name="name">Transco</field>
+            <field name="customer" eval="False"/>
+        </record>
+
+        <record id="user_sync" model="res.users">
+            <field name="partner_id" ref="partner_sync"/>
+            <field name="login">transco</field>
+            <field name="password">transco</field>
+            <field name="signature">--
+            Transco</field>
+            <field name="groups_id" eval="[(6,0,[ref('group_sync_odoo_data'), ref('hr.group_hr_manager')])]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--=============== Fee Computation Form View==================-->
+        <record id="view_fee_computation_form" model="ir.ui.view">
+            <field name="name">fee.computation.form.view</field>
+            <field name="model">fee.computation</field>
+            <field name="arch" type="xml">
+	            <form>
+	            	<sheet>
+		            	<group>
+		                    <field name="month_id" /> 
+		                   	<field name="fee_date" />
+		                   	<field name="fee_computation_line_ids" />
+		                   	<field name="total_calculated_amount" />
+		                   	<field name="total_discount_amount" />
+		                   	<field name="invoice_amount" />
+		                   	<field name="discount_category_id" />
+		                   	<field name="status" />
+		                </group>
+	                </sheet>
+	             </form>
+            </field>
+        </record>
+
+		<!--=============== Fee Computation tree View==================-->
+        <record id="view_fee_computation_tree" model="ir.ui.view">
+            <field name="name">fee.computation.tree.view</field>
+            <field name="model">fee.computation</field>
+            <field name="arch" type="xml">
+	            <form>
+	            	<sheet>
+	                    <field name="month_id" />
+	                   	<field name="fee_date" />
+	                   	<field name="fee_computation_line_ids" />
+	                   	<field name="total_calculated_amount" />
+	                   	<field name="total_discount_amount" />
+	                   	<field name="invoice_amount" />
+	                   	<field name="discount_category_id" />
+	                   	<field name="status" />
+	                </sheet>
+	             </form>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

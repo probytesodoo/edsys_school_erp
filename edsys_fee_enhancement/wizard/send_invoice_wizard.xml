@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+       <!-- Form view for Send Invoice Wizard -->
+        <record id="send_invoice_wizard_view" model="ir.ui.view">
+            <field name="name">send invoice wizard</field>
+            <field name="model">send.invoice.wizard</field>
+            <field name="arch" type="xml">
+                <form string="send invoice wizard">
+                    <group>
+                        <field name="class_id" required="1"/>
+                        <field name="batch_id" required="1"/>
+                        <field name="month" required="1"/>
+                        <field name="parent_ids"  required="1" domain="[('is_parent','=',True),('is_student','=',False)]">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="send_invoice_button" string="Send Invoices" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <act_window
+            id="action_send_invoice_wizard_view"
+            name="Send Invoice Wizard"
+            res_model="send.invoice.wizard"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+            
+            <menuitem id="send_invoice_wiza_menu" name="Send Invoice Wizard" parent="edsys_edu_fee.Fee_payment_sub_menu"
+                  action="action_send_invoice_wizard_view"/>
+            
+
+    </data>
+</odoo>

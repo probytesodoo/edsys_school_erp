@@ -1,0 +1,502 @@
+<openerp>
+    <data>
+        <template id="student_other_information_page2" name="Enquiry">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Student Other Information</t>
+                <div id="wrap">
+                    <div class="container">
+                        <div class="row">
+                            <section id="forms">
+                                <form role="form" method="post"
+                                      t-attf-action="/otherinformation/page2?student_id=#{ student_rec.id }"
+                                      enctype="multipart/form-data">
+                                    <input id="Student_Id" type="hidden" t-att-value="student_rec.id"/>
+                                    <input id="Page_Code" type="hidden" t-att-value="page_code"/>
+                                    <!-- TODO Multilingual form action support ? -->
+                                    <div class="col-md-12">
+                                        <p class="text-center"></p>
+                                    </div>
+                                    <div class="col-md-12" style="background-color:#888; color:#FFFFFF; padding:20px; font-size:36px; margin-bottom:20px;">
+                                        <center>Admission Form</center>
+                                    </div>
+                                    <div class="col-md-12" id="msg"></div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="row"> <div class="col-md-10">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-pencil-square-o"></i> Father’s Details
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                    <div class="form-body">
+                                                        <!-- Father Name -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Name:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               required="true"
+                                                                               name="Father_name"
+                                                                               t-att-value="student_rec.parents1_id.name"
+                                                                               type="text"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Nationality -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Nationality:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <select id="select2_sample4" class="form-control select2" name="Father_Nationality" required="true">
+                                                                            <option value="">|-- Nationality --|</option>
+                                                                            <t t-foreach="country_rec_list" t-as="country_rec">
+                                                                                <t t-if="country_rec.id == student_rec.parents1_id.father_nationality.id">
+                                                                                    <option t-att-value="country_rec.id"
+                                                                                            selected="selected"><span t-esc="country_rec.name"/></option>
+                                                                                </t>
+                                                                                <t t-if="country_rec.id != student_rec.parents1_id.father_nationality.id">
+                                                                                    <option t-att-value="country_rec.id"><span t-esc="country_rec.name"/></option>
+                                                                                </t>
+                                                                            </t>
+                                                                        </select>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Passport No -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Passport No:</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               name = 'Father_Passport'
+                                                                               t-att-value="student_rec.parents1_id.father_passport"
+                                                                               type="text"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Emirates Id No -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Emirates Id No:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               type="text"
+                                                                               name = 'Father_Emirates_Id'
+                                                                               t-att-value="student_rec.parents1_id.father_emirates_id"
+                                                                               required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Designation -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Designation</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               type="text"
+                                                                               name = 'Father_Designation'
+                                                                               t-att-value="student_rec.parents1_id.parent_profession"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Office Address -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Office Address</label>
+                                                                    <div class="col-md-6">
+                                                                        <textarea class="form-control" name="Parent_Address"
+                                                                                  rows="3"><t t-esc="student_rec.parents1_id.parent_address"/></textarea>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Tel. No. (Office) -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Tel. No. (Office):</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               type="text"
+                                                                               name="Parents_Office_Contact"
+                                                                               t-att-value="student_rec.parents1_id.parents_office_contact"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Mobile No:* -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Mobile No:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               id="father_mobile"
+                                                                               placeholder="Ex : +9711234567890"
+                                                                               type="text"
+                                                                               name='Parent_Contact'
+                                                                               t-att-value="student_rec.parents1_id.parent_contact"/>
+                                                                        <span id="father_mobile_block"></span>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Email -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Email:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               id="father_email"
+                                                                               name="Parents_Email"
+                                                                               t-att-value="student_rec.parents1_id.parents_email"
+                                                                               data-options="required:true,validType:'email'"
+                                                                               type="text" required="true"/>
+                                                                        <span id="father_email_block"></span>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="row"> <div class="col-md-10">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-pencil-square-o"></i> Mother’s Details
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                    <div class="form-body">
+                                                        <!-- Mother Name -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Name:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               required="true"
+                                                                               name="Mother_Name"
+                                                                               t-att-value="student_rec.parents1_id.mother_name"
+                                                                               type="text"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Nationality -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Nationality:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <select id="select2_sample4" class="form-control select2" name="Mother_Nationality" required="true">
+                                                                            <option value="">|-- Nationality --|</option>
+                                                                            <t t-foreach="country_rec_list" t-as="country_rec">
+                                                                                <t t-if="country_rec.id == student_rec.parents1_id.mother_nationality.id">
+                                                                                    <option t-att-value="country_rec.id"
+                                                                                            selected="selected"><span t-esc="country_rec.name"/></option>
+                                                                                </t>
+                                                                                <t t-if="country_rec.id != student_rec.parents1_id.mother_nationality.id">
+                                                                                    <option t-att-value="country_rec.id"><span t-esc="country_rec.name"/></option>
+                                                                                </t>
+                                                                            </t>
+                                                                        </select>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Passport No -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Passport No:</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               name = 'Mother_Passport'
+                                                                               t-att-value="student_rec.parents1_id.mother_passport"
+                                                                               type="text"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Emirates Id No -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Emirates Id No:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               type="text"
+                                                                               name = 'Mother_Emirates_Id'
+                                                                               t-att-value="student_rec.parents1_id.mother_emirates_id"
+                                                                               required="true"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Designation -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Designation</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               type="text"
+                                                                               name="Mother_Designation"
+                                                                               t-att-value="student_rec.parents1_id.mother_profession"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Office Address -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Office Address</label>
+                                                                    <div class="col-md-6">
+                                                                        <textarea class="form-control"
+                                                                                  name="Mother_Address"
+                                                                                  rows="3"><t t-esc="student_rec.parents1_id.mother_address"/></textarea>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Tel. No. (Office) -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Tel. No. (Office):</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               type="text"
+                                                                               name="Mother_Office_Contact"
+                                                                               t-att-value="student_rec.parents1_id.mother_office_contact"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Mobile No:* -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Mobile No:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               id="mother_mobile"
+                                                                               placeholder="Ex : +9711234567890"
+                                                                               type="text"
+                                                                               name="Mother_Contact"
+                                                                               t-att-value="student_rec.parents1_id.mother_contact"/>
+                                                                        <span id="mother_mobile_block"></span>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Email -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Email:<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               id="mother_email"
+                                                                               name="Mother_Email"
+                                                                               t-att-value="student_rec.parents1_id.mother_email"
+                                                                               data-options="required:true,validType:'email'"
+                                                                               type="text" required="true"/>
+                                                                        <span id="mother_email_block"></span>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="row"> <div class="col-md-10">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-pencil-square-o"></i> Parent Resources
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                    <div class="form-body">
+                                                        <!-- Mother Name -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <p>We are keen to use talent and resources that are available in the School Community which can enrich our school programme.</p>
+                                                                    <label class="control-label col-md-4">Please indicate if you may be able to make any special contribution to the School, such as:</label>
+                                                                    <div class="col-md-6">
+                                                                        <select id="id_Special_Contribution" class="form-control select2" name="Special_Contribution">
+                                                                            <option value="">|-- Special Contribution --|</option>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'substitute_teaching'">
+                                                                                <option value="substitute_teaching"
+                                                                                    selected="selected">Substitute Teaching</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'substitute_teaching'">
+                                                                                <option value="substitute_teaching">Substitute Teaching</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'classroom_volunteer'">
+                                                                                <option value="classroom_volunteer"
+                                                                                        selected="selected">Classroom Volunteer</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'classroom_volunteer'">
+                                                                                <option value="classroom_volunteer">Classroom Volunteer</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'field_trip_volunteer'">
+                                                                                <option value="field_trip_volunteer"
+                                                                                        selected="selected">Field Trip Volunteer</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'field_trip_volunteer'">
+                                                                                <option value="field_trip_volunteer">Field Trip Volunteer</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'library_assistance'">
+                                                                                <option value="library_assistance"
+                                                                                        selected="selected">Library Assistance</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'library_assistance'">
+                                                                                <option value="library_assistance">Library Assistance</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'drama'">
+                                                                                <option value="drama"
+                                                                                        selected="selected">Drama</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'drama'">
+                                                                                <option value="drama">Drama</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'art'">
+                                                                                <option value="art"
+                                                                                        selected="selected">Art</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'art'">
+                                                                                <option value="art">Art</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'specialised_teaching_of_music'">
+                                                                                <option value="specialised_teaching_of_music"
+                                                                                        selected="selected">Specialised Teaching of Music</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'specialised_teaching_of_music'">
+                                                                                <option value="specialised_teaching_of_music">Specialised Teaching of Music</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'talking_to_children_describing_some_aspect_of_your'">
+                                                                                <option value="talking_to_children_describing_some_aspect_of_your"
+                                                                                        selected="selected">Talking to children describing some aspect of your work or hobbies</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'talking_to_children_describing_some_aspect_of_your'">
+                                                                                <option value="talking_to_children_describing_some_aspect_of_your">Talking to children describing some aspect of your work or hobbies</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution == 'any_other'">
+                                                                                <option value="any_other" selected="selected">Any other</option>
+                                                                            </t>
+                                                                            <t t-if="student_rec.parents1_id.spe_contribution != 'any_other'">
+                                                                                <option value="any_other">Any other</option>
+                                                                            </t>
+                                                                        </select>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" id="Row_Special_Contribution" style="display:none;">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Any Other :<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control"
+                                                                               id="Input_Special_Contribution"
+                                                                               name="Special_Contribution_Any_Other"
+                                                                               t-att-value="student_rec.parents1_id.special_contribution_any_other"
+                                                                               type="text"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span class="help-block"></span>
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                                <div class="form-group col-md-12">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3"></div>
+                                                                        <div class="col-md-3">
+                                                                            <center>
+                                                                                <input class="btn btn-circle blue btn-block previous"
+                                                                                       t-attf-onclick="window.location.href='/student/verification/previous?student_id=#{ student_rec.id }&amp;page_code=#{ 1 }'"
+                                                                                       value="Previous" type="button"/>
+                                                                            </center>
+                                                                        </div>
+                                                                        <div class="col-md-3" style="padding-right:2px;margin-bottom:5px;">
+                                                                            <center>
+                                                                               
+
+                                                                                <input class="btn btn-circle blue btn-block"
+                                                                                           id="SubmitPaper2" value="Save And Next"
+                                                                                           name="submit" type="submit"/></center>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

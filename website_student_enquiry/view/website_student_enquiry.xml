@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+
+        <template id="reg_form_box" inherit_id="website.assets_frontend" name="Registration Form Box">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/website_student_enquiry/static/src/js/website_enquiry.js"></script>
+                <!--<script type="text/javascript" src="/website_student_enquiry/static/src/js/website_student_information.js"></script>
+                <script type="text/javascript" src="/website_student_enquiry/static/src/js/datetimepicker_css.js"></script>-->
+                <link rel='stylesheet' href='/website_student_enquiry/static/src/css/website_enquiry.css'/>
+            </xpath>
+        </template>
+        
+        <template id="footer_default_inherit" inherit_id="website.footer_default" customize_show="True" name="Automatic Footer">
+            <xpath expr="//div[@class='container hidden-print']" position="replace">
+              <div></div> 
+            </xpath>
+        </template>
+            
+        <record id="menu_contactus" model="website.menu">
+            <field name="name"> </field>
+            <field name="url">/page/website.contactus</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">60</field>
+        </record> 
+        
+         <record id="menu_homepage" model="website.menu">
+            <field name="name"> </field>
+            <field name="url">/page/homepage</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">10</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- <template id="report_external_layout_inherit" inherit_id="report.external_layout"> -->
+           <!--  <xpath expr="//t[@t-call='report.external_layout_header']" position="replace">
+                <t t-call="edsys_edu.custom_receipt_external_layout_header" />
+            </xpath> -->
+           <!--  <xpath expr="//t[@t-call='report.external_layout_footer']" position="replace">
+                <t t-call="edsys_edu.custom_receipt_external_layout_footer" />
+            </xpath> -->
+        <!-- </template> -->
+    </data>
+</odoo>
+

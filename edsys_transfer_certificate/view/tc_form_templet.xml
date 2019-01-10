@@ -1,0 +1,212 @@
+<odoo>
+    <data>
+
+        <!-- ============= Request/Resend Re-Registration process web page ================= -->
+        <template id="tc_form_request">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container">
+                        <div class="row">
+                            <section id="forms">
+                                <br/>
+                                <br/>
+                                <div class="col-md-12" id="msg"></div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="portlet box blue">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-gift"></i>
+                                                    Transfer Certificate Form
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                <form role="form" method="post"
+                                                      t-attf-action="/student/tc/responce?TCCODE=#{tc_stud_rec.id}"
+                                                      id="myform">
+                                                    <div class="form-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-3">Academic Year</label>
+                                                                    <label class="control-label col-md-3">Class</label>
+                                                                    <label class="control-label col-md-3">Student</label>
+                                                                    <!--<div class="col-md-6">-->
+                                                                        <!--<select class="form-control" name="Academic_Year" readonly="readonly">-->
+                                                                            <!--&lt;!&ndash;<option value="">|&#45;&#45; Academic Year &#45;&#45;|</option>&ndash;&gt;-->
+                                                                            <!--<t t-foreach="student_rec" t-as="stud">-->
+                                                                                <!--<option><span t-esc="stud.batch_id.name"/></option>-->
+                                                                            <!--</t>-->
+                                                                        <!--</select>-->
+                                                                        <!--<span class="help-block"></span>-->
+                                                                    <!--</div>-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <!--<label class="control-label col-md-4">Academic Year</label>-->
+                                                                    <!--<label class="control-label col-md-4">Class</label>-->
+                                                                    <!--<label class="control-label col-md-4">Student</label>-->
+                                                                    <div class="col-md-3">
+                                                                        <select class="form-control" name="Academic_Year" readonly="readonly">
+                                                                            <!--<option value="">|- Academic Year -|</option>-->
+                                                                            <t t-foreach="tc_stud_rec" t-as="stud">
+                                                                                <option><span t-esc="tc_stud_rec.batch_id.name"/></option>
+                                                                            </t>
+                                                                        </select>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <select class="form-control" name="class" readonly="readonly">
+                                                                            <!--<option value="">|- Academic Year -|</option>-->
+                                                                            <t t-foreach="tc_stud_rec" t-as="stud">
+                                                                                <option><span t-esc="tc_stud_rec.course_id.name"/></option>
+                                                                            </t>
+                                                                        </select>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <select class="form-control" name="stud_rec" readonly="readonly">
+                                                                            <!--<option value="">|- Academic Year -|</option>-->
+                                                                            <t t-foreach="tc_stud_rec" t-as="stud">
+                                                                                <option>[<span t-esc="tc_stud_rec.name.reg_no"/>]<span t-esc="tc_stud_rec.name.name"/></option>
+                                                                            </t>
+                                                                        </select>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                    <!--<div class="col-md-3">-->
+                                                                        <!--<button class="btn btn-circle blue btn-block"-->
+                                                                               <!--id="re_reg_submit_btn" style="width:50%;"-->
+                                                                               <!--type="button">View</button>-->
+                                                                        <!--<span class="help-block"></span>-->
+                                                                    <!--</div>-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr/>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Student ID :</label>
+                                                                    <div class="col-md-6">
+                                                                        <t t-if="tc_stud_rec.name.student_id"><span t-esc="tc_stud_rec.name.student_id"/></t>
+                                                                    <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr/>
+                                                        <!-- Reason for Leaving -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">Reason for Leaving :<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" name="reason_leaving" type="text" required="true"/>
+                                                                    <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr/>
+                                                        <!-- -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">TC Type :<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-3">
+                                                                        <select id="select_type_tc" class="form-control select2" name="select_type_tc" required="true">
+                                                                            <option value="">|-- TC Type --|</option>
+                                                                            <option value="within_uae">Different Emirate</option>
+                                                                            <option value="outside_uae">Outside UAE</option>
+                                                                            <option value="within_dubai">Within Same Emirate</option>
+                                                                        </select>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr/>
+                                                        <!-- -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4">New School Name :<span style="color:#FF0000">*</span></label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" name="new_school_name" type="text" required="true"/>
+                                                                    <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr/>
+                                                        <!-- submit button -->
+                                                        <div class="row">
+                                                            <div class="col-md-12"
+                                                                 style="margin-top:1%; margin-bottom:1%;">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-4"></label>
+                                                                    <div class="col-md-1"></div>
+                                                                    <div class="col-md-5">
+                                                                        <input class="btn btn-circle blue btn-block"
+                                                                               id="re_reg_submit_btn" style="width:50%;"
+                                                                               type="submit" value="Submit"/>
+                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- ============= Thank You Page after getting Responce from Parent ============= -->
+        <template id="tc_request_success">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Thank you!</h1>
+                            <br/>
+                                <h3>
+                                    <p>Your Transfer Certificate form successfully updated.</p>
+                                </h3>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- ============= templet for expired link ============= -->
+        <template id="tc_request_fail" name="Link">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Sorry!</h1>
+                            <br/>
+                            <h3>
+                                <p>You Can not use this link. This Link is Expired.</p>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

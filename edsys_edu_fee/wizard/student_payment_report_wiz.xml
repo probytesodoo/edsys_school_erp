@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="student_payment_report_wiz_view" model="ir.ui.view">
+            <field name="name">student.payment.report.wiz.view</field>
+            <field name="model">student.payment.report.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Student Payment Report Wizard">
+                 
+                    
+                             
+                                 <group>
+                                     <group>
+                                  <field name="student_id" required='1' domain="[('is_student','=',True)]"/></group>
+                                  <group></group>
+                                 </group> 
+                                 <group>
+                                  <field name="date_from" required='1'/>
+                                  <field name="date_to" required='1'/>
+                                  </group>
+                                  <group>
+                                    
+                                      <field name="invoice_ids" invisible="1"/>
+                                      <field name="date_today" invisible="1"/>
+                                      </group>
+                                
+                            
+                    <footer>
+                        <button name="open_report" string="Download as pdf" type="object" class="oe_highlight"/>
+                        <button name="send_student_report" string="Send as email" type="object" class="oe_highlight"/>
+                        
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_student_payment_report_wiz_view"
+            name=" Student Payment Report Wizard"
+            res_model="student.payment.report.wiz"
+            src_model=""
+            target="new"
+            view_mode="form"
+            key2="client_action_multi"/>
+        </data>
+        
+</odoo>

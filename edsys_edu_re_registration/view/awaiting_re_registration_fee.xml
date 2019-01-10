@@ -1,0 +1,156 @@
+<odoo>
+    <data>
+
+        <!-- =============== Awaiting re-registration fee Tree View ================= -->
+        <record id="awaiting_re_registration_parent_tree_view" model="ir.ui.view">
+            <field name="name">awaiting.re.registration.parent.tree.view</field>
+            <field name="model">re.reg.waiting.responce.parents</field>
+            <field name="arch" type="xml">
+                <tree string="Re-Registration Waiting Responce">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="parent_contact"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- =============== Awaiting re-registration fee Form View ================= -->
+        <record id="awaiting_re_registration_fee_parent_form_view" model="ir.ui.view">
+            <field name="name">awaiting.re.registration.fee.parent.form.view</field>
+            <field name="model">re.reg.waiting.responce.parents</field>
+            <field name="arch" type="xml">
+                <form string="Re-Registration Waiting Responce">
+                    <header>
+                        <button name="%(edsys_edu_re_registration.action_re_registration_pay_manualy_wizard_parent_action_view)d"
+                            type="action"
+                            attrs="{'invisible':['|',('residual','&lt;',0),('residual','=',0)]}"
+                            string="Pay Manually"
+                            class="oe_highlight"/>
+                        <button name="re_send_payfort_payment_link_parent"
+                            type="object"
+                            attrs="{'invisible':['|',('residual','&lt;',0),('residual','=',0)]}"
+                            string="Send Payfort Reminder"
+                            class="oe_highlight"/>
+                        <!-- <button name="button_re_registration_confirm" string="Confirm" type="object"
+                                attrs="{'invisible':['|',('total_paid_amount','=',0),('state','!=','awaiting_re_registration_fee')]}" class="oe_highlight"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="awaiting_re_registration_fee"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="code"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="parent_contact" string="Parent Contact"/>
+                                <field name="re_registration_number"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Children Detail">
+                                <field name="student_ids" readonly="1">
+                                    <tree editable="bottom" colors="red:fee_status == 're_unpaid';
+                                        blue:fee_status == 're_Paid';#FFA500:fee_status == 're_partially_paid'">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="reg_no"/>
+                                        <field name="course_id"/>
+                                        <field name="next_year_course_id"/>
+                                        <!--<field name="confirm"/>-->
+                                        <field name="fee_status"/>
+                                        <field name="total_amount"/>
+                                        <field name="total_paid_amount"/>
+                                        <field name="state"/>
+                                        <field name="confirmation_date"/>
+                                        <field name="user_id"/>
+                                        <!--<field name="residual"/>-->
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <group>
+                                        <field name="total_amount" widget="monetary"/>
+                                        <field name="total_paid_amount" widget="monetary"/>
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <field name="residual" string="Balance" widget="monetary" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </group>
+                                <group class="oe_inline"></group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- =============== Awaiting re-registration fee Action View ================= -->
+        <record id="awaiting_re_registration_fee_parent_act_view" model="ir.actions.act_window">
+            <field name="name">Awaiting Re-Registration Fee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">re.reg.waiting.responce.parents</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_state":'awaiting_re_registration_fee'}</field>
+            <field name="domain">[('state','=','awaiting_re_registration_fee')]</field>
+        </record>
+
+        <record id="awaiting_re_registration_fee_parent_action_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="awaiting_re_registration_parent_tree_view"/>
+            <field name="act_window_id" ref="awaiting_re_registration_fee_parent_act_view"/>
+        </record>
+
+        <record id="awaiting_re_registration_fee_parent_action_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="awaiting_re_registration_fee_parent_form_view"/>
+            <field name="act_window_id" ref="awaiting_re_registration_fee_parent_act_view"/>
+        </record>
+
+        <!-- =============== Awaiting re-registration confirm action View ================= -->
+        <record id="awaiting_re_registration_confirm_act_view" model="ir.actions.act_window">
+            <field name="name">Re-Registration Confirm</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">re.reg.waiting.responce.parents</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_state":'re_registration_confirmed'}</field>
+            <field name="domain">[('state','=','re_registration_confirmed')]</field>
+        </record>
+        
+        
+        <record id="tc_expected_act_view" model="ir.actions.act_window">
+            <field name="name">TC Expected Parents</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">re.reg.waiting.responce.parents</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="context">{"search_default_state":'re_registration_confirmed'}</field> -->
+            <field name="domain">[('state','=','tc_expected')]</field>
+        </record>
+
+        <record id="awaiting_re_registration_confirm_action_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="awaiting_re_registration_parent_tree_view"/>
+            <field name="act_window_id" ref="awaiting_re_registration_confirm_act_view"/>
+        </record>
+
+        <record id="awaiting_re_registration_confirm_action_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="awaiting_re_registration_fee_parent_form_view"/>
+            <field name="act_window_id" ref="awaiting_re_registration_confirm_act_view"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<openerp>
+    <data>
+        <record id="post_cheque_wiz_view" model="ir.ui.view">
+            <field name="name">Post Cheque</field>
+            <field name="model">post.cheque.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Post Cheque">
+                    <group>
+                       <h3>
+                        <label string="Are you sure to posted selected cheque"/>
+                       </h3>
+                    </group>
+                    <footer>
+                        <button name="post_cheque" string="Post" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+        <act_window
+            id="action_post_cheque_wiz_view"
+            name=" Post Cheque"
+            res_model="post.cheque.wiz"
+            src_model="pdc.detail"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</openerp>

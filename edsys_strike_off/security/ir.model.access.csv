@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_strike_off_user,res.partner,model_res_partner,group_strike_off_user,1,0,0,0
+access_strike_off_manager,res.partner,model_res_partner,group_strike_off_manager,1,1,1,0
+access_strike_off_history_user,strike.off.history,model_strike_off_history,group_strike_off_user,1,0,0,0
+access_strike_off_history_manager,strike.off.history,model_strike_off_history,group_strike_off_manager,1,1,1,0

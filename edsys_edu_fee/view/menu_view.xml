@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <menuitem id="Fee_structure_main_menu" name='Fee Management' web_icon="edsys_edu_fee,static/description/fee_managment.png" groups="edsys_edu_fee.group_fees_account_manager"/>
+
+        <!-- Monthaly fee Generate -->
+        <menuitem id="Fee_payment_sub_menu" name='Fee Calculation' parent='Fee_structure_main_menu' sequence='1'/>
+        <menuitem id="Fee_payment_action_sub_menu" name='Monthly Fee calculation' parent='Fee_payment_sub_menu' action='edsys_edu_fee.action_fee_payment_form' sequence='1'/>
+
+        <!-- Fee Management -->
+        <menuitem id="Fee_structure_sub_menu" name='Fee Structure' parent='Fee_structure_main_menu' sequence='2'/>
+        <menuitem id="Fee_structure_action_sub_menu" name='Fee Structure' parent='Fee_structure_sub_menu' action='edsys_edu_fee.action_fees_structure_form' sequence='1'/>
+        <menuitem id="Fee_discount_sub_menu" name='Fee Discount' parent='Fee_structure_sub_menu' action='edsys_edu_fee.act_product_discount_view' sequence='2'/>
+
+        <!--<menuitem id="History_sub_menu" name='Fees History' parent='Fee_structure_sub_menu'/>-->
+        <!--<menuitem id="update_history" name="Fee Update History" parent="History_sub_menu" action="act_fee_history_view"/>-->
+
+        <!-- Configuration -->
+        <menuitem id="config_sub_menu" name='Configuration' parent='Fee_structure_main_menu' sequence='3'/>
+        <menuitem id="Fee_payment_type_sub_menu" name='Payment Frequency' parent='config_sub_menu' action='edsys_edu_fee.payment_type_action' sequence='5'/>
+        <menuitem id="product_sub_menu" name='Fee Categories' parent='config_sub_menu' action='edsys_edu_fee.product_template_fees_action_view' sequence='6'/>
+        <menuitem id="product_discount_sub_menu" name='Discount Categories' parent='config_sub_menu' action='edsys_edu_fee.product_template_discount_action_view' sequence='7'/>
+
+        <!-- Fee Payment -->
+        <menuitem id="student_invoice_menu" name="Fees Collection" groups="edsys_edu_fee.group_fees_management_manager" web_icon="edsys_edu_fee,static/description/fee_collection.png"/>
+        <menuitem id="fee_payment_sub_menu" name="Fee Collection" parent="student_invoice_menu" />
+        <!-- <menuitem id="student_fee_payment_menu" name="Student Fee Collection" 
+            parent="fee_payment_sub_menu" action="act_student_fee_payment1" sequence='1'/> -->
+        <!-- <menuitem id="parent_fee_payment_menu" name="Parent Fee Collection" parent="fee_payment_sub_menu" action="act_parent_fee_payment" sequence='2'/>-->
+        <menuitem id="resend_payfort_link_menu" name="Resend Payfort Link" parent="fee_payment_sub_menu" action="edsys_edu_fee.action_resend_payfort_wiz_view" sequence='3' groups="edsys_edu_fee.group_fees_account_manager"/>
+        <menuitem id="resend_payment_account_voucher_menu" name="Voucher for Payfort" parent="fee_payment_sub_menu" action="edsys_edu_fee.action_resend_inherit_account_voucher" sequence='4' groups="edsys_edu_fee.group_fees_account_manager"/>
+        <menuitem id="next_year_advance_fee_menu" name="Next Year Advance Fee" parent="fee_payment_sub_menu" action="edsys_edu_fee.next_year_advance_fee_action_view" sequence='5' groups="edsys_edu_fee.group_fees_account_manager"/>
+
+	    <menuitem id="payment_report_sub_menu" name="Debit And Credit Reports" parent="student_invoice_menu"/>
+        <menuitem id="student_fee_payment_report_menu" name="Student Report" parent="payment_report_sub_menu" action="edsys_edu_fee.action_student_payment_report_wiz_view"/>
+        <menuitem id="parent_fee_payment_report_menu" name="Parent Report" parent="payment_report_sub_menu" action="edsys_edu_fee.action_parent_payment_report_wiz_view"/>
+
+       
+
+       
+
+</odoo>
+                                                                                             

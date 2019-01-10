@@ -1,0 +1,823 @@
+<openerp>
+    <data>
+        <template id="student_other_information_page3" name="Enquiry">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Student Other Information</t>
+                <div id="wrap">
+                    <div class="container">
+                        <div class="row">
+                            <section id="forms">
+                                <form role="form" method="post"
+                                      t-attf-action="/otherinformation/page3?student_id=#{ student_rec.id }"
+                                      enctype="multipart/form-data">
+                                    <input id="Student_Id" type="hidden" t-att-value="student_rec.id"/>
+                                    <input id="Page_Code" type="hidden" t-att-value="page_code"/>
+                                    <!-- TODO Multilingual form action support ? -->
+                                    <div class="col-md-12">
+                                        <p class="text-center"></p>
+                                    </div>
+                                    <div class="col-md-12"
+                                         style="background-color:#888; color:#FFFFFF; padding:20px; font-size:36px; margin-bottom:20px;">
+                                        <center>Admission Form</center>
+                                    </div>
+                                    <div class="col-md-12" id="msg"></div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="portlet box blue">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-pencil-square-o"></i>
+                                                            Educational History
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body form">
+                                                        <div class="form-body">
+                                                            <!-- Current School Name (Where the child is studying now) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Current
+                                                                            School Name (Where the child is studying
+                                                                            now):
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   name="Current_School_Name"
+                                                                                   t-att-value="student_rec.prev_institute"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Address -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Address
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <textarea class="form-control"
+                                                                                      name="Prev_Academic_City"
+                                                                                      rows="3"><t t-esc="student_rec.prev_academic_city"/></textarea>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Subjects studied/Curriculum-->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Subjects
+                                                                            studied/Curriculum:
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control "
+                                                                                   name="Curriculum"
+                                                                                   t-att-value="student_rec.curriculum"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Medium of Instruction -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Medium of
+                                                                            Instruction
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control "
+                                                                                   name="Medium_of_Instruction"
+                                                                                   t-att-value="student_rec.medium_of_instruction"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Last date of Attendance -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Last date
+                                                                            of Attendance:
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="oe_datepicker_master"
+                                                                                   name="Last_Attendance_Date"
+                                                                                   type="text"
+                                                                                   t-att-value="student_rec.last_attendance"
+                                                                                   id="date7"/>
+                                                                            <div class="glyphicon glyphicon-calendar"
+                                                                                 draggable="false"
+                                                                                 style="cursor:pointer" height="20"
+                                                                                 width="20"
+                                                                                 onclick="javascript:PaperLessNewCssCal('date7')"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Reason for Transfer -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Reason for
+                                                                            Transfer:
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   name="Reason_for_Transfer"
+                                                                                   t-att-value="student_rec.tranfer_reason"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="portlet box blue">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-pencil-square-o"></i>
+                                                            General (Please tick the appropriate answer)
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body form">
+                                                        <div class="form-body">
+                                                            <!--  Has your child ever received a double promotion -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child ever received a double promotion
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.received_double_promotion == 'yes'">
+                                                                                        <input name="Received_Double_Promotion"
+                                                                                               value="yes" checked=""
+                                                                                               type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.received_double_promotion != 'yes'">
+                                                                                        <input name="Received_Double_Promotion"
+                                                                                               value="yes"
+                                                                                               type="radio"/>
+                                                                                    </t>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <t t-if="student_rec.received_double_promotion == 'no'">
+                                                                                        <input name="Received_Double_Promotion"
+                                                                                               value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.received_double_promotion != 'no'">
+                                                                                        <input name="Received_Double_Promotion"
+                                                                                               value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child ever been identified as gifted or talented? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child ever been identified as gifted or
+                                                                            talented?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <t t-if="student_rec.identified_gifted_or_talented == 'yes'">
+                                                                                        <input name="Identified_Gifted_or_Talented"
+                                                                                               value="yes" checked=""
+                                                                                               type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.identified_gifted_or_talented != 'yes'">
+                                                                                        <input name="Identified_Gifted_or_Talented"
+                                                                                               value="yes"
+                                                                                               type="radio"/>
+                                                                                    </t>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <t t-if="student_rec.identified_gifted_or_talented == 'no'">
+                                                                                        <input name="Identified_Gifted_or_Talented"
+                                                                                               value="no"
+                                                                                               checked="" type="radio"/>
+                                                                                    </t>
+                                                                                    <t t-if="student_rec.identified_gifted_or_talented != 'no'">
+                                                                                        <input name="Identified_Gifted_or_Talented"
+                                                                                               value="no" type="radio"/>
+                                                                                    </t>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child ever been detained? Grade -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child ever been detained?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Has_Child_Detained"
+                                                                                           id="id_Has_Child_Detained_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <input name="Has_Child_Detained"
+                                                                                           id="id_Has_Child_Detained_2"
+                                                                                           value="no" type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Grade -->
+                                                            <div class="row" style="display:none;"
+                                                                 id="Row_Has_Child_Detained">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Grade :
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control select2"
+                                                                                    id="Input_Has_Child_Detained"
+                                                                                    name="Has_Child_Detained_Grade">
+                                                                                <option value="">| --- Grade --- |
+                                                                                </option>
+                                                                                <t t-foreach="course_rec_list"
+                                                                                   t-as="course_rec">
+                                                                                    <t t-if="student_rec.has_child_detained_grade">
+                                                                                        <option t-att-value="course_rec.id"
+                                                                                                selected="selected">
+                                                                                            <span t-esc="course_rec.name"/>
+                                                                                        </option>
+                                                                                    </t>
+                                                                                    <t t-if="not student_rec.has_child_detained_grade">
+                                                                                        <option t-att-value="course_rec.id">
+                                                                                            <span t-esc="course_rec.name"/>
+                                                                                        </option>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child received any academic distinction? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child received any academic distinction?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Child_Received_Academic_Distinction"
+                                                                                           id="id_child_received_academic_distinction_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <input name="Child_Received_Academic_Distinction"
+                                                                                           id="id_child_received_academic_distinction_2"
+                                                                                           value="no" type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- -->
+                                                            <div class="row"
+                                                                 id="Row_Child_Received_Academic_Distinction"
+                                                                 style="display:none;">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes,
+                                                                            please indicate details:
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   id="Input_Child_Received_Academic_Distinction"
+                                                                                   name="Child_Received_Academic_Distinction_Details"
+                                                                                   t-att-value="student_rec.child_received_academic_distinction_details"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child ever been suspended/ expelled by any school in the past? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child ever been suspended/ expelled by any
+                                                                            school in the past?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Has_Suspended_Expelled_by_School"
+                                                                                           id="id_has_suspended_expelled_by_school_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                        <input name="Has_Suspended_Expelled_by_School"
+                                                                                               id="id_has_suspended_expelled_by_school_2"
+                                                                                               value="no"
+                                                                                               type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" id="Row_Has_Suspended_Expelled_by_School"
+                                                                 style="display:none;">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes,
+                                                                            please indicate details:
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   id="Input_Has_Suspended_Expelled_by_School"
+                                                                                   name="Has_Suspended_Expelled_by_School_Details"
+                                                                                   t-att-value="student_rec.has_suspended_expelled_by_school_details"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child been associated with any social awareness programme? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child been associated with any social
+                                                                            awareness programme?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Child_Associated_with_Awareness"
+                                                                                           id="id_child_associated_with_awareness_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <input name="Child_Associated_with_Awareness"
+                                                                                           id="id_child_associated_with_awareness_2"
+                                                                                           value="no"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- -->
+                                                            <div class="row" id="Row_Child_Associated_with_Awareness"
+                                                                 style="display:none;">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes,
+                                                                            please indicate details:
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   id="Input_Child_Associated_with_Awareness"
+                                                                                   name="Child_Associated_with_Awareness_Details"
+                                                                                   t-att-value="student_rec.child_associated_with_awareness_details"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child been a member of environment protection group? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child been a member of environment
+                                                                            protection group?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Member_of_Environment_Protection"
+                                                                                           id="id_member_of_environment_protection_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <input name="Member_of_Environment_Protection"
+                                                                                           id="id_member_of_environment_protection_2"
+                                                                                           value="no"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" id="Row_Member_of_Environment_Protection">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes,
+                                                                            please indicate details:
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   id="Input_Member_of_Environment_Protection"
+                                                                                   t-att-value="student_rec.member_of_environment_protection_details"
+                                                                                   name="Member_of_Environment_Protection_Details"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child held any leadership positions in School? (Prefectorial Board/ Student Council) Yes / No -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child held any leadership positions in
+                                                                            School? (Prefectorial Board/ Student
+                                                                            Council) Yes / No
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Leadership_Positions_in_School"
+                                                                                           id="id_leadership_positions_in_school_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <input name="Leadership_Positions_in_School"
+                                                                                           id="id_leadership_positions_in_school_2"
+                                                                                           value="no"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" style="display:none;"
+                                                                 id="Row_Leadership_Positions_in_School">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes,
+                                                                            please indicate details:
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   id="Input_Leadership_Positions_in_School"
+                                                                                   t-att-value="student_rec.leadership_positions_in_school_details"
+                                                                                   name="Leadership_Positions_in_School_Details"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child ever been in a speech therapy, remedial reading support, special education programme? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child ever been in a speech therapy,
+                                                                            remedial reading support, special education
+                                                                            programme?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Special_Education_Programme"
+                                                                                           id="id_special_education_programme_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <input name="Special_Education_Programme"
+                                                                                           id="id_special_education_programme_2"
+                                                                                           value="no"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row"
+                                                                 id="Row_Special_Education_Programme">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes,
+                                                                            please indicate details:
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <input class="form-control"
+                                                                                   id="Input_Special_Education_Programme"
+                                                                                   t-att-value="student_rec.special_education_programme_details"
+                                                                                   name="Special_Education_Programme_Details"
+                                                                                   type="text"/>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child ever been identified as having a special learning disability? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child ever been identified as having a
+                                                                            special learning disability?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Special_Learning_Disability"
+                                                                                           id="id_special_learning_disability_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <input name="Special_Learning_Disability"
+                                                                                           id="id_special_learning_disability_2"
+                                                                                           value="no"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- -->
+                                                            <div class="row" id="Row_Special_Learning_Disability">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes,
+                                                                            please indicate learning disability area:
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        `
+                                                                        <div class="col-md-6">
+                                                                            <select id="Input_Special_Learning_Disability"
+                                                                                    class="form-control select2"
+                                                                                    name="Special_Learning_Disability_Details">
+                                                                                <t t-if="student_rec.special_learning_disability_details == 'reading'">
+                                                                                    <option value="reading"
+                                                                                            selected="selected">Reading
+                                                                                    </option>
+                                                                                </t>
+                                                                                <t t-if="student_rec.special_learning_disability_details != 'reading'">
+                                                                                    <option value="reading">Reading
+                                                                                    </option>
+                                                                                </t>
+                                                                                <t t-if="student_rec.special_learning_disability_details == 'language'">
+                                                                                    <option value="language"
+                                                                                            selected="selected">Language
+                                                                                    </option>
+                                                                                </t>
+                                                                                <t t-if="student_rec.special_learning_disability_details != 'language'">
+                                                                                    <option value="language">Language
+                                                                                    </option>
+                                                                                </t>
+                                                                                <t t-if="student_rec.special_learning_disability_details == 'mathematics'">
+                                                                                    <option value="mathematics"
+                                                                                            selected="selected">
+                                                                                        Mathematics
+                                                                                    </option>
+                                                                                </t>
+                                                                                <t t-if="student_rec.special_learning_disability_details != 'mathematics'">
+                                                                                    <option value="mathematics">
+                                                                                        Mathematics
+                                                                                    </option>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Has your child ever studied any languages other than English? -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Has your
+                                                                            child ever studied any languages other than
+                                                                            English?
+                                                                        </label>
+                                                                        <div class="col-md-3">
+                                                                            <div>
+                                                                                <label>
+                                                                                    <input name="Has_Other_than_English_Languages"
+                                                                                           id="id_has_other_than_english_languages_1"
+                                                                                           value="yes"
+                                                                                           type="radio"/>
+                                                                                </label>
+                                                                                Yes
+                                                                                <label>
+                                                                                    <input name="Has_Other_than_English_Languages"
+                                                                                           id="id_has_other_than_english_languages_2"
+                                                                                           value="no" type="radio"/>
+                                                                                </label>
+                                                                                No
+                                                                            </div>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" id="Row_Has_Other_than_English_Languages">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">If yes,
+                                                                            please mention the other languages
+                                                                            <span style="color:#FF0000">*</span>
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control select2"
+                                                                                    id="Input_Has_Other_than_English_Languages"
+                                                                                    name="Other_than_English_Languages">
+                                                                                <option value="">|-- Other Language
+                                                                                    --|
+                                                                                </option>
+                                                                                <t t-foreach="language_rec_list"
+                                                                                   t-as="language_rec">
+                                                                                    <t t-if="language_rec.id == student_rec.other_than_english_languages.id">
+                                                                                        <option t-att-value="language_rec.id"
+                                                                                                selected="selected">
+                                                                                            <span t-esc="language_rec.name"/>
+                                                                                        </option>
+                                                                                    </t>
+                                                                                    <t t-if="language_rec.id != student_rec.other_than_english_languages.id">
+                                                                                        <option t-att-value="language_rec.id">
+                                                                                            <span t-esc="language_rec.name"/>
+                                                                                        </option>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Optional Language Selection (Please select one option as Second Language for your child) -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-4">Optional
+                                                                            Language Selection (Please select one option
+                                                                            as Second Language for your child)
+                                                                        </label>
+                                                                        <div class="col-md-6">
+                                                                            <select class="form-control select2"
+                                                                                    name="Optional_Lang">
+                                                                                <option value="">|-- Optional Language
+                                                                                    --|
+                                                                                </option>
+                                                                                <t t-foreach="language_rec_list"
+                                                                                   t-as="language_rec">
+                                                                                    <t t-if="language_rec.is_optional">
+                                                                                        <t t-if="language_rec.id == student_rec.other_lang_id.id">
+                                                                                            <option t-att-value="language_rec.id"
+                                                                                                    selected="selected">
+                                                                                                <span t-esc="language_rec.name"/>
+                                                                                            </option>
+                                                                                        </t>
+                                                                                        <t t-if="language_rec.id != student_rec.other_lang_id.id">
+                                                                                            <option t-att-value="language_rec.id">
+                                                                                                <span t-esc="language_rec.name"/>
+                                                                                            </option>
+                                                                                        </t>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </select>
+                                                                            <span class="help-block"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <span class="help-block"></span>
+                                                            <div class="row">
+                                                                <div class="col-md-12 text-center">
+                                                                    <div class="form-group col-md-12">
+                                                                        <div class="col-md-12">
+                                                                            <div class="col-md-3"></div>
+                                                                            <div class="col-md-3">
+                                                                                <center>
+                                                                                    <input class="btn btn-circle blue btn-block previous"
+                                                                                           t-attf-onclick="window.location.href='/student/verification/previous?student_id=#{ student_rec.id }&amp;page_code=#{ 2 }'"
+                                                                                           value="Previous"
+                                                                                           type="button"/>
+                                                                                </center>
+                                                                            </div>
+                                                                            <div class="col-md-3"
+                                                                                 style="padding-right:2px;margin-bottom:5px;">
+                                                                                <center>
+                                                                                
+                                                                                    <input class="btn btn-circle blue btn-block"
+                                                                                           value="Save And Next"
+                                                                                           name="submit"
+                                                                                           type="submit"/>
+                                                                                </center>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

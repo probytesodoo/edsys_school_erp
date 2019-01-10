@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--  =============== Registration Menu ================== -->
+	<menuitem id="registration_main_menu" name='Registration' groups="edsys_edu.group_registration_manager,edsys_edu_fee.group_fees_management_manager"
+                        web_icon="edsys_edu,static/description/registration.png"/>
+        <menuitem id="registration_sub_menu" name='Registration' parent='registration_main_menu' groups="edsys_edu.group_registration_manager,edsys_edu_fee.group_fees_management_manager" />
+        <menuitem id="enquiry_form_menu1" name='New Enquiry' parent='registration_sub_menu' action='action_enquiry_form' sequence='1' groups="edsys_edu.group_registration_manager"/>
+        <menuitem id="registration_form_menu1" name='Registration Fee' parent='registration_sub_menu' action='act_registration_view1' sequence='3' groups="edsys_edu.group_registration_manager,edsys_edu_fee.group_fees_management_manager" />
+        <menuitem id="enquiry_validate_form_menu1" name='Validate Enquiry' parent='registration_sub_menu' action='action_enquiry_validate_form' sequence='2' groups="edsys_edu.group_registration_manager" />
+        <menuitem id="pending_registration_menu1" name='Decision Pending' parent='registration_sub_menu' action='act_decision_pending_view1' sequence='4' groups="edsys_edu.group_registration_manager"/>
+        <menuitem id="waiting_list_menu1" name='Waiting List' parent='registration_sub_menu' action='act_waiting_list1_view' sequence='5' groups="edsys_edu.group_registration_manager"/>
+        <menuitem id="waiting_fee_menu1" name='Awaiting Fee' parent='registration_sub_menu' action='act_waiting_fee_view1' sequence='6' groups="edsys_edu.group_registration_manager,edsys_edu_fee.group_fees_management_manager" />
+<!-- <menuitem id="ministry_approval_menu" name='Ministry Approval' parent='registration_sub_menu' action='act_ministry_approval_view' sequence='7' groups="edsys_edu.group_registration_manager"/>-->
+        <menuitem id="rejected_form_view" name='Reject' parent='registration_sub_menu' action='act_rjected_view' sequence='8' groups="edsys_edu.group_registration_manager"/>
+        <menuitem id="all_registration_view" name="All Registration" parent="registration_sub_menu" action="act_registration_all_view1" sequence="9" groups="edsys_edu.group_registration_manager"/>
+
+<!--        <menuitem id="registrition_fee_mnu" name="Registration Fee" parent="registration_sub_menu" action="act_registration_fee_view1" sequence="4"/>-->
+
+        <!-- ==================Configuration Menu==================== -->
+        <menuitem id="configuration_sub_menu" name='Configuration' parent='registration_main_menu'  groups='edsys_edu.group_registration_configuration'/>
+<!--        <menuitem id="category_menu" name="Category" parent="configuration_sub_menu" action="act_category_view" sequence="1"/> -->
+        <menuitem id="religion_menu" name="Religion" parent="configuration_sub_menu" action="act_religion_view" sequence="2"/>
+        <menuitem id="section_menu" name="Section" parent="configuration_sub_menu" action="act_section_view" sequence="3"/>
+        <menuitem id="course_menu" name="Course" parent="configuration_sub_menu" action="act_course_view" sequence="4"/>
+        <menuitem id="batch_menu" name="Academic Year" parent="configuration_sub_menu" action="act_batch_view" sequence="5"/>
+        <!--<menuitem id="standard_menu" name="Standard" parent="configuration_sub_menu" action="act_standard_view" sequence="6"/>-->
+        <menuitem id="nationality_id" name="Nationality" parent="configuration_sub_menu" action="edsys_edu_masters.act_nationality" sequence="7"/>
+        <menuitem id="payfort_details" name="Payfort Details" parent="configuration_sub_menu" action="act_payfort_config" sequence="8"/>
+        <menuitem id="language_menu" name="Language" parent="configuration_sub_menu" action="act_res_lang_form_inherit" sequence="9"/>
+
+        <!-- ================= Student Menu=========================== -->
+        <menuitem id="studnt_main_menu" name='Student' groups="edsys_edu.group_registration_manager" web_icon="edsys_edu,static/description/student.png"/>
+        <menuitem id="Student_sub_menu" name='Student Detail' parent='studnt_main_menu' sequence="1"/>
+        <menuitem id="student_menu" name="Student" parent="Student_sub_menu" action="act_student_view" sequence="1"/>
+        <menuitem id="parents_menu" name="Parents" parent="Student_sub_menu" action="act_parent_view" sequence="2"/>
+
+    </data>
+</odoo>

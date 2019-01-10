@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+        <!--===== Send Receipt for single or multiple students ====== -->
+        <record id="send_receipt_student" model="ir.ui.view">
+            <field name="name">send.receipt.student</field>
+            <field name="model">send.receipt.student</field>
+            <field name="arch" type="xml">
+                <form string="Send Payment Receipt">
+                    <h3><label string="Are you sure to send receipt?"/></h3>
+                    <footer>
+                        <button name="send_payment_receipt" string="Send Receipt" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <!-- ===== Display in Student Fee Collection view ===== -->
+        <act_window
+            id="action_send_receipt"
+            name=" Send Payment Receipt "
+            res_model="send.receipt.student"
+            src_model="account.voucher"
+            target="new"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"/>
+
+    </data>
+</odoo>
