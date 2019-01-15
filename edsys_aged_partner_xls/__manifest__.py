@@ -22,8 +22,9 @@
 {
     'name': 'Edsys Report Aged Partner Balance XLS',
     'license': 'AGPL-3',
-    'author': "Redbytes",
     'category': 'Generic Modules/Accounting',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'description': """
 
     This module adds XLS export to the following Generic Reporting > Partners reports:

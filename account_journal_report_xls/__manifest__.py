@@ -24,7 +24,8 @@
     'name': 'Financial Journal reports',
     'version': '0.2',
     'license': 'AGPL-3',
-    'author': "Noviat,Odoo Community Association (OCA)",
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'category': 'Accounting & Finance',
     'depends': [
         'account_voucher',

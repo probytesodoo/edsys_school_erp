@@ -6,8 +6,8 @@
     'name': "Public Holidays",
     'images': [],
     'summary': """Manage public holidays""",
-    'author': "Edsys",
-    'website': "http://www.redbytes.in",
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'category': 'Human Resources',
     'version': '1.0',
     'depends': [

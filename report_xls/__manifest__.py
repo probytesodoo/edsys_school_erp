@@ -23,8 +23,8 @@
     'name': 'Excel report engine',
     'version': '0.6',
     'license': 'AGPL-3',
-    'author': "Noviat,Odoo Community Association (OCA)",
-    'website': 'http://www.noviat.com',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'category': 'Reporting',
     'description': """
 Excel report engine

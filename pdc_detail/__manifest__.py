@@ -11,8 +11,8 @@
     'description': """
             This module provide PDC cheque management
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'images': [],
     'depends': ['base','account','account_voucher','edsys_edu','edsys_edu_fee'],
     'data': [

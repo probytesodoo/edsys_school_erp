@@ -22,11 +22,11 @@
 {
     'name': 'Edsys HRM',
     'version': '1.0',
-    'author': 'Edsys',
     'category': 'TIAS',
     'sequence': 21,
-    'website': 'https://www.redbytes.in',
     'summary': 'Jobs, Departments, Employees Details',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'description': """
 Human Resources Management
 ==========================

@@ -21,14 +21,10 @@
 {
     'name': 'Financial Reports - Webkit',
     'version': '8.0.1.2.0',
-    'author': (
-        "Camptocamp,"
-        "Savoir-faire Linux,"
-        "Odoo Community Association (OCA)"
-    ),
     'license': 'AGPL-3',
     'category': 'Finance',
-    'website': 'http://www.camptocamp.com',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'images': [
         'images/ledger.png', ],
     'depends': ['account',

@@ -23,7 +23,8 @@
     'name': 'Add XLS export to accounting reports',
     'version': '8.0.0.4.0',
     'license': 'AGPL-3',
-    'author': "Noviat,Odoo Community Association (OCA)",
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'category': 'Generic Modules/Accounting',
     'description': """
 

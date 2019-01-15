@@ -8,8 +8,8 @@
                "web",
     "version": "10.0.1.2.3",
     "category": "Website",
-    "website": "https://laslabs.com/",
-    "author": "LasLabs, Tecnativa, Odoo Community Association (OCA)",
+    "author": "Edsys",
+    "website": "https://www.edsys.in/",
     "license": "LGPL-3",
     "installable": True,
     "depends": [
