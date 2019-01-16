@@ -22,10 +22,10 @@
 {
     'name': 'Edsys Sync',
     'version': '1.0',
-    'author': 'Redbytes',
     'category': 'Edsys',
     'sequence': 21,
-    'website': 'https://www.redbytes.in',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'summary': 'To sync data with Odoo with limited access',
     'description': """
 

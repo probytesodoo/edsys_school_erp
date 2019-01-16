@@ -22,10 +22,10 @@
 {
     'name': 'Edsys Biometric',
     'version': '1.0',
-    'author': 'Edsys',
     'category': 'TIAD',
     'sequence': 21,
-    'website': 'https://www.redbytes.in',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'summary': 'Jobs, Departments, Employees Details',
     'description': """
 Human Resources Management

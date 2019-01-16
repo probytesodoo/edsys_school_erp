@@ -10,8 +10,8 @@
      """,
     'version': '8.0.0.2',
     'category': 'Point of Sale',
-    'author': 'DVIT.me',
-    'website': 'http://dvit.me',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'license': 'AGPL-3',
     'depends': [
         'account_anglo_saxon',

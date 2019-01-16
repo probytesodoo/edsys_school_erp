@@ -11,8 +11,8 @@
     'description': """
             This module provide student promotion system over OpenERP
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'images': [],
     'depends': ['base', 'edsys_edu', 'edsys_edu_fee','edsys_strike_off'],
     'data': [

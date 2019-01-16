@@ -35,8 +35,8 @@
             * Batch
 
     """,
-    'author': 'Tech Receptives',
-    'website': 'http://www.openeducat.org',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'depends': ['board', 'document', 'hr', 'web', 'website','edsys_edu','edsys_edu_masters'],
     'data': [
         'report/report_student_bonafide.xml',

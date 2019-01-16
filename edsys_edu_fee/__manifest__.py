@@ -12,8 +12,8 @@
     'description': """
             This module provide fee management system over OpenERP
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'images': [],
     'depends': ['base','account_voucher','account'],
     'data': ['security/fees_security.xml',

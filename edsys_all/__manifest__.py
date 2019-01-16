@@ -11,8 +11,9 @@
             Install All Related Modules. 
             
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
+
     'images': [],
     'depends': ['base','account','account_accountant','sale','account_period',
                 'account_voucher','point_of_sale','mail','hr_holidays',

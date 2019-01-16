@@ -10,7 +10,7 @@
             This module provide fee management system over OpenERP
     """,
     'author': 'Edsys',
-    'website': 'www.redbytes.in',
+    'website': 'https://www.edsys.in/',
     'images': [],
     'depends': ['base','edsys_promotion','edsys_edu_fee'],
     'data': [

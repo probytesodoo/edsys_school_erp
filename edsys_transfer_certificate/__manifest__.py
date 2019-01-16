@@ -9,8 +9,8 @@
     'description': """
             This module provide Transfer Certificate management system over OpenERP
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'images': [],
     'depends': ['base','edsys_edu_masters','edsys_edu','edsys_edu_fee','edsys_edu_re_registration','edsys_promotion'],
     'data': [

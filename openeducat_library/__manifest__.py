@@ -30,8 +30,8 @@
         This module provide feature of Library Management.
 
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'http://www.openeducat.org',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'depends': ['base','openeducat_core','edsys_edu','edsys_edu_fee','edsys_transfer_certificate'],
     'data': [
         'security/library_security.xml',

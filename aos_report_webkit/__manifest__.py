@@ -55,7 +55,8 @@ TODO:
 """,
     'version': '10.0.0.1.0',
     'depends': ['base','report'],
-    'author': 'Camptocamp ported by Alphasoft',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'category': 'Reporting', # i.e a technical module, not shown in Application install menu
     'url': 'http://www.alphasoft.co.id/',
     'data': [ 'security/ir.model.access.csv',

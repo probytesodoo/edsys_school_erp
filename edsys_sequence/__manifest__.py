@@ -22,11 +22,11 @@
 {
     'name': 'Edsys Sequence',
     'version': '1.0',
-    'author': 'Redbytes',
     'category': 'Edsys',
     'sequence': 21,
-    'website': 'https://www.redbytes.in',
     'summary': 'Update Sequence',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'description': """
 
     """,

@@ -23,8 +23,9 @@
 {
     "name" : "Database Auto-Backup",
     "version" : "1.0",
-    "author" : "Redbytes Software Solutions",
     "category" : "Generic Modules",
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     "summary": "Backups",
     "description": """The Database Auto-Backup module enables the user to make configurations for the automatic backup of the database. Backups can be taken on the local system or on a remote server, through SFTP.
 You only have to specify the hostname, port, backup location and databasename (all will be pre-filled by default with correct data.

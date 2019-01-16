@@ -9,8 +9,8 @@
     'description': """
             
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'redbytes.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'images': [],
     'depends': ['base', 'web','web_tour','report', 'auth_crypt'],
     'data': [],
