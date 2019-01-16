@@ -7,14 +7,14 @@
     "summary": "Odoo 10.0 community backend theme",
     "version": "10.0.1.0.23",
     "category": "Themes/Backend",
-    "website": "http://www.openworx.nl",
 	"description": """
 		Backend theme for Odoo 10.0 community edition.
     """,
 	'images':[
         'images/screen.png'
 	],
-    "author": "Openworx",
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     "license": "LGPL-3",
     "installable": True,
     "depends": [

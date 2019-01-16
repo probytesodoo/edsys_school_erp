@@ -23,7 +23,6 @@
     'name': 'Edsys Asset',
     'version': '1.0',
     'depends': ['account'],
-    'author': 'Redbytes Software',
     'description': """
 Financial and accounting asset management.
 ==========================================
@@ -33,7 +32,8 @@ track of depreciation's occurred on those assets. And it allows to create Move's
 of the depreciation lines.
 
     """,
-    'website': 'https://www.redbytes.in/',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'category': 'Accounting & Finance',
     'depends': ['account_asset'],
     'data': [

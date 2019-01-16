@@ -33,8 +33,8 @@
                 * Batch
 
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'images': [],
     'depends': ['base'],
     'data': ['view/nationality.xml',

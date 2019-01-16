@@ -10,8 +10,8 @@
     'description': """
             This module provide strike-off student management system over OpenERP
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'images': [],
     'depends': ['base', 'edsys_edu'],
     'data': [

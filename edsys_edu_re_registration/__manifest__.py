@@ -12,8 +12,8 @@
     'complexity': "easy",
     'description': """
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'www.edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'images': [],
     'depends': ['base','edsys_edu_masters','edsys_edu','edsys_edu_fee','edsys_strike_off','edsys_promotion'],
     'data': [

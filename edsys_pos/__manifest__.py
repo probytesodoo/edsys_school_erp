@@ -23,11 +23,11 @@
 
     'name': 'Edsys POS',
     'version': '1.0',
-    'author': 'Redbytes',
     'category': 'Point Of Sale',
     'sequence': 21,
-    'website': 'https://www.redbytes.in',
     'summary': 'Touchscreen Interface for Shops',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'description': """
 Quick and Easy sale process
 ===========================

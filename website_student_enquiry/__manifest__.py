@@ -23,8 +23,8 @@
                 * Hostel
 
     """,
-    'author': 'Edsys Solutions',
-    'website': 'edsys.com',
+    'author': 'Edsys',
+    'website': 'https://www.edsys.in/',
     'depends': ['base','website','edsys_edu','document'],
     'data': [
               'view/website_student_enquiry.xml',

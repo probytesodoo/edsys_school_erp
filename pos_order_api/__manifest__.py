@@ -3,10 +3,11 @@
 {
     'name': 'POS Api',
     'version': '1.0',
-    'author': "Rebytes",
     'summary': 'Point of sale API',
     'depends': ["edsys_users_dependency",
                 "point_of_sale"],
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'description': """
 
     About oeHealth

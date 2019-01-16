@@ -7,12 +7,11 @@
     "summary": "Account Period",
     "version": "1.0",
     "category": "Accounting",
-    "website": "http://www.odoomod.com/",
     'description': """
 Account Period
 """,
-    'author': "Jarvis (www.odoomod.com)",
-    'website': 'http://www.odoomod.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
     'license': 'AGPL-3',
     "depends": [
         'account',

@@ -33,7 +33,7 @@ After set, OpenERP compute the good date depending working days and days not wor
 Just France is set for the days not worked.
     """,
     'author': 'Edsys',
-    'website': 'http://www.redbytes.in/',
+    'website': 'https://www.edsys.in/',
     'depends': [
         'base', 'hr_public_holidays',
     ],

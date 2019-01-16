@@ -10,8 +10,9 @@
     'description': """
             This module use to Capturing Online Payment.
     """,
-    'author': 'Redbytes Software Solutions',
-    'website': 'edsys.com',
+    'author': "Edsys",
+    "website": "https://www.edsys.in/",
+
     'images': [],
     'depends': ['base','edsys_edu_fee','edsys_edu','edsys_strike_off','edsys_edu_re_registration','edsys_transfer_certificate'],
     'data': [
