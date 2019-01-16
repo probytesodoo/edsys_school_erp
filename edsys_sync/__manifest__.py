@@ -30,7 +30,6 @@
     'description': """
 
     """,
-    'author': 'Redbytes',
     'depends': ['base','edsys_edu_masters', 'openeducat_library'],
     'data': [
                  'security/edsys_sync_security.xml',
