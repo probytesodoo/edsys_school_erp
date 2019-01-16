@@ -17,7 +17,7 @@
     'depends': ['base','account','account_accountant','sale','account_period',
                 'account_voucher','point_of_sale','mail','hr_holidays',
                 'account_asset','account_accountant','website','purchase','hr',
-                'account_advance_payment','hr_attendance','account_anglo_saxon',
+                'account_advance_payment','hr_attendance',
                 'account_bank_statement_import','account_period','analytic',
                 'hr_public_holidays','sale_stock','portal_sale',
                 'payment_transfer','stock',
