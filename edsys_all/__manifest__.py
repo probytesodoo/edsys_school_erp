@@ -25,7 +25,7 @@
 #                'hr_public_holidays',
 		'sale_stock','portal_sale',
                 'payment_transfer','stock',
-
+		'backend_theme_v10',
                 'edsys_users_dependency',
                 'edsys_edu_masters',
                 'edsys_edu_fee',
@@ -51,7 +51,6 @@
                 'edsys_asset',
 
                 'database_cleanup',
-                'pos_order_api',
                 #'report_xls',
                 #'aos_report_webkit',
                 #'web_responsive',
