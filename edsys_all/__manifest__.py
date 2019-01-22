@@ -16,10 +16,13 @@
 
     'images': [],
     'depends': ['base','account','account_accountant','sale',
+		#'account_period',
                 'account_voucher','point_of_sale','mail','hr_holidays',
                 'account_asset','account_accountant','website','purchase','hr',
+#                'account_advance_payment','account_anglo_saxon',
 		'hr_attendance',
                 'account_bank_statement_import','analytic',
+#                'hr_public_holidays',
 		'sale_stock','portal_sale',
                 'payment_transfer','stock',
 
@@ -39,13 +42,19 @@
                 'edsys_pdc',
                 'edsys_capturing_online_payment',
                 'edsys_paperless_registrations',
-                
+                # 'edsys_biometric',
                 'edsys_hrm',
                 'edsys_pos',
                 'edsys_sequence',
-                
+                #'edsys_sync',
                 'edsys_aged_partner_xls',
                 'edsys_asset',
+
+                'database_cleanup',
+                'pos_order_api',
+                #'report_xls',
+                #'aos_report_webkit',
+                #'web_responsive',
                 'website_student_enquiry',
                 'pdc_detail',
                 'full_screen_form',
