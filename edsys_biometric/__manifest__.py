@@ -35,7 +35,6 @@ This application enables you to manage biometric attendances.
 
 
     """,
-    'author': 'Redbytes',
     'depends': ['base','hr_attendance', 'edsys_hrm', 'base_workingdays'],
     'data': [
                 'security/hr_security.xml',

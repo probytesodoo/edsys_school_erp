@@ -46,7 +46,7 @@
                 'edsys_hrm',
                 'edsys_pos',
                 'edsys_sequence',
-                'edsys_sync',
+                #'edsys_sync',
                 'edsys_aged_partner_xls',
                 'edsys_asset',
 
