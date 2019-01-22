@@ -49,7 +49,7 @@ Main Features
 * Allows the user to create an invoice automatically
 * Refund previous sales
     """,
-    'author': 'Redbytes',
+
     'depends': ['base','point_of_sale','edsys_edu'],
     'data': [
              

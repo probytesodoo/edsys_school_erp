@@ -5,7 +5,7 @@
     'author': "Edsys",
     "website": "https://www.edsys.in/",
     'depends': [],
-    'category': 'Redbytes Software Solutions Development for Odoo 10',
+    'category': '',
     'sequence': 16,
     'data': ['views/full_screen.xml',],
     'installable': True,

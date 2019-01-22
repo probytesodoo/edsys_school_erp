@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sales_prediction_mgr,sales.prediction.mgr,model_sales_prediction,sales_team.group_sale_manager,1,1,1,1
-access_sales_data_line_mgr,sales.data.line.mgr,model_sales_data_line,sales_team.group_sale_manager,1,1,1,1
-access_sales_prediction_line_mgr,sales.prediction.line.mgr,model_sales_prediction_line,sales_team.group_sale_manager,1,1,1,1
-access_model_test_line_mgr,model.test.line.mgr,model_model_test_line,sales_team.group_sale_manager,1,1,1,1

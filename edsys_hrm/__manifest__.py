@@ -40,7 +40,7 @@ You can manage:
 * HR Departments
 * HR Jobs
     """,
-    'author': 'Redbytes',
+    
     'depends': ['base','hr','website', 'document','product_email_template'],
     'data': [
                 'security/hr_employee_security.xml',

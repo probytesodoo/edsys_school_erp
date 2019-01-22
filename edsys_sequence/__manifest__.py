@@ -30,7 +30,7 @@
     'description': """
 
     """,
-    'author': 'Redbytes',
+
     'depends': ['base'],
     'data': [
                  'ir_sequence_view.xml',

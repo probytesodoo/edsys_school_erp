@@ -15,12 +15,12 @@
     "website": "https://www.edsys.in/",
 
     'images': [],
-    'depends': ['base','account','account_accountant','sale','account_period',
+    'depends': ['base','account','account_accountant','sale',
                 'account_voucher','point_of_sale','mail','hr_holidays',
                 'account_asset','account_accountant','website','purchase','hr',
-                'account_advance_payment','hr_attendance','account_anglo_saxon',
-                'account_bank_statement_import','account_period','analytic',
-                'hr_public_holidays','sale_stock','portal_sale',
+		'hr_attendance',
+                'account_bank_statement_import','analytic',
+		'sale_stock','portal_sale',
                 'payment_transfer','stock',
 
                 'edsys_users_dependency',
@@ -39,19 +39,13 @@
                 'edsys_pdc',
                 'edsys_capturing_online_payment',
                 'edsys_paperless_registrations',
-                # 'edsys_biometric',
+                
                 'edsys_hrm',
                 'edsys_pos',
                 'edsys_sequence',
-                'edsys_sync',
+                
                 'edsys_aged_partner_xls',
                 'edsys_asset',
-
-                'database_cleanup',
-                'pos_order_api',
-                'report_xls',
-                'aos_report_webkit',
-                #'web_responsive',
                 'website_student_enquiry',
                 'pdc_detail',
                 'full_screen_form',
