@@ -182,7 +182,7 @@
                                     <field name="application_date" attrs="{'readonly':[('user_id','!=',1)]}"/>
                                     <field name="user_id" invisible="1"/>
                                     <field name="admission_date" />
-				    <field name="first_acd_year_of_child" />
+				                    <field name="first_acd_year_of_child" />
                                     <field name="batch_id"/>
                                     <field name="course_id"/>
 <!--                                    <field name="standard_id" />-->

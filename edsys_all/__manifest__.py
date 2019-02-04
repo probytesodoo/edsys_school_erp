@@ -51,7 +51,7 @@
                 'edsys_asset',
 
                 'database_cleanup',
-                'pos_order_api',
+
                 #'report_xls',
                 #'aos_report_webkit',
                 #'web_responsive',

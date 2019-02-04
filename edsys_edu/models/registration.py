@@ -669,7 +669,7 @@ class Registration(models.Model):
 
     @api.model
     def create(self, vals):
-        print '==================create==============='
+        #print '==================create==============='
         """
         this method is overide create method.
         this method also check age age criteria and
@@ -687,7 +687,7 @@ class Registration(models.Model):
         ir_sequence_ids = obj_ir_sequence.sudo().search([('name','=','Registration Number Sequence')])
         if ir_sequence_ids:
             registration_number = obj_ir_sequence.next_by_code('registration')
-            print registration_number,'--------------------------registration_number'
+           # print registration_number,'--------------------------registration_number'
         else:
             sequence_vals = {
                                 'name' : 'Registration Number Sequence',
@@ -1586,7 +1586,7 @@ class Registration(models.Model):
             total_discount = 0.00
             for fee_structure_rec in self.student_id.student_fee_line:
                 dis_amount = 0.00
-                print 'ffffffffffffffffff',fee_structure_rec.name.name
+                # print ('ffffffffffffffffff',fee_structure_rec.name.name)
                 if not fee_structure_rec.name.property_account_income_id.id:
                     raise except_orm(_("Warning!"), _('Please define property income account for fees %s') % fee_structure_rec.name.name)
                 val = {}

@@ -84,7 +84,7 @@
                             <field name="name" placeholder="First Name" />
 			    <field name="first_acd_year_of_child" />
 			    <field name="middle_name" placeholder="Middle Name" />
-                            <field name="batch_id" domain="['|','&amp;',('start_date','&lt;=',current_date),
+                            <field name="batch_id" required="1" domain="['|','&amp;',('start_date','&lt;=',current_date),
                             ('end_date','&gt;=',current_date),('start_date','&gt;=',current_date)]"/>
                             <field name="last_name" placeholder="Last Name" />
                             <field name="course_id" />
