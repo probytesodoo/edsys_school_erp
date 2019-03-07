@@ -1,5 +1,5 @@
 {
-    'name': 'Edsys All Module Install',
+    'name': 'Edsys ERP - Complete School Administration Solution',
     'version': '1.0',
     'category': 'Edsys Education',
     "sequence": 3,
