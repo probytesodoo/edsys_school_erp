@@ -25,7 +25,6 @@
 #                'hr_public_holidays',
 		'sale_stock','portal_sale',
                 'payment_transfer','stock',
-
                 'edsys_users_dependency',
                 'edsys_edu_masters',
                 'edsys_edu_fee',
@@ -49,16 +48,13 @@
                 #'edsys_sync',
                 'edsys_aged_partner_xls',
                 'edsys_asset',
-
                 'database_cleanup',
-
                 #'report_xls',
                 #'aos_report_webkit',
                 #'web_responsive',
                 'website_student_enquiry',
                 'pdc_detail',
                 'full_screen_form',
-
                 ],
     'data': [],
     'demo': [],
