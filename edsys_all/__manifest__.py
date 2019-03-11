@@ -8,8 +8,7 @@
     'description': """
             This module provide overall education management system over OpenERP
                                         And
-            Install All Related Modules. 
-            
+            Install All Related Modules.    
     """,
     'author': "Edsys",
     "website": "https://www.edsys.in/",

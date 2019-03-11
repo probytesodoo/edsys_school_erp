@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>ERP</title>
+
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+	<!-- <link href="css/main.css" rel="stylesheet"> -->
+
+</head>
+<style>
+
+body{
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+a:hover{text-decoration: none;}
+
+._e_wrap{
+	float: left;
+	width: 100%;
+	position: relative;
+}
+._e_1_wrap{
+	float: left;
+	width: 100%;
+	padding: 7% 0;
+	position: relative;
+}
+
+._e_1_wrap[data-overlay-dark]:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+	background: #a4a933;
+	background: -moz-linear-gradient(-45deg, #a4a933 1%, #78276a 60%, #78276a 60%);
+	background: -webkit-linear-gradient(-45deg, #a4a933 1%,#78276a 60%,#78276a 60%);
+	background: linear-gradient(135deg, #a4a933 1%,#78276a 60%,#78276a 60%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4a933', endColorstr='#78276a',GradientType=1 );
+    opacity: 0.9;
+}
+
+._e_1a{
+	float: left;
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+._e_1a h2{
+    margin: 0 0 3%;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 45px;
+}
+._e_1a h5{
+    margin: 0 0 5%;    
+	color: #fff;
+}
+ ._e_1a a{
+    display: inline-block;
+    padding: 6px 20px;
+    background: #ffffff;
+    color: #484848;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/*_e_1_wrap*/
+
+._e_2_wrap{
+	float: left;
+	width: 100%;
+	padding: 4% 0;
+	position: relative;
+}
+
+._e_2a{
+	float: left;
+	width: 100%;
+	position: relative;    
+	text-align: center;
+}
+._e_2a img{
+    object-fit: cover;
+    max-width: 100%;
+}
+
+._e_2b{
+	float: left;
+	width: 100%;    
+	margin:  0 0;
+	position: relative;   
+}
+._e_2b h4{ 
+    color: #78276a;
+}
+
+._e_2b h6{
+    line-height: 26px;
+    color: #776073;
+    font-size: 20px;
+}
+
+/*_e_2_wrap*/
+
+._e_3_wrap{
+	float: left;
+	width: 100%;
+	padding: 4% 0;
+	position: relative;    
+	background: #f9f9f9;
+}
+
+._e_3a{
+	float: left;
+	width: 100%;
+	position: relative;    
+	text-align: center;
+}
+
+._e_3a h6{
+    margin: 7% 0 6%;
+    font-size: 30px;
+    color: #78276a;
+}
+
+._e_3b{
+	float: left;
+	width: 100%;    
+	margin: 0 0 2em;
+	position: relative;      
+	padding: 25px 14px 25px 80px;
+    border-radius: 3px;    
+	background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.29);     
+	display: flex;
+    align-items: center;
+}
+._e_3b p{
+	margin: 0;    
+	font-size: 19px;
+    font-weight: 400;
+}
+._e_3b i{
+    position: absolute;
+    left: 25px;
+    font-size: 33px;
+    color: #78276a;
+}
+
+
+/*_e_3_wrap*/
+
+._e_4_wrap{
+	float: left;
+	width: 100%;
+	padding: 4% 0 0;
+	position: relative;    
+}
+
+._e_otr{
+	float: left;
+	width: 100%;    
+	background: #f9f9f9;
+    padding: 40px;
+	position: relative;
+    border-radius: 16px;
+	overflow: hidden;
+}
+._e_otr:before{
+	position: absolute;
+	content: "";
+	width: 50%;
+    height: 5px;
+	top: 0;
+	left: 0;
+	background: #78276a;    
+	z-index: 1;
+}
+._e_otr:after{
+	position: absolute;
+	content: "";
+	width: 100%;
+    height: 5px;
+	top: 0;
+	left: 0;
+	background: #adc927;
+}
+._e_4a{
+	float: left;
+	width: 100%;
+	position: relative;      
+	margin: 15% 0 4%;
+}
+
+._e_4a h2{
+    margin: 0;
+    font-size: 30px;
+    color: #78276a;   
+}
+
+._e_4b{
+	float: left;
+	width: 100%;    
+	margin: 0 0 2em;
+	position: relative;      
+	padding: 0;
+    border-radius: 3px;
+}
+._e_4b h4{
+    color: #78276a;  
+}
+._e_4b p{
+	margin: 0;    
+	font-size: 18px;
+    font-weight: 400;
+}
+
+._e_4c{
+	width: 100%;
+	float: left;
+	position: relative;    
+	background: #fff;
+    padding: 14px;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.38);
+    border-radius: 6px;
+}
+._e_4c img{
+    object-fit: cover;
+    width: 100%;
+}
+
+._e_4d{
+	float: left;
+	width: 100%;
+	position: relative;    
+	text-align: center;    
+	margin: 0 0 4%;
+/*	border: 1px solid red;*/
+}
+._e_4e{
+	float: left;
+	width: 100%;
+	position: relative;      
+	margin: 0 0 4%; 
+}
+._e_4e h5{
+    color: #78276a;
+}
+/*_e_4_wrap*/
+
+._e_5_wrap{
+	float: left;
+	width: 100%;
+	padding: 4% 0;    
+	margin: 5% 0 0;
+	position: relative;
+	background: #f9f9f9;
+}
+
+._e_5a{
+	float: left;
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+._e_5a h2{
+	margin: 0 0 3%;
+    color: #78276a;
+}
+._e_5a h5{
+    margin: 0 0 5%;
+}
+ ._e_5a a{
+    display: inline-block;
+    padding: 6px 20px;
+    background: #78276a;
+    color: #fff;
+    border-radius: 2px;
+    font-weight: 500;
+}
+
+._e_5a a._a_01{
+	margin: 0 20px 20px 0;
+}
+
+._e_5b{
+	float: left;
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+._e_5b img{
+    width: 30%;
+	margin: 2% 0 0;
+}
+
+/*_e_5_wrap*/
+
+@media (max-width: 991px) {
+._e_3b {
+	float: left;
+	width: 100%;
+	margin: 0 0 1em;
+}
+}
+
+@media (max-width: 991px) {
+._e_2a{
+	display: none;
+}
+}
+</style>
+
+<body>
+
+<section class="_e_wrap">
+	<section class="_e_1_wrap" data-overlay-dark="1" style="background-image: url(images/ea_banner_wall.png);">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="_e_1a">
+						<h2>Edsys ERP</h2>	
+						<h5>A complete School Administration Solution</h5>
+						<a href="#">Get Free ERP</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_2_wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="_e_2a">
+						<img src="images/overview_img.jpg" alt="">
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="_e_2b">
+						<h4>Overview</h4>
+						<p>A complete ERP solution to integrate all systems for overall school administration! School management involves dealing with multiple aspects, including student data, transportation, library, staff management and inventory to name a few. Alienating systems causes a considerable amount of facts needed for problem solving to go unnoticed at critical times. </p>
+						<h6>Our mission is to provide a free basic version of ERP software to all the schools for helping them unify all aspects of management and take smart decisions.</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_3_wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="_e_3a">
+						<h5>The unconventional design of Edsys ERP is crafted keeping in mind the unique needs of educational institutes. </h5>
+						<h6>Our Key features</h6>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="_e_3b">
+								<i class="fa fa-user-plus"></i>
+								<p>Paperless registration</p>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="_e_3b">
+								<i class="fa fa-credit-card"></i>
+								<p>Online payment</p>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="_e_3b">
+								<i class="fa fa-recycle"></i>
+								<p>Student life cycle</p>
+							</div>
+						</div>
+<!--
+						<div class="col-lg-4">
+							<div class="_e_3b">
+								<i class="fa fa-code"></i>
+								<p>Optimised Class schedules</p>
+							</div>
+						</div>
+-->
+						<div class="col-lg-4 offset-lg-2">
+							<div class="_e_3b">
+								<i class="fa fa-user"></i>
+								<p>Human resource management</p>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="_e_3b">
+								<i class="fa fa-television"></i>
+								<p>Multi-platform availability</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_4_wrap">
+		<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+					</div>
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="_e_4d">
+									<img src="images/Esys-ERP-V4.jpg" alt="">
+								</div>
+							</div>
+							<div class="col-lg-6">
+						<div class="_e_4a">
+							<h2>Core Processes</h2>
+						</div>
+								<div class="_e_4e">
+									<h5>Edsys ERP is intrinsically designed to streamline the process of student lifecycle management</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="_e_otr">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="_e_4b">
+							<h4>Student Registration</h4>
+							<p>Educational ERP is the one means of disposing the excruciating paper based enrollment strategies. </p>
+							<p>Student enquiry site denotes the initial step of the enlistment process. The guardians can apply for affirmation of their tyke by giving in all the relevant subtleties through the enquiry structure. The enquiry once gotten by the school experts is checked and approved for further activity. </p>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="_e_4c">
+							<img src="images/_s_01.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_4_wrap">
+		<div class="container">
+			<div class="_e_otr">
+				<div class="row">
+					<div class="col-lg-8 order-lg-1">
+						<div class="_e_4b">
+							<h4>Student Promotion</h4>
+							<p>This utility is meant for promoting students to a new academic year.  It contains the details of the students and the configured fee structure of the particular year there by giving a comprehensive overview of student profile and the adjacent fee structure. The color codes differentiate the status of the student promotion. </p>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="_e_4c">
+							<img src="images/_s_02.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_4_wrap">
+		<div class="container">
+			<div class="_e_otr">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="_e_4b">
+							<h4>Student Strike off</h4>
+							<p>As you can probably tell from the name of the feature it-self, it is meant to temporarily revoke the position of the child as the student of the school. Such cases may be fuelled by lack of attendance or long leaves from school for anonymous reasons. This process is utterly reversible and completely entitled to the school authorities. </p>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="_e_4c">
+							<img src="images/_s_03.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_4_wrap">
+		<div class="container">
+			<div class="_e_otr">
+				<div class="row">
+					<div class="col-lg-8 order-lg-1">
+						<div class="_e_4b">
+							<h4>Re-Registration</h4>
+							<p>Re-registration module deals with application for the next academic year. Parents can carry out the application procedure through re-registration portal and also pay the registration fees with the aid of this functionality.</p>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="_e_4c">
+							<img src="images/_s_04.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_4_wrap">
+		<div class="container">
+			<div class="_e_otr">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="_e_4b">
+							<h4>Education Fee Management</h4>
+							<p>For fast and efficient transactions, the fee management module is imparted with next level features. The users can carry out all online payments with ease. The scheme of account keeping is designed to improve the face of transaction reports. </p>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="_e_4c">
+							<img src="images/_s_05.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_4_wrap">
+		<div class="container">
+			<div class="_e_otr">
+				<div class="row">
+					<div class="col-lg-8 order-lg-1">
+						<div class="_e_4b">
+							<h4>Education Transfer Certificate</h4>
+							<p>The TC function helps the outgoing students to digitally request for a TC on the school portal. A digitalized platform for carrying out this activity will enhance effectiveness and save on a lot of resources. </p>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="_e_4c">
+							<img src="images/_s_06.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_4_wrap">
+		<div class="container">
+			<div class="_e_otr">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="_e_4b">
+							<h4>Human Resource Management</h4>
+							<p>This feature covers the management of staff details which now rest over a centralized platform thanks to ERP. It helps in efficiently managing payroll and faculty calendar.  </p>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="_e_4c">
+							<img src="images/_s_07.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_4_wrap">
+		<div class="container">
+			<div class="_e_otr">
+				<div class="row">
+					<div class="col-lg-8 order-lg-1">
+						<div class="_e_4b">
+							<h4>Inventory Management </h4>
+							<p>It is easy to keep track of the inventory stocks the school harbors with a centralized system. It maintains transparency regarding the administrative dealings and prevents unnecessary wastage of school resources caused due to lack of information sharing between various departments. </p>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="_e_4c">
+							<img src="images/_s_08.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="_e_5_wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2">
+					<div class="_e_5a">
+						<h2>Need any more details?</h2>	
+						<a class="_a_01" href="#">Contact Us</a>
+						<a class="_a_01" href="#">Other Educational Addons</a>
+						<a class="_a_02" href="#">Request Premium Version</a>
+					</div>
+					<div class="_e_5b">
+						<img src="images/_erp_logo.jpg" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</section>
+
+
+</body>
+</html>
